@@ -13,7 +13,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(Long id, String password, String email, String nickname) {
+    public SiteUser create(String id, String password, String email, String nickname) {
         SiteUser user = new SiteUser();
         user.setId(id);
         user.setEmail(email);
