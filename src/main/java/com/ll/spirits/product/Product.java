@@ -48,10 +48,10 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
-    @ManyToMany
+    @ManyToOne
     private Pairing pairing; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
 
-    @ManyToMany
+    @ManyToOne
     private Cask cask; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
 
     @ManyToOne
