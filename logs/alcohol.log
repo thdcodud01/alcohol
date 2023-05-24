@@ -1,5 +1,5 @@
-2023-05-24 19:13:46.527  INFO 9580 --- [restartedMain] com.ll.alcohol.AlcoholApplication        : Starting AlcoholApplication using Java 19.0.2 with PID 9580 (C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\spirits\build\classes\java\main started by INSEONG in C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\spirits)
-2023-05-24 19:13:46.533  INFO 9580 --- [restartedMain] com.ll.alcohol.AlcoholApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-05-24 19:13:46.527  INFO 9580 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting AlcoholApplication using Java 19.0.2 with PID 9580 (C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\spirits\build\classes\java\main started by INSEONG in C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\spirits)
+2023-05-24 19:13:46.533  INFO 9580 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
 2023-05-24 19:13:46.949  INFO 9580 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
 2023-05-24 19:13:46.950  INFO 9580 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
 2023-05-24 19:13:48.150  INFO 9580 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
@@ -66,7 +66,7 @@ java.sql.SQLSyntaxErrorException: (conn=13) Unknown database 'spirits'
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.7.jar:3.0.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.7.jar:3.0.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.7.jar:3.0.7]
-	at com.ll.alcohol.AlcoholApplication.main(AlcoholApplication.java:10) ~[main/:na]
+	at com.ll.spirits.SpiritsApplication.main(AlcoholApplication.java:10) ~[main/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.7.jar:3.0.7]
@@ -124,7 +124,7 @@ java.sql.SQLSyntaxErrorException: (conn=13) Unknown database 'spirits'
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.7.jar:3.0.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.7.jar:3.0.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.7.jar:3.0.7]
-	at com.ll.alcohol.AlcoholApplication.main(AlcoholApplication.java:10) ~[main/:na]
+	at com.ll.spirits.SpiritsApplication.main(AlcoholApplication.java:10) ~[main/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.7.jar:3.0.7]
@@ -154,7 +154,7 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.7.jar:3.0.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.7.jar:3.0.7]
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.7.jar:3.0.7]
-	at com.ll.alcohol.AlcoholApplication.main(AlcoholApplication.java:10) ~[main/:na]
+	at com.ll.spirits.SpiritsApplication.main(AlcoholApplication.java:10) ~[main/:na]
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[na:na]
 	at java.base/java.lang.reflect.Method.invoke(Method.java:578) ~[na:na]
 	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.7.jar:3.0.7]
