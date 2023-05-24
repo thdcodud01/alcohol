@@ -1,5 +1,13 @@
 package com.ll.alcohol.product;
 
+import com.ll.alcohol.product.productEntity.abvRange.ABVrange;
+import com.ll.alcohol.product.productEntity.cask.Cask;
+import com.ll.alcohol.product.productEntity.costRange.CostRange;
+import com.ll.alcohol.product.productEntity.mainCategory.MainCategory;
+import com.ll.alcohol.product.productEntity.nation.Nation;
+import com.ll.alcohol.product.productEntity.netWeight.NetWeight;
+import com.ll.alcohol.product.productEntity.pairing.Pairing;
+import com.ll.alcohol.product.productEntity.subCategory.SubCategory;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
@@ -15,6 +23,7 @@ public class Product {
 
     @ManyToOne
     private MainCategory mainCategory; // (술 종류) 여러 술에 적용될 수 있지만 제품 당 술 종류는 무조건 한 개임 => ManyToOne
+
     @ManyToOne
     private SubCategory subCategory; // (술 종류) 여러 술에 적용될 수 있지만 제품 당 술 종류는 무조건 한 개임 => ManyToOne
 

@@ -15,23 +15,23 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class UserSecurityService implements UserDetailsService{
+public class UserSecurityService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SiteUser> _siteUser = this.userRepository.findByusername(username);
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        Optional<SiteUser> _siteUser = this.userRepository.findByuserId(userId);
         if (_siteUser.isEmpty()) {
             throw new UsernameNotFoundException("사용자를 찾을수 없습니다.");
         }
         SiteUser siteUser = _siteUser.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if ("admin".equals(username)) {
+        if ("admin".equals(userId)) {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
-        return new User(siteUser.getId(), siteUser.getPassword(), siteUser.getEmail(), siteUser.getNickname(), authorities);
+        return new User(siteUser.getUserId(), siteUser.getPassword(), authorities);
     }
 }
