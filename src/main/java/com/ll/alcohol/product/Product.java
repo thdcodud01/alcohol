@@ -8,6 +8,7 @@ import com.ll.alcohol.product.productEntity.nation.Nation;
 import com.ll.alcohol.product.productEntity.netWeight.NetWeight;
 import com.ll.alcohol.product.productEntity.pairing.Pairing;
 import com.ll.alcohol.product.productEntity.subCategory.SubCategory;
+import com.ll.alcohol.user.SiteUser;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
@@ -62,4 +63,7 @@ public class Product {
 
     @Column(columnDefinition = "TEXT")
     private String info; // (제품상세정보) 제품상세정보는 직접 작성할 것이기 때문에 String 타입으로 지정
+
+    @ManyToOne
+    private SiteUser author; // 여러 제품에 적용될 수 있지만 제품 당 작성자는 무조건 하나임 => ManyToOne
 }
