@@ -1,4 +1,7 @@
 package com.ll.alcohol.product;
 
-public interface ProductRepository {
+import com.ll.alcohol.user.SiteUser;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }
