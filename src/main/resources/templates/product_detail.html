@@ -28,5 +28,8 @@
     </tbody>
     -->
 </table>
+<div th:each="product : ${product}">
+    <div th:text="${product.info}"></div>
+</div>
 </body>
 </html>
