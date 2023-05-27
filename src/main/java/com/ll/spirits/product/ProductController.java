@@ -23,14 +23,61 @@ public class ProductController {
     private final ProductService productService;
     private final UserService userService;
 
-
-    @GetMapping("/list")
+    @GetMapping("/list") // 상품 리스트
     public String list(Model model, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value = "kw", defaultValue = "") String kw) { // url에 page내용이 없을땐 0값을 기본값으로 설정해라.
         List<Product> productList = this.productService.getList(); // 컨트롤러에서 바로 QuestionRepository 로 가던 구조를 중간에 Service 를 만들어서 거쳐가게끔 만듬.
         model.addAttribute("productList", productList);
         return "product_list"; // resources 예하 templates 예하 question_list HTML 파일로 인식해서 브라우저에 띄워줌
     }
 
+    @GetMapping("/list/whiskey") // 위스키 상품
+    public String listWhiskey(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
+
+    @GetMapping("/list/vodca") // 보드카 상품
+    public String listVodca(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
+
+    @GetMapping("/list/tequila") // 데킬라 상품
+    public String listTequila(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
+
+    @GetMapping("/list/gin") // 진 상품
+    public String listGin(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
+
+    @GetMapping("/list/rum") // 럼 상품
+    public String listRum(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
+
+    @GetMapping("/list/brandy") // 브랜디 상품
+    public String listBrandy(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
+
+    @GetMapping("/list/beer") // 맥주 상품
+    public String listBeer(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList = this.productService.getList();
+        model.addAttribute("productList", productList);
+        return "product_list";
+    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
@@ -63,5 +110,27 @@ public class ProductController {
 //        model.addAttribute("siteUser", siteUser);
 
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String productVote(Principal principal, @PathVariable("id") Integer id) {
+        Product product = this.productService.getProduct(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        this.productService.vote(product, siteUser);
+        return String.format("redirect:/product/detail/%s", id);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/wish/{id}")
+    public String productWish(Principal principal, @PathVariable("id") Integer id) {
+        Product product = this.productService.getProduct(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        if (product.getVoter().contains(siteUser)) {
+            this.productService.cancleWish(product, siteUser); // 찜 취소 기능
+        } else {
+            this.productService.wish(product, siteUser); // 찜 기능
+        }
+        return String.format("redirect:/product/detail/%s", id);
     }
 }

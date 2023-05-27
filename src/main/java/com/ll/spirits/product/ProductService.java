@@ -48,4 +48,19 @@ public class ProductService {
         this.productRepository.save(product);
     }
 
+    public void vote(Product product, SiteUser siteUser) {
+        product.getVoter().add(siteUser);
+        this.productRepository.save(product);
+    }
+
+    public void wish(Product product, SiteUser siteUser) {
+        product.getVoter().add(siteUser);
+        this.productRepository.save(product);
+    }
+
+    public void cancleWish(Product product, SiteUser siteUser) {
+        product.getVoter().remove(siteUser);
+        this.productRepository.save(product);
+    }
+
 }
