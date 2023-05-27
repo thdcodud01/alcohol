@@ -1,17 +1,19 @@
 package com.ll.spirits.product;
 
-import com.ll.alcohol.product.productEntity.abvRange.ABVrange;
-import com.ll.alcohol.product.productEntity.cask.Cask;
-import com.ll.alcohol.product.productEntity.costRange.CostRange;
-import com.ll.alcohol.product.productEntity.mainCategory.MainCategory;
-import com.ll.alcohol.product.productEntity.nation.Nation;
-import com.ll.alcohol.product.productEntity.netWeight.NetWeight;
-import com.ll.alcohol.product.productEntity.pairing.Pairing;
-import com.ll.alcohol.product.productEntity.subCategory.SubCategory;
-import com.ll.alcohol.user.SiteUser;
+import com.ll.spirits.product.productEntity.abvRange.ABVrange;
+import com.ll.spirits.product.productEntity.cask.Cask;
+import com.ll.spirits.product.productEntity.costRange.CostRange;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
+import com.ll.spirits.product.productEntity.nation.Nation;
+import com.ll.spirits.product.productEntity.netWeight.NetWeight;
+import com.ll.spirits.product.productEntity.pairing.Pairing;
+import com.ll.spirits.product.productEntity.subCategory.SubCategory;
+import com.ll.spirits.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +24,10 @@ public class Product {
     private Integer id;
 
     @ManyToOne
-    private Type type; // (술 종류) 여러 술에 적용될 수 있지만 제품 당 술 종류는 무조건 한 개임 => ManyToOne
+    private MainCategory mainCategory; // (술 종류) 여러 술에 적용될 수 있지만 제품 당 술 종류는 무조건 한 개임 => ManyToOne
+
+    @ManyToOne
+    private SubCategory subCategory; // (술 종류) 여러 술에 적용될 수 있지만 제품 당 술 종류는 무조건 한 개임 => ManyToOne
 
     @Column(length = 200)
     private String name; // (이름)술 이름은 직접 작성할 것이기 때문에 String 타입으로 지정
@@ -74,4 +79,14 @@ public class Product {
 
     @Column(columnDefinition = "TEXT")
     private String info; // (제품상세정보) 제품상세정보는 직접 작성할 것이기 때문에 String 타입으로 지정
+
+    @ManyToOne
+    private SiteUser author; // 여러 제품에 적용될 수 있지만 제품 당 작성자는 무조건 하나임 => ManyToOne
+
+    @ManyToMany
+    Set<SiteUser> voter; // 제품 좋아요 수
+
+    @ManyToMany
+    Set<SiteUser> wish; // 제품 찜 리스트
+
 }
