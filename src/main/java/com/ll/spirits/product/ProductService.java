@@ -76,19 +76,28 @@ public class ProductService {
         this.productRepository.save(product);
     }
 
-    public void vote(Product product, SiteUser siteUser) {
+    public void vote(Product product, SiteUser siteUser) { // 추천 메서드
         product.getVoter().add(siteUser);
         this.productRepository.save(product);
     }
 
-    public void wish(Product product, SiteUser siteUser) {
-        product.getVoter().add(siteUser);
-        this.productRepository.save(product);
-    }
-
-    public void cancleWish(Product product, SiteUser siteUser) {
+    public void cancelVote(Product product, SiteUser siteUser) { // 추천 취소 메서드
         product.getVoter().remove(siteUser);
         this.productRepository.save(product);
+    }
+
+    public void wish(Product product, SiteUser siteUser) { // 찜 메서드
+        product.getVoter().add(siteUser);
+        this.productRepository.save(product);
+    }
+
+    public void cancleWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
+        product.getVoter().remove(siteUser);
+        this.productRepository.save(product);
+    }
+
+    public void delete(Product product) { // 삭제 메서드
+        this.productRepository.delete(product);
     }
 
 }

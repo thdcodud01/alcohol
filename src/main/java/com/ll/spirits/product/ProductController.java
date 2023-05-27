@@ -7,11 +7,13 @@ import com.ll.spirits.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -58,7 +60,6 @@ public class ProductController {
         return "product_list";
     }
 
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String productCreate(ProductForm productForm) {
@@ -97,7 +98,11 @@ public class ProductController {
     public String productVote(Principal principal, @PathVariable("id") Integer id) {
         Product product = this.productService.getProduct(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.vote(product, siteUser);
+        if (product.getVoter().contains(siteUser)) {
+            this.productService.cancelVote(product, siteUser); // 추천 취소 기능
+        } else {
+            this.productService.vote(product, siteUser); // 추천 기능
+        }
         return String.format("redirect:/product/detail/%s", id);
     }
 
@@ -112,5 +117,16 @@ public class ProductController {
             this.productService.wish(product, siteUser); // 찜 기능
         }
         return String.format("redirect:/product/detail/%s", id);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String productDelete(Principal principal, @PathVariable("id") Integer id) {
+        Product product = this.productService.getProduct(id);
+        if (!product.getAuthor().getUserId().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.productService.delete(product);
+        return "redirect:/";
     }
 }
