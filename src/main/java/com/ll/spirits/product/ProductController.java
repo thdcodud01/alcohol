@@ -30,54 +30,34 @@ public class ProductController {
         return "product_list"; // resources 예하 templates 예하 question_list HTML 파일로 인식해서 브라우저에 띄워줌
     }
 
-    @GetMapping("/list/whiskey") // 위스키 상품
-    public String listWhiskey(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
+    @GetMapping("/list/{id}")
+    public String listProducts(Model model, @PathVariable("id") Integer id, @RequestParam(value = "kw", defaultValue = "") String kw) {
+        List<Product> productList;
+
+        // 상품 종류에 따라 productList를 가져오는 로직
+        if (id == 1) {
+            productList = this.productService.getWhiskeyList();
+        } else if (id == 2) {
+            productList = this.productService.getVodcaList();
+        } else if (id == 3) {
+            productList = this.productService.getTequilaList();
+        } else if (id == 4) {
+            productList = this.productService.getGinList();
+        } else if (id == 5) {
+            productList = this.productService.getRumList();
+        } else if (id == 6) {
+            productList = this.productService.getBrandyList();
+        } else if (id == 7) {
+            productList = this.productService.getBeerList();
+        } else {
+            // 상품 종류가 잘못된 경우에 대한 예외 처리
+            return "error";
+        }
+
         model.addAttribute("productList", productList);
         return "product_list";
     }
 
-    @GetMapping("/list/vodca") // 보드카 상품
-    public String listVodca(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
-        model.addAttribute("productList", productList);
-        return "product_list";
-    }
-
-    @GetMapping("/list/tequila") // 데킬라 상품
-    public String listTequila(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
-        model.addAttribute("productList", productList);
-        return "product_list";
-    }
-
-    @GetMapping("/list/gin") // 진 상품
-    public String listGin(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
-        model.addAttribute("productList", productList);
-        return "product_list";
-    }
-
-    @GetMapping("/list/rum") // 럼 상품
-    public String listRum(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
-        model.addAttribute("productList", productList);
-        return "product_list";
-    }
-
-    @GetMapping("/list/brandy") // 브랜디 상품
-    public String listBrandy(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
-        model.addAttribute("productList", productList);
-        return "product_list";
-    }
-
-    @GetMapping("/list/beer") // 맥주 상품
-    public String listBeer(Model model, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = this.productService.getList();
-        model.addAttribute("productList", productList);
-        return "product_list";
-    }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")

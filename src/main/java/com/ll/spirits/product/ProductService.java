@@ -23,6 +23,34 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
+    public List<Product> getWhiskeyList() {
+        return productRepository.findAllById(1);
+    }
+
+    public List<Product> getVodcaList() {
+        return productRepository.findAllById(2);
+    }
+
+    public List<Product> getTequilaList() {
+        return productRepository.findAllById(3);
+    }
+
+    public List<Product> getGinList() {
+        return productRepository.findAllById(4);
+    }
+
+    public List<Product> getRumList() {
+        return productRepository.findAllById(5);
+    }
+
+    public List<Product> getBrandyList() {
+        return productRepository.findAllById(6);
+    }
+
+    public List<Product> getBeerList() {
+        return productRepository.findAllById(7);
+    }
+
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);
         if (product.isPresent()){
