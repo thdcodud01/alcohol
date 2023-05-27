@@ -33,7 +33,8 @@ public class Review {
     private Product product; // Product 테이블의 FK값
     // SHOW COLUMNS FROM review;
     @ManyToOne
-    private SiteUser author; // 리뷰 작성자
+    private SiteUser author; // 여러 리뷰에 적용될 수 있지만 리뷰 당 작성자는 무조건 하나임 => ManyToOne
+
     @ManyToMany
     Set<SiteUser> voter;
 }

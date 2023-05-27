@@ -23,14 +23,12 @@ public class ProductController {
     private final ProductService productService;
     private final UserService userService;
 
-
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value = "kw", defaultValue = "") String kw) { // url에 page내용이 없을땐 0값을 기본값으로 설정해라.
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "kw", defaultValue = "") String kw) { // url에 page내용이 없을땐 0값을 기본값으로 설정해라.
         List<Product> productList = this.productService.getList(); // 컨트롤러에서 바로 QuestionRepository 로 가던 구조를 중간에 Service 를 만들어서 거쳐가게끔 만듬.
         model.addAttribute("productList", productList);
         return "product_list"; // resources 예하 templates 예하 question_list HTML 파일로 인식해서 브라우저에 띄워줌
     }
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
@@ -63,5 +61,18 @@ public class ProductController {
 //        model.addAttribute("siteUser", siteUser);
 
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}")
+    public String productVote(Principal principal, @PathVariable("id") Integer id) {
+        Product product = this.productService.getProduct(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        if (product.getVoter().contains(siteUser)) {
+            this.productService.cancelVote(product, siteUser); // 추천 취소 기능
+        } else {
+            this.productService.vote(product, siteUser); // 추천 기능
+        }
+        return String.format("redirect:/product/detail/%s", id);
     }
 }

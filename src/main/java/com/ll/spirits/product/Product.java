@@ -13,6 +13,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -80,4 +82,11 @@ public class Product {
 
     @ManyToOne
     private SiteUser author; // 여러 제품에 적용될 수 있지만 제품 당 작성자는 무조건 하나임 => ManyToOne
+
+    @ManyToMany
+    Set<SiteUser> voter; // 제품 좋아요 수
+
+    @ManyToMany
+    Set<SiteUser> wish; // 제품 찜 리스트
+
 }

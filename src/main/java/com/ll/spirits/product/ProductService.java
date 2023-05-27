@@ -48,4 +48,13 @@ public class ProductService {
         this.productRepository.save(product);
     }
 
+    public void vote(Product product, SiteUser siteUser) { // 추천 메서드
+        product.getVoter().add(siteUser);
+        this.productRepository.save(product);
+    }
+
+    public void cancelVote(Product product, SiteUser siteUser) { // 추천 취소 메서드
+        product.getVoter().remove(siteUser);
+        this.productRepository.save(product);
+    }
 }
