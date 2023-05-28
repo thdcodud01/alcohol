@@ -23,7 +23,6 @@ public class MainController {
 //
 //        model.addAttribute("popularProducts", popularProducts);
 //        model.addAttribute("latestReviews", latestReviews);
-
         return "main_page";
     }
 }
