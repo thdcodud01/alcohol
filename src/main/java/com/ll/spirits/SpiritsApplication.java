@@ -9,4 +9,5 @@ public class SpiritsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpiritsApplication.class, args);
 	}
+
 }
