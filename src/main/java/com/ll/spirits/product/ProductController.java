@@ -127,41 +127,41 @@ public class ProductController {
                 return "error";
             }
         } else if (mainCategoryId == 5) {
-            if (subCategoryId == 1) {
+            if (subCategoryId == 23) {
                 productList = productService.getProductsBySubCategoryId(1); // rum(white)
-            } else if (subCategoryId == 23) {
-                productList = productService.getProductsBySubCategoryId(2); // rum(gold)
             } else if (subCategoryId == 24) {
-                productList = productService.getProductsBySubCategoryId(3); // rum(dark)
+                productList = productService.getProductsBySubCategoryId(2); // rum(gold)
             } else if (subCategoryId == 25) {
-                productList = productService.getProductsBySubCategoryId(4); // rum(overproof)
+                productList = productService.getProductsBySubCategoryId(3); // rum(dark)
             } else if (subCategoryId == 26) {
+                productList = productService.getProductsBySubCategoryId(4); // rum(overproof)
+            } else if (subCategoryId == 27) {
                 productList = productService.getProductsBySubCategoryId(5); // rum(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 6) {
-            if (subCategoryId == 1) {
+            if (subCategoryId == 28) {
                 productList = productService.getProductsBySubCategoryId(1); // brandy(konaic)
-            } else if (subCategoryId == 2) {
+            } else if (subCategoryId == 29) {
                 productList = productService.getProductsBySubCategoryId(2); // brandy(armaniac)
-            } else if (subCategoryId == 3) {
+            } else if (subCategoryId == 30) {
                 productList = productService.getProductsBySubCategoryId(3); // brandy(kalbados)
-            } else if (subCategoryId == 4) {
+            } else if (subCategoryId == 31) {
                 productList = productService.getProductsBySubCategoryId(4); // brandy(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 7) {
-            if (subCategoryId == 1) {
+            if (subCategoryId == 32) {
                 productList = productService.getProductsBySubCategoryId(1); // beer(lager)
-            } else if (subCategoryId == 2) {
+            } else if (subCategoryId == 33) {
                 productList = productService.getProductsBySubCategoryId(2); // beer(yeil)
-            } else if (subCategoryId == 3) {
+            } else if (subCategoryId == 34) {
                 productList = productService.getProductsBySubCategoryId(3); // beer(meal)
-            } else if (subCategoryId == 4) {
+            } else if (subCategoryId == 35) {
                 productList = productService.getProductsBySubCategoryId(4); // beer(dark)
-            } else if (subCategoryId == 5) {
+            } else if (subCategoryId == 36) {
                 productList = productService.getProductsBySubCategoryId(5); // beer(etc)
             } else {
                 return "error";
