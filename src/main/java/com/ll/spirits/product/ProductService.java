@@ -4,11 +4,13 @@ import com.ll.spirits.DataNotFoundException;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -19,38 +21,66 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
 
-    public List<Product> getList () {
+    public List<Product> getList() {
         return this.productRepository.findAll();
     }
 
-    public List<Product> getWhiskeyList() {
+    public List<Product> getWhiskeyList() { // 대분류 위스키 1번
         return productRepository.findAllById(1);
     }
 
-    public List<Product> getVodcaList() {
+    public List<Product> getVodcaList() { // 대분류 2번
         return productRepository.findAllById(2);
     }
 
-    public List<Product> getTequilaList() {
+    public List<Product> getTequilaList() { // 대분류 3번
         return productRepository.findAllById(3);
     }
 
-    public List<Product> getGinList() {
+    public List<Product> getGinList() { // 대분류 4번
         return productRepository.findAllById(4);
     }
 
-    public List<Product> getRumList() {
+    public List<Product> getRumList() { // 대분류 5번
         return productRepository.findAllById(5);
     }
 
-    public List<Product> getBrandyList() {
+    public List<Product> getBrandyList() { // 대분류 6번
         return productRepository.findAllById(6);
     }
 
-    public List<Product> getBeerList() {
+    public List<Product> getBeerList() { // 대분류 7
         return productRepository.findAllById(7);
     }
+    public List<Product> getProductsByCategory(Integer mainCategoryId, Integer subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
+        return this.productRepository.getProductsByCategory(mainCategoryId, subCategoryId);
+    }
+    public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
+        // subCategoryId에 따른 상품 목록을 가져오는 로직
+        List<Product> productList = new ArrayList<>();
 
+        // subCategoryId에 따라 상품 목록을 가져오는 로직
+        if (subCategoryId == 1) {
+            productList = productRepository.findBySubCategory(1);
+        } else if (subCategoryId == 2) {
+            productList = productRepository.findBySubCategory(2);
+        } else if (subCategoryId == 3) {
+            productList = productRepository.findBySubCategory(3);
+        } else if (subCategoryId == 4) {
+            productList = productRepository.findBySubCategory(4);
+        } else if (subCategoryId == 5) {
+            productList = productRepository.findBySubCategory(5);
+        } else if (subCategoryId == 6) {
+            productList = productRepository.findBySubCategory(6);
+        } else if (subCategoryId == 7) {
+            productList = productRepository.findBySubCategory(7);
+        } else {
+            throw new IllegalArgumentException("Invalid subCategoryId: " + subCategoryId);
+        }
+
+        return productList;
+
+}
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);
         if (product.isPresent()){

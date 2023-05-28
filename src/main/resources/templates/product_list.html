@@ -147,9 +147,9 @@
     </div>
     <div class="section">
         <div class="search-result"> 4건의 결과가 있어요.</div>
-        <section class="goods-list" th:each="product : ${productList}">
+        <section class="goods-list" >
 
-            <div class="goods-1" >
+            <div class="goods-1" th:each="product : ${productList}">
                 <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg" alt="">
                 <p class="goods-name" th:text="${product.name}"></p>
                 <p><span th:text="${product.cost}"></span>원</p>
