@@ -77,15 +77,15 @@ public class ReviewController {
         this.reviewService.delete(review);
         return String.format("redirect:/product/detail/%s", review.getProduct().getId());
     }
-
+    /*
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
-    public String reviewVote(Principal principal, @PathVariable("id") Long id) {
-        Review review = this.reviewService.getReview(id);
+    public String answerVote(Principal principal, @PathVariable("id") Integer id) {
+        Answer answer = this.answerService.getAnswer(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.reviewService.vote(review, siteUser);
-        return String.format("redirect:/product/detail/%s#review_%s",
-                review.getProduct().getId(), review.getId());
+        this.answerService.vote(answer, siteUser);
+        return String.format("redirect:/question/detail/%s#answer_%s",
+                answer.getQuestion().getId(), answer.getId());
     }
-
+     */
 }

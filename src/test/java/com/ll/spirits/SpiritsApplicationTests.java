@@ -9,4 +9,5 @@ class SpiritsApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+
 }

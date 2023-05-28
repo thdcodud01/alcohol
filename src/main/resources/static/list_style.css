@@ -168,7 +168,9 @@ ul,li{
 }
 
 .section>.goods-list{
+  width :1080px;
   display:flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 

@@ -24,6 +24,9 @@ public class Product {
     private Integer id;
 
     @ManyToOne
+    private Integer category;
+
+    @ManyToOne
     private MainCategory mainCategory; // (술 종류) 여러 술에 적용될 수 있지만 제품 당 술 종류는 무조건 한 개임 => ManyToOne
 
     @ManyToOne
@@ -84,9 +87,8 @@ public class Product {
     private SiteUser author; // 여러 제품에 적용될 수 있지만 제품 당 작성자는 무조건 하나임 => ManyToOne
 
     @ManyToMany
-    Set<SiteUser> voter; // 제품 좋아요 수
+    Set<SiteUser> voter;
 
     @ManyToMany
-    Set<SiteUser> wish; // 제품 찜 리스트
-
+    Set<SiteUser> wish;
 }
