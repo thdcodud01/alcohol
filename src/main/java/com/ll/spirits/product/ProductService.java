@@ -57,7 +57,7 @@ public class ProductService {
     }
     public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
         // subCategoryId에 따른 상품 목록을 가져오는 로직
-        List<Product> productList = new ArrayList<>();
+        List<Product> productList;
 
         // subCategoryId에 따라 상품 목록을 가져오는 로직
         if (subCategoryId == 1) {
@@ -74,13 +74,84 @@ public class ProductService {
             productList = productRepository.findBySubCategory(6);
         } else if (subCategoryId == 7) {
             productList = productRepository.findBySubCategory(7);
+        } else if (subCategoryId == 8) {
+            productList = productRepository.findBySubCategory(8);
+        } else if (subCategoryId == 9) {
+            productList = productRepository.findBySubCategory(9);
+        } else if (subCategoryId == 10) {
+            productList = productRepository.findBySubCategory(10);
+        } else if (subCategoryId == 11) {
+            productList = productRepository.findBySubCategory(11);
+        } else if (subCategoryId == 12) {
+            productList = productRepository.findBySubCategory(12);
+        } else if (subCategoryId == 13) {
+            productList = productRepository.findBySubCategory(13);
+        } else if (subCategoryId == 14) {
+            productList = productRepository.findBySubCategory(14);
+        } else if (subCategoryId == 15) {
+            productList = productRepository.findBySubCategory(15);
+        } else if (subCategoryId == 16) {
+            productList = productRepository.findBySubCategory(16);
+        } else if (subCategoryId == 17) {
+            productList = productRepository.findBySubCategory(17);
+        } else if (subCategoryId == 18) {
+            productList = productRepository.findBySubCategory(18);
+        } else if (subCategoryId == 19) {
+            productList = productRepository.findBySubCategory(19);
+        } else if (subCategoryId == 20) {
+            productList = productRepository.findBySubCategory(20);
+        } else if (subCategoryId == 21) {
+            productList = productRepository.findBySubCategory(21);
+        } else if (subCategoryId == 22) {
+            productList = productRepository.findBySubCategory(22);
+        } else if (subCategoryId == 23) {
+            productList = productRepository.findBySubCategory(23);
+        } else if (subCategoryId == 24) {
+            productList = productRepository.findBySubCategory(24);
+        } else if (subCategoryId == 25) {
+            productList = productRepository.findBySubCategory(25);
+        } else if (subCategoryId == 26) {
+            productList = productRepository.findBySubCategory(26);
+        } else if (subCategoryId == 27) {
+            productList = productRepository.findBySubCategory(27);
+        } else if (subCategoryId == 28) {
+            productList = productRepository.findBySubCategory(28);
+        } else if (subCategoryId == 29) {
+            productList = productRepository.findBySubCategory(29);
+        } else if (subCategoryId == 30) {
+            productList = productRepository.findBySubCategory(30);
+        } else if (subCategoryId == 31) {
+            productList = productRepository.findBySubCategory(31);
+        } else if (subCategoryId == 32) {
+            productList = productRepository.findBySubCategory(32);
+        } else if (subCategoryId == 33) {
+            productList = productRepository.findBySubCategory(33);
+        } else if (subCategoryId == 34) {
+            productList = productRepository.findBySubCategory(34);
+        } else if (subCategoryId == 35) {
+            productList = productRepository.findBySubCategory(35);
+        } else if (subCategoryId == 36) {
+            productList = productRepository.findBySubCategory(36);
         } else {
             throw new IllegalArgumentException("Invalid subCategoryId: " + subCategoryId);
         }
 
         return productList;
 
-}
+//        for (int i = 1; i <= 36; i++) {
+//            if (subCategoryId == i) {
+//                productList = productRepository.findBySubCategory(i);
+//                break;
+//            }
+//        }
+//
+//        if (productList == null) {
+//            throw new IllegalArgumentException("Invalid subCategoryId: " + subCategoryId);
+//        }
+//
+//        return productList;
+    }
+
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);
         if (product.isPresent()){
