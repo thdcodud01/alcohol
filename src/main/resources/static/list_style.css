@@ -161,12 +161,8 @@ ul,li{
   margin-top: 30px;
 }
 
-.wrap>.section>p{
-    display:inline-block;
-}
-
-.wrap>.section>p>.search-result{
-  display:inline-block;
+.wrap>.section>.search-result{
+  display:block;
   margin-bottom: 30px;
   margin-left: 70px;
 }
@@ -175,11 +171,11 @@ ul,li{
   width :1080px;
   display:flex;
   flex-wrap: wrap;
-
+  
 }
 
 .section>.goods-list>div{
-    margin-top:20px;
+
   width : 250px;
   vertical-align : top;
 }

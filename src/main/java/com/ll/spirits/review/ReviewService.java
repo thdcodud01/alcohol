@@ -51,4 +51,13 @@ public class ReviewService {
         this.reviewRepository.delete(review);
     }
 
+    public void vote(Review review, SiteUser siteUser) { // 리뷰 추천 메서드
+        review.getVoter().add(siteUser);
+        this.reviewRepository.save(review);
+    }
+
+    public void cancelVote(Review review, SiteUser siteUser) { // 리뷰 추천 취소 메서드
+        review.getVoter().remove(siteUser);
+        this.reviewRepository.save(review);
+    }
 }
