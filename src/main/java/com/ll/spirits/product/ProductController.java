@@ -33,23 +33,23 @@ public class ProductController {
     }
 
     @GetMapping("/list/{mainCategoryId}")
-    public String listProducts(Model model, @PathVariable("id") Integer id, @RequestParam(value = "kw", defaultValue = "") String kw) {
+    public String listProducts(Model model, @PathVariable("mainCategoryId") Integer mainCategoryId, @RequestParam(value = "kw", defaultValue = "") String kw) {
         List<Product> productList;
 
         // 상품 종류에 따라 productList를 가져오는 로직
-        if (id == 1) {
+        if (mainCategoryId == 1) {
             productList = this.productService.getWhiskeyList();
-        } else if (id == 2) {
+        } else if (mainCategoryId == 2) {
             productList = this.productService.getVodcaList();
-        } else if (id == 3) {
+        } else if (mainCategoryId == 3) {
             productList = this.productService.getTequilaList();
-        } else if (id == 4) {
+        } else if (mainCategoryId == 4) {
             productList = this.productService.getGinList();
-        } else if (id == 5) {
+        } else if (mainCategoryId == 5) {
             productList = this.productService.getRumList();
-        } else if (id == 6) {
+        } else if (mainCategoryId == 6) {
             productList = this.productService.getBrandyList();
-        } else if (id == 7) {
+        } else if (mainCategoryId == 7) {
             productList = this.productService.getBeerList();
         } else {
             // 상품 종류가 잘못된 경우에 대한 예외 처리
