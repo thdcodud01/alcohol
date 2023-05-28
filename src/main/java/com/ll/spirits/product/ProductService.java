@@ -133,7 +133,7 @@ public class ProductService {
         } else if (subCategoryId == 36) {
             productList = productRepository.findBySubCategory(36);
         } else {
-            throw new IllegalArgumentException("Invalid subCategoryId: " + subCategoryId);
+            throw new DataNotFoundException("Invalid subCategoryId: " + subCategoryId);
         }
 
         return productList;
@@ -146,7 +146,7 @@ public class ProductService {
 //        }
 //
 //        if (productList == null) {
-//            throw new IllegalArgumentException("Invalid subCategoryId: " + subCategoryId);
+//            throw new DataNotFoundException("Invalid subCategoryId: " + subCategoryId);
 //        }
 //
 //        return productList;
