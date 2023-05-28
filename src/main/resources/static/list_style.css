@@ -161,19 +161,25 @@ ul,li{
   margin-top: 30px;
 }
 
-.wrap>.section>.search-result{
-  display:block;
+.wrap>.section>p{
+    display:inline-block;
+}
+
+.wrap>.section>p>.search-result{
+  display:inline-block;
   margin-bottom: 30px;
   margin-left: 70px;
 }
 
 .section>.goods-list{
+  width :1080px;
   display:flex;
-  justify-content: center;
+  flex-wrap: wrap;
+
 }
 
 .section>.goods-list>div{
-
+    margin-top:20px;
   width : 250px;
   vertical-align : top;
 }
@@ -189,14 +195,6 @@ ul,li{
 }
 
 .section>.goods-list > .goods-1 {
-  margin-right : 20px;
-}
-
-.section>.goods-list > .goods-2 {
-  margin-right : 20px;
-}
-
-.section>.goods-list > .goods-3 {
   margin-right : 20px;
 }
 
