@@ -168,8 +168,10 @@ ul,li{
 }
 
 .section>.goods-list{
+  width :1080px;
   display:flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  
 }
 
 .section>.goods-list>div{
@@ -189,14 +191,6 @@ ul,li{
 }
 
 .section>.goods-list > .goods-1 {
-  margin-right : 20px;
-}
-
-.section>.goods-list > .goods-2 {
-  margin-right : 20px;
-}
-
-.section>.goods-list > .goods-3 {
   margin-right : 20px;
 }
 
