@@ -12,5 +12,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByMainCategory(Integer id);
     //List<Product> findAllByMainCategory_IdAndSubCategory_Id(Integer mainCategoryId, Integer subCategoryId);
     List<Product> findBySubCategory(Integer id);
-    List<Product> getProductsByCategory(Integer mainCategoryId, Integer subCategoryId);
+    List<Product> getProductsByMainCategoryAndSubCategory(Integer mainCategoryId, Integer subCategoryId);
 }

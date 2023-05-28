@@ -26,34 +26,34 @@ public class ProductService {
     }
 
     public List<Product> getWhiskeyList() { // 대분류 위스키 1번
-        return productRepository.findAllByCategory(1);
+        return productRepository.findByMainCategory(1);
     }
 
     public List<Product> getVodcaList() { // 대분류 2번
-        return productRepository.findAllByCategory(2);
+        return productRepository.findByMainCategory(2);
     }
 
     public List<Product> getTequilaList() { // 대분류 3번
-        return productRepository.findAllByCategory(3);
+        return productRepository.findByMainCategory(3);
     }
 
     public List<Product> getGinList() { // 대분류 4번
-        return productRepository.findAllByCategory(4);
+        return productRepository.findByMainCategory(4);
     }
 
     public List<Product> getRumList() { // 대분류 5번
-        return productRepository.findAllByCategory(5);
+        return productRepository.findByMainCategory(5);
     }
 
     public List<Product> getBrandyList() { // 대분류 6번
-        return productRepository.findAllByCategory(6);
+        return productRepository.findByMainCategory(6);
     }
 
     public List<Product> getBeerList() { // 대분류 7
-        return productRepository.findAllByCategory(7);
+        return productRepository.findByMainCategory(7);
     }
     public List<Product> getProductsByCategory(Integer mainCategoryId, Integer subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
-        return this.productRepository.getProductsByCategory(mainCategoryId, subCategoryId);
+        return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
     }
     public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
         // subCategoryId에 따른 상품 목록을 가져오는 로직
