@@ -62,7 +62,7 @@ public class ProductController {
 
     @GetMapping("/list/{mainCategoryId}/{subCategoryId}")
     public String listProductsByCategory(Model model, @PathVariable("mainCategoryId") Integer mainCategoryId, @PathVariable("subCategoryId") Integer subCategoryId, @RequestParam(value = "kw", defaultValue = "") String kw) {
-        List<Product> productList = productService.getProductsByCategory(mainCategoryId, subCategoryId);
+        List<Product> productList = productService.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
         model.addAttribute("productList", productList);
 
         // 서브 카테고리에 따라 productList를 가져오는 로직
@@ -86,83 +86,83 @@ public class ProductController {
             }
         } else if (mainCategoryId == 2) {
             if (subCategoryId == 8) {
-                productList = productService.getProductsBySubCategoryId(1); // vodka(normal)
+                productList = productService.getProductsBySubCategoryId(8); // vodka(normal)
             } else if (subCategoryId == 9) {
-                productList = productService.getProductsBySubCategoryId(2); // vodca(play bird),
+                productList = productService.getProductsBySubCategoryId(9); // vodca(play bird),
             } else if (subCategoryId == 10) {
-                productList = productService.getProductsBySubCategoryId(3); // vodca(etc)
+                productList = productService.getProductsBySubCategoryId(10); // vodca(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 3) {
             if (subCategoryId == 11) {
-                productList = productService.getProductsBySubCategoryId(1); // tequila(mezcal)
+                productList = productService.getProductsBySubCategoryId(11); // tequila(mezcal)
             } else if (subCategoryId == 12) {
-                productList = productService.getProductsBySubCategoryId(2); // tequila(blanco)
+                productList = productService.getProductsBySubCategoryId(12); // tequila(blanco)
             } else if (subCategoryId == 13) {
-                productList = productService.getProductsBySubCategoryId(3); // tequila(reposedo)
+                productList = productService.getProductsBySubCategoryId(13); // tequila(reposedo)
             } else if (subCategoryId == 14) {
-                productList = productService.getProductsBySubCategoryId(4); // tequila(ancho)
+                productList = productService.getProductsBySubCategoryId(14); // tequila(ancho)
             } else if (subCategoryId == 15) {
-                productList = productService.getProductsBySubCategoryId(5); // tequila(etc)
+                productList = productService.getProductsBySubCategoryId(15); // tequila(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 4) {
             if (subCategoryId == 16) {
-                productList = productService.getProductsBySubCategoryId(1); // gin(juniver)
+                productList = productService.getProductsBySubCategoryId(16); // gin(juniver)
             } else if (subCategoryId == 17) {
-                productList = productService.getProductsBySubCategoryId(2); // gin(oldTom)
+                productList = productService.getProductsBySubCategoryId(17); // gin(oldTom)
             } else if (subCategoryId == 18) {
-                productList = productService.getProductsBySubCategoryId(3); // gin(londonDry)
+                productList = productService.getProductsBySubCategoryId(18); // gin(londonDry)
             } else if (subCategoryId == 19) {
-                productList = productService.getProductsBySubCategoryId(4); // gin(navyStrenth)
+                productList = productService.getProductsBySubCategoryId(19); // gin(navyStrenth)
             } else if (subCategoryId == 20) {
-                productList = productService.getProductsBySubCategoryId(5); // gin(slo)
+                productList = productService.getProductsBySubCategoryId(20); // gin(slo)
             } else if (subCategoryId == 21) {
-                productList = productService.getProductsBySubCategoryId(6); // gin(craft)
+                productList = productService.getProductsBySubCategoryId(21); // gin(craft)
             } else if (subCategoryId == 22) {
-                productList = productService.getProductsBySubCategoryId(7); // gin(etc)
+                productList = productService.getProductsBySubCategoryId(22); // gin(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 5) {
             if (subCategoryId == 23) {
-                productList = productService.getProductsBySubCategoryId(1); // rum(white)
+                productList = productService.getProductsBySubCategoryId(23); // rum(white)
             } else if (subCategoryId == 24) {
-                productList = productService.getProductsBySubCategoryId(2); // rum(gold)
+                productList = productService.getProductsBySubCategoryId(24); // rum(gold)
             } else if (subCategoryId == 25) {
-                productList = productService.getProductsBySubCategoryId(3); // rum(dark)
+                productList = productService.getProductsBySubCategoryId(25); // rum(dark)
             } else if (subCategoryId == 26) {
-                productList = productService.getProductsBySubCategoryId(4); // rum(overproof)
+                productList = productService.getProductsBySubCategoryId(26); // rum(overproof)
             } else if (subCategoryId == 27) {
-                productList = productService.getProductsBySubCategoryId(5); // rum(etc)
+                productList = productService.getProductsBySubCategoryId(27); // rum(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 6) {
             if (subCategoryId == 28) {
-                productList = productService.getProductsBySubCategoryId(1); // brandy(konaic)
+                productList = productService.getProductsBySubCategoryId(28); // brandy(konaic)
             } else if (subCategoryId == 29) {
-                productList = productService.getProductsBySubCategoryId(2); // brandy(armaniac)
+                productList = productService.getProductsBySubCategoryId(29); // brandy(armaniac)
             } else if (subCategoryId == 30) {
-                productList = productService.getProductsBySubCategoryId(3); // brandy(kalbados)
+                productList = productService.getProductsBySubCategoryId(30); // brandy(kalbados)
             } else if (subCategoryId == 31) {
-                productList = productService.getProductsBySubCategoryId(4); // brandy(etc)
+                productList = productService.getProductsBySubCategoryId(31); // brandy(etc)
             } else {
                 return "error";
             }
         } else if (mainCategoryId == 7) {
             if (subCategoryId == 32) {
-                productList = productService.getProductsBySubCategoryId(1); // beer(lager)
+                productList = productService.getProductsBySubCategoryId(32); // beer(lager)
             } else if (subCategoryId == 33) {
-                productList = productService.getProductsBySubCategoryId(2); // beer(yeil)
+                productList = productService.getProductsBySubCategoryId(33); // beer(yeil)
             } else if (subCategoryId == 34) {
-                productList = productService.getProductsBySubCategoryId(3); // beer(meal)
+                productList = productService.getProductsBySubCategoryId(34); // beer(meal)
             } else if (subCategoryId == 35) {
-                productList = productService.getProductsBySubCategoryId(4); // beer(dark)
+                productList = productService.getProductsBySubCategoryId(35); // beer(dark)
             } else if (subCategoryId == 36) {
-                productList = productService.getProductsBySubCategoryId(5); // beer(etc)
+                productList = productService.getProductsBySubCategoryId(36); // beer(etc)
             } else {
                 return "error";
             }
