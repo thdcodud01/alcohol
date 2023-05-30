@@ -1,9 +1,12 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
+import com.sun.tools.javac.Main;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.parameters.P;
@@ -21,15 +24,18 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
 
+
     public List<Product> getList() {
         return this.productRepository.findAll();
     }
+
+
 
     public List<Product> getWhiskeyList() { // 대분류 위스키 1번
         return productRepository.findByMainCategory(1);
     }
 
-    public List<Product> getVodcaList() { // 대분류 2번
+    public List<Product> getVodkaList() { // 대분류 2번
         return productRepository.findByMainCategory(2);
     }
 

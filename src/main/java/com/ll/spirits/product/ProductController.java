@@ -27,13 +27,6 @@ public class ProductController {
 
 
 
-    @GetMapping("/list") // 상품 리스트
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "kw", defaultValue = "") String kw) { // url에 page내용이 없을땐 0값을 기본값으로 설정해라.
-        List<Product> productList = this.productService.getList(); // 컨트롤러에서 바로 QuestionRepository 로 가던 구조를 중간에 Service 를 만들어서 거쳐가게끔 만듬.
-        model.addAttribute("productList", productList);
-        return "product_list"; // resources 예하 templates 예하 question_list HTML 파일로 인식해서 브라우저에 띄워줌
-    }
-
     @GetMapping("/list/{mainCategoryId}")
     public String listProducts(Model model, @PathVariable("mainCategoryId") Integer mainCategoryId, @RequestParam(value = "kw", defaultValue = "") String kw) {
         List<Product> productList;
@@ -42,7 +35,7 @@ public class ProductController {
         if (mainCategoryId == 1) {
             productList = this.productService.getWhiskeyList();
         } else if (mainCategoryId == 2) {
-            productList = this.productService.getVodcaList();
+            productList = this.productService.getVodkaList();
         } else if (mainCategoryId == 3) {
             productList = this.productService.getTequilaList();
         } else if (mainCategoryId == 4) {
@@ -90,9 +83,9 @@ public class ProductController {
             if (subCategoryId == 8) {
                 productList = productService.getProductsBySubCategoryId(1); // vodka(normal)
             } else if (subCategoryId == 9) {
-                productList = productService.getProductsBySubCategoryId(2); // vodca(play bird),
+                productList = productService.getProductsBySubCategoryId(2); // vodka(play bird),
             } else if (subCategoryId == 10) {
-                productList = productService.getProductsBySubCategoryId(3); // vodca(etc)
+                productList = productService.getProductsBySubCategoryId(3); // vodka(etc)
             } else {
                 return "error";
             }
@@ -118,7 +111,7 @@ public class ProductController {
             } else if (subCategoryId == 18) {
                 productList = productService.getProductsBySubCategoryId(3); // gin(londonDry)
             } else if (subCategoryId == 19) {
-                productList = productService.getProductsBySubCategoryId(4); // gin(navyStrenth)
+                productList = productService.getProductsBySubCategoryId(4); // gin(navyStrength)
             } else if (subCategoryId == 20) {
                 productList = productService.getProductsBySubCategoryId(5); // gin(slo)
             } else if (subCategoryId == 21) {
