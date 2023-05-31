@@ -129,28 +129,29 @@ ul,li{
   border:1px solid black;
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-right: 20px;
 
 }
 
 .wrap>.information-box>.img-box{
   margin-top: -110px;
-  margin-left: 220px;
+  margin-left: 300px;
 }
 
 .wrap>.information-box>.img-box>img{
-  width: 300px;
+  width: 290px;
   height: 150px;
   margin-left: 600px;
 
 }
 
 .wrap>.information-box>.title{
-  margin-left: 50px;
+  margin-left: 40px;
   padding-top: 10px;
 }
 
 .wrap>.information-box>.text{
-  margin-left: 50px;
+  margin-left: 40px;
   padding-top: 10px;
 }
 
