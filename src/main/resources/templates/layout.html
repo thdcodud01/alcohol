@@ -1,10 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="">
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+
+    <!-- sbb CSS -->
+
 </head>
 <body>
+<!--네비바 Start-->
+<!-- 네비게이션바 링크-->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>  <!--"~{navbar :: navbarFragment}" >> 경로지정하는 것-->
+<!--네비바 End-->
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<th:block layout:fragment="content"></th:block>
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
 
+<!--브라우저에 페이지가 로드될땐 HTML과 CSS가 먼저 로드 된 다음 JS가 로드되어야 한다.-->
+<!--JS는 감독의 역할인데 배우(HTML)와 분장팀(CSS)이 작업을 마치고 촬영장으로 배우를 셋팅시켜놓고 감독(JS)가 디렉팅을 해야 하기 때문에-->
+<!--JS는 맨 밑에 배치하는게 안정적이다-->
+<!-- 자바스크립트 Start -->
+
+<!-- 자바스크립트 End -->
 </body>
 </html>

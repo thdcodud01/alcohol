@@ -1,35 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<table>
-    <tbody>
-    <tr th:each="product : ${product}">
-        <td th:text="${product.cost}"></td>
-        <td th:text="${product.name}"></td>
-    </tr>
-    </tbody>
-    <tbody>
-    <tr th:each="review : ${reviews}">
-        <td th:text="${review.flavor}"></td>
-        <td th:text="${review.aroma}"></td>
-        <td th:text="${review.content}"></td>
-        <td th:text="${review.createDate}"></td>
-    </tr>
-    </tbody>
-    <!--
-    <tbody>
-    <tr th:each="userId : ${siteUser}">
-        <td th:text="${siteUser.userId}"></td>
-    </tr>
-    </tbody>
-    -->
-</table>
-<div th:each="product : ${product}">
-    <div th:text="${product.info}"></div>
+<div layout:fragment="content">
+    <table>
+        <tbody>
+        <tr th:each="product : ${product}">
+            <td th:text="${product.cost}"></td>
+            <td th:text="${product.name}"></td>
+        </tr>
+        </tbody>
+        <tbody>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.flavor}"></td>
+            <td th:text="${review.aroma}"></td>
+            <td th:text="${review.content}"></td>
+            <td th:text="${review.createDate}"></td>
+        </tr>
+        </tbody>
+        <!--
+        <tbody>
+        <tr th:each="userId : ${siteUser}">
+            <td th:text="${siteUser.userId}"></td>
+        </tr>
+        </tbody>
+        -->
+    </table>
+    <div th:each="product : ${product}">
+        <div th:text="${product.info}"></div>
+    </div>
 </div>
 </body>
 </html>

@@ -123,14 +123,28 @@ ul,li{
 }
 
 .wrap>.information-box{
-  height: 150px;
-  background-color: pink;
+  height: 200px;
+  border:1px solid black;
   border-radius:6px;
   margin-top: 40px;
+  margin-left: 40px;
+
+}
+
+.wrap>.information-box>.img-box{
+  margin-top: -100px;
+  margin-left: 250px;
+}
+
+.wrap>.information-box>.img-box>img{
+  width: 300px;
+  height: 150px;
+  margin-left: 600px;
+
 }
 
 .wrap>.information-box>.title{
-  margin-left: 30px;
+  margin-left: 50px;
   padding-top: 10px;
 }
 
@@ -161,25 +175,19 @@ ul,li{
   margin-top: 30px;
 }
 
-.wrap>.section>p{
-    display:inline-block;
-}
-
-.wrap>.section>p>.search-result{
-  display:inline-block;
+.wrap>.section>.search-result{
+  display:block;
   margin-bottom: 30px;
   margin-left: 70px;
 }
 
 .section>.goods-list{
-  width :1080px;
   display:flex;
-  flex-wrap: wrap;
-
+  justify-content: center;
 }
 
 .section>.goods-list>div{
-    margin-top:20px;
+
   width : 250px;
   vertical-align : top;
 }
@@ -195,6 +203,14 @@ ul,li{
 }
 
 .section>.goods-list > .goods-1 {
+  margin-right : 20px;
+}
+
+.section>.goods-list > .goods-2 {
+  margin-right : 20px;
+}
+
+.section>.goods-list > .goods-3 {
   margin-right : 20px;
 }
 
