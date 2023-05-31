@@ -8,5 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface MainCategoryRepository extends JpaRepository<MainCategory, Integer> {
+    /*
     Optional<MainCategory> findById(Integer id);
+
+     */
 }

@@ -11,6 +11,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class MainCategoryService {
+    /*
 
     private final MainCategoryRepository maincategoryRepository;
 
@@ -32,4 +33,6 @@ public class MainCategoryService {
             throw new DataNotFoundException("mainCategory not found");
         }
     }
+
+     */
 }

@@ -1,9 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>진 리스트 페이지</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/gin_list_style.css}">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Whiskey</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/whiskey_list_style.css}">
 </head>
 <body>
 <div class="wrap">
@@ -34,10 +37,10 @@
     </div>
     <div class="information-box">
         <div class="title">
-            <h2>진</h2>
+            <h2>위스키</h2>
         </div>
         <div class="text">
-            진 페이지 입니다.
+            발효된 곡물을 증류하여 고알콜 음료로 풍부한 향과 맛을 가진 강력한 스피릿츠 드링크 입니다.
         </div>
     </div>
     <div class="drop-down-box">
@@ -162,5 +165,19 @@
         </section>
     </div>
 </div>
+<table>
+    <thead>
+    <tr>
+        <th>가격</th>
+        <th>이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${productList}">
+        <td th:text="${product.cost}"></td>
+        <td th:text="${product.name}"></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

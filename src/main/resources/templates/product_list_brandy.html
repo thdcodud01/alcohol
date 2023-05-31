@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>브랜디 리스트 페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/brandy_list_style.css}">
 </head>
 <body>
@@ -23,21 +23,21 @@
     </div>
     <div class="menu-bar">
         <ul>
-            <li><a th:href="@{|/product/list/whiskey|}">위스키</a></li>
-            <li><a th:href="@{|/product/list/vodka|}">보드카</a></li>
-            <li><a th:href="@{|/product/list/tequila|}">데킬라</a></li>
-            <li><a th:href="@{|/product/list/gin|}">진</a></li>
-            <li><a th:href="@{|/product/list/rum|}">럼</a></li>
-            <li><a th:href="@{|/product/list/brandy|}">브랜디</a></li>
-            <li><a th:href="@{|/product/list/beer|}">맥주</a></li>
+            <li><a th:href="@{|/product/list/1|}">위스키</a></li>
+            <li><a th:href="@{|/product/list/2|}">보드카</a></li>
+            <li><a th:href="@{|/product/list/3|}">데킬라</a></li>
+            <li><a th:href="@{|/product/list/4|}">진</a></li>
+            <li><a th:href="@{|/product/list/5|}">럼</a></li>
+            <li><a th:href="@{|/product/list/6|}">브랜디</a></li>
+            <li><a th:href="@{|/product/list/7|}">맥주</a></li>
         </ul>
     </div>
     <div class="information-box">
         <div class="title">
-            <h2>위스키</h2>
+            <h2>브랜디</h2>
         </div>
         <div class="text">
-            발효된 곡물을 증류하여 고알콜 음료로 풍부한 향과 맛을 가진 강력한 스피릿츠 드링크 입니다.
+            브랜디 페이지 입니다.
         </div>
     </div>
     <div class="drop-down-box">
@@ -162,19 +162,5 @@
         </section>
     </div>
 </div>
-<table>
-    <thead>
-    <tr>
-        <th>가격</th>
-        <th>이름</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="product : ${productList}">
-        <td th:text="${product.cost}"></td>
-        <td th:text="${product.name}"></td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>

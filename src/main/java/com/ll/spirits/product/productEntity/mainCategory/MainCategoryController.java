@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/product")
 public class MainCategoryController {
+    /*
     private final ProductService productService;
     private final MainCategoryService mainCategoryService;
     private final UserService userService;
@@ -75,4 +76,6 @@ public class MainCategoryController {
         model.addAttribute("productList", productList);
         return "product_list_brandy"; // resources 예하 templates 예하 question_list HTML 파일로 인식해서 브라우저에 띄워줌
     }
+
+     */
 }

@@ -24,13 +24,16 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
 
+    public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return productRepository.findByMainCategoryId(mainCategory);
+    }
+
 
     public List<Product> getList() {
         return this.productRepository.findAll();
     }
-
-
-
+/*
     public List<Product> getWhiskeyList() { // 대분류 위스키 1번
         return productRepository.findByMainCategory(1);
     }
@@ -58,6 +61,7 @@ public class ProductService {
     public List<Product> getBeerList() { // 대분류 7
         return productRepository.findByMainCategory(7);
     }
+ */
     public List<Product> getProductsByCategory(Integer mainCategoryId, Integer subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
         return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
     }
