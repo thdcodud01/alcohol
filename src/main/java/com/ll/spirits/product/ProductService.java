@@ -28,6 +28,10 @@ public class ProductService {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return productRepository.findByMainCategoryId(mainCategory);
     }
+    public List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategory, Integer subCategory) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return productRepository.getProductsByMainCategoryIdAndSubCategoryId(mainCategory, subCategory);
+    }
     public List<Product> getList() {
         return this.productRepository.findAll();
     }

@@ -141,7 +141,7 @@ ul,li{
 
 .wrap>.drop-down-box{
   display:flex;
-
+    margin-left:-70px;
   margin-top: 50px;
 }
 
@@ -161,47 +161,57 @@ ul,li{
   margin-top: 30px;
 }
 
-.wrap>.section>p{
+.wrap>.section>.search-box{
     display:inline-block;
+    margin-bottom: 30px;
+
 }
 
-.wrap>.section>p>.search-result{
+.wrap>.section>p>.search-box>.search-result{
   display:inline-block;
-  margin-bottom: 30px;
-  margin-left: 70px;
+
 }
 
-.section>.goods-list{
-  width :1080px;
+.section>.goods-list-section{
+    display:flex;
+    justify-content:center;
+    width:1180px;
+}
+
+.section>.goods-list-section>.goods-list{
+
   display:flex;
   flex-wrap: wrap;
+  margin-left:20px;
 
 }
 
-.section>.goods-list>div{
+.section>.goods-list-section>.goods-list>div{
     margin-top:20px;
   width : 250px;
   vertical-align : top;
+
 }
 
-.section>.goods-list > div > img {
+.section>.goods-list-section>.goods-list > div > img {
   width : 250px;
   height : 370px;
   margin-bottom : 10px;
 }
 
-.section>.goods-list .goods-name {
+.section>.goods-list-section>.goods-list .goods-name {
   margin-bottom : 10px;
 }
 
-.section>.goods-list > .goods-1 {
+.section>.goods-list-section>.goods-list > .goods-1 {
   margin-right : 20px;
+  margin-left:20px;
 }
 
-.section>.goods-list .per{
+.section>.goods-list-section>.goods-list .per{
   color : #FA622F;
 }
 
-.section>.goods-list > div > p > span {
+.section>.goods-list-section>.goods-list > div > p > span {
   font-weight : bold;
 }

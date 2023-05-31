@@ -26,13 +26,13 @@
                 <label for="SubCategori"></label>
                 <select id="Subcategori" onchange="filterBySubcategori()">
                     <option value="중분류">중분류</option>
-                    <option value="싱글몰트">싱글몰트</option>
-                    <option value="싱글그레인">싱글그레인</option>
-                    <option value="블렌디드몰트">블렌디드몰트</option>
-                    <option value="블렌디드">블렌디드</option>
-                    <option value="버번">버번</option>
-                    <option value="테네시">테네시</option>
-                    <option value="기타">기타</option>
+                    <option value="싱글몰트" th:href="@{'/product/list/1/' + ${1}}">싱글몰트</option>
+                    <option value="싱글그레인" th:href="@{'/product/list/1/' + ${2}}">싱글그레인</option>
+                    <option value="블렌디드몰트" th:href="@{'/product/list/1/' + ${3}}">블렌디드몰트</option>
+                    <option value="블렌디드" th:href="@{'/product/list/1/' + ${4}}">블렌디드</option>
+                    <option value="버번" th:href="@{'/product/list/1/' + ${5}}">버번</option>
+                    <option value="테네시" th:href="@{'/product/list/1/' + ${6}}">테네시</option>
+                    <option value="기타" th:href="@{'/product/list/1/' + ${7}}">기타</option>
                 </select>
             </div>
             <div class="Costrange-box">
@@ -128,20 +128,42 @@
         </div>
         <!--개별리스트 목록 끝-->
         <div class="section">
-            <p>
+            <div class="search-box">
             <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
-            건의 결과가 있어요</p>
+            건의 결과가 있어요</div>
 
-            <section class="goods-list">
-                <div class="goods-1" th:each="product : ${productList}">
-                    <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
-                         alt="">
-                    <p class="goods-name" th:text="${product.name}" style="font-weight : bold; font-size : 2rem;"></p>
-                    <p><span th:text="${product.cost}"></span>원</p>
+            <section class="goods-list-section">
+                <div class="goods-list">
+                    <div class="goods-1" th:each="product : ${productList}">
+                        <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
+                             alt="">
+                        <p class="goods-name" th:text="${product.name}" style="font-weight : bold; font-size : 2rem;"></p>
+                        <p><span th:text="${product.cost}"></span>원</p>
+                    </div>
                 </div>
+
             </section>
+
+
         </div>
     </div>
 </div>
+<script>
+  function filterBySubcategori() {
+    var selectedValue = document.getElementById("Subcategori").value;
+
+    // 선택된 값에 따라 원하는 동작 수행
+    if (selectedValue === "싱글몰트") {
+      var href = "/product/list/1/1";
+      window.location.href = href;
+    } else if (selectedValue === "싱글그레인") {
+      var href = "/product/list/1/2";
+      window.location.href = href;
+    }
+    // 나머지 항목에 대한 분기 처리
+
+    // 필요에 따라 AJAX 요청 등 다른 동작 수행 가능
+  }
+</script>
 </body>
 </html>
