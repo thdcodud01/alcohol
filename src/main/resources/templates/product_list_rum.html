@@ -7,31 +7,7 @@
 </head>
 <body>
 <div class="wrap">
-    <div class="top-bar">
-        <div class="logo-box"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
-        <div class="user-box">
-            >
-            <div class="search-box">
-                <div class="search"><input placeholder="검색어를 입력해주세요" required="" class="search-input" value="">
-                    <button type="submit" class="btn btn-primary"><a href="">검색</a></button>
-                </div>
-            </div>
-            <div class="login"><a href="#">로그인</a>
-            </div>
-            <div class="sign-up"><a href="#">회원가입</a></div>
-        </div>
-    </div>
-    <div class="menu-bar">
-        <ul>
-            <li><a th:href="@{|/product/list/1|}">위스키</a></li>
-            <li><a th:href="@{|/product/list/2|}">보드카</a></li>
-            <li><a th:href="@{|/product/list/3|}">데킬라</a></li>
-            <li><a th:href="@{|/product/list/4|}">진</a></li>
-            <li><a th:href="@{|/product/list/5|}">럼</a></li>
-            <li><a th:href="@{|/product/list/6|}">브랜디</a></li>
-            <li><a th:href="@{|/product/list/7|}">맥주</a></li>
-        </ul>
-    </div>
+    <nav th:replace="~{navbar :: navbarFragment}"></nav>
     <div class="information-box">
         <div class="title">
             <h2>럼</h2>

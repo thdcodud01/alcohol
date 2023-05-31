@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navbarFragment">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/nav_style.css}">
 </head>
 <body>
 <nav>
     <div class="top-bar">
         <div class="logo-box"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
         <div class="user-box">
-            >
             <div class="search-box">
                 <div class="search"><input placeholder="검색어를 입력해주세요" required="" class="search-input" value="">
                     <button type="submit" class="btn btn-primary"><a href="">검색</a></button>
