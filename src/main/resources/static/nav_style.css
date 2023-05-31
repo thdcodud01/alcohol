@@ -91,13 +91,16 @@ ul,li{
 }
 
 
+
 .menu-bar{
+    width:75%;
   margin-top: 100px;
+  display:inline-block;
 }
 
 .menu-bar>ul{
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
 }
 
 .menu-bar>ul>li{
