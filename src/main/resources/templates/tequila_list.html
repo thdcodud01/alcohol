@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/list_style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/tequila_style.css}">
 </head>
 <body>
 <div class="wrap">
     <div class="top-bar">
         <div class="logo-box"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
+
         <div class="user-box">
-            <div class="search-box">
-                <div class="search"><input placeholder="검색어를 입력해주세요" required="" class="search-input" value="">
-                    <button type="submit" class="btn btn-primary"><a href="">검색</a></button>
-                </div>
-            </div>
+            ><div class="search-box">
+            <div class="search"><input placeholder="검색어를 입력해주세요" required="" class="search-input" value="">
+                <button type="submit" class="btn btn-primary"><a href="">검색</a></button></div>
+        </div>
+
             <div class="login"><a href="#">로그인</a>
             </div>
             <div class="sign-up"><a href="#">회원가입</a></div>
@@ -33,10 +34,13 @@
     </div>
     <div class="information-box">
         <div class="title">
-            <h2>위스키</h2>
+            <h2>데킬라</h2>
         </div>
         <div class="text">
-            발효된 곡물을 증류하여 고알콜 음료로 풍부한 향과 맛을 가진 강력한 스피릿츠 드링크 입니다.
+            멕시코에서 탄생한 강력하고 향긋한 술로, 데킬라는 특유의 맛과 효과를 가진 알코올 음료입니다.
+        </div>
+        <div class="img-box">
+            <img src="https://koreadailytimes.com/files/attach/images/149/252/070/dc2f7e851e73692c5e15684b06a71140.jpg" alt="">
         </div>
     </div>
     <div class="drop-down-box">
@@ -44,12 +48,10 @@
             <label for="SubCategori"></label>
             <select id="Subcategori" onchange="filterBySubcategori()">
                 <option value="중분류">중분류</option>
-                <option value="싱글몬트">싱글몰트</option>
-                <option value="싱글그레인">싱글그레인</option>
-                <option value="블렌디드몰트">블렌디드몰트</option>
-                <option value="블렌디드">블렌디드</option>
-                <option value="버번">버번</option>
-                <option value="테네시">테네시</option>
+                <option value="메즈칼">메즈칼</option>
+                <option value="블랑코">블랑코</option>
+                <option value="레포사도">레포사도</option>
+                <option value="아네호">아네호</option>
                 <option value="기타">기타</option>
             </select>
         </div>
@@ -141,6 +143,7 @@
                 <option value="폴란드">폴란드</option>
                 <option value="멕시코">멕시코</option>
                 <option value="이탈리아">이탈리아</option>
+                <option value="필리핀">필리핀</option>
             </select>
         </div>
     </div>
