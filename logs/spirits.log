@@ -6554,3 +6554,31 @@ Identify and stop the process that's listening on port 7000 or configure this ap
 2023-05-31 20:00:14.289  INFO 1692 --- [http-nio-7000-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2023-05-31 20:00:14.290  INFO 1692 --- [http-nio-7000-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2023-05-31 20:00:14.293  INFO 1692 --- [http-nio-7000-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-05-31 23:05:54.817  INFO 11120 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting SpiritsApplication using Java 17.0.6 with PID 11120 (C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\스피릿츠 백업\spirits\build\classes\java\main started by INSEONG in C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\스피릿츠 백업\spirits)
+2023-05-31 23:05:54.823  INFO 11120 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-05-31 23:05:55.230  INFO 11120 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-31 23:05:55.230  INFO 11120 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-31 23:05:56.452  INFO 11120 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-31 23:05:56.568  INFO 11120 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 4 JPA repository interfaces.
+2023-05-31 23:05:58.040  INFO 11120 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7000 (http)
+2023-05-31 23:05:58.071  INFO 11120 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-31 23:05:58.071  INFO 11120 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-05-31 23:05:58.234  INFO 11120 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-31 23:05:58.234  INFO 11120 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3003 ms
+2023-05-31 23:05:58.608  INFO 11120 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-31 23:05:58.805  INFO 11120 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-31 23:05:59.405  INFO 11120 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-31 23:05:59.506  INFO 11120 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@5287035e
+2023-05-31 23:05:59.508  INFO 11120 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-31 23:05:59.546  INFO 11120 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-05-31 23:06:00.706  INFO 11120 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-31 23:06:00.722  INFO 11120 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-31 23:06:01.537  WARN 11120 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-31 23:06:01.816  INFO 11120 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@262f6f79, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ab3ef7e, org.springframework.security.web.context.SecurityContextHolderFilter@eba1947, org.springframework.security.web.header.HeaderWriterFilter@3432b510, org.springframework.security.web.csrf.CsrfFilter@74a17bc2, org.springframework.security.web.authentication.logout.LogoutFilter@574b58e1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5c5972d6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@619d7e0b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@465bc07b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@13c2391b, org.springframework.security.web.access.ExceptionTranslationFilter@5c8ffeba, org.springframework.security.web.access.intercept.AuthorizationFilter@27553d9d]
+2023-05-31 23:06:02.657  INFO 11120 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-31 23:06:02.699  INFO 11120 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7000 (http) with context path ''
+2023-05-31 23:06:02.716  INFO 11120 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Started SpiritsApplication in 8.626 seconds (process running for 9.25)
+2023-05-31 23:06:19.874  INFO 11120 --- [http-nio-7000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-31 23:06:19.875  INFO 11120 --- [http-nio-7000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-31 23:06:19.878  INFO 11120 --- [http-nio-7000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-05-31 23:16:24.726  WARN 11120 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m24s991ms944µs301ns).
