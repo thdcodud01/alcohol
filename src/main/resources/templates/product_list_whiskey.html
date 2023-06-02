@@ -28,10 +28,12 @@
             <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
             <div class="SubCategori-box">
                 <label for="SubCategori"></label>
-                <!--위 스크립트를 이용해서 onchange 로 적용함-->
-                <select id="SubCategori" onchange="filterProducts()" multiple size="5">
+                <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
                     <option value="">중분류 전체</option>
-                    <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
+                    <option th:each="subCategory : ${subCategoryList}"
+                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+                        ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)}"
+                            th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
 
@@ -163,7 +165,7 @@
 </div>
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
-function filterProducts() {
+function filterBySubcategori() {
         var subCategoryId = document.getElementById("SubCategori").value;
         window.location.href = "http://localhost:7000/product/list/위스키?subCategoryId=" + subCategoryId;
     }

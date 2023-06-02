@@ -29,11 +29,12 @@ layout
         <div class="drop-down-box">
             <div class="SubCategori-box">
                 <label for="SubCategori"></label>
-                <select id="Subcategori" onchange="filterBySubcategori()">
-                    <option value="중분류">중분류</option>
-                    <option value="일반">일반</option>
-                    <option value="싱글그레인">플레이버드</option>
-                    <option value="기타">기타</option>
+                <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
+                    <option value="">중분류 전체</option>
+                    <option th:each="subCategory : ${subCategoryList}"
+                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+                        ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)}"
+                            th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
             <div class="Costrange-box">
