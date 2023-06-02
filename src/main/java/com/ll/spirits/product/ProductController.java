@@ -31,7 +31,9 @@ public class ProductController {
     private final SubCategoryService subCategoryService;
 
     @GetMapping("/list/{mainCategory}")
-    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory, @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId, Model model) {
+    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
+                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
+                                             Model model) {
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
         List<Product> productList;
         // 서브카테고리가 null이거나 0인 경우
