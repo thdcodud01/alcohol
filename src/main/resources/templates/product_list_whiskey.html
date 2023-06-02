@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>위스키 리스트 페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/whiskey_list_style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -21,20 +22,20 @@
                 발효된 곡물을 증류하여 고알콜 음료로 풍부한 향과 맛을 가진 강력한 스피릿츠 드링크 입니다.
             </div>
         </div>
+
+        <!--드롭다운메뉴 시작-->
         <div class="drop-down-box">
+            <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
             <div class="SubCategori-box">
                 <label for="SubCategori"></label>
-                <select id="Subcategori" onchange="filterBySubcategori()">
-                    <option value="중분류">중분류</option>
-                    <option value="싱글몰트">싱글몰트</option>
-                    <option value="싱글그레인">싱글그레인</option>
-                    <option value="블렌디드몰트">블렌디드몰트</option>
-                    <option value="블렌디드">블렌디드</option>
-                    <option value="버번">버번</option>
-                    <option value="테네시">테네시</option>
-                    <option value="기타">기타</option>
+                <!--위 스크립트를 이용해서 onchange 로 적용함-->
+                <select id="SubCategori" onchange="filterProducts()">
+                    <option value="">전체</option>
+                    <option th:each="subcategory : ${subcategories}" th:value="${subcategory.id}" th:text="${subcategory.name}"></option>
                 </select>
             </div>
+
+            <!-- 가격범위 드롭다운 메뉴 -->
             <div class="Costrange-box">
                 <label for="Costrange"></label>
                 <select id="Costrange" onchange="filterByCostrange()">
@@ -48,6 +49,8 @@
                     <option value="30만원 이상">30만원 이상</option>
                 </select>
             </div>
+
+            <!-- 알콜도수범위 드롭다운 메뉴 -->
             <div class="ABVrange-box">
                 <label for="ABVrange"></label>
                 <select id="ABVrange" onchange="filterByABVrange()">
@@ -61,6 +64,8 @@
                     <option value="70도 이상">70도 이상</option>
                 </select>
             </div>
+
+            <!-- 용량 드롭다운 메뉴 -->
             <div class="net-weight-box">
                 <label for="net-weight"></label>
                 <select id="net-weight" onchange="filterBynet-weight()">
@@ -74,6 +79,8 @@
                     <option value="5000ml">5000ml</option>
                 </select>
             </div>
+
+            <!-- 안주 드롭다운 메뉴 -->
             <div class="paring-box">
                 <label for="paring"></label>
                 <select id="paring" onchange="filterByparing()">
@@ -88,6 +95,8 @@
                     <option value="크래커">크래커</option>
                 </select>
             </div>
+
+            <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
                 <label for="Cask-box"></label>
                 <select id="Cask-box" onchange="filterByCask-box()">
@@ -103,6 +112,8 @@
                     <option value="아마로네캐스크">아마로네캐스크</option>
                 </select>
             </div>
+
+            <!-- 국가 드롭다운 메뉴 -->
             <div class="nation">
                 <label for="nation"></label>
                 <select id="nation" onchange="filterBynation()">
@@ -127,6 +138,7 @@
             </div>
         </div>
         <!--개별리스트 목록 끝-->
+
         <div class="section">
             <div class="search-box">
             <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
@@ -150,7 +162,10 @@
 </div>
 <!--스크립트 들어가는 자리-->
 <script>
-
+function filterProducts() {
+        var subCategoryId = document.getElementById("SubCategori").value;
+        window.location.href = "http://localhost:7000/product/list/위스키?subCategoryId=" + subCategoryId;
+    }
 </script>
 </body>
 </html>

@@ -1,5 +1,8 @@
 package com.ll.spirits.product;
 
+import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
+import com.ll.spirits.product.productEntity.subCategory.SubCategory;
+import com.ll.spirits.product.productEntity.subCategory.SubCategoryService;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewForm;
 import com.ll.spirits.user.SiteUser;
@@ -24,7 +27,52 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     private final UserService userService;
+    private final MainCategoryService mainCategoryService;
+    private final SubCategoryService subCategoryService;
 
+    @GetMapping("/list/{mainCategory}")
+    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory, @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId, Model model) {
+        Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
+        List<Product> productList;
+        // 서브카테고리가 null이거나 0인 경우
+        if (subCategoryId == null || subCategoryId == 0) {
+            productList = productService.getList();
+        } else {
+            // 서브카테고리에 대한 정보 가져오기
+            List<SubCategory> subCategory = subCategoryService.getSubCategoryById(subCategoryId);
+
+            // 서브카테고리 정보가 올바르게 가져와졌을 경우
+            if (subCategory != null) {
+                productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+            } else {
+                // 서브카테고리 정보가 올바르지 않을 경우, 전체 상품 목록을 가져옴
+                productList = productService.getList();
+            }
+        }
+        model.addAttribute("productList", productList);
+        model.addAttribute("mainCategoryId", mainCategoryId);
+        model.addAttribute("subCategoryId", subCategoryId);
+        // 메인 카테고리에 따라 다른 페이지 템플릿을 반환합니다.
+        if (mainCategoryId == 1) {
+            return "product_list_whiskey";
+        } else if (mainCategoryId == 2) {
+            return "product_list_vodka";
+        } else if (mainCategoryId == 3) {
+            return "product_list_tequila";
+        } else if (mainCategoryId == 4) {
+            return "product_list_gin";
+        } else if (mainCategoryId == 5) {
+            return "product_list_rum";
+        } else if (mainCategoryId == 6) {
+            return "product_list_brandy";
+        } else if (mainCategoryId == 7) {
+            return "product_list_beer";
+        }
+        return "error";
+    }
+
+
+    /*
     @GetMapping("/list/{mainCategoryId}") // 메인 카테고리 리스트업 메서드
     public String listProductsByMainCategory(@PathVariable("mainCategoryId") Integer mainCategoryId, Model model) {
         List<Product> productList = productService.getProductsByMainCategoryId(mainCategoryId);
@@ -48,6 +96,10 @@ public class ProductController {
         }
         return "error";
     }
+
+     */
+
+
 
 
     // 메인 카테고리에 따라 productList를 가져오는 로직
@@ -197,7 +249,7 @@ public class ProductController {
 
 
  */
-
+    /*
     @GetMapping("/list/{mainCategoryId}/{subCategoryId}") // 메인 카테고리 리스트업 메서드
     public String listProductsBySubCategory(@PathVariable("mainCategoryId") Integer mainCategoryId, @PathVariable("subCategoryId") Integer subCategoryId, Model model) {
         List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
@@ -307,13 +359,13 @@ public class ProductController {
         }
         return "error";
     }
+ */
 
     @PreAuthorize("isAuthenticated()") // 제품 등록 Get
     @GetMapping("/create")
     public String productCreate(ProductForm productForm) {
         return "product_form";
     }
-
     @PreAuthorize("isAuthenticated()") // 제품 등록 Post
     @PostMapping("/create") // post == 보내다
     public String productCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {

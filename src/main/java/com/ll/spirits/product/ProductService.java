@@ -28,9 +28,13 @@ public class ProductService {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return productRepository.findByMainCategoryId(mainCategory);
     }
-    public List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategory, Integer subCategory) {
+    public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
+        return productRepository.findBySubCategoryId(subCategoryId);
+    }
+
+    public List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId) {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
-        return productRepository.getProductsByMainCategoryIdAndSubCategoryId(mainCategory, subCategory);
+        return productRepository.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
     }
     public List<Product> getList() {
         return this.productRepository.findAll();
@@ -64,9 +68,11 @@ public class ProductService {
         return productRepository.findByMainCategory(7);
     }
  */
+
     public List<Product> getProductsByCategory(Integer mainCategoryId, Integer subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
         return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
     }
+    /*
     public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
         // subCategoryId에 따른 상품 목록을 가져오는 로직
         List<Product> productList;
@@ -163,6 +169,7 @@ public class ProductService {
 //
 //        return productList;
     }
+     */
 
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);

@@ -11,28 +11,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class MainCategoryService {
-    /*
 
-    private final MainCategoryRepository maincategoryRepository;
-
-    public List<Product> getProductsByMainCategoryId(Integer id) { // 카테고리별로 제품 리스트업 (2023-05-30)
-        MainCategory mainCategory = maincategoryRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("MainCategory not found"));
-        return mainCategory.getProducts();
+    private final MainCategoryRepository mainCategoryRepository;
+    public Integer getMainCategoryIdBymainCategory(String mainCategory) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return mainCategoryRepository.getMainCategoryIdBymainCategory(mainCategory);
     }
-
-    public List<MainCategory> getList() {
-        return this.maincategoryRepository.findAll();
-    }
-
-    public List<MainCategory> getMainCategoryList(Integer id) {
-        Optional<MainCategory> mainCategory = this.maincategoryRepository.findById(id);
-        if (mainCategory.isPresent()) {
-            return Collections.singletonList(mainCategory.get());
-        } else {
-            throw new DataNotFoundException("mainCategory not found");
-        }
-    }
-
-     */
 }
