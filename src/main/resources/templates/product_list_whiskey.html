@@ -29,9 +29,9 @@
             <div class="SubCategori-box">
                 <label for="SubCategori"></label>
                 <!--위 스크립트를 이용해서 onchange 로 적용함-->
-                <select id="SubCategori" onchange="filterProducts()">
-                    <option value="">전체</option>
-                    <option th:each="subcategory : ${subcategories}" th:value="${subcategory.id}" th:text="${subcategory.name}"></option>
+                <select id="SubCategori" onchange="filterProducts()" multiple size="5">
+                    <option value="">중분류 전체</option>
+                    <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
 
@@ -39,7 +39,7 @@
             <div class="Costrange-box">
                 <label for="Costrange"></label>
                 <select id="Costrange" onchange="filterByCostrange()">
-                    <option value="가격">가격</option>
+                    <option value="가격">가격범위 전체</option>
                     <option value="0~2만원">0~2만원</option>
                     <option value="2만원~5만원">2만원~5만원</option>
                     <option value="5만원~10만원">5만원~10만원</option>
@@ -136,6 +136,7 @@
                     <option value="이탈리아">이탈리아</option>
                 </select>
             </div>
+            <button onclick="applyFilters()">필터 적용</button>
         </div>
         <!--개별리스트 목록 끝-->
 
@@ -161,10 +162,19 @@
     </div>
 </div>
 <!--스크립트 들어가는 자리-->
-<script>
+<script layout:fragment="script" type='text/javascript'>
 function filterProducts() {
         var subCategoryId = document.getElementById("SubCategori").value;
         window.location.href = "http://localhost:7000/product/list/위스키?subCategoryId=" + subCategoryId;
+    }
+function applyFilters() {
+        var subCategorySelect = document.getElementById("subCategoryId");
+        var selectedOptions = Array.from(subCategorySelect.selectedOptions);
+        var subCategoryIds = selectedOptions.map(function(option) {
+            return option.value;
+        });
+        var url = "/product/list/위스키?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
+        window.location.href = url;
     }
 </script>
 </body>

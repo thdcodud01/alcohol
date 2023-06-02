@@ -169,7 +169,6 @@ ul,li{
 
 .wrap>.section>p>.search-box>.search-result{
   display:inline-block;
-
 }
 
 .section>.goods-list-section{
@@ -179,7 +178,6 @@ ul,li{
 }
 
 .section>.goods-list-section>.goods-list{
-
   display:flex;
   flex-wrap: wrap;
   margin-left:20px;

@@ -14,10 +14,4 @@ public class SubCategoryController {
 
     private final SubCategoryService subCategoryService;
 
-    @GetMapping("/subcategories")
-    public String listProductsBySubCategory(Model model) {
-        List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
-        model.addAttribute("subCategoryList", subCategoryList);
-        return "product_list_whiskey";
-    }
 }

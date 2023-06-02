@@ -3,12 +3,13 @@ import com.ll.spirits.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@Setter
 public class MainCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
