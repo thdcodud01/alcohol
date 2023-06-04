@@ -44,7 +44,7 @@
             <label for="SubCategori"></label>
             <select id="Subcategori" onchange="filterBySubcategori()">
                 <option value="중분류">중분류</option>
-                <option value="싱글몬트">싱글몰트</option>
+                <option value="싱글몬트">싱글몬트</option>
                 <option value="싱글그레인">싱글그레인</option>
                 <option value="블렌디드몰트">블렌디드몰트</option>
                 <option value="블렌디드">블렌디드</option>
@@ -145,17 +145,12 @@
         </div>
     </div>
     <div class="section">
-
-        <p>
-        <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
-        건의 결과가 있어요</p>
-
-        <section class="goods-list">
+        <div class="search-result" th:text="${goodsList.size()}">+ "건의 결과가 있어요"</div>
+        <section class="goods-list" >
 
             <div class="goods-1" th:each="product : ${productList}">
-                <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
-                     alt="">
-                <p class="goods-name" th:text="${product.name}" style = "font-weight : bold; font-size : 2rem;"></p>
+                <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg" alt="">
+                <p class="goods-name" th:text="${product.name}"></p>
                 <p><span th:text="${product.cost}"></span>원</p>
             </div>
         </section>
