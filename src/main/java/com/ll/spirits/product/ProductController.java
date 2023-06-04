@@ -1,6 +1,18 @@
 package com.ll.spirits.product;
 
+import com.ll.spirits.product.productEntity.abvRange.ABVrange;
+import com.ll.spirits.product.productEntity.abvRange.ABVrangeService;
+import com.ll.spirits.product.productEntity.cask.Cask;
+import com.ll.spirits.product.productEntity.cask.CaskService;
+import com.ll.spirits.product.productEntity.costRange.CostRange;
+import com.ll.spirits.product.productEntity.costRange.CostRangeService;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
+import com.ll.spirits.product.productEntity.nation.Nation;
+import com.ll.spirits.product.productEntity.nation.NationService;
+import com.ll.spirits.product.productEntity.netWeight.NetWeight;
+import com.ll.spirits.product.productEntity.netWeight.NetWeightService;
+import com.ll.spirits.product.productEntity.pairing.Pairing;
+import com.ll.spirits.product.productEntity.pairing.PairingService;
 import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.product.productEntity.subCategory.SubCategoryService;
 import com.ll.spirits.review.Review;
@@ -21,6 +33,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.security.Principal;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/product")
@@ -29,13 +42,28 @@ public class ProductController {
     private final UserService userService;
     private final MainCategoryService mainCategoryService;
     private final SubCategoryService subCategoryService;
+    private final CostRangeService costRangeService;
+    private final ABVrangeService abVrangeService;
+    private final CaskService caskService;
+    private final NationService nationService;
+    private final NetWeightService netWeightService;
+    private final PairingService pairingService;
 
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
                                              @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
                                              Model model) {
-        Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
+
+        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+        List<Cask> caskList = caskService.getAllCask();
+        List<CostRange> costRangeList = costRangeService.getAllCostRange();
+        List<Nation> nationList = nationService.getAllNation();
+        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
+        List<Pairing> pairingList = pairingService.getAllPairing();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
+
+        Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
+
         List<Product> productList;
         // 서브카테고리가 null이거나 0인 경우
         if (subCategoryId == null) {
@@ -49,6 +77,12 @@ public class ProductController {
         model.addAttribute("mainCategoryId", mainCategoryId);
         model.addAttribute("subCategoryId", subCategoryId);
         model.addAttribute("subCategoryList", subCategoryList);
+        model.addAttribute("costRangeList", costRangeList);
+        model.addAttribute("abVrangeList", abVrangeList);
+        model.addAttribute("caskList", caskList);
+        model.addAttribute("nationList", nationList);
+        model.addAttribute("netWeightList", netWeightList);
+        model.addAttribute("pairingList", pairingList);
 
         String templateName;
         switch (mainCategoryId) {
