@@ -1,10 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main_style.css}">
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="wrap">
+        <div class="top-wrap">
+            <div class="e-box"></div>
+            <div class="logo-box">
+                <div class="logo"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
+            </div>
+            <div class="user-box">
+                <div class="login"><a href="#">로그인</a></div>
+                <div class="sign-up"><a href="#">회원가입</a></div>
+            </div>
+        </div>
+        <div class="menu-wrap">
+            <ul>
+                <li><a th:href="@{|/product/list/위스키|}">위스키</a></li>
+                <li><a th:href="@{|/product/list/보드카|}">보드카</a></li>
+                <li><a th:href="@{|/product/list/데킬라|}">데킬라</a></li>
+                <li><a th:href="@{|/product/list/진|}">진</a></li>
+                <li><a th:href="@{|/product/list/럼|}">럼</a></li>
+                <li><a th:href="@{|/product/list/브랜디|}">브랜디</a></li>
+                <li><a th:href="@{|/product/list/맥주|}">맥주</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="contain">
+        <div class="top-section">
+            <div class="top">
+                <div class="font">클래식 바에 갔는데 뭘 고를지 모를때</div>
 
+            </div>
+        </div>
+        <div class="main-section">
+            <div class="section1">
+                <div class="font">특별한 날을 완성시키는 가장 쉬운 방법</div>
+                <div class="img-wrap">
+                    <img src="https://img.freepik.com/premium-vector/cocktail-with-skull-lemon-and-ice-vector-illustration-summer-design_13920-3137.jpg?w=826"
+                         alt="">
+                </div>
+                <button type="submit" class="btn btn-primary">보드카></button>
+            </div>
+        </div>
+        <hr>
+        <div class="main-section2">
+            <div class="section2">
+                <div class="font">친구들과 같이 한잔하고 싶을때 뭘 마셔야하지?</div>
+                <div class="img-wrap">
+                    <img src="https://img.freepik.com/premium-vector/smiling-men-cheers-drinking-beer_160308-5690.jpg"
+                         alt="">
+                </div>
+                <div class="font2">
+                    어서오세요 클래식 바 주류 추천 서비스 Spirits 입니다.
+                </div>
+                <br>
+
+                <button type="submit" class="btn btn-primary"><a href="#">추천></a></button>
+
+            </div>
+        </div>
+        <hr>
+        <div class="main-section3">
+            <div class="section3">
+                <div class="font">어떤걸 시키실지 고민이신가요?</div>
+                <div class="img-wrap">
+                    <img src="https://hips.hearstapps.com/hmg-prod/images/best-luxury-gin-1654003969.gif" alt="">
+                </div>
+                <div class="font2">깔끔한 맛의 진 어떠신가요?</div>
+                <br>
+
+                <button type="submit" class="btn btn-primary">진></button>
+
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="footer-wrap">
+        <div class="footer-main">Spirits 주식회사</div>
+        <div>고객센터: 070-5014-1282
+
+        </div>
+        <div>평일 10:00 - 18:00, 주말 휴무</div>
+        <br>
+        <ul class="list">
+            <li><a href="">이용약관</a></li>
+            <li><a href="">개인정보처리방침</a></li>
+            <li><a href="">입점문의</a></li>
+        </ul>
+        <br>
+        <div>대표 : 황인성<br>
+
+            사업자등록번호 : 620-81-58299
+
+            사업자확인
+            통신판매 신고번호: 2021-서울서초-2084
+        </div>
+        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, Spirits)<br>
+
+            정보보호 책임자 : 송채영<br>
+
+            대표 전화 : 070-5014-1282
+
+            이메일 : info@Spirits.com
+        </div>
+    </div>
+</div>
 </body>
 </html>

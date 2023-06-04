@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>맥주 리스트 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/beer_list_style.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="wrap">
+        <!--개별리스트 목록-->
+        <div class="information-box">
+            <div class="title">
+                <h2>맥주</h2>
+            </div>
+            <div class="text">
+                상큼하고 가벼운 대중적인 알코올 음료, 맥주는 사람들에게 사랑받는다.
+            </div>
+            <div class="img-box">
+                <img src="https://img.daily.co.kr/@files/www.daily.co.kr/content/food/2020/20200416/1700df053197b11cc51905180589e995.jpg" alt="">
+            </div>
+        </div>
+        <div class="drop-down-box">
+            <div class="SubCategori-box">
+                <label for="SubCategori"></label>
+                <select id="Subcategori" onchange="filterBySubcategori()">
+                    <option value="중분류">중분류</option>
+                    <option value="라거">라거</option>
+                    <option value="에일">에일</option>
+                    <option value="밀맥주">밀맥주</option>
+                    <option value="밀맥주">흑맥주</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+            <div class="Costrange-box">
+                <label for="Costrange"></label>
+                <select id="Costrange" onchange="filterByCostrange()">
+                    <option value="가격">가격</option>
+                    <option value="0~2만원">0~2만원</option>
+                    <option value="2만원~5만원">2만원~5만원</option>
+                    <option value="5만원~10만원">5만원~10만원</option>
+                    <option value="10만원~15만원">10만원~15만원</option>
+                    <option value="15만원~20만원">15만원~20만원</option>
+                    <option value="20만원~30만원">20만원~30만원</option>
+                    <option value="30만원 이상">30만원 이상</option>
+                </select>
+            </div>
+            <div class="ABVrange-box">
+                <label for="ABVrange"></label>
+                <select id="ABVrange" onchange="filterByABVrange()">
+                    <option value="도수">도수</option>
+                    <option value="무알콜">무알콜</option>
+                    <option value="1도~10도">1도~10도</option>
+                    <option value="10도~40도">10도~40도</option>
+                    <option value="40도~50도">40도~50도</option>
+                    <option value="50도~60도">50도~60도</option>
+                    <option value="60도~70도">60도~70도</option>
+                    <option value="70도 이상">70도 이상</option>
+                </select>
+            </div>
+            <div class="net-weight-box">
+                <label for="net-weight"></label>
+                <select id="net-weight" onchange="filterBynet-weight()">
+                    <option value="안주">용량</option>
+                    <option value="300ml">300ml</option>
+                    <option value="473ml">473ml</option>
+                    <option value="500ml">500ml</option>
+                    <option value="700ml">700ml</option>
+                    <option value="750ml">750ml</option>
+                    <option value="1000ml">1000ml</option>
+                    <option value="5000ml">5000ml</option>
+                </select>
+            </div>
+            <div class="paring-box">
+                <label for="paring"></label>
+                <select id="paring" onchange="filterByparing()">
+                    <option value="안주">안주</option>
+                    <option value="치즈">치즈</option>
+                    <option value="초콜릿">초콜릿</option>
+                    <option value="견과류">견과류</option>
+                    <option value="고기">고기</option>
+                    <option value="해산물">해산물</option>
+                    <option value="시가">시가</option>
+                    <option value="튀김">튀김</option>
+                    <option value="크래커">크래커</option>
+                </select>
+            </div>
+            <div class="Cask-box">
+                <label for="Cask-box"></label>
+                <select id="Cask-box" onchange="filterByCask-box()">
+                    <option value="오크통">오크통</option>
+                    <option value="버진캐스크">버진캐스크</option>
+                    <option value="버번캐스크">버번캐스크</option>
+                    <option value="쉐리캐스크(p.x)">쉐리캐스크(p.x)</option>
+                    <option value="쉐리캐스크(Oloroso)">쉐리캐스크(Oloroso)</option>
+                    <option value="포트캐스크">포트캐스크</option>
+                    <option value="와인캐스크">와인캐스크</option>
+                    <option value="꼬냑캐스크">꼬냑캐스크</option>
+                    <option value="소테른캐스크">소테른캐스크</option>
+                    <option value="아마로네캐스크">아마로네캐스크</option>
+                </select>
+            </div>
+            <div class="nation">
+                <label for="nation"></label>
+                <select id="nation" onchange="filterBynation()">
+                    <option value="국가">국가</option>
+                    <option value="미국">미국</option>
+                    <option value="스코틀랜드">스코틀랜드</option>
+                    <option value="아일랜드">아일랜드</option>
+                    <option value="아일라">아일라</option>
+                    <option value="베네수엘라">베네수엘라</option>
+                    <option value="대만">대만</option>
+                    <option value="인도">인도</option>
+                    <option value="호주">호주</option>
+                    <option value="프랑스">프랑스</option>
+                    <option value="포르투갈">포르투갈</option>
+                    <option value="러시아">러시아</option>
+                    <option value="덴마크">덴마크</option>
+                    <option value="네덜란드">네덜란드</option>
+                    <option value="폴란드">폴란드</option>
+                    <option value="멕시코">멕시코</option>
+                    <option value="이탈리아">이탈리아</option>
+                    <option value="필리핀">필리핀</option>
+                </select>
+            </div>
+        </div>
+        <!--개별리스트 목록 끝-->
+        <div class="section">
+            <p>
+            <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
+            건의 결과가 있어요</p>
+
+            <section class="goods-list">
+
+                <div class="goods-1" th:each="product : ${productList}">
+                    <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
+                         alt="">
+                    <p class="goods-name" th:text="${product.name}" style="font-weight : bold; font-size : 2rem;"></p>
+                    <p><span th:text="${product.cost}"></span>원</p>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
