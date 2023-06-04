@@ -57,7 +57,7 @@
                 <label for="ABVrange"></label>
                 <select id="ABVrange" onchange="filterByABVrange()">
                     <option value="도수">도수범위 전체</option>
-                    <option th:each="aBVrange : ${aBVrangeList}"
+                    <option th:each="aBVrange : ${abVrangeList}"
                             th:value="${aBVrange.id}" th:text="${aBVrange.abvRange}"></option>
                 </select>
             </div>
