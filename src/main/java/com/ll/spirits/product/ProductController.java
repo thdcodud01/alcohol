@@ -54,7 +54,6 @@ public class ProductController {
                                              @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
                                              Model model) {
 
-
         List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
         List<Cask> caskList = caskService.getAllCask();
         List<CostRange> costRangeList = costRangeService.getAllCostRange();
