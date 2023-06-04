@@ -27,13 +27,17 @@
         <div class="drop-down-box">
             <div class="SubCategori-box">
                 <label for="SubCategori"></label>
-                <select id="Subcategori" onchange="filterBySubcategori()">
-                    <option value="중분류">중분류</option>
-                    <option value="메즈칼">메즈칼</option>
-                    <option value="블랑코">블랑코</option>
-                    <option value="레포사도">레포사도</option>
-                    <option value="아네호">아네호</option>
-                    <option value="기타">기타</option>
+                <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
+                    <option value="">중분류 전체</option>
+                    <option th:each="subCategory : ${subCategoryList}"
+                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
+               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
+               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
+               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
+               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
+               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
+                            th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
             <div class="Costrange-box">
