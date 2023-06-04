@@ -1669,3 +1669,30 @@ Caused by: java.sql.SQLInvalidAuthorizationSpecException: (conn=266) Access deni
 	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:41) ~[hibernate-core-6.1.7.Final.jar:6.1.7.Final]
 	... 43 common frames omitted
 
+2023-06-04 20:37:54.462  INFO 25296 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting SpiritsApplication using Java 17.0.6 with PID 25296 (C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\스피릿츠 백업\spirits\build\classes\java\main started by INSEONG in C:\Users\INSEONG\Desktop\국비지원 풀스택\팀프로젝트\주류추천서비스\스피릿츠 백업\spirits)
+2023-06-04 20:37:54.464  INFO 25296 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-06-04 20:37:54.813  INFO 25296 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-04 20:37:54.813  INFO 25296 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-04 20:37:56.150  INFO 25296 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-04 20:37:56.321  INFO 25296 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 154 ms. Found 11 JPA repository interfaces.
+2023-06-04 20:37:57.767  INFO 25296 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7000 (http)
+2023-06-04 20:37:57.796  INFO 25296 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-06-04 20:37:57.798  INFO 25296 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-04 20:37:57.983  INFO 25296 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-06-04 20:37:57.985  INFO 25296 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3171 ms
+2023-06-04 20:37:58.390  INFO 25296 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-04 20:37:58.547  INFO 25296 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-06-04 20:37:59.041  INFO 25296 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-04 20:37:59.139  INFO 25296 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@50e0bdbd
+2023-06-04 20:37:59.142  INFO 25296 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-04 20:37:59.187  INFO 25296 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-06-04 20:38:01.040  INFO 25296 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-04 20:38:01.055  INFO 25296 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:38:02.733  WARN 25296 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-04 20:38:02.985  INFO 25296 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@688d84ea, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@b053158, org.springframework.security.web.context.SecurityContextHolderFilter@2640805c, org.springframework.security.web.header.HeaderWriterFilter@728acce9, org.springframework.security.web.csrf.CsrfFilter@62052516, org.springframework.security.web.authentication.logout.LogoutFilter@610cf50b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@346b838c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c8dfb0f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@60ff5d67, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6fcd0e1b, org.springframework.security.web.access.ExceptionTranslationFilter@58fced1b, org.springframework.security.web.access.intercept.AuthorizationFilter@1a4e655a]
+2023-06-04 20:38:03.989  INFO 25296 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-06-04 20:38:04.041  INFO 25296 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7000 (http) with context path ''
+2023-06-04 20:38:04.079  INFO 25296 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Started SpiritsApplication in 10.088 seconds (process running for 10.536)
+2023-06-04 20:38:06.964  INFO 25296 --- [http-nio-7000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-04 20:38:06.965  INFO 25296 --- [http-nio-7000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-06-04 20:38:06.966  INFO 25296 --- [http-nio-7000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
