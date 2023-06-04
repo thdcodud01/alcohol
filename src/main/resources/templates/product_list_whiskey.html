@@ -46,14 +46,9 @@
             <div class="Costrange-box">
                 <label for="Costrange"></label>
                 <select id="Costrange" onchange="filterByCostrange()">
-                    <option value="가격">가격범위 전체</option>
-                    <option value="0~2만원">0~2만원</option>
-                    <option value="2만원~5만원">2만원~5만원</option>
-                    <option value="5만원~10만원">5만원~10만원</option>
-                    <option value="10만원~15만원">10만원~15만원</option>
-                    <option value="15만원~20만원">15만원~20만원</option>
-                    <option value="20만원~30만원">20만원~30만원</option>
-                    <option value="30만원 이상">30만원 이상</option>
+                    <option value="">가격범위 전체</option>
+                    <option th:each="costRange : ${costRangeList}"
+                            th:value="${costRange.id}" th:text="${costRange.costRange}"></option>
                 </select>
             </div>
 
@@ -171,6 +166,10 @@
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
 function filterBySubcategori() {
+        var subCategoryId = document.getElementById("SubCategori").value;
+        window.location.href = "http://localhost:7000/product/list/위스키?subCategoryId=" + subCategoryId;
+    }
+function filterByCostrange() {
         var subCategoryId = document.getElementById("SubCategori").value;
         window.location.href = "http://localhost:7000/product/list/위스키?subCategoryId=" + subCategoryId;
     }
