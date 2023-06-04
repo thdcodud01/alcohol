@@ -33,7 +33,8 @@
                     <option th:each="subCategory : ${subCategoryList}"
                             th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
                         ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)}"
-                            th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
+                            th:value="${subCategory.id}" th:text="${subCategory.subCategory}">
+                    </option>
                 </select>
             </div>
 

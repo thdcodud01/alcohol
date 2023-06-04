@@ -17,4 +17,5 @@ public interface MainCategoryRepository extends JpaRepository<MainCategory, Inte
      */
     @Query("SELECT mc.id FROM MainCategory mc WHERE mc.mainCategory = :mainCategory")
     Integer getMainCategoryIdBymainCategory(@Param("mainCategory") String mainCategory);
+
 }
