@@ -1,5 +1,7 @@
 package com.ll.spirits.product;
 
+import com.ll.spirits.product.productEntity.costRange.CostRange;
+import com.ll.spirits.product.productEntity.costRange.CostRangeService;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
 import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.product.productEntity.subCategory.SubCategoryService;
@@ -29,6 +31,7 @@ public class ProductController {
     private final UserService userService;
     private final MainCategoryService mainCategoryService;
     private final SubCategoryService subCategoryService;
+    private final CostRangeService costRangeService;
 
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
@@ -36,6 +39,7 @@ public class ProductController {
                                              Model model) {
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
+        List<CostRange> costRangeList = costRangeService.getAllCostRange();
         List<Product> productList;
         // 서브카테고리가 null이거나 0인 경우
         if (subCategoryId == null) {
@@ -49,6 +53,7 @@ public class ProductController {
         model.addAttribute("mainCategoryId", mainCategoryId);
         model.addAttribute("subCategoryId", subCategoryId);
         model.addAttribute("subCategoryList", subCategoryList);
+        model.addAttribute("costRangeList", costRangeList);
 
         String templateName;
         switch (mainCategoryId) {
