@@ -28,7 +28,8 @@ layout
             </div>
         </div>
         <div class="drop-down-box">
-            <div class="SubCategori-box">
+            <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
+            <div class="SubCategory-box">
                 <label for="SubCategori"></label>
                 <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
                     <option value="">중분류 전체</option>
@@ -43,55 +44,67 @@ layout
                             th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
+
+            <!-- 가격범위 드롭다운 메뉴 -->
             <div class="Costrange-box">
                 <label for="Costrange"></label>
-                <select id="Costrange" onchange="filterByCostrange()">
+                <select id="Costrange" onchange="filterByCostrange()" multiple size="5">
                     <option value="가격">가격범위 전체</option>
                     <option th:each="costRange : ${costRangeList}"
                             th:value="${costRange.id}" th:text="${costRange.costRange}"></option>
                 </select>
             </div>
+
             <!-- 알콜도수범위 드롭다운 메뉴 -->
             <div class="ABVrange-box">
                 <label for="ABVrange"></label>
-                <select id="ABVrange" onchange="filterByABVrange()">
+                <select id="ABVrange" onchange="filterByABVrange()" multiple size="5">
                     <option value="도수">도수범위 전체</option>
                     <option th:each="aBVrange : ${abVrangeList}"
                             th:value="${aBVrange.id}" th:text="${aBVrange.abvRange}"></option>
                 </select>
             </div>
+
+            <!-- 용량 드롭다운 메뉴 -->
             <div class="net-weight-box">
                 <label for="net-weight"></label>
-                <select id="net-weight" onchange="filterBynet-weight()">
+                <select id="net-weight" onchange="filterBynet-weight()" multiple size="5">
                     <option value="용량">용량범위 전체</option>
                     <option th:each="netWeight : ${netWeightList}"
                             th:value="${netWeight.id}" th:text="${netWeight.netWeight}"></option>
                 </select>
             </div>
+
+            <!-- 안주 드롭다운 메뉴 -->
             <div class="paring-box">
                 <label for="paring"></label>
-                <select id="paring" onchange="filterByparing()">
+                <select id="paring" onchange="filterByparing()" multiple size="5">
                     <option value="안주">안주범위 전체</option>
                     <option th:each="pairing : ${pairingList}"
                             th:value="${pairing.id}" th:text="${pairing.pairing}"></option>
                 </select>
             </div>
+
+            <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
                 <label for="Cask-box"></label>
-                <select id="Cask-box" onchange="filterByCask-box()">
+                <select id="Cask-box" onchange="filterByCask-box()" multiple size="5">
                     <option value="오크통">오크통범위 전체</option>
                     <option th:each="cask : ${caskList}"
                             th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
             </div>
+
+            <!-- 국가 드롭다운 메뉴 -->
             <div class="nation">
                 <label for="nation"></label>
-                <select id="nation" onchange="filterBynation()">
+                <select id="nation" onchange="filterBynation()" multiple size="5">
                     <option value="국가">국가범위 전체</option>
                     <option th:each="nation : ${nationList}"
                             th:value="${nation.id}" th:text="${nation.nation}"></option>
                 </select>
             </div>
+            <button onclick="applyFilters()">필터 적용</button>
         </div>
         <!--개별리스트 목록 끝-->
         <div class="section">
@@ -126,6 +139,52 @@ function applyFilters() {
         var url = "/product/list/보드카?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
         window.location.href = url;
     }
+
+// 선택된 옵션들을 추적하는 함수
+    function trackSelectedOptions(selectId) {
+        var selectElement = document.getElementById(selectId);
+        var selectedOptions = [];
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+            var option = selectElement.options[i];
+            if (option.selected) {
+                selectedOptions.push(option.value);
+            }
+        }
+
+        // 선택된 옵션들을 활용하여 필요한 동작 수행
+        // 예: 선택된 옵션들을 출력하기
+        console.log(selectedOptions);
+    }
+
+    // 각 드롭다운 메뉴의 변경을 추적하고 필요한 동작을 호출
+    document.getElementById("SubCategori").addEventListener("change", function () {
+        trackSelectedOptions("SubCategori");
+    });
+
+    document.getElementById("Costrange").addEventListener("change", function () {
+        trackSelectedOptions("Costrange");
+    });
+
+    document.getElementById("ABVrange").addEventListener("change", function () {
+        trackSelectedOptions("ABVrange");
+    });
+
+    document.getElementById("net-weight").addEventListener("change", function () {
+        trackSelectedOptions("net-weight");
+    });
+
+    document.getElementById("paring").addEventListener("change", function () {
+        trackSelectedOptions("paring");
+    });
+
+    document.getElementById("Cask-box").addEventListener("change", function () {
+        trackSelectedOptions("Cask-box");
+    });
+
+    document.getElementById("nation").addEventListener("change", function () {
+        trackSelectedOptions("nation");
+    });
 </script>
 </body>
 </html>
