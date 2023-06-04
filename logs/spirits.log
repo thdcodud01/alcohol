@@ -1264,3 +1264,120 @@ org.springframework.expression.spel.SpelEvaluationException: EL1008E: Property o
 2023-06-04 19:26:45.870  INFO 15104 --- [http-nio-7000-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2023-06-04 19:26:45.871  INFO 15104 --- [http-nio-7000-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2023-06-04 19:26:45.873  INFO 15104 --- [http-nio-7000-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-06-04 20:23:56.922  INFO 31775 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting SpiritsApplication using Java 17.0.7 with PID 31775 (/Users/songchaeyeong/Desktop/teamProject/alcohol/build/classes/java/main started by songchaeyeong in /Users/songchaeyeong/Desktop/teamProject/alcohol)
+2023-06-04 20:23:56.925  INFO 31775 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-06-04 20:23:57.171  INFO 31775 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-04 20:23:57.171  INFO 31775 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-04 20:23:57.890  INFO 31775 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-04 20:23:57.970  INFO 31775 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 11 JPA repository interfaces.
+2023-06-04 20:23:58.885  INFO 31775 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7777 (http)
+2023-06-04 20:23:58.901  INFO 31775 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-06-04 20:23:58.902  INFO 31775 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-04 20:23:58.975  INFO 31775 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-06-04 20:23:58.976  INFO 31775 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1805 ms
+2023-06-04 20:23:59.206  INFO 31775 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-04 20:23:59.264  INFO 31775 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-06-04 20:23:59.571  INFO 31775 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-04 20:23:59.666  INFO 31775 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@52aa886c
+2023-06-04 20:23:59.669  INFO 31775 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-04 20:23:59.696  INFO 31775 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-06-04 20:24:00.630  INFO 31775 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-04 20:24:00.635  INFO 31775 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:24:01.586  WARN 31775 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-04 20:24:01.725  INFO 31775 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@54078558, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5b630bfb, org.springframework.security.web.context.SecurityContextHolderFilter@6e09fb3a, org.springframework.security.web.header.HeaderWriterFilter@6b436090, org.springframework.security.web.csrf.CsrfFilter@188f4367, org.springframework.security.web.authentication.logout.LogoutFilter@160f444a, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5027fae3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1d9b4d8f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@afc7d94, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@688473a, org.springframework.security.web.access.ExceptionTranslationFilter@2e31aa86, org.springframework.security.web.access.intercept.AuthorizationFilter@79b8e57f]
+2023-06-04 20:24:02.196  INFO 31775 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-06-04 20:24:02.229  INFO 31775 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7777 (http) with context path ''
+2023-06-04 20:24:02.244  INFO 31775 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Started SpiritsApplication in 5.652 seconds (process running for 6.141)
+2023-06-04 20:24:09.752  INFO 31775 --- [http-nio-7777-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-04 20:24:09.752  INFO 31775 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-06-04 20:24:09.753  INFO 31775 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-06-04 20:25:46.313  INFO 31775 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:25:46.316  INFO 31775 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-06-04 20:25:46.321  INFO 31775 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-06-04 20:25:47.952  INFO 32291 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting SpiritsApplication using Java 17.0.7 with PID 32291 (/Users/songchaeyeong/Desktop/teamProject/alcohol/build/classes/java/main started by songchaeyeong in /Users/songchaeyeong/Desktop/teamProject/alcohol)
+2023-06-04 20:25:47.954  INFO 32291 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-06-04 20:25:48.228  INFO 32291 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-04 20:25:48.228  INFO 32291 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-04 20:25:48.982  INFO 32291 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-04 20:25:49.066  INFO 32291 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 75 ms. Found 11 JPA repository interfaces.
+2023-06-04 20:25:49.836  INFO 32291 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7777 (http)
+2023-06-04 20:25:49.854  INFO 32291 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-06-04 20:25:49.854  INFO 32291 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-04 20:25:49.922  INFO 32291 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-06-04 20:25:49.923  INFO 32291 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1694 ms
+2023-06-04 20:25:50.135  INFO 32291 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-04 20:25:50.194  INFO 32291 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-06-04 20:25:50.493  INFO 32291 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-04 20:25:50.569  INFO 32291 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@450184ad
+2023-06-04 20:25:50.571  INFO 32291 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-04 20:25:50.597  INFO 32291 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-06-04 20:25:51.539  INFO 32291 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-04 20:25:51.546  INFO 32291 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:25:52.482  WARN 32291 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-04 20:25:52.596  INFO 32291 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45034259, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@133e95d0, org.springframework.security.web.context.SecurityContextHolderFilter@32a23b1a, org.springframework.security.web.header.HeaderWriterFilter@55ecb82d, org.springframework.security.web.csrf.CsrfFilter@51a90e02, org.springframework.security.web.authentication.logout.LogoutFilter@1f151937, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@709e3c22, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6327c1fe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6bba5999, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@56d3d04a, org.springframework.security.web.access.ExceptionTranslationFilter@59e57689, org.springframework.security.web.access.intercept.AuthorizationFilter@1ed7b0d]
+2023-06-04 20:25:52.997  INFO 32291 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-06-04 20:25:53.025  INFO 32291 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7777 (http) with context path ''
+2023-06-04 20:25:53.037  INFO 32291 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Started SpiritsApplication in 5.455 seconds (process running for 5.811)
+2023-06-04 20:25:55.540  INFO 32291 --- [http-nio-7777-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-04 20:25:55.540  INFO 32291 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-06-04 20:25:55.541  INFO 32291 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-06-04 20:29:01.649  INFO 32291 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:29:01.653  INFO 32291 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-06-04 20:29:01.657  INFO 32291 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-06-04 20:29:03.408  INFO 33184 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting SpiritsApplication using Java 17.0.7 with PID 33184 (/Users/songchaeyeong/Desktop/teamProject/alcohol/build/classes/java/main started by songchaeyeong in /Users/songchaeyeong/Desktop/teamProject/alcohol)
+2023-06-04 20:29:03.410  INFO 33184 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-06-04 20:29:03.654  INFO 33184 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-04 20:29:03.655  INFO 33184 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-04 20:29:04.356  INFO 33184 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-04 20:29:04.443  INFO 33184 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 11 JPA repository interfaces.
+2023-06-04 20:29:05.137  INFO 33184 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7777 (http)
+2023-06-04 20:29:05.148  INFO 33184 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-06-04 20:29:05.148  INFO 33184 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-04 20:29:05.213  INFO 33184 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-06-04 20:29:05.214  INFO 33184 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1558 ms
+2023-06-04 20:29:05.392  INFO 33184 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-04 20:29:05.435  INFO 33184 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-06-04 20:29:05.667  INFO 33184 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-04 20:29:05.734  INFO 33184 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@1ee0bf72
+2023-06-04 20:29:05.736  INFO 33184 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-04 20:29:05.758  INFO 33184 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-06-04 20:29:06.702  INFO 33184 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-04 20:29:06.708  INFO 33184 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:29:07.595  WARN 33184 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-04 20:29:07.720  INFO 33184 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7086b323, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@ff15212, org.springframework.security.web.context.SecurityContextHolderFilter@1ed7b0d, org.springframework.security.web.header.HeaderWriterFilter@16ecedc7, org.springframework.security.web.csrf.CsrfFilter@60227a0, org.springframework.security.web.authentication.logout.LogoutFilter@583827a6, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2ec7cb3b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16e289ab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c8f5c9d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@43a54a3b, org.springframework.security.web.access.ExceptionTranslationFilter@5927083b, org.springframework.security.web.access.intercept.AuthorizationFilter@480b8769]
+2023-06-04 20:29:08.177  INFO 33184 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-06-04 20:29:08.204  INFO 33184 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7777 (http) with context path ''
+2023-06-04 20:29:08.217  INFO 33184 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Started SpiritsApplication in 5.118 seconds (process running for 5.668)
+2023-06-04 20:29:13.081  INFO 33184 --- [http-nio-7777-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-04 20:29:13.081  INFO 33184 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-06-04 20:29:13.083  INFO 33184 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-06-04 20:31:13.780  INFO 33184 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:31:13.784  INFO 33184 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-06-04 20:31:13.789  INFO 33184 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-06-04 20:31:15.749  INFO 33700 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Starting SpiritsApplication using Java 17.0.7 with PID 33700 (/Users/songchaeyeong/Desktop/teamProject/alcohol/build/classes/java/main started by songchaeyeong in /Users/songchaeyeong/Desktop/teamProject/alcohol)
+2023-06-04 20:31:15.757  INFO 33700 --- [restartedMain] com.ll.spirits.SpiritsApplication        : No active profile set, falling back to 1 default profile: "default"
+2023-06-04 20:31:16.013  INFO 33700 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-06-04 20:31:16.014  INFO 33700 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-06-04 20:31:16.734  INFO 33700 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-04 20:31:16.819  INFO 33700 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 11 JPA repository interfaces.
+2023-06-04 20:31:17.723  INFO 33700 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 7777 (http)
+2023-06-04 20:31:17.735  INFO 33700 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-06-04 20:31:17.736  INFO 33700 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-06-04 20:31:17.812  INFO 33700 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-06-04 20:31:17.812  INFO 33700 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1798 ms
+2023-06-04 20:31:18.026  INFO 33700 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-04 20:31:18.085  INFO 33700 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-06-04 20:31:18.387  INFO 33700 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-06-04 20:31:18.481  INFO 33700 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@52aa886c
+2023-06-04 20:31:18.483  INFO 33700 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-06-04 20:31:18.509  INFO 33700 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-06-04 20:31:19.460  INFO 33700 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-04 20:31:19.466  INFO 33700 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-04 20:31:20.494  WARN 33700 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-04 20:31:20.630  INFO 33700 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4753b939, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@636369, org.springframework.security.web.context.SecurityContextHolderFilter@3f72eb25, org.springframework.security.web.header.HeaderWriterFilter@226a70a0, org.springframework.security.web.csrf.CsrfFilter@7003238c, org.springframework.security.web.authentication.logout.LogoutFilter@43b8bfdd, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6e09fb3a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4fce1af5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@70b82bb5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@691aae2c, org.springframework.security.web.access.ExceptionTranslationFilter@347e389f, org.springframework.security.web.access.intercept.AuthorizationFilter@4b2b9b6b]
+2023-06-04 20:31:21.165  INFO 33700 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-06-04 20:31:21.197  INFO 33700 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 7777 (http) with context path ''
+2023-06-04 20:31:21.211  INFO 33700 --- [restartedMain] com.ll.spirits.SpiritsApplication        : Started SpiritsApplication in 5.935 seconds (process running for 6.532)
+2023-06-04 20:31:24.469  INFO 33700 --- [http-nio-7777-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-04 20:31:24.469  INFO 33700 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-06-04 20:31:24.471  INFO 33700 --- [http-nio-7777-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
