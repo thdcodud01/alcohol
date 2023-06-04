@@ -1,4 +1,8 @@
 package com.ll.spirits.product.productEntity.netWeight;
 
-public interface NetWeightRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface NetWeightRepository extends JpaRepository<NetWeight, Integer> {
 }
