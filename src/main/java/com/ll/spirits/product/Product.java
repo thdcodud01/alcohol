@@ -7,12 +7,15 @@ import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import com.ll.spirits.product.productEntity.netWeight.NetWeight;
 import com.ll.spirits.product.productEntity.pairing.Pairing;
+import com.ll.spirits.product.productEntity.product_cask.ProductCask;
+import com.ll.spirits.product.productEntity.product_pairing.ProductPairing;
 import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -54,25 +57,16 @@ public class Product {
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
     @ManyToOne
-    private Pairing pairing1st; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
+    private Pairing pairing;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductPairing> productPairings;
 
     @ManyToOne
-    private Pairing pairing2nd; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
+    private Cask cask;
 
-    @ManyToOne
-    private Pairing pairing3rd; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask1st; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask2nd; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask3rd; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask4th; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductCask> productCasks; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
 
     @ManyToOne
     private Nation nation; // (생산국가) 생산국가는 여러 술이 있을 수 있지만 국가는 무조건 한 개임 => ManyToOne

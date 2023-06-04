@@ -3,6 +3,8 @@ package com.ll.spirits.product;
 import com.ll.spirits.DataNotFoundException;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
+import com.ll.spirits.product.productEntity.product_cask.ProductCask;
+import com.ll.spirits.product.productEntity.product_pairing.ProductPairing;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
@@ -51,6 +53,33 @@ public class ProductService {
 
     public List<Product> getProductsByCategory(String mainCategoryId, String subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
         return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
+    }
+
+    public List<Product> getProductsByCostRangeId(Integer costRangeId) {
+        return productRepository.getProductsByCostRangeId(costRangeId);
+    }
+
+    public List<Product> getProductsByABVrangeId(Integer abvRangeId) {
+        return productRepository.getProductsByAbvRangeId(abvRangeId);
+    }
+
+    public List<Product> getProductsByNetWeightId(Integer netWeightRangeId) {
+        return productRepository.getProductsByNetWeightId(netWeightRangeId);
+    }
+
+    public List<Product> getProductsByPairingId(Integer pairingId) {
+        List<ProductPairing> productPairingList = new ArrayList<>();
+        return productRepository.getProductsByPairingId(pairingId);
+    }
+
+    public List<Product> getProductsByCaskId(Integer caskId) {
+        List<ProductCask> productCaskList = new ArrayList<>();
+        return productRepository.getProductsByCaskId(caskId);
+    }
+
+
+    public List<Product> getProductsByNationId(Integer nationId) {
+        return productRepository.getProductsByNationId(nationId);
     }
 
     public List<Review> getReviewsByProduct(Product product) { // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것

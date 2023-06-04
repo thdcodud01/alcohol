@@ -1,8 +1,11 @@
 package com.ll.spirits.product.productEntity.cask;
 import com.ll.spirits.product.Product;
+import com.ll.spirits.product.productEntity.product_cask.ProductCask;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,6 +18,6 @@ public class Cask {
     @Column(length = 200)
     private String cask;
 
-    @ManyToOne // 이 테이블 기준에서는 ManyToOne입장이라 이렇게 어노테이션 달아줌.
-    private Product product; // Product 테이블의 FK값
+    @OneToMany(mappedBy = "cask", cascade = CascadeType.ALL)
+    private List<ProductCask> productCasks;
 }

@@ -51,7 +51,13 @@ public class ProductController {
 
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
-                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
+                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId, // 해당 파라미터들을 모두 다중 선택이 가능한 드롭다운 형식으로 적용
+                                             @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
+                                             @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
+                                             @RequestParam(value = "netWeightRangeId", required = false) Integer netWeightRangeId,
+                                             @RequestParam(value = "pairingId", required = false) Integer pairingId,
+                                             @RequestParam(value = "caskId", required = false) Integer caskId,
+                                             @RequestParam(value = "nationId", required = false) Integer nationId,
                                              Model model) {
 
         List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
@@ -65,6 +71,7 @@ public class ProductController {
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
 
         List<Product> productList;
+
         // 서브카테고리가 null이거나 0인 경우
         if (subCategoryId == null) {
             // 서브카테고리가 지정되지 않은 경우, 대분류에 해당하는 모든 제품을 가져옴
@@ -73,6 +80,27 @@ public class ProductController {
             // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
             productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         }
+
+        if (costRangeId != null) {
+            // costRangeId 값이 존재하는 경우, 서비스에 전달
+            productList = productService.getProductsByCostRangeId(costRangeId);
+        } else if (abvRangeId != null) {
+            // abvRangeId 값이 존재하는 경우, 서비스에 전달
+            productList = productService.getProductsByABVrangeId(abvRangeId);
+        } else if (netWeightRangeId != null) {
+            productList = productService.getProductsByNetWeightId(netWeightRangeId);
+        } else if (pairingId != null) {
+            productList = productService.getProductsByPairingId(pairingId);
+        } else if (caskId != null) {
+            productList = productService.getProductsByCaskId(caskId);
+        } else if (nationId != null) {
+            productList = productService.getProductsByNationId(nationId);
+        } else {
+            // 모든 아이디 값이 null인 경우, 즉 필터가 적용되지 않은 경우
+            // 대분류와 중분류에 해당하는 모든 제품을 가져옴
+            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+        }
+
         model.addAttribute("productList", productList);
         model.addAttribute("mainCategoryId", mainCategoryId);
         model.addAttribute("subCategoryId", subCategoryId);
@@ -112,6 +140,8 @@ public class ProductController {
         }
         return templateName;
     }
+
+
     @PreAuthorize("isAuthenticated()") // 제품 등록 Get
     @GetMapping("/create")
     public String productCreate(ProductForm productForm) {
