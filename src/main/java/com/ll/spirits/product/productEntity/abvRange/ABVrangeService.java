@@ -14,4 +14,8 @@ public class ABVrangeService {
     public List<ABVrange> getAllABVrange() {
         return abVrangeRepository.findAll();
     }
+
+    public ABVrange getABVrange(Integer abvRangeId) {
+        return abVrangeRepository.findById(abvRangeId).orElse(null);
+    }
 }

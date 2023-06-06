@@ -7,14 +7,13 @@ import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import com.ll.spirits.product.productEntity.netWeight.NetWeight;
 import com.ll.spirits.product.productEntity.pairing.Pairing;
-import com.ll.spirits.product.productEntity.product_cask.ProductCask;
-import com.ll.spirits.product.productEntity.product_pairing.ProductPairing;
 import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,17 +55,22 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
-    @ManyToOne
-    private Pairing pairing;
+    @ManyToMany
+    @JoinTable(
+            name = "product_pairing",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "pairing_id")
+    )
+    private List<Pairing> pairings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductPairing> productPairings;
+    @ManyToMany
+    @JoinTable(
+            name = "product_cask",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "cask_id")
+    )
+    private List<Cask> casks = new ArrayList<>();
 
-    @ManyToOne
-    private Cask cask;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductCask> productCasks; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
 
     @ManyToOne
     private Nation nation; // (생산국가) 생산국가는 여러 술이 있을 수 있지만 국가는 무조건 한 개임 => ManyToOne

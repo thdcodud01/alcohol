@@ -1,5 +1,6 @@
 package com.ll.spirits.product;
 
+import com.ll.spirits.product.dto.ProductDTO;
 import com.ll.spirits.product.productEntity.abvRange.ABVrange;
 import com.ll.spirits.product.productEntity.abvRange.ABVrangeService;
 import com.ll.spirits.product.productEntity.cask.Cask;
@@ -21,7 +22,6 @@ import com.ll.spirits.user.SiteUser;
 import com.ll.spirits.user.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -49,14 +49,15 @@ public class ProductController {
     private final NetWeightService netWeightService;
     private final PairingService pairingService;
 
+
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
-                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId, // 해당 파라미터들을 모두 다중 선택이 가능한 드롭다운 형식으로 적용
+                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
                                              @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
                                              @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
                                              @RequestParam(value = "netWeightRangeId", required = false) Integer netWeightRangeId,
-                                             @RequestParam(value = "pairingId", required = false) Integer pairingId,
-                                             @RequestParam(value = "caskId", required = false) Integer caskId,
+                                             @RequestParam(value = "pairingIds", required = false) List<Integer> pairingIds, // GET /list/whiskey?pairingIds=1,2,3 클라이언트에서 이런식으로 요청가능
+                                             @RequestParam(value = "caskIds", required = false) List<Integer> caskIds,
                                              @RequestParam(value = "nationId", required = false) Integer nationId,
                                              Model model) {
 
@@ -70,37 +71,43 @@ public class ProductController {
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
 
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setSubCategory(subCategoryId != null ? subCategoryService.getSubCategory(subCategoryId) : null);
+        productDTO.setCostRange(costRangeId != null ? costRangeService.getCostRange(costRangeId) : null);
+        productDTO.setAbvRange(abvRangeId != null ? abVrangeService.getABVrange(abvRangeId) : null);
+        productDTO.setNetWeight(netWeightRangeId != null ? netWeightService.getNetWeight(netWeightRangeId) : null);
+        productDTO.setPairings(pairingIds != null ? pairingService.getPairings(pairingIds) : null);
+        productDTO.setCasks(caskIds != null ? caskService.getCasks(caskIds) : null);
+        productDTO.setNation(nationId != null ? nationService.getNation(nationId) : null);
+
+        List<Product> productDTOList = productService.getFilteredProductsByMainCategory(productDTO, mainCategoryId);
+        model.addAttribute("productList", productDTOList);
+        model.addAttribute("mainCategoryId", mainCategoryId);
+
+        // 필터링된 상품 리스트 가져오기
         List<Product> productList;
 
-        // 서브카테고리가 null이거나 0인 경우
         if (subCategoryId == null) {
-            // 서브카테고리가 지정되지 않은 경우, 대분류에 해당하는 모든 제품을 가져옴
-            productList = productService.getProductsByMainCategoryId(mainCategoryId);
+            productList = productService.findByMainCategoryId(mainCategoryId);
         } else {
-            // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
-            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+            productList = productService.findByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         }
 
         if (costRangeId != null) {
-            // costRangeId 값이 존재하는 경우, 서비스에 전달
-            productList = productService.getProductsByCostRangeId(costRangeId);
+            productList = productService.findByCostRangeId(costRangeId);
         } else if (abvRangeId != null) {
-            // abvRangeId 값이 존재하는 경우, 서비스에 전달
-            productList = productService.getProductsByABVrangeId(abvRangeId);
+            productList = productService.findByABVrangeId(abvRangeId);
         } else if (netWeightRangeId != null) {
-            productList = productService.getProductsByNetWeightId(netWeightRangeId);
-        } else if (pairingId != null) {
-            productList = productService.getProductsByPairingId(pairingId);
-        } else if (caskId != null) {
-            productList = productService.getProductsByCaskId(caskId);
+            productList = productService.findByNetWeightId(netWeightRangeId);
+        } else if (pairingIds != null) {
+            productList = productService.findByPairingsIdIn(pairingIds);
+        } else if (caskIds != null) {
+            productList = productService.findByCasksIdIn(caskIds);
         } else if (nationId != null) {
-            productList = productService.getProductsByNationId(nationId);
+            productList = productService.findByNationId(nationId);
         } else {
-            // 모든 아이디 값이 null인 경우, 즉 필터가 적용되지 않은 경우
-            // 대분류와 중분류에 해당하는 모든 제품을 가져옴
-            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+            productList = productService.findByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         }
-
         model.addAttribute("productList", productList);
         model.addAttribute("mainCategoryId", mainCategoryId);
         model.addAttribute("subCategoryId", subCategoryId);
@@ -111,6 +118,7 @@ public class ProductController {
         model.addAttribute("nationList", nationList);
         model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("pairingList", pairingList);
+        model.addAttribute("productList", productDTOList);
 
         String templateName;
         switch (mainCategoryId) {
@@ -133,12 +141,36 @@ public class ProductController {
                 templateName = "product_list_brandy";
                 break;
             case 7:
-                templateName = "product_list_beer";
+                templateName = "product_list_liqueur";
                 break;
             default:
-                templateName = "error";
+                templateName = "product_list";
+                break;
         }
+
         return templateName;
+    }
+
+    @GetMapping
+    @ResponseBody
+    public List<Product> getFilteredProductsByMainCategory(@RequestParam(value = "mainCategoryId") Integer mainCategoryId,
+                                                           @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
+                                                           @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
+                                                           @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
+                                                           @RequestParam(value = "netWeightRangeId", required = false) Integer netWeightRangeId,
+                                                           @RequestParam(value = "pairingIds", required = false) List<Integer> pairingIds,
+                                                           @RequestParam(value = "caskIds", required = false) List<Integer> caskIds,
+                                                           @RequestParam(value = "nationId", required = false) Integer nationId) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setSubCategory(subCategoryId != null ? subCategoryService.getSubCategory(subCategoryId) : null);
+        productDTO.setCostRange(costRangeId != null ? costRangeService.getCostRange(costRangeId) : null);
+        productDTO.setAbvRange(abvRangeId != null ? abVrangeService.getABVrange(abvRangeId) : null);
+        productDTO.setNetWeight(netWeightRangeId != null ? netWeightService.getNetWeight(netWeightRangeId) : null);
+        productDTO.setPairings(pairingIds != null ? pairingService.getPairings(pairingIds) : null);
+        productDTO.setCasks(caskIds != null ? caskService.getCasks(caskIds) : null);
+        productDTO.setNation(nationId != null ? nationService.getNation(nationId) : null);
+
+        return productService.getFilteredProductsByMainCategory(productDTO, mainCategoryId);
     }
 
 

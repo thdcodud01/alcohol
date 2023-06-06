@@ -1,6 +1,5 @@
 package com.ll.spirits.product.productEntity.cask;
-import com.ll.spirits.product.Product;
-import com.ll.spirits.product.productEntity.product_cask.ProductCask;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +15,6 @@ public class Cask {
     private Integer id;
 
     @Column(length = 200)
-    private String cask;
+    private String casks;
 
-    @OneToMany(mappedBy = "cask", cascade = CascadeType.ALL)
-    private List<ProductCask> productCasks;
 }
