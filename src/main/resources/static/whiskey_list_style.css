@@ -190,11 +190,18 @@ ul,li{
   vertical-align : top;
 
 }
+.section>.goods-list-section>.goods-list > div > a {
+  overflow : hidden;
+}
 
-.section>.goods-list-section>.goods-list > div > img {
+.section>.goods-list-section>.goods-list > div > a > img {
   width : 250px;
   height : 370px;
   margin-bottom : 10px;
+  transition : scale 400ms;
+}
+.section>.goods-list-section>.goods-list > div > a:hover > img {
+  scale : 107%;
 }
 
 .section>.goods-list-section>.goods-list .goods-name {
@@ -203,13 +210,13 @@ ul,li{
 
 .section>.goods-list-section>.goods-list > .goods-1 {
   margin-right : 20px;
-  margin-left:20px;
+  margin-left: 20px;
 }
 
 .section>.goods-list-section>.goods-list .per{
   color : #FA622F;
 }
 
-.section>.goods-list-section>.goods-list > div > p > span {
+.section>.goods-list-section>.goods-list > div > a > p > span {
   font-weight : bold;
 }

@@ -107,19 +107,22 @@
 
         <div class="section">
             <div class="search-box">
-            <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
-            건의 결과가 있어요</div>
+                <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
+                건의 결과가 있어요
+            </div>
 
             <section class="goods-list-section">
                 <div class="goods-list">
                     <div class="goods-1" th:each="product : ${productList}">
-                        <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
-                             alt="">
-                        <p class="goods-name" th:text="${product.name}" style="font-weight : bold; font-size : 2rem;"></p>
-                        <p><span th:text="${product.cost}"></span>원</p>
+                        <a th:href="@{|/product/detail/${product.id}|}">
+                            <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
+                                 alt="">
+                            <p class="goods-name" th:text="${product.name}"
+                               style="font-weight : bold; font-size : 2rem;"></p>
+                            <p><span th:text="${product.cost}"></span>원</p>
+                        </a>
                     </div>
                 </div>
-
             </section>
 
 
@@ -141,6 +144,7 @@ function applyFilters() {
         var url = "/product/list/위스키?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
         window.location.href = url;
     }
+
 </script>
 </body>
 </html>

@@ -11,16 +11,11 @@ public class SiteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true)
-    private String userId;
-
-    @Column(unique = true)
-    private String email;
-
+    private String userId; // email 형식
+//    @Column(unique = true)
+//    private String email; // 필요한가?
     private String password;
-
     @Column(unique = true)
     private String nickname;
-
 }

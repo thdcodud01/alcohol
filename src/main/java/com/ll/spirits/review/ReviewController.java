@@ -34,6 +34,7 @@ public class ReviewController {
             model.addAttribute("product", product);
             return "product_detail";
         }
+        System.out.println(reviewForm);
         Review review = this.reviewService.create(product,
                 reviewForm.getFlavor(), reviewForm.getAroma(), reviewForm.getContent(), siteUser);
         return String.format("redirect:/product/detail/%s#review_%s", review.getProduct().getId(), review.getId());
