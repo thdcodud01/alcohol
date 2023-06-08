@@ -56,7 +56,7 @@ public class ProductController {
                                              @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
                                              @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
                                              @RequestParam(value = "netWeightRangeId", required = false) Integer netWeightRangeId,
-                                             @RequestParam(value = "pairingIds", required = false) List<Integer> pairingIds, // GET /list/whiskey?pairingIds=1,2,3 클라이언트에서 이런식으로 요청가능
+                                             @RequestParam(value = "pairingId", required = false) List<Integer> pairingIds, // GET /list/whiskey?pairingId=1&pairingId=2&pairingId=3 클라이언트에서 이런식으로 요청가능
                                              @RequestParam(value = "caskIds", required = false) List<Integer> caskIds,
                                              @RequestParam(value = "nationId", required = false) Integer nationId,
                                              Model model) {

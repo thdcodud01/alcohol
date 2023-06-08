@@ -15,12 +15,15 @@ public class SiteUser {
     @Column(unique = true)
     private String userId;
 
-    @Column(unique = true)
-    private String email;
+//    @Column(unique = true)
+//    private String email;
 
     private String password;
 
     @Column(unique = true)
     private String nickname;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 }
