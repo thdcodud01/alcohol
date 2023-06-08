@@ -7,65 +7,81 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Spirits 회원가입</title>
     <link rel="stylesheet" type="text/css" th:href="@{/signup_form.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
     <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-    <div class="big-wrap">
-        <div class="wrap">
-            <div class="top-bar">
-                <div class="logo-box">
-                    <div class="logo"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
-                </div>
-                <div class="user-box">
-                    <div class="login"><a th:href="@{|/user/login|}">로그인</a></div>
-                    <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
-                </div>
-            </div>
-            <div class="hello">
-                <div class="hello-box">
-                    <div class="title">ㅁㅁㅁ님, 환영해요!</div>
+    <div class="wrap">
+        <div class="top-bar">
+            <div class="logo-box">
+                <a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a>
+            </div><!--  logo-box 닫는 div태그  -->
+            <div class="user-box">
+                <div class="login"><a th:href="@{|/user/login|}">로그인</a></div>
+                <div class=" sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
+            </div><!--  user-box닫는 div태그  -->
+        </div><!--  top-bar 닫는 div태그  -->
 
+        <div class="sign-up-box">
+            <div class="message">반갑습니다. SPIRITS입니다.</div>
+            <div class="text-sign-up">회원가입</div>
+
+            <div class="text"> 이메일
+                <div class="sign">
+                    <input th:field="*{userId}" type="email" placeholder="ex)  example@example.com"
+                           class="email-input" required="" value="">
+                </div>
+                <div class="waring"><i class="fa-solid fa-triangle-exclamation"></i> 이메일을 입력해주세요.</div>
+            </div>
+
+            <div class="text"> 생년월일
+                <div class="sign"><input type="text" placeholder="ex) 1997-04-25"></div>
+            </div>
+
+            <div class="text"> 비밀번호
+                <div class="sign">
+                    <input th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
+                           class="password-input" required="" value="">
+                </div>
+                <div class="ch">
+                    <div class="check"><i class="fa-solid fa-check"></i> 영문</div>
+                    <div class="check"><i class="fa-solid fa-check"></i> 숫자</div>
+                    <div class="check"><i class="fa-solid fa-check"></i> 8~16자</div>
                 </div>
             </div>
-            <div class="signup-box">
-                <div class="email-box">
-                    <div class="email-text">계정(이메일 형식) *</div>
-                    <div class="email">
-                        <input th:field="*{userId}" type="email" placeholder="ex)  example@example.com"
-                               class="email-input" required="" value="">
-                    </div>
+
+            <div class="text"> 비밀번호 확인
+                <div class="sign">
+                    <input th:field="*{password2}" type="password" placeholder="비밀번호를 입력해주세요."
+                           class="password-check-input" required="" value="">
                 </div>
-                <div class="password-box">
-                    <div class="password-text">비밀번호 * (영문,숫자 8글자 이상)</div>
-                    <div class="password">
-                        <input th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
-                               class="password-input" required="" value="">
-                    </div>
-                </div>
-                <div class="password-check-box">
-                    <div class="password-check-text">비밀번호 확인 *</div>
-                    <div class="password-check">
-                        <input th:field="*{password2}" type="password" placeholder="비밀번호를 입력해주세요."
-                               class="password-check-input" required="" value="">
-                    </div>
-                </div>
-                <div class="nickname-box">
-                    <div class="nickname-text">닉네임 * (공백,특수문자 제외한 2~10글자)</div>
-                    <div class="nickname">
-                        <div class="nickname2">
-                            <input th:field="*{nickname}" type="text" placeholder="닉네임을 입력해주세요." class="nickname-input"
-                                   required="" value="">
-                        </div>
-                        <button type="submit" class="btn btn-primary"><a href="">중복확인</a></button>
-                    </div>
-                </div>
-                <div class="signup-btn">
-                    <button type="submit" class="btn btn-primary" onclick="showPopup()"><a href="#">회원가입</a></button>
-                </div>
+                <div class="check"><i class="fa-solid fa-check"></i> 비밀번호 일치</div>
+
             </div>
-        </div>
-    </div>
+
+            <div class="text"> 닉네임
+                <div class="nickname-condition">공백, 특수문자를 제외한 2~10자 내외로 입력해주세요.</div>
+                <div>
+                    <div class="sign-nickname">
+                        <input th:field="*{nickname}" type="text" placeholder="닉네임을 입력해주세요." class="nickname-input"
+                               required="" value="">
+                        <button type="button">중복확인</button>
+                    </div>
+                </div>
+            </div><!--  text 닫는 div태그  -->
+            <div class="button">
+                <a href="#">
+                    <button type="button" class="back">이전</button>
+                </a>
+                <a href="#">
+                    <button type="submit" class="next">다음</button>
+                </a>
+            </div><!--  button 닫는 div태그  -->
+        </div><!--  sign-up-box 닫는 div태그  -->
+    </div><!--  wrap 닫는 div태그  -->
 </form>
 </body>
 </html>
