@@ -48,10 +48,6 @@ public class ProductService {
         return productRepository.findByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
     }
 
-    public List<Product> findByMainCategoryAndSubCategory(Integer mainCategoryId, Integer subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
-        return this.productRepository.findByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
-    }
-
     public List<Product> findByCostRangeId(Integer costRangeId) {
         return productRepository.findByCostRangeId(costRangeId);
     }
@@ -75,6 +71,34 @@ public class ProductService {
     public List<Product> findByNationId(Integer nationId) {
         return productRepository.findByNationId(nationId);
     }
+    public List<Product> findBySubCategoryIdAndIdIn(Integer subCategoryId, List<Integer> ids) {
+        return productRepository.findBySubCategoryIdAndIdIn(subCategoryId, ids);
+    }
+
+    public List<Product> findByCostRangeIdAndIdIn(Integer costRangeId, List<Integer> ids) {
+        return productRepository.findByCostRangeIdAndIdIn(costRangeId, ids);
+    }
+
+    public List<Product> findByABVrangeIdAndIdIn(Integer abvRangeId, List<Integer> ids) {
+        return productRepository.findByABVrangeIdAndIdIn(abvRangeId, ids);
+    }
+
+    public List<Product> findByNetWeightIdAndIdIn(Integer netWeightRangeId, List<Integer> ids) {
+        return productRepository.findByNetWeightIdAndIdIn(netWeightRangeId, ids);
+    }
+
+    public List<Product> findByPairingsIdInAndIdIn(List<Integer> pairingIds, List<Integer> ids) {
+        return productRepository.findByPairingsIdInAndIdIn(pairingIds, ids);
+    }
+
+    public List<Product> findByCasksIdInAndIdIn(List<Integer> caskIds, List<Integer> ids) {
+        return productRepository.findByCasksIdInAndIdIn(caskIds, ids);
+    }
+
+    public List<Product> findByNationIdAndIdIn(Integer nationId, List<Integer> ids) {
+        return productRepository.findByNationIdAndIdIn(nationId, ids);
+    }
+
 
     public List<Product> getFilteredProductsByMainCategory(ProductDTO productDTO, Integer mainCategoryId) {
         List<Product> productList = findByMainCategoryId(mainCategoryId);

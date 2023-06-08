@@ -15,6 +15,6 @@ public class Cask {
     private Integer id;
 
     @Column(length = 200)
-    private String casks;
+    private String cask;
 
 }

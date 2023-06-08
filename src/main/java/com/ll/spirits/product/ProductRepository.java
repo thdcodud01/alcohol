@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByMainCategoryId(Integer mainCategoryId);
-    //List<Product> findAllByMainCategory_IdAndSubCategory_Id(Integer mainCategoryId, Integer subCategoryId);
     List<Product> findBySubCategoryId(Integer subCategoryId);
     List<Product> findByCostRangeId(Integer costRangeId);
     List<Product> findByABVrangeId(Integer abvRangeId);
@@ -23,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByNationId(Integer nationId);
     List<Product> findByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId);
     List<Product> findByMainCategoryAndSubCategory(Integer mainCategoryId, Integer subCategoryId);
-    List<Product> findByIdIn(List<Integer> ids); // 추가된 메서드
+    List<Product> findByIdIn(List<Integer> ids);
     List<Product> findBySubCategoryIdAndIdIn(Integer subCategoryId, List<Integer> ids);
     List<Product> findByCostRangeIdAndIdIn(Integer costRangeId, List<Integer> ids);
     List<Product> findByABVrangeIdAndIdIn(Integer abvRangeId, List<Integer> ids);
@@ -31,6 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByPairingsIdInAndIdIn(List<Integer> pairingIds, List<Integer> ids);
     List<Product> findByCasksIdInAndIdIn(List<Integer> caskIds, List<Integer> ids);
     List<Product> findByNationIdAndIdIn(Integer nationId, List<Integer> ids);
+
 
 //    List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId);
 //    List<Product> getProductsByMainCategoryAndSubCategory(String mainCategory, String subCategory);

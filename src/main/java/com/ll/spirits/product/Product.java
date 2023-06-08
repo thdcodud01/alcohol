@@ -55,11 +55,11 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_pairing",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "pairing_id")
+    @ManyToMany // Pairing 엔티티와 Cask 엔티티와의 다대다 관계
+    @JoinTable( // @JoinTable 연결 테이블을 지정하여 다대다 관계를 매핑
+            name = "product_pairing", // name 속성은 연결 테이블의 이름을 지정 (실제로 엔티티가 아니라 연결 테이블의 이름)
+            joinColumns = @JoinColumn(name = "product_id"), // 각각 Product 엔티티와 연결 테이블의 다른 엔티티 간의 외래 키를 지정
+            inverseJoinColumns = @JoinColumn(name = "pairingsId")
     )
     private List<Pairing> pairings = new ArrayList<>();
 
@@ -67,10 +67,13 @@ public class Product {
     @JoinTable(
             name = "product_cask",
             joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "cask_id")
+            inverseJoinColumns = @JoinColumn(name = "casksId")
     )
     private List<Cask> casks = new ArrayList<>();
 
+    // product_pairing 테이블과 product_cask 테이블을 생성하여
+    // Product 엔티티와 Pairing 엔티티, 그리고 Product 엔티티와 Cask 엔티티 간의 다대다 관계를 매핑
+    // Product 엔티티는 pairings 필드와 casks 필드를 통해 해당 제품과 연관된 페어링과 캐스크 목록을 가져올 수 있게 됨
 
     @ManyToOne
     private Nation nation; // (생산국가) 생산국가는 여러 술이 있을 수 있지만 국가는 무조건 한 개임 => ManyToOne
