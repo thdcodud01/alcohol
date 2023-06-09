@@ -34,8 +34,8 @@ public class ReviewController {
             model.addAttribute("product", product);
             return "product_detail";
         }
-        Review review = this.reviewService.create(product,
-                reviewForm.getFlavor(), reviewForm.getAroma(), reviewForm.getContent(), siteUser);
+        System.out.println(reviewForm);
+        Review review = this.reviewService.create(product, reviewForm.getContent(), siteUser);
         return String.format("redirect:/product/detail/%s#review_%s", review.getProduct().getId(), review.getId());
     }
 
@@ -46,8 +46,6 @@ public class ReviewController {
         if (!review.getAuthor().getUserId().equals(principal.getName())) { // getName 부분 뭐랑 연결되어있는지 잘 이해안됨
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        reviewForm.setFlavor(review.getFlavor());
-        reviewForm.setAroma(review.getAroma());
         reviewForm.setContent(review.getContent());
         return "review_form";
     }
@@ -62,7 +60,7 @@ public class ReviewController {
         if (!review.getAuthor().getUserId().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.reviewService.modify(review, reviewForm.getFlavor(), reviewForm.getAroma(), reviewForm.getContent());
+        this.reviewService.modify(review, reviewForm.getContent());
         return String.format("redirect:/product/detail/%s#review_%s",
                 review.getProduct().getId(), review.getId());
     }

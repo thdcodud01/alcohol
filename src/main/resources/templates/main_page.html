@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -15,8 +15,9 @@
                 <div class="logo"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
             </div>
             <div class="user-box">
-                <div class="login"><a href="#">로그인</a></div>
-                <div class="sign-up"><a href="#">회원가입</a></div>
+                <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
+                <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그인</a></div>
+                <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
         </div>
         <div class="menu-wrap">

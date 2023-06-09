@@ -6,6 +6,7 @@ import com.ll.spirits.product.productEntity.cask.Cask;
 import com.ll.spirits.product.productEntity.cask.CaskService;
 import com.ll.spirits.product.productEntity.costRange.CostRange;
 import com.ll.spirits.product.productEntity.costRange.CostRangeService;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import com.ll.spirits.product.productEntity.nation.NationService;
@@ -129,15 +130,19 @@ public class ProductController {
         // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
         return "redirect:/product/list"; // 제품 저장후 제품목록으로 이동
     }
+
     @GetMapping("/detail/{id}") // 제품 상세보기
     public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal) {
         Product product = this.productService.getProduct(id);
+
         List<Review> reviews = this.productService.getReviewsByProduct(product); // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
-//        SiteUser siteUser = this.userService.getUser(principal.getName());
+        if (principal != null) {
+            SiteUser siteUser = this.userService.getUser(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+        }
+
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews); // List로 불러온 리뷰들
-//        model.addAttribute("siteUser", siteUser);
-
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
     @PreAuthorize("isAuthenticated()")
