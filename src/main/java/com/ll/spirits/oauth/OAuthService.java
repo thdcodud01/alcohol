@@ -1,7 +1,7 @@
-package com.ll.spirits.oAuth;
+package com.ll.spirits.oauth;
 
-import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import org.springframework.stereotype.Service;
 
 import java.io.*;

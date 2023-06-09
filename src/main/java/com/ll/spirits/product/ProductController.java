@@ -71,18 +71,18 @@ public class ProductController {
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
 
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setSubCategory(subCategoryId != null ? subCategoryService.getSubCategory(subCategoryId) : null);
-        productDTO.setCostRange(costRangeId != null ? costRangeService.getCostRange(costRangeId) : null);
-        productDTO.setAbvRange(abvRangeId != null ? abVrangeService.getABVrange(abvRangeId) : null);
-        productDTO.setNetWeight(netWeightRangeId != null ? netWeightService.getNetWeight(netWeightRangeId) : null);
-        productDTO.setPairings(pairingIds != null ? pairingService.getPairings(pairingIds) : null);
-        productDTO.setCasks(caskIds != null ? caskService.getCasks(caskIds) : null);
-        productDTO.setNation(nationId != null ? nationService.getNation(nationId) : null);
-
-        List<Product> productDTOList = productService.getFilteredProductsByMainCategory(productDTO, mainCategoryId);
-        model.addAttribute("productList", productDTOList);
-        model.addAttribute("mainCategoryId", mainCategoryId);
+//        ProductDTO productDTO = new ProductDTO();
+//        productDTO.setSubCategory(subCategoryId != null ? subCategoryService.getSubCategory(subCategoryId) : null);
+//        productDTO.setCostRange(costRangeId != null ? costRangeService.getCostRange(costRangeId) : null);
+//        productDTO.setAbvRange(abvRangeId != null ? abVrangeService.getABVrange(abvRangeId) : null);
+//        productDTO.setNetWeight(netWeightRangeId != null ? netWeightService.getNetWeight(netWeightRangeId) : null);
+//        productDTO.setPairings(pairingIds != null ? pairingService.getPairings(pairingIds) : null);
+//        productDTO.setCasks(caskIds != null ? caskService.getCasks(caskIds) : null);
+//        productDTO.setNation(nationId != null ? nationService.getNation(nationId) : null);
+//
+//        List<Product> productDTOList = productService.getFilteredProductsByMainCategory(productDTO, mainCategoryId);
+//        model.addAttribute("productList", productDTOList);
+//        model.addAttribute("mainCategoryId", mainCategoryId);
 
         // 필터링된 상품 리스트 가져오기
         List<Product> productList;
@@ -118,7 +118,7 @@ public class ProductController {
         model.addAttribute("nationList", nationList);
         model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("pairingList", pairingList);
-        model.addAttribute("productList", productDTOList);
+        //model.addAttribute("productList", productDTOList);
 
         String templateName;
         switch (mainCategoryId) {
@@ -161,16 +161,17 @@ public class ProductController {
                                                            @RequestParam(value = "pairingIds", required = false) List<Integer> pairingIds,
                                                            @RequestParam(value = "caskIds", required = false) List<Integer> caskIds,
                                                            @RequestParam(value = "nationId", required = false) Integer nationId) {
-        ProductDTO productDTO = new ProductDTO();
-        productDTO.setSubCategory(subCategoryId != null ? subCategoryService.getSubCategory(subCategoryId) : null);
-        productDTO.setCostRange(costRangeId != null ? costRangeService.getCostRange(costRangeId) : null);
-        productDTO.setAbvRange(abvRangeId != null ? abVrangeService.getABVrange(abvRangeId) : null);
-        productDTO.setNetWeight(netWeightRangeId != null ? netWeightService.getNetWeight(netWeightRangeId) : null);
-        productDTO.setPairings(pairingIds != null ? pairingService.getPairings(pairingIds) : null);
-        productDTO.setCasks(caskIds != null ? caskService.getCasks(caskIds) : null);
-        productDTO.setNation(nationId != null ? nationService.getNation(nationId) : null);
+        ProductFilter filter = new ProductFilter();
+        filter.setMainCategoryId(mainCategoryId);
+        filter.setSubCategoryId(subCategoryId);
+        filter.setCostRangeId(costRangeId);
+        filter.setAbvRangeId(abvRangeId);
+        filter.setNetWeightRangeId(netWeightRangeId);
+        filter.setPairingIds(pairingIds);
+        filter.setCaskIds(caskIds);
+        filter.setNationId(nationId);
 
-        return productService.getFilteredProductsByMainCategory(productDTO, mainCategoryId);
+        return productService.getFilteredProducts(filter);
     }
 
 

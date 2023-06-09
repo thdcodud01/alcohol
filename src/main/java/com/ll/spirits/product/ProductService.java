@@ -34,6 +34,24 @@ public class ProductService {
             throw new DataNotFoundException("product not found"); // 예외처리로 에러(DataNotFoundException)를 표시
         }
     }
+
+    public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return productRepository.findByMainCategoryId(mainCategory);
+    }
+    public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
+        return productRepository.findBySubCategoryId(subCategoryId);
+    }
+
+    public List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return productRepository.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+    }
+
+    public List<Product> getProductsByCategory(String mainCategoryId, String subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
+        return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
+    }
+
     public List<Product> findByMainCategoryId(Integer mainCategory) {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return productRepository.findByMainCategoryId(mainCategory);
@@ -71,89 +89,87 @@ public class ProductService {
     public List<Product> findByNationId(Integer nationId) {
         return productRepository.findByNationId(nationId);
     }
-    public List<Product> findBySubCategoryIdAndIdIn(Integer subCategoryId, List<Integer> ids) {
-        return productRepository.findBySubCategoryIdAndIdIn(subCategoryId, ids);
-    }
+//    public List<Product> findBySubCategoryIdAndIdIn(Integer subCategoryId, List<Integer> ids) {
+//        return productRepository.findBySubCategoryIdAndIdIn(subCategoryId, ids);
+//    }
+//
+//    public List<Product> findByCostRangeIdAndIdIn(Integer costRangeId, List<Integer> ids) {
+//        return productRepository.findByCostRangeIdAndIdIn(costRangeId, ids);
+//    }
+//
+//    public List<Product> findByABVrangeIdAndIdIn(Integer abvRangeId, List<Integer> ids) {
+//        return productRepository.findByABVrangeIdAndIdIn(abvRangeId, ids);
+//    }
+//
+//    public List<Product> findByNetWeightIdAndIdIn(Integer netWeightRangeId, List<Integer> ids) {
+//        return productRepository.findByNetWeightIdAndIdIn(netWeightRangeId, ids);
+//    }
+//
+//    public List<Product> findByPairingsIdInAndIdIn(List<Integer> pairingIds, List<Integer> ids) {
+//        return productRepository.findByPairingsIdInAndIdIn(pairingIds, ids);
+//    }
+//
+//    public List<Product> findByCasksIdInAndIdIn(List<Integer> caskIds, List<Integer> ids) {
+//        return productRepository.findByCasksIdInAndIdIn(caskIds, ids);
+//    }
+//
+//    public List<Product> findByNationIdAndIdIn(Integer nationId, List<Integer> ids) {
+//        return productRepository.findByNationIdAndIdIn(nationId, ids);
+//    }
 
-    public List<Product> findByCostRangeIdAndIdIn(Integer costRangeId, List<Integer> ids) {
-        return productRepository.findByCostRangeIdAndIdIn(costRangeId, ids);
-    }
 
-    public List<Product> findByABVrangeIdAndIdIn(Integer abvRangeId, List<Integer> ids) {
-        return productRepository.findByABVrangeIdAndIdIn(abvRangeId, ids);
-    }
+    public List<Product> getFilteredProducts(ProductFilter filter) {
+        List<Product> allProducts = productRepository.findAll();
 
-    public List<Product> findByNetWeightIdAndIdIn(Integer netWeightRangeId, List<Integer> ids) {
-        return productRepository.findByNetWeightIdAndIdIn(netWeightRangeId, ids);
-    }
+        // 필터링 조건에 따라 상품들을 필터링
+        List<Product> filteredProducts = allProducts.stream()
+                .filter(product -> {
+                    // 메인 카테고리 일치 여부 확인
+                    if (!product.getMainCategory().equals(filter.getMainCategoryId())) {
+                        return false;
+                    }
 
-    public List<Product> findByPairingsIdInAndIdIn(List<Integer> pairingIds, List<Integer> ids) {
-        return productRepository.findByPairingsIdInAndIdIn(pairingIds, ids);
-    }
-
-    public List<Product> findByCasksIdInAndIdIn(List<Integer> caskIds, List<Integer> ids) {
-        return productRepository.findByCasksIdInAndIdIn(caskIds, ids);
-    }
-
-    public List<Product> findByNationIdAndIdIn(Integer nationId, List<Integer> ids) {
-        return productRepository.findByNationIdAndIdIn(nationId, ids);
-    }
+                    // 서브 카테고리 일치 여부 확인
+                    if (filter.getSubCategoryId() != null && !product.getSubCategory().getId().equals(filter.getSubCategoryId())) {
+                        return false;
+                    }
 
 
-    public List<Product> getFilteredProductsByMainCategory(ProductDTO productDTO, Integer mainCategoryId) {
-        List<Product> productList = findByMainCategoryId(mainCategoryId);
+                    // 가격 범위 일치 여부 확인
+                    if (filter.getCostRangeId() != null && !product.getCostRange().equals(filter.getCostRangeId())) {
+                        return false;
+                    }
 
-        if (productDTO.getSubCategory() != null) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findBySubCategoryIdAndIdIn(productDTO.getSubCategory().getId(), productIds);
-        }
-        if (productDTO.getCostRange() != null) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findByCostRangeIdAndIdIn(productDTO.getCostRange().getId(), productIds);
-        }
-        if (productDTO.getAbvRange() != null) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findByABVrangeIdAndIdIn(productDTO.getAbvRange().getId(), productIds);
-        }
-        if (productDTO.getNetWeight() != null) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findByNetWeightIdAndIdIn(productDTO.getNetWeight().getId(), productIds);
-        }
-        if (productDTO.getPairings() != null && !productDTO.getPairings().isEmpty()) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            List<Integer> pairingIds = productDTO.getPairings().stream()
-                    .map(Pairing::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findByPairingsIdInAndIdIn(pairingIds, productIds);
-        }
-        if (productDTO.getCasks() != null && !productDTO.getCasks().isEmpty()) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            List<Integer> caskIds = productDTO.getCasks().stream()
-                    .map(Cask::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findByCasksIdInAndIdIn(caskIds, productIds);
-        }
-        if (productDTO.getNation() != null) {
-            List<Integer> productIds = productList.stream()
-                    .map(Product::getId)
-                    .collect(Collectors.toList());
-            productList = productRepository.findByNationIdAndIdIn(productDTO.getNation().getId(), productIds);
-        }
+                    // 도수 범위 일치 여부 확인
+                    if (filter.getAbvRangeId() != null && !product.getAbvRange().equals(filter.getAbvRangeId())) {
+                        return false;
+                    }
 
-        return productList;
+                    // 용량 범위 일치 여부 확인
+                    if (filter.getNetWeightRangeId() != null && !product.getNetWeight().equals(filter.getNetWeightRangeId())) {
+                        return false;
+                    }
 
+                    // 안주 범위 일치 여부 확인
+                    if (filter.getPairingIds() != null && !product.getPairings().containsAll(filter.getPairingIds())) {
+                        return false;
+                    }
+
+                    // 캐스크 범위 일치 여부 확인
+                    if (filter.getCaskIds() != null && !product.getCasks().containsAll(filter.getCaskIds())) {
+                        return false;
+                    }
+
+                    // 국가 범위 일치 여부 확인
+                    if (filter.getNationId() != null && !product.getNation().equals(filter.getNationId())) {
+                        return false;
+                    }
+
+                    return true;
+                })
+                .collect(Collectors.toList());
+
+        return filteredProducts;
     }
 
 
