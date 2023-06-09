@@ -18,10 +18,8 @@ public class ReviewService {
     public List<Review> getList () {
         return this.reviewRepository.findAll();
     }
-    public Review create(Product product, String flavor, String aroma, String content, SiteUser author) {
+    public Review create(Product product, String content, SiteUser author) {
         Review review = new Review();
-        review.setFlavor(flavor);
-        review.setAroma(aroma);
         review.setContent(content);
         review.setCreateDate(LocalDateTime.now());
         review.setProduct(product);
@@ -39,9 +37,7 @@ public class ReviewService {
         }
     }
 
-    public void modify(Review review, String flavor, String aroma, String content) {
-        review.setFlavor(flavor);
-        review.setAroma(aroma);
+    public void modify(Review review, String content) {
         review.setContent(content);
         review.setModifyDate(LocalDateTime.now());
         this.reviewRepository.save(review);

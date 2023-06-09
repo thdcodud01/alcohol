@@ -6,10 +6,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
 @ToString
+@Component
 public class UserCreateForm {
 //    @Size(min = 3, max = 25)
     @NotEmpty(message = "사용자ID는 필수항목입니다.")

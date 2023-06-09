@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navbarFragment">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navbarFragment"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -19,7 +20,8 @@
                         <button type="submit" class="btn btn-primary"><a href="">검색</a></button>
                     </div>
                 </div>
-                <div class="login"><a th:href="@{|/user/login|}">로그인</a></div>
+                <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
+                <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></div>
                 <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
         </div>

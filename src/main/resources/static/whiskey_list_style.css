@@ -170,7 +170,7 @@ ul,li{
 .wrap>.section>p>.search-box>.search-result{
   display:inline-block;
 }
-
+/*제품 리스트 출력 커스텀 시작*/
 .section>.goods-list-section{
     display:flex;
     justify-content:center;
@@ -181,11 +181,10 @@ ul,li{
   display:flex;
   flex-wrap: wrap;
   margin-left:20px;
-
 }
 
 .section>.goods-list-section>.goods-list>div{
-    margin-top:20px;
+  margin-top:20px;
   width : 250px;
   vertical-align : top;
 
