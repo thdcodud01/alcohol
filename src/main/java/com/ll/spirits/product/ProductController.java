@@ -174,7 +174,7 @@ public class ProductController {
     @GetMapping("/delete/{id}") // 제품 삭제
     public String productDelete(Principal principal, @PathVariable("id") Integer id) {
         Product product = this.productService.getProduct(id);
-        if (!product.getAuthor().getUserId().equals(principal.getName())) {
+        if (!product.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.productService.delete(product);

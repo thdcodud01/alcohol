@@ -14,9 +14,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(String userId, String password, String nickname, UserRole role) {
+    public SiteUser create(String username, String password, String nickname, UserRole role) {
         SiteUser user = new SiteUser();
-        user.setUserId(userId);
+        user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
         user.setRole(role);
@@ -24,8 +24,8 @@ public class UserService {
         return user;
     }
 
-    public SiteUser getUser(String userId) {
-        Optional<SiteUser> siteUser = this.userRepository.findByuserId(userId);
+    public SiteUser getUser(String username) {
+        Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
@@ -33,7 +33,7 @@ public class UserService {
         }
     }
 
-    public Optional<SiteUser> getUserByuserId(String userId) {
-        return userRepository.findByuserId(userId);
+    public Optional<SiteUser> getUserByusername(String username) {
+        return userRepository.findByusername(username);
     }
 }

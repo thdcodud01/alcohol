@@ -25,9 +25,9 @@ public class UserSecurityService implements UserDetailsService {
     private final UserCreateForm userCreateForm;
 
     @Override
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        Optional<SiteUser> _siteUser = this.userRepository.findByuserId(userId);
-        if (userId.isEmpty()) { // 입력받은 userId가 비어있을 경우 >> 따로 템플릿상에서 게스트모드 버튼으로 만들어서 처리하면 됨.
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<SiteUser> _siteUser = this.userRepository.findByusername(username);
+        if (username.isEmpty()) { // 입력받은 userId가 비어있을 경우 >> 따로 템플릿상에서 게스트모드 버튼으로 만들어서 처리하면 됨.
             // 기본 사용자 정보(게스트)를 반환하도록 처리
             List<GrantedAuthority> defaultAuthorities = new ArrayList<>();
             defaultAuthorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
@@ -45,16 +45,16 @@ public class UserSecurityService implements UserDetailsService {
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
 
-        System.out.println(siteUser.getUserId());
+        System.out.println(siteUser.getUsername());
         System.out.println(siteUser.getPassword());
         System.out.println(siteUser);
         // 사용자의 권한 정보를 설정
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if ("admin@gmail.com".equals(userId)) {
+        if ("admin@gmail.com".equals(username)) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
-        return new User(siteUser.getUserId(), siteUser.getPassword(), authorities);
+        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
     }
 }

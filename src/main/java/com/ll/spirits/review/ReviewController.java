@@ -43,7 +43,7 @@ public class ReviewController {
     @GetMapping("/modify/{id}")
     public String reviewModify(ReviewForm reviewForm, @PathVariable("id") Long id, Principal principal) {
         Review review = this.reviewService.getReview(id);
-        if (!review.getAuthor().getUserId().equals(principal.getName())) { // getName 부분 뭐랑 연결되어있는지 잘 이해안됨
+        if (!review.getAuthor().getUsername().equals(principal.getName())) { // getName 부분 뭐랑 연결되어있는지 잘 이해안됨
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         reviewForm.setContent(review.getContent());
@@ -57,7 +57,7 @@ public class ReviewController {
             return "review_form";
         }
         Review review = this.reviewService.getReview(id);
-        if (!review.getAuthor().getUserId().equals(principal.getName())) {
+        if (!review.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.reviewService.modify(review, reviewForm.getContent());
@@ -69,7 +69,7 @@ public class ReviewController {
     @GetMapping("/delete/{id}")
     public String reviewDelete(Principal principal, @PathVariable("id") Long id) {
         Review review = this.reviewService.getReview(id);
-        if (!review.getAuthor().getUserId().equals(principal.getName())) {
+        if (!review.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.reviewService.delete(review);

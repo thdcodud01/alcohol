@@ -12,7 +12,7 @@ public class SiteUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String userId; // email 형식
+    private String username; // email 형식
     private String password;
     @Column(unique = true)
     private String nickname;
