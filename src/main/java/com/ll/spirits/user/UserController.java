@@ -71,7 +71,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("userId") String userId, @RequestParam("password1") String password, HttpSession session, Model model) {
         if ("admin@gmail.com".equals(userId) && "123".equals(password)) {
-            UserDetails userDetails = userSecurityService.loadUserByUserId(userId);
+            UserDetails userDetails = userSecurityService.loadUserByUsername(userId);
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
