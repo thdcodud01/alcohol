@@ -26,6 +26,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -133,17 +134,22 @@ public class ProductController {
     }
 
     @GetMapping("/detail/{id}") // 제품 상세보기
+    @Transactional
     public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal) {
         Product product = this.productService.getProduct(id);
+        List<Cask> casks = product.getCasks(); // Product 엔티티에서 casks 필드를 가져옴
+        List<Pairing> pairings = product.getPairings(); // Product 엔티티에서 pairings 필드를 가져옴
+
 
         List<Review> reviews = this.productService.getReviewsByProduct(product); // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
         if (principal != null) {
             SiteUser siteUser = this.userService.getUser(principal.getName());
             model.addAttribute("siteUser", siteUser);
         }
-
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews); // List로 불러온 리뷰들
+        model.addAttribute("casks", casks);
+        model.addAttribute("pairings", pairings);
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
     @PreAuthorize("isAuthenticated()")

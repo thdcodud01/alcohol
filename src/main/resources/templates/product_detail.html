@@ -51,31 +51,10 @@
                             <span th:text="${product.nation.nation}"></span>
                         </div>
                     </div>
-                    <div class="info" th:if="${product.cask1st != null}">
+                    <div class="info">
                         <div class="title">
                             캐스크1:
-                            <span th:text="${product.cask1st.cask}"></span>
-                        </div>
-                    </div>
-
-                    <div class="info" th:if="${product.cask2nd != null}">
-                        <div class="title">
-                            캐스크2:
-                            <span th:text="${product.cask2nd.cask}"></span>
-                        </div>
-                    </div>
-
-                    <div class="info" th:if="${product.cask3rd != null}">
-                        <div class="title">
-                            캐스크3:
-                            <span th:text="${product.cask3rd.cask}"></span>
-                        </div>
-                    </div>
-
-                    <div class="info" th:if="${product.cask4th != null}">
-                        <div class="title">
-                            캐스크4:
-                            <span th:text="${product.cask4th.cask}"></span>
+                            <span th:each="cask : ${casks}" th:text="${cask.cask}"  th:if="${cask != null}"></span>
                         </div>
                     </div>
                 </div>
@@ -120,22 +99,20 @@
             </div>
             <div class="point-box3">
                 <div class="taste-title">이런 음식들과 잘 어울려요!</div>
-                <div class="taste-text" th:if="${product.pairing1st != null}"
-                     th:text="${product.pairing1st.pairing}"></div>
-                <div class="taste-text" th:if="${product.pairing2nd != null}"
-                     th:text="${product.pairing2nd.pairing}"></div>
-                <div class="taste-text" th:if="${product.pairing3rd != null}"
-                     th:text="${product.pairing3rd.pairing}"></div>
-            </div>
-            <div th:if="${product.cask1st != null or product.cask2nd != null or product.cask3rd != null or product.cask4th != null}"
-                 class="point-box4">
-                <div class="taste-title">사용한 캐스크</div>
                 <div class="taste-text">
-                    <span th:if="${product.cask1st != null}" th:text="${product.cask1st.cask}"></span>
-                    <span th:if="${product.cask2nd != null}" th:text="${product.cask2nd.cask}"></span>
-                    <span th:if="${product.cask3rd != null}" th:text="${product.cask3rd.cask}"></span>
-                    <span th:if="${product.cask4th != null}" th:text="${product.cask4th.cask}"></span>
-                </div> <!--사용한 오크통-->
+                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+                                <span th:text="${pairing.pairing}"></span>
+                                <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
+                    </span>
+                </div>
+            </div>
+            <div th:each="cask : ${casks}">
+                <div class="point-box4" th:if="${cask != null}">
+                    <div class="taste-title">사용한 캐스크</div>
+                    <div class="taste-text">
+                        <span th:text="${cask.cask}"></span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="information-section" th:each="product : ${product}">
@@ -181,7 +158,7 @@
             <div class="review-form">
                 <form name="review" action="" th:object="${reviewForm}"
                       method="post">
-<!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+                    <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
                     <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
                               cols="30" rows="15"></textarea>
                     <textarea sec:authorize="isAuthenticated()" th:field="*{content}" name="content" cols="30"
@@ -224,11 +201,11 @@
         </div>
     </div>
 
-</div>
 
-<div class="btn">
-    <i class="fa-solid fa-angles-up"></i>
-</div>
+    <div class="btn">
+        <i class="fa-solid fa-angles-up"></i>
+    </div>
+
 </div>
 <script>
 $(document).ready(function(){
@@ -246,6 +223,13 @@ $(window).scroll(function(){
   if(scrollTop>=600){
   }
 })
+
+
+
+
+
+
+
 </script>
 
 
