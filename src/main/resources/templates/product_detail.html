@@ -19,42 +19,42 @@
 <!-- 문서시작 -->
 <div layout:fragment="content">
     <div class="wrap">
-        <div class="product-box" th:each="product : ${product}">
+        <div class="product-box">
             <div class="left-box">
             </div>
             <div class="right-box">
                 <div class="title-box">
-                    <h2 th:text="${product.name}"></h2> <!--제품명-->
+                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2> <!--제품명-->
                 </div>
                 <div class="info-box">
                     <div class="info"> <!--메인카테고리?-->
-                        <div class="title" th:if="${product.mainCategory.mainCategory != null}">
+                        <div class="title">
                             주종 :
-                            <span th:text="${product.mainCategory.mainCategory}"></span>
-                        </div>
-                    </div>
-                    <div class="info" th:if="${product.abv != null}">
-                        <div class="title"> <!--도수-->
-                            도수 :
-                            <span th:text="${product.abv}"></span><span>%</span>
-                        </div>
-                    </div>
-                    <div class="info" th:if="${product.netWeight.netWeight != null}">
-                        <div class="title"> <!--용량-->
-                            용량 :
-                            <span th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
-                        </div>
-                    </div>
-                    <div class="info" th:if="${product.nation.nation != null}">
-                        <div class="title"> <!--용량-->
-                            생산국가 :
-                            <span th:text="${product.nation.nation}"></span>
+                            <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
                         </div>
                     </div>
                     <div class="info">
+                        <div class="title"> <!--도수-->
+                            도수 :
+                            <span th:each="product : ${product}" th:text="${product.abv}"></span><span>%</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="title"> <!--용량-->
+                            용량 :
+                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="title"> <!--용량-->
+                            생산국가 :
+                            <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
+                        </div>
+                    </div>
+                    <div class="info" th:if="${casks != null}">
                         <div class="title">
                             캐스크1:
-                            <span th:each="cask : ${casks}" th:text="${cask.cask}"  th:if="${cask != null}"></span>
+                            <span th:each="cask : ${casks}" th:if="${cask != null}" th:text="${cask.cask}"></span>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="title">
                         <h3>판매가격</h3>
                     </div>
-                    <div class="num" th:text="${product.cost}"></div>
+                    <div class="num" th:each="product : ${product}" th:text="${product.cost}"></div>
                     <span class="num">￦</span> <!--가격-->
                 </div>
                 <div class="logo-box">
@@ -81,21 +81,20 @@
                             <i class="fa-solid fa-share-nodes fa-2xl"></i>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
-        <div class="point-section" th:each="product : ${product}">
+        <div class="point-section">
             <div class="title-box">
                 <h2 class="title">핵심 포인트</h2>
             </div>
             <div class="point-box1">
                 <div class="taste-title">맛</div>
-                <div class="taste-text" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한 약주</div> <!--맛 설명-->
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한 약주</div> <!--맛 설명-->
             </div>
             <div class="point-box2">
                 <div class="taste-title">향</div>
-                <div class="taste-text" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한 약주</div> <!--향 설명-->
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한 약주</div> <!--향 설명-->
             </div>
             <div class="point-box3">
                 <div class="taste-title">이런 음식들과 잘 어울려요!</div>
