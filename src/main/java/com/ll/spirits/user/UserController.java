@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,10 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.util.Optional;
@@ -108,5 +106,16 @@ public class UserController {
 //        return "login_form";
 //    }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/delete/{username}") // 사용자 삭제
+    public String userDelete(@PathVariable("username") String username) {
+        SiteUser user = userService.getUser(username);
+        if (user.getRole() == UserRole.ADMIN) {
+            throw new IllegalArgumentException("관리자는 다른 사용자 계정을 삭제할 수 없습니다.");
+        }
+
+        userService.deleteUser(user);
+        return "redirect:/";
+    }
 
 }

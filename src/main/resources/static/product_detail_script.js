@@ -13,3 +13,20 @@ $(window).scroll(function(){
   if(scrollTop>=600){
   }
 })
+
+
+    $(document).ready(function() {
+  // 공유 버튼 클릭 시 동작하는 함수
+  $(".share-button").click(function() {
+    var dummyInput = document.createElement("input");
+    var currentURL = window.location.href;
+
+    $("body").append(dummyInput);
+    $(dummyInput).val(currentURL);
+    $(dummyInput).select();
+    document.execCommand("copy");
+    $(dummyInput).remove();
+
+    alert("URL이 복사되었습니다: " + currentURL);
+  });
+

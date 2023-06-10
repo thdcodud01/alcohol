@@ -43,6 +43,11 @@ public class ReviewService {
         this.reviewRepository.save(review);
     }
 
+    public void vote(Review review, SiteUser siteUser) {
+        review.getVoter().add(siteUser);
+        this.reviewRepository.save(review);
+    }
+
     public void delete(Review review) {
         this.reviewRepository.delete(review);
     }

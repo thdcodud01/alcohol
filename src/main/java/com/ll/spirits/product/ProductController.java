@@ -112,12 +112,12 @@ public class ProductController {
         }
         return templateName;
     }
-    @PreAuthorize("isAuthenticated()") // 제품 등록 Get
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Get
     @GetMapping("/create")
     public String productCreate(ProductForm productForm) {
         return "product_form";
     }
-    @PreAuthorize("isAuthenticated()") // 제품 등록 Post
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
     @PostMapping("/create") // post == 보내다
     public String productCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
         // TODO 질문을 저장한다.
@@ -170,7 +170,7 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정
     @GetMapping("/delete/{id}") // 제품 삭제
     public String productDelete(Principal principal, @PathVariable("id") Integer id) {
         Product product = this.productService.getProduct(id);
