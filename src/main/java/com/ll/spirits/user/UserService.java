@@ -2,6 +2,7 @@ package com.ll.spirits.user;
 
 import com.ll.spirits.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public SiteUser create(String userId, String password, String email, String nickname) {
+    public SiteUser create(String userId, String password, String nickname, UserRole role) {
         SiteUser user = new SiteUser();
         user.setUserId(userId);
-        user.setEmail(email);
-        user.setNickname(nickname);
         user.setPassword(passwordEncoder.encode(password));
+        user.setNickname(nickname);
+        user.setRole(role);
         this.userRepository.save(user);
         return user;
     }
@@ -30,5 +31,9 @@ public class UserService {
         } else {
             throw new DataNotFoundException("siteuser not found");
         }
+    }
+
+    public Optional<SiteUser> getUserByuserId(String userId) {
+        return userRepository.findByuserId(userId);
     }
 }
