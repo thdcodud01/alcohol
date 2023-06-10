@@ -51,10 +51,13 @@
                             <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
                         </div>
                     </div>
-                    <div class="info" th:if="${casks != null}">
+                    <div class="info">
                         <div class="title">
                             캐스크1:
-                            <span th:each="cask : ${casks}" th:if="${cask != null}" th:text="${cask.cask}"></span>
+                            <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                                <span th:text="${cask.cask}"></span>
+                                <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -90,11 +93,15 @@
             </div>
             <div class="point-box1">
                 <div class="taste-title">맛</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한 약주</div> <!--맛 설명-->
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한
+                    약주
+                </div> <!--맛 설명-->
             </div>
             <div class="point-box2">
                 <div class="taste-title">향</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한 약주</div> <!--향 설명-->
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한
+                    약주
+                </div> <!--향 설명-->
             </div>
             <div class="point-box3">
                 <div class="taste-title">이런 음식들과 잘 어울려요!</div>
@@ -105,12 +112,13 @@
                     </span>
                 </div>
             </div>
-            <div th:each="cask : ${casks}">
-                <div class="point-box4" th:if="${cask != null}">
-                    <div class="taste-title">사용한 캐스크</div>
-                    <div class="taste-text">
+            <div class="point-box4">
+                <div class="taste-title">사용한 캐스크</div>
+                <div class="taste-text">
+                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
                         <span th:text="${cask.cask}"></span>
-                    </div>
+                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -222,6 +230,11 @@ $(window).scroll(function(){
   if(scrollTop>=600){
   }
 })
+
+
+
+
+
 
 
 
