@@ -1,14 +1,19 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
+import com.ll.spirits.product.productEntity.cask.Cask;
+import com.ll.spirits.product.productEntity.cask.CaskRepository;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
+import com.ll.spirits.product.productEntity.pairing.Pairing;
+import com.ll.spirits.product.productEntity.pairing.PairingRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
 import com.sun.tools.javac.Main;
-import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +28,22 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
+
+    private Specification<Product> search(String kw) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Predicate toPredicate(Root<Product> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                Join<Product, Review> r = p.join("reviewList", JoinType.LEFT);
+                Join<Review, SiteUser> u = r.join("author", JoinType.LEFT);
+                return cb.or(cb.like(p.get("name"), "%" + kw + "%"), // 술이름
+                        cb.like(p.get("content"), "%" + kw + "%"),      // 내용
+                        cb.like(r.get("content"), "%" + kw + "%"),      // 리뷰 내용
+                        cb.like(u.get("username"), "%" + kw + "%"));   // 리뷰 작성자
+            }
+        };
+    }
 
     public List<Product> getList() {
         return this.productRepository.findAll();

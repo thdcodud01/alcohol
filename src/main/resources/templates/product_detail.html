@@ -19,63 +19,45 @@
 <!-- 문서시작 -->
 <div layout:fragment="content">
     <div class="wrap">
-        <div class="product-box" th:each="product : ${product}">
+        <div class="product-box">
             <div class="left-box">
             </div>
             <div class="right-box">
                 <div class="title-box">
-                    <h2 th:text="${product.name}"></h2> <!--제품명-->
+                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2> <!--제품명-->
                 </div>
                 <div class="info-box">
                     <div class="info"> <!--메인카테고리?-->
-                        <div class="title" th:if="${product.mainCategory.mainCategory != null}">
+                        <div class="title">
                             주종 :
-                            <span th:text="${product.mainCategory.mainCategory}"></span>
+                            <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
                         </div>
                     </div>
-                    <div class="info" th:if="${product.abv != null}">
+                    <div class="info">
                         <div class="title"> <!--도수-->
                             도수 :
-                            <span th:text="${product.abv}"></span><span>%</span>
+                            <span th:each="product : ${product}" th:text="${product.abv}"></span><span>%</span>
                         </div>
                     </div>
-                    <div class="info" th:if="${product.netWeight.netWeight != null}">
+                    <div class="info">
                         <div class="title"> <!--용량-->
                             용량 :
-                            <span th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
+                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
                         </div>
                     </div>
-                    <div class="info" th:if="${product.nation.nation != null}">
+                    <div class="info">
                         <div class="title"> <!--용량-->
                             생산국가 :
-                            <span th:text="${product.nation.nation}"></span>
+                            <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
                         </div>
                     </div>
-                    <div class="info" th:if="${product.cask1st != null}">
+                    <div class="info">
                         <div class="title">
                             캐스크1:
-                            <span th:text="${product.cask1st.cask}"></span>
-                        </div>
-                    </div>
-
-                    <div class="info" th:if="${product.cask2nd != null}">
-                        <div class="title">
-                            캐스크2:
-                            <span th:text="${product.cask2nd.cask}"></span>
-                        </div>
-                    </div>
-
-                    <div class="info" th:if="${product.cask3rd != null}">
-                        <div class="title">
-                            캐스크3:
-                            <span th:text="${product.cask3rd.cask}"></span>
-                        </div>
-                    </div>
-
-                    <div class="info" th:if="${product.cask4th != null}">
-                        <div class="title">
-                            캐스크4:
-                            <span th:text="${product.cask4th.cask}"></span>
+                            <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                                <span th:text="${cask.cask}"></span>
+                                <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -83,7 +65,7 @@
                     <div class="title">
                         <h3>판매가격</h3>
                     </div>
-                    <div class="num" th:text="${product.cost}"></div>
+                    <div class="num" th:each="product : ${product}" th:text="${product.cost}"></div>
                     <span class="num">￦</span> <!--가격-->
                 </div>
                 <div class="logo-box">
@@ -98,43 +80,46 @@
                         </a>
                     </div>
                     <div class="link">
-                        <a href="#"> <!--링크복사 버튼-->
+                        <a href="#" class="share-button"> <!--링크복사버튼-->
                             <i class="fa-solid fa-share-nodes fa-2xl"></i>
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="point-section" th:each="product : ${product}">
+        <div class="point-section">
             <div class="title-box">
                 <h2 class="title">핵심 포인트</h2>
             </div>
             <div class="point-box1">
                 <div class="taste-title">맛</div>
-                <div class="taste-text" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한 약주</div> <!--맛 설명-->
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한
+                    약주
+                </div> <!--맛 설명-->
             </div>
             <div class="point-box2">
                 <div class="taste-title">향</div>
-                <div class="taste-text" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한 약주</div> <!--향 설명-->
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한
+                    약주
+                </div> <!--향 설명-->
             </div>
             <div class="point-box3">
                 <div class="taste-title">이런 음식들과 잘 어울려요!</div>
-                <div class="taste-text" th:if="${product.pairing1st != null}"
-                     th:text="${product.pairing1st.pairing}"></div>
-                <div class="taste-text" th:if="${product.pairing2nd != null}"
-                     th:text="${product.pairing2nd.pairing}"></div>
-                <div class="taste-text" th:if="${product.pairing3rd != null}"
-                     th:text="${product.pairing3rd.pairing}"></div>
+                <div class="taste-text">
+                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+                                <span th:text="${pairing.pairing}"></span>
+                                <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
+                    </span>
+                </div>
             </div>
-            <div th:if="${product.cask1st != null or product.cask2nd != null or product.cask3rd != null or product.cask4th != null}"
-                 class="point-box4">
+            <div class="point-box4">
                 <div class="taste-title">사용한 캐스크</div>
                 <div class="taste-text">
-                    <span th:if="${product.cask1st != null}" th:text="${product.cask1st.cask}"></span>
-                    <span th:if="${product.cask2nd != null}" th:text="${product.cask2nd.cask}"></span>
-                    <span th:if="${product.cask3rd != null}" th:text="${product.cask3rd.cask}"></span>
-                    <span th:if="${product.cask4th != null}" th:text="${product.cask4th.cask}"></span>
-                </div> <!--사용한 오크통-->
+                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                        <span th:text="${cask.cask}"></span>
+                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                    </span>
+                </div>
             </div>
         </div>
         <div class="information-section" th:each="product : ${product}">
@@ -180,7 +165,7 @@
             <div class="review-form">
                 <form name="review" action="" th:object="${reviewForm}"
                       method="post">
-<!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+                    <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
                     <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
                               cols="30" rows="15"></textarea>
                     <textarea sec:authorize="isAuthenticated()" th:field="*{content}" name="content" cols="30"
@@ -194,7 +179,7 @@
     <hr>
 
     <div class="footer-wrap">
-        <div class="footer-main">SPLITE 주식회사</div>
+        <div class="footer-main">SPIRITS 주식회사</div>
         <div>고객센터: 070-5014-1282
 
         </div>
@@ -213,7 +198,7 @@
             사업자확인
             통신판매 신고번호: 2021-서울서초-2084
         </div>
-        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, SPLITE)<br>
+        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, SPRITS)<br>
 
             정보보호 책임자 : 송채영<br>
 
@@ -223,11 +208,11 @@
         </div>
     </div>
 
-</div>
 
-<div class="btn">
-    <i class="fa-solid fa-angles-up"></i>
-</div>
+    <div class="btn">
+        <i class="fa-solid fa-angles-up"></i>
+    </div>
+
 </div>
 <script>
 $(document).ready(function(){
@@ -248,6 +233,17 @@ $(window).scroll(function(){
 
 
 
+
+
+
+
+
+
+
+
+
 </script>
+
+
 </body>
 </html>

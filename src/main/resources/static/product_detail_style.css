@@ -150,7 +150,7 @@ ul,li{
 
 }
 
-.wrap>.point-section>.point-box4{
+.wrap>.point-section .point-box4{
   display:inline-block;
   background-color: white;
   width: 600px;
@@ -159,7 +159,7 @@ ul,li{
   padding: 40px;
 }
 
-.wrap>.point-section>.point-box4>.taste-title{
+.wrap>.point-section .point-box4>.taste-title{
   font-size: 24px;
   font-weight:bold;
   margin-bottom: 20px;
