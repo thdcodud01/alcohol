@@ -162,8 +162,8 @@
                 </div>
             </div>
 
-            <div class="review-form">
-                <form name="review" action="" th:object="${reviewForm}"
+            <div class="review-form" th:each="product : ${product}">
+                <form name="review" th:action="@{|/review/create/${product.id}|}" th:object="${reviewForm}"
                       method="post">
                     <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
                     <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
