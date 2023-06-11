@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public SiteUser getUser(String username) {
-        Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
+        Optional<SiteUser> siteUser = this.userRepository.findByUsername(username);
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
@@ -40,18 +40,9 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    public boolean authenticateUser(String username, String password) {
-        Optional<SiteUser> siteUserOptional = userRepository.findByusername(username);
-        if (siteUserOptional.isPresent()) {
-            SiteUser siteUser = siteUserOptional.get();
-            return passwordEncoder.matches(password, siteUser.getPassword());
-        }
-        return false;
+
+
+    public Optional<SiteUser> getUserByusername(String username) {
+        return userRepository.findByUsername(username);
     }
-
-//    public Optional<SiteUser> getUserByusername(String username) {
-//        return userRepository.findByusername(username);
-//    }
-
-
 }

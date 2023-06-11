@@ -13,6 +13,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -53,26 +55,25 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
-    @ManyToOne
-    private Pairing pairing1st; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
+    @ManyToMany
+    @JoinTable
+            (name = "product_pairings",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "pairing_id")
+            )
+    private List<Pairing> pairings;
 
-    @ManyToOne
-    private Pairing pairing2nd; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
+    @ManyToMany
+    @JoinTable
+            (name = "product_casks",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "cask_id")
+            )
+    private List<Cask> casks;
 
-    @ManyToOne
-    private Pairing pairing3rd; // (페어링 안주) 안주는 '여러 술'에 '여러 안주'가 적용될 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask1st; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask2nd; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask3rd; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
-
-    @ManyToOne
-    private Cask cask4th; //(캐스크 - 오크통) 오크통은 한 개의 '제품 당 여러 개'가 사용될 수 있고 그 '제품 또한 여러 개'일 수 있기 때문에 ManyToMany로 적용됨
+    // product_pairing 테이블과 product_cask 테이블을 생성하여
+    // Product 엔티티와 Pairing 엔티티, 그리고 Product 엔티티와 Cask 엔티티 간의 다대다 관계를 매핑
+    // Product 엔티티는 pairings 필드와 casks 필드를 통해 해당 제품과 연관된 페어링과 캐스크 목록을 가져올 수 있게 됨
 
     @ManyToOne
     private Nation nation; // (생산국가) 생산국가는 여러 술이 있을 수 있지만 국가는 무조건 한 개임 => ManyToOne
