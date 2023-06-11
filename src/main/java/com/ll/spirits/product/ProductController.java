@@ -53,6 +53,7 @@ public class ProductController {
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
                                              @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
                                              Model model) {
+
         List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
         List<Cask> caskList = caskService.getAllCask();
         List<CostRange> costRangeList = costRangeService.getAllCostRange();

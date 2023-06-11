@@ -1,26 +1,15 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
-import com.ll.spirits.product.productEntity.cask.Cask;
-import com.ll.spirits.product.productEntity.cask.CaskRepository;
-import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
-import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
-import com.ll.spirits.product.productEntity.pairing.Pairing;
-import com.ll.spirits.product.productEntity.pairing.PairingRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
-import com.sun.tools.javac.Main;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
