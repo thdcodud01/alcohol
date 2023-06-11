@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>보드카 리스트 페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/vodka_list_style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 layout
@@ -27,107 +28,83 @@ layout
             </div>
         </div>
         <div class="drop-down-box">
-            <div class="SubCategori-box">
+            <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
+            <div class="SubCategory-box">
                 <label for="SubCategori"></label>
                 <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
                             th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
-                        ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)}"
+               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
+               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
+               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
+               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
+               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
+               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
                             th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
+
+            <!-- 가격범위 드롭다운 메뉴 -->
             <div class="Costrange-box">
                 <label for="Costrange"></label>
-                <select id="Costrange" onchange="filterByCostrange()">
-                    <option value="가격">가격</option>
-                    <option value="0~2만원">0~2만원</option>
-                    <option value="2만원~5만원">2만원~5만원</option>
-                    <option value="5만원~10만원">5만원~10만원</option>
-                    <option value="10만원~15만원">10만원~15만원</option>
-                    <option value="15만원~20만원">15만원~20만원</option>
-                    <option value="20만원~30만원">20만원~30만원</option>
-                    <option value="30만원 이상">30만원 이상</option>
+                <select id="Costrange" onchange="filterByCostrange()" multiple size="5">
+                    <option value="가격">가격범위 전체</option>
+                    <option th:each="costRange : ${costRangeList}"
+                            th:value="${costRange.id}" th:text="${costRange.costRange}"></option>
                 </select>
             </div>
+
+            <!-- 알콜도수범위 드롭다운 메뉴 -->
             <div class="ABVrange-box">
                 <label for="ABVrange"></label>
-                <select id="ABVrange" onchange="filterByABVrange()">
-                    <option value="도수">도수</option>
-                    <option value="무알콜">무알콜</option>
-                    <option value="1도~10도">1도~10도</option>
-                    <option value="10도~40도">10도~40도</option>
-                    <option value="40도~50도">40도~50도</option>
-                    <option value="50도~60도">50도~60도</option>
-                    <option value="60도~70도">60도~70도</option>
-                    <option value="70도 이상">70도 이상</option>
+                <select id="ABVrange" onchange="filterByABVrange()" multiple size="5">
+                    <option value="도수">도수범위 전체</option>
+                    <option th:each="aBVrange : ${abVrangeList}"
+                            th:value="${aBVrange.id}" th:text="${aBVrange.abvRange}"></option>
                 </select>
             </div>
+
+            <!-- 용량 드롭다운 메뉴 -->
             <div class="net-weight-box">
                 <label for="net-weight"></label>
-                <select id="net-weight" onchange="filterBynet-weight()">
-                    <option value="안주">용량</option>
-                    <option value="300ml">300ml</option>
-                    <option value="473ml">473ml</option>
-                    <option value="500ml">500ml</option>
-                    <option value="700ml">700ml</option>
-                    <option value="750ml">750ml</option>
-                    <option value="1000ml">1000ml</option>
-                    <option value="5000ml">5000ml</option>
+                <select id="net-weight" onchange="filterBynet-weight()" multiple size="5">
+                    <option value="용량">용량범위 전체</option>
+                    <option th:each="netWeight : ${netWeightList}"
+                            th:value="${netWeight.id}" th:text="${netWeight.netWeight}"></option>
                 </select>
             </div>
+
+            <!-- 안주 드롭다운 메뉴 -->
             <div class="paring-box">
                 <label for="paring"></label>
-                <select id="paring" onchange="filterByparing()">
-                    <option value="안주">안주</option>
-                    <option value="치즈">치즈</option>
-                    <option value="초콜릿">초콜릿</option>
-                    <option value="견과류">견과류</option>
-                    <option value="고기">고기</option>
-                    <option value="해산물">해산물</option>
-                    <option value="시가">시가</option>
-                    <option value="튀김">튀김</option>
-                    <option value="크래커">크래커</option>
+                <select id="paring" onchange="filterByparing()" multiple size="5">
+                    <option value="안주">안주범위 전체</option>
+                    <option th:each="pairing : ${pairingList}"
+                            th:value="${pairing.id}" th:text="${pairing.pairing}"></option>
                 </select>
             </div>
+
+            <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
                 <label for="Cask-box"></label>
-                <select id="Cask-box" onchange="filterByCask-box()">
-                    <option value="오크통">오크통</option>
-                    <option value="버진캐스크">버진캐스크</option>
-                    <option value="버번캐스크">버번캐스크</option>
-                    <option value="쉐리캐스크(p.x)">쉐리캐스크(p.x)</option>
-                    <option value="쉐리캐스크(Oloroso)">쉐리캐스크(Oloroso)</option>
-                    <option value="포트캐스크">포트캐스크</option>
-                    <option value="와인캐스크">와인캐스크</option>
-                    <option value="꼬냑캐스크">꼬냑캐스크</option>
-                    <option value="소테른캐스크">소테른캐스크</option>
-                    <option value="아마로네캐스크">아마로네캐스크</option>
+                <select id="Cask-box" onchange="filterByCask-box()" multiple size="5">
+                    <option value="오크통">오크통범위 전체</option>
+                    <option th:each="cask : ${caskList}"
+                            th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
             </div>
+
+            <!-- 국가 드롭다운 메뉴 -->
             <div class="nation">
                 <label for="nation"></label>
-                <select id="nation" onchange="filterBynation()">
-                    <option value="국가">국가</option>
-                    <option value="미국">미국</option>
-                    <option value="스코틀랜드">스코틀랜드</option>
-                    <option value="아일랜드">아일랜드</option>
-                    <option value="아일라">아일라</option>
-                    <option value="베네수엘라">베네수엘라</option>
-                    <option value="대만">대만</option>
-                    <option value="인도">인도</option>
-                    <option value="호주">호주</option>
-                    <option value="프랑스">프랑스</option>
-                    <option value="포르투갈">포르투갈</option>
-                    <option value="러시아">러시아</option>
-                    <option value="덴마크">덴마크</option>
-                    <option value="네덜란드">네덜란드</option>
-                    <option value="폴란드">폴란드</option>
-                    <option value="멕시코">멕시코</option>
-                    <option value="이탈리아">이탈리아</option>
-                    <option value="필리핀">필리핀</option>
+                <select id="nation" onchange="filterBynation()" multiple size="5">
+                    <option value="국가">국가범위 전체</option>
+                    <option th:each="nation : ${nationList}"
+                            th:value="${nation.id}" th:text="${nation.nation}"></option>
                 </select>
             </div>
+            <button onclick="applyFilters()">필터 적용</button>
         </div>
         <!--개별리스트 목록 끝-->
         <div class="section">
@@ -135,17 +112,83 @@ layout
             <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
             건의 결과가 있어요</p>
 
-            <section class="goods-list">
-
-                <div class="goods-1" th:each="product : ${productList}">
-                    <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
-                         alt="">
-                    <p class="goods-name" th:text="${product.name}" style="font-weight : bold; font-size : 2rem;"></p>
-                    <p><span th:text="${product.cost}"></span>원</p>
+            <section class="goods-list-section">
+                <div class="goods-list">
+                    <div class="goods-1" th:each="product : ${productList}">
+                        <a th:href="@{|/product/detail/${product.id}|}">
+                            <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
+                                 alt="">
+                            <p class="goods-name" th:text="${product.name}"
+                               style="font-weight : bold; font-size : 2rem;"></p>
+                            <p><span th:text="${product.cost}"></span>원</p>
+                        </a>
+                    </div>
                 </div>
             </section>
         </div>
     </div>
 </div>
+<!--스크립트 들어가는 자리-->
+<script layout:fragment="script" type='text/javascript'>
+function filterBySubcategori() {
+        var subCategoryId = document.getElementById("SubCategori").value;
+        window.location.href = "http://localhost:7000/product/list/보드카?subCategoryId=" + subCategoryId;
+    }
+function applyFilters() {
+        var subCategorySelect = document.getElementById("subCategoryId");
+        var selectedOptions = Array.from(subCategorySelect.selectedOptions);
+        var subCategoryIds = selectedOptions.map(function(option) {
+            return option.value;
+        });
+        var url = "/product/list/보드카?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
+        window.location.href = url;
+    }
+
+// 선택된 옵션들을 추적하는 함수
+    function trackSelectedOptions(selectId) {
+        var selectElement = document.getElementById(selectId);
+        var selectedOptions = [];
+
+        for (var i = 0; i < selectElement.options.length; i++) {
+            var option = selectElement.options[i];
+            if (option.selected) {
+                selectedOptions.push(option.value);
+            }
+        }
+
+        // 선택된 옵션들을 활용하여 필요한 동작 수행
+        // 예: 선택된 옵션들을 출력하기
+        console.log(selectedOptions);
+    }
+
+    // 각 드롭다운 메뉴의 변경을 추적하고 필요한 동작을 호출
+    document.getElementById("SubCategori").addEventListener("change", function () {
+        trackSelectedOptions("SubCategori");
+    });
+
+    document.getElementById("Costrange").addEventListener("change", function () {
+        trackSelectedOptions("Costrange");
+    });
+
+    document.getElementById("ABVrange").addEventListener("change", function () {
+        trackSelectedOptions("ABVrange");
+    });
+
+    document.getElementById("net-weight").addEventListener("change", function () {
+        trackSelectedOptions("net-weight");
+    });
+
+    document.getElementById("paring").addEventListener("change", function () {
+        trackSelectedOptions("paring");
+    });
+
+    document.getElementById("Cask-box").addEventListener("change", function () {
+        trackSelectedOptions("Cask-box");
+    });
+
+    document.getElementById("nation").addEventListener("change", function () {
+        trackSelectedOptions("nation");
+    });
+</script>
 </body>
 </html>

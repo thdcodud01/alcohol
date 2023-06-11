@@ -15,7 +15,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/product")
 public class MainCategoryController {
 
     private final ProductService productService;

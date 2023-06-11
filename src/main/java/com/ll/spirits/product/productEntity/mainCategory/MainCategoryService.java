@@ -2,6 +2,7 @@ package com.ll.spirits.product.productEntity.mainCategory;
 
 import com.ll.spirits.DataNotFoundException;
 import com.ll.spirits.product.Product;
+import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,8 @@ public class MainCategoryService {
     public Integer getMainCategoryIdBymainCategory(String mainCategory) {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return mainCategoryRepository.getMainCategoryIdBymainCategory(mainCategory);
+    }
+    public List<MainCategory> getAllMainCategories() {
+        return mainCategoryRepository.findAll();
     }
 }

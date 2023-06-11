@@ -183,43 +183,53 @@ ul,li{
   margin-left: 70px;
 }
 
-.section>.goods-list{
-  display:flex;
-  justify-content: center;
+
+.section>.goods-list-section{
+    display:flex;
+    justify-content:center;
+    width:1180px;
 }
 
-.section>.goods-list>div{
+.section>.goods-list-section>.goods-list{
+  display:flex;
+  flex-wrap: wrap;
+  margin-left:20px;
 
+}
+
+.section>.goods-list-section>.goods-list>div{
+    margin-top:20px;
   width : 250px;
   vertical-align : top;
+
+}
+.section>.goods-list-section>.goods-list > div > a {
+  overflow : hidden;
 }
 
-.section>.goods-list > div > img {
+.section>.goods-list-section>.goods-list > div > a > img {
   width : 250px;
   height : 370px;
   margin-bottom : 10px;
+  transition : scale 400ms;
+}
+.section>.goods-list-section>.goods-list > div > a:hover > img {
+  scale : 107%;
 }
 
-.section>.goods-list .goods-name {
+.section>.goods-list-section>.goods-list .goods-name {
   margin-bottom : 10px;
 }
 
-.section>.goods-list > .goods-1 {
+.section>.goods-list-section>.goods-list > .goods-1 {
   margin-right : 20px;
+  margin-left: 20px;
 }
 
-.section>.goods-list > .goods-2 {
-  margin-right : 20px;
-}
-
-.section>.goods-list > .goods-3 {
-  margin-right : 20px;
-}
-
-.section>.goods-list .per{
+.section>.goods-list-section>.goods-list .per{
   color : #FA622F;
 }
 
-.section>.goods-list > div > p > span {
+.section>.goods-list-section>.goods-list > div > a > p > span {
   font-weight : bold;
 }

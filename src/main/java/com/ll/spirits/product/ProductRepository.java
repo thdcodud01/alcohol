@@ -1,5 +1,7 @@
 package com.ll.spirits.product;
 
+import com.ll.spirits.product.productEntity.cask.Cask;
+import com.ll.spirits.product.productEntity.pairing.Pairing;
 import com.ll.spirits.review.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.parameters.P;

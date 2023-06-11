@@ -18,12 +18,6 @@ public class Review {
     private Long id; // PK, Review 테이블의 id값
 
     @Column(columnDefinition = "TEXT") // TEXT 자료형으로 부여
-    private String flavor; // Review 테이블의 내용 칼럼 (술이 맛)
-
-    @Column(columnDefinition = "TEXT") // TEXT 자료형으로 부여
-    private String aroma; // Review 테이블의 내용 칼럼 (술의 향)
-
-    @Column(columnDefinition = "TEXT") // TEXT 자료형으로 부여
     private String content; // Review 테이블의 내용 칼럼
 
     private LocalDateTime createDate; // Review 테이블의 작성일 칼럼

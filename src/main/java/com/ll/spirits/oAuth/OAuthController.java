@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/oauth")
 public class OAuthController {
 
-    /**
+    /*
      * 카카오 callback
      * [GET] /oauth/kakao/callback
      */

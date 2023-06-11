@@ -23,7 +23,7 @@ public class SecurityConfig {
                         new AntPathRequestMatcher("/**")).permitAll()
                 .and()
                 .csrf().ignoringRequestMatchers(
-                        new AntPathRequestMatcher("/h2-console/**"))
+                        new AntPathRequestMatcher("/**"))
                 .and()
                 .headers()
                 .addHeaderWriter(new XFrameOptionsHeaderWriter(
@@ -48,4 +48,5 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
 }
