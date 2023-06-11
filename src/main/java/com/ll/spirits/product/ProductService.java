@@ -1,26 +1,49 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
-import com.ll.spirits.product.dto.ProductDTO;
-import com.ll.spirits.product.mapper.ProductMapper;
 import com.ll.spirits.product.productEntity.cask.Cask;
+import com.ll.spirits.product.productEntity.cask.CaskRepository;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
 import com.ll.spirits.product.productEntity.pairing.Pairing;
+import com.ll.spirits.product.productEntity.pairing.PairingRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
+import com.sun.tools.javac.Main;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class ProductService {
-    private final ProductMapper productMapper;
     private final ProductRepository productRepository;
     private final ReviewRepository reviewRepository;
+
+    private Specification<Product> search(String kw) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Predicate toPredicate(Root<Product> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                Join<Product, Review> r = p.join("reviewList", JoinType.LEFT);
+                Join<Review, SiteUser> u = r.join("author", JoinType.LEFT);
+                return cb.or(cb.like(p.get("name"), "%" + kw + "%"), // 술이름
+                        cb.like(p.get("content"), "%" + kw + "%"),      // 내용
+                        cb.like(r.get("content"), "%" + kw + "%"),      // 리뷰 내용
+                        cb.like(u.get("username"), "%" + kw + "%"));   // 리뷰 작성자
+            }
+        };
+    }
 
     public List<Product> getList() {
         return this.productRepository.findAll();
@@ -34,7 +57,6 @@ public class ProductService {
             throw new DataNotFoundException("product not found"); // 예외처리로 에러(DataNotFoundException)를 표시
         }
     }
-
     public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return productRepository.findByMainCategoryId(mainCategory);
@@ -51,127 +73,6 @@ public class ProductService {
     public List<Product> getProductsByCategory(String mainCategoryId, String subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
         return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
     }
-
-    public List<Product> findByMainCategoryId(Integer mainCategory) {
-        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
-        return productRepository.findByMainCategoryId(mainCategory);
-    }
-
-    public List<Product> findBySubCategoryId(Integer subCategoryId) {
-        return productRepository.findBySubCategoryId(subCategoryId);
-    }
-
-    public List<Product> findByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId) {
-        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
-        return productRepository.findByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-    }
-
-    public List<Product> findByCostRangeId(Integer costRangeId) {
-        return productRepository.findByCostRangeId(costRangeId);
-    }
-
-    public List<Product> findByABVrangeId(Integer abvRangeId) {
-        return productRepository.findByABVrangeId(abvRangeId);
-    }
-
-    public List<Product> findByNetWeightId(Integer netWeightRangeId) {
-        return productRepository.findByNetWeightId(netWeightRangeId);
-    }
-
-    public List<Product> findByPairingsIdIn(List<Integer> pairingIds) {
-        return productRepository.findByPairingsIdIn(pairingIds);
-    }
-
-    public List<Product> findByCasksIdIn(List<Integer> caskIds) {
-        return productRepository.findByCasksIdIn(caskIds);
-    }
-
-    public List<Product> findByNationId(Integer nationId) {
-        return productRepository.findByNationId(nationId);
-    }
-//    public List<Product> findBySubCategoryIdAndIdIn(Integer subCategoryId, List<Integer> ids) {
-//        return productRepository.findBySubCategoryIdAndIdIn(subCategoryId, ids);
-//    }
-//
-//    public List<Product> findByCostRangeIdAndIdIn(Integer costRangeId, List<Integer> ids) {
-//        return productRepository.findByCostRangeIdAndIdIn(costRangeId, ids);
-//    }
-//
-//    public List<Product> findByABVrangeIdAndIdIn(Integer abvRangeId, List<Integer> ids) {
-//        return productRepository.findByABVrangeIdAndIdIn(abvRangeId, ids);
-//    }
-//
-//    public List<Product> findByNetWeightIdAndIdIn(Integer netWeightRangeId, List<Integer> ids) {
-//        return productRepository.findByNetWeightIdAndIdIn(netWeightRangeId, ids);
-//    }
-//
-//    public List<Product> findByPairingsIdInAndIdIn(List<Integer> pairingIds, List<Integer> ids) {
-//        return productRepository.findByPairingsIdInAndIdIn(pairingIds, ids);
-//    }
-//
-//    public List<Product> findByCasksIdInAndIdIn(List<Integer> caskIds, List<Integer> ids) {
-//        return productRepository.findByCasksIdInAndIdIn(caskIds, ids);
-//    }
-//
-//    public List<Product> findByNationIdAndIdIn(Integer nationId, List<Integer> ids) {
-//        return productRepository.findByNationIdAndIdIn(nationId, ids);
-//    }
-
-
-    public List<Product> getFilteredProducts(ProductFilter filter) {
-        List<Product> allProducts = productRepository.findAll();
-
-        // 필터링 조건에 따라 상품들을 필터링
-        List<Product> filteredProducts = allProducts.stream()
-                .filter(product -> {
-                    // 메인 카테고리 일치 여부 확인
-                    if (!product.getMainCategory().equals(filter.getMainCategoryId())) {
-                        return false;
-                    }
-
-                    // 서브 카테고리 일치 여부 확인
-                    if (filter.getSubCategoryId() != null && !product.getSubCategory().getId().equals(filter.getSubCategoryId())) {
-                        return false;
-                    }
-
-
-                    // 가격 범위 일치 여부 확인
-                    if (filter.getCostRangeId() != null && !product.getCostRange().equals(filter.getCostRangeId())) {
-                        return false;
-                    }
-
-                    // 도수 범위 일치 여부 확인
-                    if (filter.getAbvRangeId() != null && !product.getAbvRange().equals(filter.getAbvRangeId())) {
-                        return false;
-                    }
-
-                    // 용량 범위 일치 여부 확인
-                    if (filter.getNetWeightRangeId() != null && !product.getNetWeight().equals(filter.getNetWeightRangeId())) {
-                        return false;
-                    }
-
-                    // 안주 범위 일치 여부 확인
-                    if (filter.getPairingIds() != null && !product.getPairings().containsAll(filter.getPairingIds())) {
-                        return false;
-                    }
-
-                    // 캐스크 범위 일치 여부 확인
-                    if (filter.getCaskIds() != null && !product.getCasks().containsAll(filter.getCaskIds())) {
-                        return false;
-                    }
-
-                    // 국가 범위 일치 여부 확인
-                    if (filter.getNationId() != null && !product.getNation().equals(filter.getNationId())) {
-                        return false;
-                    }
-
-                    return true;
-                })
-                .collect(Collectors.toList());
-
-        return filteredProducts;
-    }
-
 
     public List<Review> getReviewsByProduct(Product product) { // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
         return reviewRepository.findByProduct(product);

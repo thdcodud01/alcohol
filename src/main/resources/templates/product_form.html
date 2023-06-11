@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" th:href="@{/product_form.css}">
+    <title>제품 등록 페이지</title>
+</head>
+<body>
+<div class="wrap">
+    <div class="title-box">
+        <div class="title">상품등록</div>
+    </div>
+    <form action="">
+        <div class="Category">
+            <label for="category">대분류:</label>
+            <select id="category" onchange="filterByCategory()">
+                <option value="">전체</option>
+                <option value="위스키">위스키</option>
+                <option value="보드카">보드카</option>
+                <option value="데킬라">데킬라</option>
+                <option value="진">진</option>
+                <option value="럼">럼</option>
+                <option value="브랜디">브랜디</option>
+                <option value="맥주">맥주</option>
+            </select>
+        </div>
+
+        <div class="SubCategory">
+            <label for="subCategory">중분류:</label>
+            <select id="subCategory" onchange="filterBySubCategory()">
+                <option value="">전체</option>
+            </select>
+        </div>
+        <script>
+      const subCategoryOptions = {
+        위스키: ["싱글몰트", "싱글그레인", "블렌디드몰트", "블렌디드", "버번", "테네시", "기타"],
+        보드카: ["일반", "플레이버드", "기타"],
+        데킬라: ["메즈칼", "블랑코", "레포사도", "아네호", "기타"],
+        진: ["쥬니버", "올드 톰", "런던드라이", "네이비 스트렝스", "슬로", "크래프트", "기타"],
+        럼: ["화이트", "골드", "다크", "오버프루프", "기타"],
+        브랜디: ["꼬냑", "아르마냑", "깔바도스", "기타"],
+        맥주: ["라거", "에일", "밀맥주", "흑맥주", "기타"]
+      };
+      const subCategorySelect = document.getElementById("subCategory");
+
+      function filterByCategory() {
+        const category = document.getElementById("category").value;
+        resetSubCategory();
+        if (category !== "") {
+          const subCategories = subCategoryOptions[category];
+          subCategories.forEach(subCategory => {
+            const option = document.createElement("option");
+            option.text = subCategory;
+            subCategorySelect.add(option);
+          });
+        }
+      }
+
+      function filterBySubCategory() {
+        const subCategory = subCategorySelect.value;
+        // 여기에서 중분류에 따른 필터링 로직을 추가하세요.
+        console.log(`Selected sub-category: ${subCategory}`);
+      }
+
+      function resetSubCategory() {
+        subCategorySelect.options.length = 1;
+      }
+        </script>
+
+        <div class="product-name">
+            <div class="title">이름:</div>
+            <input type="text" placeholder="이름을 입력해주세요">
+        </div>
+
+        <div class="Costrange-box">
+            <label for="Costrange">가격:</label>
+            <select id="Costrange" onchange="filterByCostrange()">
+                <option value="가격">가격</option>
+                <option value="0~2만원">0~2만원</option>
+                <option value="2만원~5만원">2만원~5만원</option>
+                <option value="5만원~10만원">5만원~10만원</option>
+                <option value="10만원~15만원">10만원~15만원</option>
+                <option value="15만원~20만원">15만원~20만원</option>
+                <option value="20만원~30만원">20만원~30만원</option>
+                <option value="30만원 이상">30만원 이상</option>
+            </select>
+            <input type="text" placeholder="가격을 입력해주세요">
+        </div>
+
+        <div class="ABVrange-box">
+            <label for="ABVrange">도수:</label>
+            <select id="ABVrange" onchange="filterByABVrange()">
+                <option value="도수">도수</option>
+                <option value="무알콜">무알콜</option>
+                <option value="1도~10도">1도~10도</option>
+                <option value="10도~40도">10도~40도</option>
+                <option value="40도~50도">40도~50도</option>
+                <option value="50도~60도">50도~60도</option>
+                <option value="60도~70도">60도~70도</option>
+                <option value="70도 이상">70도 이상</option>
+            </select>
+            <input type="text" placeholder="도수를 입력해주세요">
+        </div>
+
+        <div class="net-weight-box">
+            <label for="net-weight">용량:</label>
+            <select id="net-weight" onchange="filterBynet-weight()">
+                <option value="안주">용량</option>
+                <option value="300ml">300ml</option>
+                <option value="473ml">473ml</option>
+                <option value="500ml">500ml</option>
+                <option value="700ml">700ml</option>
+                <option value="750ml">750ml</option>
+                <option value="1000ml">1000ml</option>
+                <option value="5000ml">5000ml</option>
+            </select>
+        </div>
+
+        <div class="taste-box">
+            <div class="title">맛:</div>
+            <input type="text" placeholder="맛을 입력해주세요">
+        </div>
+
+        <div class="incense-box">
+            <div class="title">향:</div>
+            <input type="text" placeholder="향을 입력해주세요">
+        </div>
+
+        <div class="paring-box">
+            <label for="paring">안주:</label>
+            <select id="paring" onchange="filterByparing()">
+                <option value="안주1">안주1</option>
+                <option value="치즈">치즈</option>
+                <option value="초콜릿">초콜릿</option>
+                <option value="견과류">견과류</option>
+                <option value="고기">고기</option>
+                <option value="해산물">해산물</option>
+                <option value="시가">시가</option>
+                <option value="튀김">튀김</option>
+                <option value="크래커">크래커</option>
+            </select>
+            <select id="paring" onchange="filterByparing()">
+                <option value="안주2">안주2</option>
+                <option value="치즈">치즈</option>
+                <option value="초콜릿">초콜릿</option>
+                <option value="견과류">견과류</option>
+                <option value="고기">고기</option>
+                <option value="해산물">해산물</option>
+                <option value="시가">시가</option>
+                <option value="튀김">튀김</option>
+                <option value="크래커">크래커</option>
+            </select>
+            <select id="paring" onchange="filterByparing()">
+                <option value="안주3">안주3</option>
+                <option value="치즈">치즈</option>
+                <option value="초콜릿">초콜릿</option>
+                <option value="견과류">견과류</option>
+                <option value="고기">고기</option>
+                <option value="해산물">해산물</option>
+                <option value="시가">시가</option>
+                <option value="튀김">튀김</option>
+                <option value="크래커">크래커</option>
+            </select>
+        </div>
+
+        <div class="Cask-box">
+            <label for="Cask-box">캐스크:</label>
+            <select id="Cask-box" onchange="filterByCask-box()">
+                <option value="오크통1">오크통1</option>
+                <option value="버진캐스크">버진캐스크</option>
+                <option value="버번캐스크">버번캐스크</option>
+                <option value="쉐리캐스크(p.x)">쉐리캐스크(p.x)</option>
+                <option value="쉐리캐스크(Oloroso)">쉐리캐스크(Oloroso)</option>
+                <option value="포트캐스크">포트캐스크</option>
+                <option value="와인캐스크">와인캐스크</option>
+                <option value="꼬냑캐스크">꼬냑캐스크</option>
+                <option value="소테른캐스크">소테른캐스크</option>
+                <option value="아마로네캐스크">아마로네캐스크</option>
+            </select>
+            <select id="Cask-box" onchange="filterByCask-box()">
+                <option value="오크통2">오크통2</option>
+                <option value="버진캐스크">버진캐스크</option>
+                <option value="버번캐스크">버번캐스크</option>
+                <option value="쉐리캐스크(p.x)">쉐리캐스크(p.x)</option>
+                <option value="쉐리캐스크(Oloroso)">쉐리캐스크(Oloroso)</option>
+                <option value="포트캐스크">포트캐스크</option>
+                <option value="와인캐스크">와인캐스크</option>
+                <option value="꼬냑캐스크">꼬냑캐스크</option>
+                <option value="소테른캐스크">소테른캐스크</option>
+                <option value="아마로네캐스크">아마로네캐스크</option>
+            </select>
+            <select id="Cask-box" onchange="filterByCask-box()">
+                <option value="오크통3">오크통3</option>
+                <option value="버진캐스크">버진캐스크</option>
+                <option value="버번캐스크">버번캐스크</option>
+                <option value="쉐리캐스크(p.x)">쉐리캐스크(p.x)</option>
+                <option value="쉐리캐스크(Oloroso)">쉐리캐스크(Oloroso)</option>
+                <option value="포트캐스크">포트캐스크</option>
+                <option value="와인캐스크">와인캐스크</option>
+                <option value="꼬냑캐스크">꼬냑캐스크</option>
+                <option value="소테른캐스크">소테른캐스크</option>
+                <option value="아마로네캐스크">아마로네캐스크</option>
+            </select>
+            <select id="Cask-box" onchange="filterByCask-box()">
+                <option value="오크통4">오크통4</option>
+                <option value="버진캐스크">버진캐스크</option>
+                <option value="버번캐스크">버번캐스크</option>
+                <option value="쉐리캐스크(p.x)">쉐리캐스크(p.x)</option>
+                <option value="쉐리캐스크(Oloroso)">쉐리캐스크(Oloroso)</option>
+                <option value="포트캐스크">포트캐스크</option>
+                <option value="와인캐스크">와인캐스크</option>
+                <option value="꼬냑캐스크">꼬냑캐스크</option>
+                <option value="소테른캐스크">소테른캐스크</option>
+                <option value="아마로네캐스크">아마로네캐스크</option>
+            </select>
+        </div>
+
+        <div class="nation">
+            <label for="nation">국가:</label>
+            <select id="nation" onchange="filterBynation()">
+                <option value="국가">국가</option>
+                <option value="미국">미국</option>
+                <option value="스코틀랜드">스코틀랜드</option>
+                <option value="아일랜드">아일랜드</option>
+                <option value="아일라">아일라</option>
+                <option value="베네수엘라">베네수엘라</option>
+                <option value="대만">대만</option>
+                <option value="인도">인도</option>
+                <option value="호주">호주</option>
+                <option value="프랑스">프랑스</option>
+                <option value="포르투갈">포르투갈</option>
+                <option value="러시아">러시아</option>
+                <option value="덴마크">덴마크</option>
+                <option value="네덜란드">네덜란드</option>
+                <option value="폴란드">폴란드</option>
+                <option value="멕시코">멕시코</option>
+                <option value="이탈리아">이탈리아</option>
+                <option value="필리핀">필리핀</option>
+            </select>
+        </div>
+
+        <div class="product-img-box">
+            <label for="avatar">상품사진:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+        </div>
+
+        <div class="product-detail-img-box">
+            <label for="avatar">상품상세사진:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+        </div>
+
+        <div class="product-info-img-box">
+            <label for="avatar">상품정보사진:</label>
+            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+        </div>
+    </form>
+
+    <div class="btn-section">
+        <div class="btn-box">
+            <button type="submit" class="btn btn-primary"><a href="">저장하기</a></button>
+            <button class="btn-cancle"><a href="">취소하기</a></button>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,5 @@
 package com.ll.spirits.product.productEntity.pairing;
-
+import com.ll.spirits.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +14,5 @@ public class Pairing {
 
     @Column(length = 200)
     private String pairing;
-
 
 }

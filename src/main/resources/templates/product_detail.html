@@ -1,38 +1,249 @@
 <!DOCTYPE html>
 <html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.w3.org/1999/xhtml">
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>상품 상세보기 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/product_detail_style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
+<!-- 문서시작 -->
 <div layout:fragment="content">
-    <table>
-        <tbody>
-        <tr th:each="product : ${product}">
-            <td th:text="${product.cost}"></td>
-            <td th:text="${product.name}"></td>
-        </tr>
-        </tbody>
-        <tbody>
-        <tr th:each="review : ${reviews}">
-            <td th:text="${review.flavor}"></td>
-            <td th:text="${review.aroma}"></td>
-            <td th:text="${review.content}"></td>
-            <td th:text="${review.createDate}"></td>
-        </tr>
-        </tbody>
-        <!--
-        <tbody>
-        <tr th:each="userId : ${siteUser}">
-            <td th:text="${siteUser.userId}"></td>
-        </tr>
-        </tbody>
-        -->
-    </table>
-    <div th:each="product : ${product}">
-        <div th:text="${product.info}"></div>
+    <div class="wrap">
+        <div class="product-box">
+            <div class="left-box"> <!--제품이미지 백그라운드 컬러로 이미지소스 이용해서 CSS로 삽입-->
+            </div>
+            <div class="right-box">
+                <div class="title-box">
+                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2> <!--제품명-->
+                </div>
+                <div class="info-box">
+                    <div class="info"> <!--메인카테고리?-->
+                        <div class="title">
+                            주종 :
+                            <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="title"> <!--도수-->
+                            도수 :
+                            <span th:each="product : ${product}" th:text="${product.abv}"></span><span>%</span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="title"> <!--용량-->
+                            용량 :
+                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="title"> <!--용량-->
+                            생산국가 :
+                            <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div class="title">
+                            캐스크1:
+                            <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                                <span th:text="${cask.cask}"></span>
+                                <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cost-box">
+                    <div class="title">
+                        <h3>판매가격</h3>
+                    </div>
+                    <div class="num" th:each="product : ${product}" th:text="${product.cost}"></div>
+                    <span class="num">￦</span> <!--가격-->
+                </div>
+                <div class="logo-box">
+                    <div class="like">
+                        <a href="#"> <!--찜버튼-->
+                            <i class="fa-regular fa-heart fa-2xl"></i>
+                        </a>
+                    </div>
+                    <div class="wish">
+                        <a href="#"> <!--좋아요(추천)버튼-->
+                            <i class="fa-regular fa-thumbs-up fa-2xl"></i>
+                        </a>
+                    </div>
+                    <div class="link">
+                        <a href="#" class="share-button"> <!--링크복사버튼-->
+                            <i class="fa-solid fa-share-nodes fa-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="point-section">
+            <div class="title-box">
+                <h2 class="title">핵심 포인트</h2>
+            </div>
+            <div class="point-box1">
+                <div class="taste-title">맛</div>
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한
+                    약주
+                </div> <!--맛 설명-->
+            </div>
+            <div class="point-box2">
+                <div class="taste-title">향</div>
+                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한
+                    약주
+                </div> <!--향 설명-->
+            </div>
+            <div class="point-box3">
+                <div class="taste-title">이런 음식들과 잘 어울려요!</div>
+                <div class="taste-text">
+                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+                                <span th:text="${pairing.pairing}"></span>
+                                <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
+                    </span>
+                </div>
+            </div>
+            <div class="point-box4">
+                <div class="taste-title">사용한 캐스크</div>
+                <div class="taste-text">
+                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                        <span th:text="${cask.cask}"></span>
+                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="information-section" th:each="product : ${product}">
+            <div class="img-box"> <!--제품설명이미지-->
+                <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321062780-1.jpg"
+                     alt="">
+            </div>
+            <div class="text-box">
+                <div class="title">
+                    <h2>
+                        [고흥 유자주 8%], 어떤 맛을 갖고 있나요?
+                    </h2>
+                </div>
+                <div class="text" th:text="${product.info}"> <!--제품인포-->
+                    <p>새콤달콤한 유자 향 뒤에 고소 담백한 곡물 향을 느낄 수 있는 술이에요.</p>
+                    <p>맛을 보면 유자차로 착각할 만큼 비슷한 맛을 가지고 있는데요.</p>
+                    <p>달콤한 맛이 자연스럽게 사라질 때 쯤 누룩의 고소하고 담백한 맛이 느껴지면서</p>
+                    <p>비로소 약주를 마시고 있음을 깨닫게 될 거예요 :)</p>
+                </div>
+            </div>
+        </div>
+        <div class="review-box">
+            <div class="title-box">
+                <div class="title">리뷰 남기기</div>
+            </div>
+            <div class="review-list" th:each="review : ${reviews}">
+                <div class="review-info">
+                    <div class="left-box">
+                        <div class="nick-name" th:text="${review.author.nickname}">황.인.성</div> <!--유저 닉네임-->
+                    </div>
+                    <div class="right-box">
+                        <div class="product-name" th:each="product : ${product}" th:text="${product.name}"></div>
+                        <!--리뷰에 해당하는 제품 이름-->
+                        <div class="review-date"
+                             th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div> <!--리뷰 작성일-->
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
+                </div>
+            </div>
+
+            <div class="review-form" th:each="product : ${product}">
+                <form name="review" th:action="@{|/review/create/${product.id}|}" th:object="${reviewForm}"
+                      method="post">
+                    <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+                    <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
+                              cols="30" rows="15"></textarea>
+                    <textarea sec:authorize="isAuthenticated()" th:field="*{content}" name="content" cols="30"
+                              rows="15"></textarea>
+                    <input type="submit" value="리뷰등록">
+                </form>
+            </div>
+        </div>
     </div>
+
+    <hr>
+
+    <div class="footer-wrap">
+        <div class="footer-main">SPIRITS 주식회사</div>
+        <div>고객센터: 070-5014-1282
+
+        </div>
+        <div>평일 10:00 - 18:00, 주말 휴무</div>
+        <br>
+        <ul class="list">
+            <li><a href="">이용약관</a></li>
+            <li><a href="">개인정보처리방침</a></li>
+            <li><a href="">입점문의</a></li>
+        </ul>
+        <br>
+        <div>대표 : 황인성<br>
+
+            사업자등록번호 : 620-81-58299
+
+            사업자확인
+            통신판매 신고번호: 2021-서울서초-2084
+        </div>
+        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, SPRITS)<br>
+
+            정보보호 책임자 : 송채영<br>
+
+            대표 전화 : 070-5014-1282
+
+            이메일 : info@sooldamhwa.com
+        </div>
+    </div>
+
+
+    <div class="btn">
+        <i class="fa-solid fa-angles-up"></i>
+    </div>
+
 </div>
+<script>
+$(document).ready(function(){
+//   끝
+})
+
+$(".btn").click(function(){
+  $("html , body").animate({
+    "scrollTop":0,
+  },300)
+})
+
+$(window).scroll(function(){
+  let scrollTop = $(this).scrollTop()
+  if(scrollTop>=600){
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
 </body>
 </html>

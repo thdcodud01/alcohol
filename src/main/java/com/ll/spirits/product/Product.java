@@ -55,21 +55,21 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
-    @ManyToMany // Pairing 엔티티와 Cask 엔티티와의 다대다 관계
-    @JoinTable( // @JoinTable 연결 테이블을 지정하여 다대다 관계를 매핑
-            name = "product_pairing", // name 속성은 연결 테이블의 이름을 지정 (실제로 엔티티가 아니라 연결 테이블의 이름)
-            joinColumns = @JoinColumn(name = "product_id"), // 각각 Product 엔티티와 연결 테이블의 다른 엔티티 간의 외래 키를 지정
-            inverseJoinColumns = @JoinColumn(name = "pairingsId")
-    )
-    private List<Pairing> pairings = new ArrayList<>();
+    @ManyToMany
+    @JoinTable
+            (name = "product_pairings",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "pairing_id")
+            )
+    private List<Pairing> pairings;
 
     @ManyToMany
-    @JoinTable(
-            name = "product_cask",
+    @JoinTable
+            (name = "product_casks",
             joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "casksId")
-    )
-    private List<Cask> casks = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "cask_id")
+            )
+    private List<Cask> casks;
 
     // product_pairing 테이블과 product_cask 테이블을 생성하여
     // Product 엔티티와 Pairing 엔티티, 그리고 Product 엔티티와 Cask 엔티티 간의 다대다 관계를 매핑

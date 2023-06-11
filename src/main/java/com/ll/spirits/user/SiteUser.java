@@ -11,19 +11,11 @@ public class SiteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(unique = true)
-    private String userId;
-
-//    @Column(unique = true)
-//    private String email;
-
+    private String username; // email 형식
     private String password;
-
     @Column(unique = true)
     private String nickname;
-
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
 }

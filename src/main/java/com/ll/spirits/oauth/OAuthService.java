@@ -1,13 +1,15 @@
-package com.ll.spirits.oauth;
+package com.ll.spirits.oAuth;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@RequiredArgsConstructor
 @Service
 public class OAuthService{
 
