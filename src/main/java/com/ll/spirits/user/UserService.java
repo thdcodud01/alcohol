@@ -40,9 +40,18 @@ public class UserService {
         userRepository.delete(user);
     }
 
-
-
-    public Optional<SiteUser> getUserByusername(String username) {
-        return userRepository.findByusername(username);
+    public boolean authenticateUser(String username, String password) {
+        Optional<SiteUser> siteUserOptional = userRepository.findByusername(username);
+        if (siteUserOptional.isPresent()) {
+            SiteUser siteUser = siteUserOptional.get();
+            return passwordEncoder.matches(password, siteUser.getPassword());
+        }
+        return false;
     }
+
+//    public Optional<SiteUser> getUserByusername(String username) {
+//        return userRepository.findByusername(username);
+//    }
+
+
 }

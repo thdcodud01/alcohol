@@ -67,17 +67,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("userId") String userId, @RequestParam("password1") String password, HttpSession session, Model model) {
-        if ("admin@gmail.com".equals(userId) && "123".equals(password)) {
-            UserDetails userDetails = userSecurityService.loadUserByUsername(userId);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-
+    public String login(@RequestParam("username") String username, @RequestParam("password1") String password, HttpSession session, Model model) {
+        if (userService.authenticateUser(username, password)) {
+            session.setAttribute("loggedIn", true);
             return "redirect:/";
         } else {
-            model.addAttribute("error", true);
             return "login_form";
         }
 
@@ -115,6 +109,13 @@ public class UserController {
         }
 
         userService.deleteUser(user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        // 로그아웃 로직 처리
+        session.removeAttribute("loggedIn");
         return "redirect:/";
     }
 
