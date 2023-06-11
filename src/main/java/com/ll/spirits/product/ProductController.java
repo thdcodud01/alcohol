@@ -6,6 +6,7 @@ import com.ll.spirits.product.productEntity.cask.Cask;
 import com.ll.spirits.product.productEntity.cask.CaskService;
 import com.ll.spirits.product.productEntity.costRange.CostRange;
 import com.ll.spirits.product.productEntity.costRange.CostRangeService;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import com.ll.spirits.product.productEntity.nation.NationService;
@@ -53,12 +54,13 @@ public class ProductController {
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
                                              @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
                                              Model model) {
-        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+
         List<Cask> caskList = caskService.getAllCask();
-        List<CostRange> costRangeList = costRangeService.getAllCostRange();
         List<Nation> nationList = nationService.getAllNation();
-        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<Pairing> pairingList = pairingService.getAllPairing();
+        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+        List<CostRange> costRangeList = costRangeService.getAllCostRange();
+        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
@@ -72,16 +74,16 @@ public class ProductController {
             // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
             productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         }
-        model.addAttribute("productList", productList);
-        model.addAttribute("mainCategoryId", mainCategoryId);
-        model.addAttribute("subCategoryId", subCategoryId);
-        model.addAttribute("subCategoryList", subCategoryList);
-        model.addAttribute("costRangeList", costRangeList);
-        model.addAttribute("abVrangeList", abVrangeList);
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
-        model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("pairingList", pairingList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("abVrangeList", abVrangeList);
+        model.addAttribute("netWeightList", netWeightList);
+        model.addAttribute("subCategoryId", subCategoryId);
+        model.addAttribute("costRangeList", costRangeList);
+        model.addAttribute("mainCategoryId", mainCategoryId);
+        model.addAttribute("subCategoryList", subCategoryList);
 
         String templateName;
         switch (mainCategoryId) {
@@ -113,14 +115,53 @@ public class ProductController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Get
     @GetMapping("/create")
-    public String productCreate(ProductForm productForm) {
+    public String productCreate(ProductForm productForm, Model model, String mainCategory, Integer subCategoryId) {
+
+        List<Cask> caskList = caskService.getAllCask();
+        List<Nation> nationList = nationService.getAllNation();
+        List<Pairing> pairingList = pairingService.getAllPairing();
+        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+        List<CostRange> costRangeList = costRangeService.getAllCostRange();
+        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
+        List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
+        List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
+
+        Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
+        List<Product> productList;
+        // 서브카테고리가 null이거나 0인 경우
+        if (subCategoryId == null) {
+            // 서브카테고리가 지정되지 않은 경우, 대분류에 해당하는 모든 제품을 가져옴
+            productList = productService.getProductsByMainCategoryId(mainCategoryId);
+        } else {
+            // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
+            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+        }
+
+        model.addAttribute("caskList", caskList);
+        model.addAttribute("nationList", nationList);
+        model.addAttribute("pairingList", pairingList);
+        model.addAttribute("abVrangeList", abVrangeList);
+        model.addAttribute("costRangeList", costRangeList);
+        model.addAttribute("netWeightList", netWeightList);
+        model.addAttribute("subCategoryId", subCategoryId);
+        model.addAttribute("mainCategoryId", mainCategoryId);
+        model.addAttribute("subCategoryList", subCategoryList);
+        model.addAttribute("mainCategoryList", mainCategoryList);
+
         return "product_form";
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
     @PostMapping("/create") // post == 보내다
-    public String productCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
+    public String productCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal, Model model) {
         // TODO 질문을 저장한다.
         // (주석으로 "TODO" 를 달아놓으면 인텔리제이에서 인지해서 만약 계획된 TODO 에 관련된 로직이 작성이 안되면 커밋할때 한 번더 물어봐준다)
+
+
+        /*
+        * pairings, 모델링 필요
+        * casks 모델링 필요
+        */
+
         if (bindingResult.hasErrors()) {
             return "product_form";
         }
@@ -142,7 +183,6 @@ public class ProductController {
         List<Integer> caskIds = casks.stream()
                 .map(cask -> cask.getId()) // Cask 엔티티에서 cask_id 대신 id 필드를 사용
                 .collect(Collectors.toList());
-
 
         List<Review> reviews = this.productService.getReviewsByProduct(product); // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
         if (principal != null) {

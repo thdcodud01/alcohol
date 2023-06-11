@@ -17,58 +17,61 @@
         <div class="Category">
             <label for="category">대분류:</label>
             <select id="category" onchange="filterByCategory()">
-                <option value="">전체</option>
-                <option value="위스키">위스키</option>
-                <option value="보드카">보드카</option>
-                <option value="데킬라">데킬라</option>
-                <option value="진">진</option>
-                <option value="럼">럼</option>
-                <option value="브랜디">브랜디</option>
-                <option value="맥주">맥주</option>
+                <option value="">대분류 전체</option>
+                <option th:each="mainCategory : ${mainCategoryList}"
+                        th:value="${mainCategory.id}" th:text="${mainCategory.mainCategory}"></option>
             </select>
         </div>
 
         <div class="SubCategory">
             <label for="subCategory">중분류:</label>
             <select id="subCategory" onchange="filterBySubCategory()">
-                <option value="">전체</option>
+                <option th:each="subCategory : ${subCategoryList}"
+                        th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
+               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
+               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
+               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
+               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
+               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
+                        th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
             </select>
         </div>
-        <script>
-      const subCategoryOptions = {
-        위스키: ["싱글몰트", "싱글그레인", "블렌디드몰트", "블렌디드", "버번", "테네시", "기타"],
-        보드카: ["일반", "플레이버드", "기타"],
-        데킬라: ["메즈칼", "블랑코", "레포사도", "아네호", "기타"],
-        진: ["쥬니버", "올드 톰", "런던드라이", "네이비 스트렝스", "슬로", "크래프트", "기타"],
-        럼: ["화이트", "골드", "다크", "오버프루프", "기타"],
-        브랜디: ["꼬냑", "아르마냑", "깔바도스", "기타"],
-        맥주: ["라거", "에일", "밀맥주", "흑맥주", "기타"]
-      };
-      const subCategorySelect = document.getElementById("subCategory");
+<!--        <script>-->
+<!--      const subCategoryOptions = {-->
+<!--        위스키: ["싱글몰트", "싱글그레인", "블렌디드몰트", "블렌디드", "버번", "테네시", "기타"],-->
+<!--        보드카: ["일반", "플레이버드", "기타"],-->
+<!--        데킬라: ["메즈칼", "블랑코", "레포사도", "아네호", "기타"],-->
+<!--        진: ["쥬니버", "올드 톰", "런던드라이", "네이비 스트렝스", "슬로", "크래프트", "기타"],-->
+<!--        럼: ["화이트", "골드", "다크", "오버프루프", "기타"],-->
+<!--        브랜디: ["꼬냑", "아르마냑", "깔바도스", "기타"],-->
+<!--        맥주: ["라거", "에일", "밀맥주", "흑맥주", "기타"]-->
+<!--      };-->
+<!--      const subCategorySelect = document.getElementById("subCategory");-->
 
-      function filterByCategory() {
-        const category = document.getElementById("category").value;
-        resetSubCategory();
-        if (category !== "") {
-          const subCategories = subCategoryOptions[category];
-          subCategories.forEach(subCategory => {
-            const option = document.createElement("option");
-            option.text = subCategory;
-            subCategorySelect.add(option);
-          });
-        }
-      }
+<!--      function filterByCategory() {-->
+<!--        const category = document.getElementById("category").value;-->
+<!--        resetSubCategory();-->
+<!--        if (category !== "") {-->
+<!--          const subCategories = subCategoryOptions[category];-->
+<!--          subCategories.forEach(subCategory => {-->
+<!--            const option = document.createElement("option");-->
+<!--            option.text = subCategory;-->
+<!--            subCategorySelect.add(option);-->
+<!--          });-->
+<!--        }-->
+<!--      }-->
 
-      function filterBySubCategory() {
-        const subCategory = subCategorySelect.value;
-        // 여기에서 중분류에 따른 필터링 로직을 추가하세요.
-        console.log(`Selected sub-category: ${subCategory}`);
-      }
+<!--      function filterBySubCategory() {-->
+<!--        const subCategory = subCategorySelect.value;-->
+<!--        // 여기에서 중분류에 따른 필터링 로직을 추가하세요.-->
+<!--        console.log(`Selected sub-category: ${subCategory}`);-->
+<!--      }-->
 
-      function resetSubCategory() {
-        subCategorySelect.options.length = 1;
-      }
-        </script>
+<!--      function resetSubCategory() {-->
+<!--        subCategorySelect.options.length = 1;-->
+<!--      }-->
+<!--        </script>-->
 
         <div class="product-name">
             <div class="title">이름:</div>
