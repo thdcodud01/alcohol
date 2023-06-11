@@ -149,7 +149,7 @@ public class ProductController {
         this.productService.create(productForm.getProductName(), productForm.getAbv(), productForm.getAroma(), productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser);
         // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
         // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
-        return "redirect:/product/admin/list"; // 제품 저장후 제품목록으로 이동
+        return "redirect:/product/admin/create"; // 제품 저장후 제품목록으로 이동
     }
 
 
