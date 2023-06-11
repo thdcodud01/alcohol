@@ -20,7 +20,7 @@
 <div layout:fragment="content">
     <div class="wrap">
         <div class="product-box">
-            <div class="left-box">
+            <div class="left-box"> <!--제품이미지 백그라운드 컬러로 이미지소스 이용해서 CSS로 삽입-->
             </div>
             <div class="right-box">
                 <div class="title-box">
@@ -123,7 +123,7 @@
             </div>
         </div>
         <div class="information-section" th:each="product : ${product}">
-            <div class="img-box"> <!--제품사진-->
+            <div class="img-box"> <!--제품설명이미지-->
                 <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321062780-1.jpg"
                      alt="">
             </div>
@@ -162,8 +162,8 @@
                 </div>
             </div>
 
-            <div class="review-form">
-                <form name="review" action="" th:object="${reviewForm}"
+            <div class="review-form" th:each="product : ${product}">
+                <form name="review" th:action="@{|/review/create/${product.id}|}" th:object="${reviewForm}"
                       method="post">
                     <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
                     <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
