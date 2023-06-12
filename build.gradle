@@ -35,6 +35,8 @@ dependencies { // JSON 언어로 작성된 디펜던시
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	implementation 'org.commonmark:commonmark:0.21.0'
 	implementation 'com.google.code.gson:gson:2.8.9' // 카카오 API를 위한 디펜던시
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 카카오 소셜로그인을 위한 디펜던시
 	implementation 'com.github.scribejava:scribejava-apis:7.1.1' // 카카오 소셜로그인을 위한 디펜던시

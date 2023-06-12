@@ -1,5 +1,6 @@
 package com.ll.spirits.product.productEntity.netWeight;
 
+import com.ll.spirits.product.productEntity.abvRange.ABVrange;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,5 +14,9 @@ public class NetWeightService {
 
     public List<NetWeight> getAllNetWeight() {
         return netWeightRepository.findAll();
+    }
+
+    public NetWeight getNetWeight(Integer netWeightRangeId) {
+        return netWeightRepository.findById(netWeightRangeId).orElse(null);
     }
 }

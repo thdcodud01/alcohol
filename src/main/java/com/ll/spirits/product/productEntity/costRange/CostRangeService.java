@@ -14,4 +14,8 @@ public class CostRangeService {
     public List<CostRange> getAllCostRange() {
         return costRangeRepository.findAll();
     }
+
+    public CostRange getCostRange(Integer costRangeId) {
+        return costRangeRepository.findById(costRangeId).orElse(null);
+    }
 }
