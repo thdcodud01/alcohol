@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Entity
@@ -18,4 +20,5 @@ public class SiteUser {
     private String nickname;
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    private LocalDate birthDate; // 생년월일 필드 추가
 }

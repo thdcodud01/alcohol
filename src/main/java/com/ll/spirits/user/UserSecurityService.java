@@ -52,6 +52,10 @@ public class UserSecurityService implements UserDetailsService {
         List<GrantedAuthority> authorities = new ArrayList<>();
         if ("admin@gmail.com".equals(username)) {
             authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
+        } else if("admin1@gmail.com".equals(username)) {
+            authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
+        } else if("admin2@gmail.com".equals(username)) {
+            authorities.add(new SimpleGrantedAuthority(UserRole.ADMIN.getValue()));
         } else {
             authorities.add(new SimpleGrantedAuthority(UserRole.USER.getValue()));
         }
