@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>관리자 페이지</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/admin.css}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Admin Dashboard</h1>
+  <nav>
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="product.html">Product Management</a></li>
+      <li><a href="review.html">Review Management</a></li>
+      <li><a href="user.html">User Management</a></li>
+      <li><a href="settings.html">System Settings</a></li>
+      <li><a href="logout.html">Logout</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h2>Product Management</h2>
+  <button class="add-btn">Add Product</button>
+  <table class="product-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+     <tr th:each="product : ${productList}">
+      <td th:text="${product.id}">1</td>
+      <td th:text="${product.name}">Product 1</td>
+      <td>Description 1</td>
+      <td>
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn" th:onclick="'deleteProduct(' + ${product.id} + ')'" >삭제</button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Review Management</h2>
+  <table class="review-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Product</th>
+      <th>User</th>
+      <th>Review</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="review : ${reviewList}">
+      <td th:text="${review.id}">1</td>
+      <td th:text="${review.product.name}">Product 1</td>
+      <td th:text="${review.author.nickname}">User 1</td>
+      <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
+      <td>
+        <button class="delete-btn" th:onclick="'deleteReview(' + ${review.id} + ')'" >삭제</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>User Management</h2>
+  <table class="user-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="siteUser : ${siteUserList}">
+      <td th:text="${siteUser.id}">1</td>
+      <td th:text="${siteUser.nickname}">User 1</td>
+      <td th:text="${siteUser.username}">user1@example.com</td>
+      <td>
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn" onclick="deleteUser(1)">Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>User 2</td>
+      <td>user2@example.com</td>
+      <td>
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</main>
+<footer>
+  <p>&copy; 2023 Admin Dashboard</p>
+</footer>
+<script>
+  // 리뷰 삭제를 처리하는 함수
+function deleteReview(reviewId) {
+  // 서버에 AJAX 요청 보내기
+  $.ajax({
+    url: '/review/delete/' + reviewId,
+    type: 'GET',
+    success: function(response) {
+      // 성공 응답을 처리합니다. 예를 들어 성공 메시지를 표시할 수 있습니다.
+      console.log('리뷰가 성공적으로 삭제되었습니다.');
+      // 선택적으로 페이지를 새로고침하거나 리뷰 목록을 동적으로 업데이트할 수 있습니다.
+      location.reload();
+    },
+    error: function(xhr, status, error) {
+      // 오류 응답을 처리합니다. 예를 들어 오류 메시지를 표시할 수 있습니다.
+      console.error('리뷰 삭제 오류:', error);
+    }
+  });
+}
+</script>
+<script>
+  // 제품 삭제를 처리하는 함수
+function deleteProduct(productId) {
+  // 서버에 AJAX 요청 보내기
+  $.ajax({
+    url: '/product/delete/' + productId,
+    type: 'GET',
+    success: function(response) {
+      // 성공 응답을 처리합니다. 예를 들어 성공 메시지를 표시할 수 있습니다.
+      console.log('제품이 성공적으로 삭제되었습니다.');
+      // 선택적으로 페이지를 새로고침하거나 제품 목록을 동적으로 업데이트할 수 있습니다.
+      location.reload();
+    },
+    error: function(xhr, status, error) {
+      // 오류 응답을 처리합니다. 예를 들어 오류 메시지를 표시할 수 있습니다.
+      console.error('제품 삭제 오류:', error);
+    }
+  });
+}
+</script>
+<script>
+  function deleteUser(username) {
+  fetch('/delete/' + username, {
+    method: 'DELETE'
+  })
+    .then(function(response) {
+      if (response.ok) {
+        // 삭제 성공한 경우에 수행할 동작
+        location.reload(); // 페이지 새로고침
+      } else {
+        // 삭제 실패한 경우에 수행할 동작
+        alert('삭제에 실패했습니다.');
+      }
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+    });
+}
+
+</script>
+</body>
+</html>

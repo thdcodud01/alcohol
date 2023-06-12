@@ -18,6 +18,7 @@ import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.product.productEntity.subCategory.SubCategoryService;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewForm;
+import com.ll.spirits.review.ReviewService;
 import com.ll.spirits.user.SiteUser;
 import com.ll.spirits.user.UserService;
 import jakarta.validation.Valid;
@@ -30,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
 import java.util.List;
@@ -49,6 +51,7 @@ public class ProductController {
     private final NationService nationService;
     private final NetWeightService netWeightService;
     private final PairingService pairingService;
+    private final ReviewService reviewService;
 
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
@@ -174,8 +177,17 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/admin")
-    public String adminProductCreate(ProductForm productForm) {
-        return "redirect:/product/admin/create";
+    public String adminProductCreate(ProductForm productForm, Model model) {
+
+
+
+        List<Product> productList = productService.getList();
+        List<Review> reviewList = reviewService.getList();
+        List<SiteUser> siteUserList = userService.getList();
+        model.addAttribute("productList", productList);
+        model.addAttribute("reviewList",reviewList);
+        model.addAttribute("siteUserList", siteUserList);
+        return "admin";
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
     @PostMapping("/admin") // post == 보내다
@@ -183,13 +195,13 @@ public class ProductController {
         // TODO 질문을 저장한다.
         // (주석으로 "TODO" 를 달아놓으면 인텔리제이에서 인지해서 만약 계획된 TODO 에 관련된 로직이 작성이 안되면 커밋할때 한 번더 물어봐준다)
         if (bindingResult.hasErrors()) {
-            return "redirect:/product/admin/create";
+            return "redirect:/product/admin";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.productService.create(productForm.getProductName(), productForm.getAbv(), productForm.getAroma(), productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser);
         // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
         // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
-        return "redirect:/product/admin/create"; // 제품 저장후 제품목록으로 이동
+        return "redirect:/product/admin"; // 제품 저장후 제품목록으로 이동
     }
 
 

@@ -65,7 +65,7 @@ public class ReviewController {
                 review.getProduct().getId(), review.getId());
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/delete/{id}")
     public String reviewDelete(Principal principal, @PathVariable("id") Long id) {
         Review review = this.reviewService.getReview(id);

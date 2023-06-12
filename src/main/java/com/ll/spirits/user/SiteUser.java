@@ -21,4 +21,13 @@ public class SiteUser {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private LocalDate birthDate; // 생년월일 필드 추가
+
+//    @Override
+//    public String toString() {
+//        return getUsername();
+//    }
+
+
+
+
 }
