@@ -19,8 +19,8 @@ public class UserService {
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
-        user.setRole(role);
         user.setBirthDate(birthDate);
+        user.setRole(role);
         this.userRepository.save(user);
         return user;
     }

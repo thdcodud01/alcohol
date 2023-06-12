@@ -106,7 +106,7 @@ public class UserController {
 //        return "login_form";
 //    }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/delete/{username}") // 사용자 삭제
     public String userDelete(@PathVariable("username") String username) {
         SiteUser user = userService.getUser(username);
