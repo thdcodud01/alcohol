@@ -86,7 +86,7 @@
                 <label for="Cask-box"></label>
                 <select id="Cask-box" onchange="filterByCaskBox()">
                     <option value="오크통">오크통범위 전체</option>
-                    <option th:each="cask : ${caskList}" th:value="${cask.id}" th:text="${cask.casks}"></option>
+                    <option th:each="cask : ${caskList}" th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
             </div>
 
