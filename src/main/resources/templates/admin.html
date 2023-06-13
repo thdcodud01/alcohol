@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>관리자 페이지</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>관리자 페이지</title>
   <link rel="stylesheet" type="text/css" th:href="@{/admin.css}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -24,35 +25,25 @@
 </header>
 <main>
   <h2>Product Management</h2>
-  <button class="add-btn">Add Product</button>
+  <button class="add-btn" onclick="openProductForm()">Add Product</button>
   <table class="product-table">
     <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Description</th>
+      <th>Cost</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product : ${productList}">
+     <tr th:each="product : ${productList}">
       <td th:text="${product.id}">1</td>
       <td th:text="${product.name}">Product 1</td>
-      <td>Description 1</td>
+      <td th:text="${product.cost}">cost</td>
       <td>
         <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Product 2</td>
-      <td>Description 2</td>
-      <td>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </td>
-    </tr>
+        <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>      </td>
+      </tr>
     </tbody>
   </table>
 
@@ -68,22 +59,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td>Product 1</td>
-      <td>User 1</td>
-      <td>Lorem ipsum dolor sit amet</td>
+    <tr th:each="review : ${reviewList}">
+      <td th:text="${review.id}">1</td>
+      <td th:text="${review.product.name}">Product 1</td>
+      <td th:text="${review.author.nickname}">User 1</td>
+      <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
       <td>
-        <button class="delete-btn">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Product 2</td>
-      <td>User 2</td>
-      <td>Lorem ipsum dolor sit amet</td>
-      <td>
-        <button class="delete-btn">Delete</button>
+        <button class="delete-btn" th:onclick="'deleteReview(' + ${review.id} + ')'" >Delete</button>
       </td>
     </tr>
     </tbody>
@@ -100,22 +82,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td>User 1</td>
-      <td>user1@example.com</td>
+    <tr th:each="siteUser : ${siteUserList}">
+      <td th:text="${siteUser.id}">1</td>
+      <td th:text="${siteUser.nickname}">User 1</td>
+      <td th:text="${siteUser.username}">user1@example.com</td>
       <td>
         <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>User 2</td>
-      <td>user2@example.com</td>
-      <td>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
+        <button class="delete-btn" th:attr="data-username=${siteUser.username}">Delete</button>
       </td>
     </tr>
     </tbody>
@@ -124,5 +97,83 @@
 <footer>
   <p>&copy; 2023 Admin Dashboard</p>
 </footer>
+<script>
+  // 삭제 버튼에 이벤트 핸들러 등록
+$('.delete-btn').on('click', function() {
+  var productId = $(this).data('product-id');
+  var username = $(this).data('username');
+
+  if (productId) {
+    deleteProduct(productId);
+  } else if (username) {
+    deleteUser(username);
+  }
+});
+
+// 상품 삭제를 처리하는 함수
+function deleteProduct(productId) {
+  var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
+  if (confirmDelete) {
+    $.ajax({
+      url: '/product/delete/' + productId,
+      type: 'GET',
+      success: function(response) {
+        console.log('상품이 성공적으로 삭제되었습니다.');
+        location.reload();
+      },
+      error: function(xhr, status, error) {
+        console.error('상품 삭제 오류:', error);
+      }
+    });
+  }
+}
+</script>
+
+<script>
+  // 리뷰 삭제를 처리하는 함수
+  function deleteReview(reviewId) {
+    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");
+    if (confirmDelete) {
+      $.ajax({
+        url: '/review/delete/' + reviewId,
+        type: 'GET',
+        success: function(response) {
+          console.log('리뷰가 성공적으로 삭제되었습니다.');
+          location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error('리뷰 삭제 오류:', error);
+        }
+      });
+    }
+  }
+</script>
+
+<script>
+  function deleteUser(username) {
+  var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");
+  if (confirmDelete) {
+    $.ajax({
+      url: '/user/delete/' + username,
+      type: 'GET',
+      success: function(response) {
+        console.log('유저가 성공적으로 삭제되었습니다.');
+        location.reload();
+      },
+      error: function(xhr, status, error) {
+        console.error('유저 삭제 오류:', error);
+      }
+    });
+  }
+}
+
+</script>
+
+<script>
+  // Add Product 누르면 product_form 으로 이동
+  function openProductForm() {
+    window.location.href = "/product/create";
+  }
+</script>
 </body>
 </html>

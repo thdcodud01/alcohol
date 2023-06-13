@@ -1,4 +1,4 @@
-package com.ll.spirits.oAuth;
+package com.ll.spirits.oauth;
 
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
