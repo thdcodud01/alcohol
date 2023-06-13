@@ -25,7 +25,7 @@
 </header>
 <main>
   <h2>Product Management</h2>
-  <button class="add-btn">Add Product</button>
+  <button class="add-btn" onclick="openProductForm()">Add Product</button>
   <table class="product-table">
     <thead>
     <tr>
@@ -167,6 +167,13 @@ function deleteProduct(productId) {
   }
 }
 
+</script>
+
+<script>
+  // Add Product 누르면 product_form 으로 이동
+  function openProductForm() {
+    window.location.href = "/product/create";
+  }
 </script>
 </body>
 </html>
