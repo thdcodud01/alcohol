@@ -31,7 +31,7 @@
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Description</th>
+      <th>Cost</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -39,11 +39,10 @@
      <tr th:each="product : ${productList}">
       <td th:text="${product.id}">1</td>
       <td th:text="${product.name}">Product 1</td>
-      <td>Description 1</td>
+      <td th:text="${product.cost}">cost</td>
       <td>
         <button class="edit-btn">Edit</button>
-        <button class="delete-btn" th:onclick="'deleteProduct(' + ${product.id} + ')'" >삭제</button>
-      </td>
+        <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>      </td>
       </tr>
     </tbody>
   </table>
@@ -66,7 +65,7 @@
       <td th:text="${review.author.nickname}">User 1</td>
       <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
       <td>
-        <button class="delete-btn" th:onclick="'deleteReview(' + ${review.id} + ')'" >삭제</button>
+        <button class="delete-btn" th:onclick="'deleteReview(' + ${review.id} + ')'" >Delete</button>
       </td>
     </tr>
     </tbody>
@@ -89,16 +88,7 @@
       <td th:text="${siteUser.username}">user1@example.com</td>
       <td>
         <button class="edit-btn">Edit</button>
-        <button class="delete-btn" onclick="deleteUser(1)">Delete</button>
-      </td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>User 2</td>
-      <td>user2@example.com</td>
-      <td>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
+        <button class="delete-btn" th:attr="data-username=${siteUser.username}">Delete</button>
       </td>
     </tr>
     </tbody>
@@ -108,62 +98,73 @@
   <p>&copy; 2023 Admin Dashboard</p>
 </footer>
 <script>
-  // 리뷰 삭제를 처리하는 함수
-function deleteReview(reviewId) {
-  // 서버에 AJAX 요청 보내기
-  $.ajax({
-    url: '/review/delete/' + reviewId,
-    type: 'GET',
-    success: function(response) {
-      // 성공 응답을 처리합니다. 예를 들어 성공 메시지를 표시할 수 있습니다.
-      console.log('리뷰가 성공적으로 삭제되었습니다.');
-      // 선택적으로 페이지를 새로고침하거나 리뷰 목록을 동적으로 업데이트할 수 있습니다.
-      location.reload();
-    },
-    error: function(xhr, status, error) {
-      // 오류 응답을 처리합니다. 예를 들어 오류 메시지를 표시할 수 있습니다.
-      console.error('리뷰 삭제 오류:', error);
-    }
-  });
-}
-</script>
-<script>
-  // 제품 삭제를 처리하는 함수
+  // 삭제 버튼에 이벤트 핸들러 등록
+$('.delete-btn').on('click', function() {
+  var productId = $(this).data('product-id');
+  var username = $(this).data('username');
+
+  if (productId) {
+    deleteProduct(productId);
+  } else if (username) {
+    deleteUser(username);
+  }
+});
+
+// 상품 삭제를 처리하는 함수
 function deleteProduct(productId) {
-  // 서버에 AJAX 요청 보내기
-  $.ajax({
-    url: '/product/delete/' + productId,
-    type: 'GET',
-    success: function(response) {
-      // 성공 응답을 처리합니다. 예를 들어 성공 메시지를 표시할 수 있습니다.
-      console.log('제품이 성공적으로 삭제되었습니다.');
-      // 선택적으로 페이지를 새로고침하거나 제품 목록을 동적으로 업데이트할 수 있습니다.
-      location.reload();
-    },
-    error: function(xhr, status, error) {
-      // 오류 응답을 처리합니다. 예를 들어 오류 메시지를 표시할 수 있습니다.
-      console.error('제품 삭제 오류:', error);
-    }
-  });
+  var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
+  if (confirmDelete) {
+    $.ajax({
+      url: '/product/delete/' + productId,
+      type: 'GET',
+      success: function(response) {
+        console.log('상품이 성공적으로 삭제되었습니다.');
+        location.reload();
+      },
+      error: function(xhr, status, error) {
+        console.error('상품 삭제 오류:', error);
+      }
+    });
+  }
 }
 </script>
+
+<script>
+  // 리뷰 삭제를 처리하는 함수
+  function deleteReview(reviewId) {
+    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");
+    if (confirmDelete) {
+      $.ajax({
+        url: '/review/delete/' + reviewId,
+        type: 'GET',
+        success: function(response) {
+          console.log('리뷰가 성공적으로 삭제되었습니다.');
+          location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error('리뷰 삭제 오류:', error);
+        }
+      });
+    }
+  }
+</script>
+
 <script>
   function deleteUser(username) {
-  fetch('/delete/' + username, {
-    method: 'DELETE'
-  })
-    .then(function(response) {
-      if (response.ok) {
-        // 삭제 성공한 경우에 수행할 동작
-        location.reload(); // 페이지 새로고침
-      } else {
-        // 삭제 실패한 경우에 수행할 동작
-        alert('삭제에 실패했습니다.');
+  var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");
+  if (confirmDelete) {
+    $.ajax({
+      url: '/user/delete/' + username,
+      type: 'GET',
+      success: function(response) {
+        console.log('유저가 성공적으로 삭제되었습니다.');
+        location.reload();
+      },
+      error: function(xhr, status, error) {
+        console.error('유저 삭제 오류:', error);
       }
-    })
-    .catch(function(error) {
-      console.error('Error:', error);
     });
+  }
 }
 
 </script>

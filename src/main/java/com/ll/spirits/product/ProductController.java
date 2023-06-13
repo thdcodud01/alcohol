@@ -179,8 +179,6 @@ public class ProductController {
     @GetMapping("/admin")
     public String adminProductCreate(ProductForm productForm, Model model) {
 
-
-
         List<Product> productList = productService.getList();
         List<Review> reviewList = reviewService.getList();
         List<SiteUser> siteUserList = userService.getList();
