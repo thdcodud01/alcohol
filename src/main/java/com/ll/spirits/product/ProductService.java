@@ -1,12 +1,6 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
-import com.ll.spirits.product.productEntity.abvRange.ABVrange;
-import com.ll.spirits.product.productEntity.costRange.CostRange;
-import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
-import com.ll.spirits.product.productEntity.nation.Nation;
-import com.ll.spirits.product.productEntity.netWeight.NetWeight;
-import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
@@ -73,22 +67,21 @@ public class ProductService {
         return reviewRepository.findByProduct(product);
     }
 
-    public void create(String productName, Double abv, String aroma, String flavor, String info, Integer cost,
-                       SiteUser user, MainCategory mainCategory, SubCategory subCategory, CostRange costRange,
-                       ABVrange abvRange, NetWeight netWeight, Nation nation) {
+    public void create(String Name, Double abv, String aroma, String flavor, String info, Integer cost,
+                       SiteUser user) {
         Product product = new Product();
-        product.setName(productName);
+        product.setName(Name);
         product.setAbv(abv);
         product.setAroma(aroma);
         product.setFlavor(flavor);
         product.setInfo(info);
         product.setCost(cost);
-        product.setMainCategory(mainCategory);
-        product.setSubCategory(subCategory);
-        product.setCostRange(costRange);
-        product.setAbvRange(abvRange);
-        product.setNetWeight(netWeight);
-        product.setNation(nation);
+//        product.setMainCategory(mainCategory);
+//        product.setSubCategory(subCategory);
+//        product.setCostRange(costRange);
+//        product.setAbvRange(abvRange);
+//        product.setNetWeight(netWeight);
+//        product.setNation(nation);
         product.setAuthor(user);
         this.productRepository.save(product);
     }
