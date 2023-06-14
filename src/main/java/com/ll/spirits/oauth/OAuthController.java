@@ -1,4 +1,4 @@
-package com.ll.spirits.oAuth;
+package com.ll.spirits.oauth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

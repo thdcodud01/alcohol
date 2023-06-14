@@ -15,4 +15,7 @@ public class SubCategory {
     @Column(length = 200)
     private String subCategory;
 
+    @Column(name = "main_category_id")
+    private Integer mainCategoryId;
+
 }

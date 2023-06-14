@@ -1,8 +1,10 @@
 package com.ll.spirits.product.productEntity.cask;
-import com.ll.spirits.product.Product;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter

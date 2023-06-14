@@ -1,26 +1,15 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
-import com.ll.spirits.product.productEntity.cask.Cask;
-import com.ll.spirits.product.productEntity.cask.CaskRepository;
-import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
-import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
-import com.ll.spirits.product.productEntity.pairing.Pairing;
-import com.ll.spirits.product.productEntity.pairing.PairingRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
-import com.sun.tools.javac.Main;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -78,17 +67,48 @@ public class ProductService {
         return reviewRepository.findByProduct(product);
     }
 
-    public void create(String productName, Double abv,  String aroma, String flavor, String info, Integer cost, SiteUser user) {
+    public void create(String Name, Double abv, String aroma, String flavor, String info, Integer cost,
+                       SiteUser user) {
         Product product = new Product();
-        product.setName(productName);
+        product.setName(Name);
         product.setAbv(abv);
         product.setAroma(aroma);
         product.setFlavor(flavor);
         product.setInfo(info);
         product.setCost(cost);
+//        product.setMainCategory(mainCategory);
+//        product.setSubCategory(subCategory);
+//        product.setCostRange(costRange);
+//        product.setAbvRange(abvRange);
+//        product.setNetWeight(netWeight);
+//        product.setNation(nation);
         product.setAuthor(user);
         this.productRepository.save(product);
     }
+
+//    public void createProduct(ProductForm productForm) {
+//        Product product = convertToProduct(productForm);
+//        productRepository.save(product);
+//    }
+//    private Product convertToProduct(ProductForm productForm) {
+//        Product product = new Product();
+//        // ProductForm에서 필요한 데이터 추출하여 Product 엔티티에 설정
+//        product.setName(productForm.getProductName());
+//        product.setAbv(productForm.getAbv());
+//        product.setAroma(productForm.getAroma());
+//        product.setFlavor(productForm.getFlavor());
+//        product.setCost(productForm.getCost());
+//        product.setInfo(productForm.getInfo());
+//        product.setMainCategory(new MainCategory(productForm.getMainCategoryId()));
+//        product.setSubCategory(new SubCategory(productForm.getSubCategoryId()));
+//        product.setAbvRange(new ABVrange(productForm.getAbvRangeId()));
+//        product.setNetWeight(new NetWeight(productForm.getNetWeightId()));
+//        product.setPairings(productForm.getPairingIds());
+//        product.setNation(new Nation(productForm.getNationId()));
+//        product.setCasks(productForm.getCaskIds());
+//
+//        return product;
+//    }
 
     public void vote(Product product, SiteUser siteUser) { // 추천 메서드
         product.getVoter().add(siteUser);

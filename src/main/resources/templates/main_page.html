@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml"
+<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -8,30 +8,6 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="wrap">
-        <div class="top-wrap">
-            <div class="e-box"></div>
-            <div class="logo-box">
-                <div class="logo"><a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a></div>
-            </div>
-            <div class="user-box">
-                <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
-                <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></div>
-                <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
-            </div>
-        </div>
-        <div class="menu-wrap">
-            <ul>
-                <li><a th:href="@{|/product/list/위스키|}">위스키</a></li>
-                <li><a th:href="@{|/product/list/보드카|}">보드카</a></li>
-                <li><a th:href="@{|/product/list/데킬라|}">데킬라</a></li>
-                <li><a th:href="@{|/product/list/진|}">진</a></li>
-                <li><a th:href="@{|/product/list/럼|}">럼</a></li>
-                <li><a th:href="@{|/product/list/브랜디|}">브랜디</a></li>
-                <li><a th:href="@{|/product/list/맥주|}">맥주</a></li>
-            </ul>
-        </div>
-    </div>
     <div class="contain">
         <div class="top-section">
             <div class="top">

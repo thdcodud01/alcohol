@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -46,7 +48,7 @@ public class UserController {
         try {
             UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
 
-            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), role);
+            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), role);
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 아이디입니다.");
@@ -67,7 +69,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("username") String username, @RequestParam("password1") String password, HttpSession session, Model model) {
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
+
         if ("admin@gmail.com".equals(username) && "123".equals(password)) {
             UserDetails userDetails = userSecurityService.loadUserByUsername(username);
             Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -75,12 +78,15 @@ public class UserController {
 
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
+            // auth 정보가 admin . user
+            // user 면
+            // redirect main
+
             return "redirect:/";
         } else {
             model.addAttribute("error", true);
             return "login_form";
         }
-
     }
 
 
@@ -106,9 +112,9 @@ public class UserController {
 //        return "login_form";
 //    }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/delete/{username}") // 사용자 삭제
-    public String userDelete(@PathVariable("username") String username) {
+    public String userDelete(Principal principal, @PathVariable("username") String username ) {
         SiteUser user = userService.getUser(username);
         if (user.getRole() == UserRole.ADMIN) {
             throw new IllegalArgumentException("관리자는 다른 사용자 계정을 삭제할 수 없습니다.");

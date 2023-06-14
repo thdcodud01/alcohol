@@ -31,13 +31,13 @@
                 <select id="SubCategori" onchange="filterBySubcategori()" multiple>
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
-                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
-               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
-               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
-               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
-               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
-               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
-               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
+                            th:if="${mainCategory.id == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+               ${mainCategory.id == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
+               ${mainCategory.id == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
+               ${mainCategory.id == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
+               ${mainCategory.id == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
+               ${mainCategory.id == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
+               ${mainCategory.id == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
                             th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
@@ -85,12 +85,12 @@
             <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
                 <label for="Cask-box"></label>
-                <select id="Cask-box" onchange="filterByCask-box()">
+                <select id="Cask-box" onchange="filterByCaskBox()">
                     <option value="오크통">오크통범위 전체</option>
-                    <option th:each="cask : ${caskList}"
-                            th:value="${cask.id}" th:text="${cask.cask}"></option>
+                    <option th:each="cask : ${caskList}" th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
             </div>
+
 
             <!-- 국가 드롭다운 메뉴 -->
             <div class="nation">
