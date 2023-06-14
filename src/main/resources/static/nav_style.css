@@ -45,6 +45,14 @@ ul,li{
   margin-right: 20px;
 }
 
+.wrap>nav>.right-box>.user-box>.admin-button{
+    margin-right:20px;
+}
+
+.wrap>nav>.right-box>.user-box>.profile{
+    margin-right:20px;
+}
+
 .wrap>nav>.right-box>.search-box{
   position:relative;
   width: 300px;

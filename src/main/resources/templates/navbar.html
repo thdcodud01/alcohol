@@ -21,8 +21,11 @@
         <div class="right-box">
             <div class="user-box">
                 <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
+                <div class="sign-up"><a sec:authorize="isAnonymous()" th:href="@{|/user/signup|}">회원가입</a></div>
+                <div class="admin-button" sec:authorize="isAuthenticated()"><a href="">관리자</a></div>
+                <div class="profile" sec:authorize="isAuthenticated()">관리자1 님</div>
                 <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></div>
-                <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
+
             </div>
             <div class="search-box">
                 <input type="text" placeholder="검색어를 입력해주세요.">
