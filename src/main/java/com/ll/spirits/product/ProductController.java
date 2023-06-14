@@ -133,10 +133,6 @@ public class ProductController {
         List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         List<SubCategory> filteredSubCategoryList = subCategoryService.getSubCategoriesByMainCategoryId(mainCategoryId);
 
-        MainCategory mainCategory = mainCategoryService.getMainCategoryId(mainCategoryId);
-        SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);
-
-
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
@@ -145,12 +141,10 @@ public class ProductController {
         model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("subCategoryId", subCategoryId);
         model.addAttribute("mainCategoryId", mainCategoryId);
-        model.addAttribute("subCategoryList", subCategoryList);
         model.addAttribute("mainCategoryList", mainCategoryList);
+        model.addAttribute("subCategoryList", subCategoryList);
         model.addAttribute("productList", productList);
-        model.addAttribute("mainCategory", mainCategory);
-        model.addAttribute("subCategory", subCategory);
-        model.addAttribute("subCategoryList", filteredSubCategoryList);
+        model.addAttribute("filteredSubCategoryList", filteredSubCategoryList);
 
         return "product_form";
     }
@@ -159,39 +153,6 @@ public class ProductController {
     @PostMapping("/create")
     public String createProduct(@Valid @ModelAttribute("productForm") ProductForm productForm, BindingResult bindingResult,
                                 Principal principal, Model model) {
-        if (bindingResult.hasErrors()) {
-            return getProductCreateForm(productForm, model, productForm.getMainCategoryId(), productForm.getSubCategoryId());
-        }
-
-//        MainCategory mainCategory = mainCategoryService.getMainCategory(principal.getName());
-//        SubCategory subCategory = subCategoryService.getSubCategory(principal.getName());
-//        CostRange costRange = costRangeService.getCostRange(principal.getName());
-//        ABVrange abvRange = abvrangeService.getABVrange(principal.getName());
-//        NetWeight netWeight = netWeightService.getNetWeight(principal.getName());
-//        Nation nation = nationService.getNation(principal.getName());
-
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-//        productService.createProduct(productForm);
-//        productService.create(productForm.getProductName(), productForm.getAbv(), productForm.getAroma(),
-//                productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser, mainCategory, subCategory, costRange, abvRange, netWeight, nation);
-
-        // Process Cask and Pairing information
-        // You can modify the code below based on your specific implementation
-        for (Integer caskId : productForm.getCaskIds()) {
-            if (caskId != null) {
-                Cask cask = caskService.getCaskById(caskId);
-                // Add logic to associate the cask with the created product
-                // Example: productService.addCaskToProduct(createdProductId, caskId);
-            }
-        }
-
-        for (Integer pairingId : productForm.getPairingIds()) {
-            if (pairingId != null) {
-                Pairing pairing = pairingService.getPairingById(pairingId);
-                // Add logic to associate the pairing with the created product
-                // Example: productService.addPairingToProduct(createdProductId, pairingId);
-            }
-        }
 
         return "redirect:/product/list";
     }

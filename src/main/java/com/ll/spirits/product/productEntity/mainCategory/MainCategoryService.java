@@ -31,12 +31,4 @@ public class MainCategoryService {
             throw new DataNotFoundException("mainCategory not found");
         }
     }
-    public MainCategory getMainCategoryId(Integer id) {// Integer 로 타입이 들어오면 null 값도 허용해줄 수 있음
-        Optional<MainCategory> mainCategoryId = this.mainCategoryRepository.findById(id);
-        if (mainCategoryId.isPresent()) {
-            return mainCategoryId.get();
-        } else {
-            throw new DataNotFoundException("mainCategoryId not found"); // 예외처리로 에러(DataNotFoundException)를 표시
-        }
-    }
 }
