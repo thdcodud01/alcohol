@@ -11,14 +11,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<SiteUser, Long> {
     Optional<SiteUser> findByUsername(String username);
+    Optional<SiteUser> findByNickname(String nickname);
 
 
-
-    // 에러 터지면 메소드 이름 의심해보기
-    // userId를 username으로 싹다 바꿔주기
 //    @Query("select role from site_user where username = :username")
 //    Optional<SiteUser> findByRole(@Param("username") String username);
-
-
-
 }

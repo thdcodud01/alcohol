@@ -36,14 +36,15 @@
     </tr>
     </thead>
     <tbody>
-     <tr th:each="product : ${productList}">
+    <tr th:each="product : ${productList}">
       <td th:text="${product.id}">1</td>
       <td th:text="${product.name}">Product 1</td>
       <td th:text="${product.cost}">cost</td>
       <td>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>      </td>
-      </tr>
+        <button class="edit-btn" th:onclick="'editProduct(' + ${product.id} + ')'" >Edit</button>
+        <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>
+      </td>
+    </tr>
     </tbody>
   </table>
 
@@ -87,8 +88,8 @@
       <td th:text="${siteUser.nickname}">User 1</td>
       <td th:text="${siteUser.username}">user1@example.com</td>
       <td>
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn" th:attr="data-username=${siteUser.username}">Delete</button>
+        <button class="edit-btn" th:data-username="${siteUser.username}" onclick="editUser(this.getAttribute('data-username'))">Edit</button>
+        <button class="delete-btn" th:data-username="${siteUser.username}" onclick="deleteUser(this.getAttribute('data-username'))">Delete</button> <!-- 수정된 부분: deleteUser 함수로 연결 -->
       </td>
     </tr>
     </tbody>
@@ -98,15 +99,27 @@
   <p>&copy; 2023 Admin Dashboard</p>
 </footer>
 <script>
-  // 삭제 버튼에 이벤트 핸들러 등록
+// 삭제 버튼에 이벤트 핸들러 등록
 $('.delete-btn').on('click', function() {
   var productId = $(this).data('product-id');
+  var reviewId = $(this).data('review-id');
   var username = $(this).data('username');
 
   if (productId) {
-    deleteProduct(productId);
+    var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
+    if (confirmDelete) {
+      deleteProduct(productId);
+    }
+  } else if (reviewId) {
+    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");
+    if (confirmDelete) {
+      deleteReview(reviewId);
+    }
   } else if (username) {
-    deleteUser(username);
+    var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");
+    if (confirmDelete) {
+      deleteUser(username);
+    }
   }
 });
 
@@ -150,11 +163,12 @@ function deleteProduct(productId) {
 </script>
 
 <script>
-  function deleteUser(username) {
+// 사용자 삭제를 처리하는 함수
+function deleteUser(username) {
   var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");
   if (confirmDelete) {
     $.ajax({
-      url: '/user/delete/' + username,
+      url: '/siteUser/delete/' + username,
       type: 'GET',
       success: function(response) {
         console.log('유저가 성공적으로 삭제되었습니다.');
@@ -166,13 +180,12 @@ function deleteProduct(productId) {
     });
   }
 }
-
 </script>
 
 <script>
   // Add Product 누르면 product_form 으로 이동
   function openProductForm() {
-    window.location.href = "/product/create";
+    window.location.href = "admin/product/create";
   }
 </script>
 </body>

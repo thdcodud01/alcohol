@@ -258,14 +258,31 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정
-    @GetMapping("/delete/{id}") // 제품 삭제
-    public String productDelete(Principal principal, @PathVariable("id") Integer id) {
-        Product product = this.productService.getProduct(id);
-        if (!product.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
-        this.productService.delete(product);
-        return "redirect:/";
-    }
+
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @GetMapping("/modify/{id}")
+//    public String productModify(ProductForm productForm, @PathVariable("id") Integer id, Principal principal) {
+//        Product product = this.productService.getProduct(id);
+//        if(!product.getAuthor().getUsername().equals(principal.getName())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//        }
+//        productForm.setSubject(product.getSubject());
+//        productForm.setContent(product.getContent());
+//        return "question_form";
+//    }
+//
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PostMapping("/modify/{id}")
+//    public String productModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
+//                                 Principal principal, @PathVariable("id") Integer id) {
+//        if (bindingResult.hasErrors()) {
+//            return "question_form";
+//        }
+//        Question question = this.questionService.getQuestion(id);
+//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//        }
+//        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+//        return String.format("redirect:/question/detail/%s", id);
+//    }
 }
