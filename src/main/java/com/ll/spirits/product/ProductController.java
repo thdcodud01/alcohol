@@ -151,10 +151,13 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
-    public String createProduct(@Valid @ModelAttribute("productForm") ProductForm productForm, BindingResult bindingResult,
-                                Principal principal, Model model) {
-
-        return "redirect:/product/list";
+    public String createProduct(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            return "product_form";
+        }
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        productService.createProduct(productForm, siteUser);
+        return "redirect:/";
     }
 
 
@@ -182,7 +185,7 @@ public class ProductController {
             return "redirect:/product/admin";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.create(productForm.getName(), productForm.getAbv(), productForm.getAroma(), productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser);
+        this.productService.createProduct(productForm, siteUser);
         // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
         // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
         return "redirect:/product/admin"; // 제품 저장후 제품목록으로 이동
