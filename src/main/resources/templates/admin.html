@@ -41,7 +41,7 @@
       <td th:text="${product.name}">Product 1</td>
       <td th:text="${product.cost}">cost</td>
       <td>
-        <button class="edit-btn">Edit</button>
+        <button class="edit-btn" th:onclick="'editProduct(' + ${product.id} + ')'" >Edit</button>
         <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>      </td>
       </tr>
     </tbody>
@@ -87,7 +87,7 @@
       <td th:text="${siteUser.nickname}">User 1</td>
       <td th:text="${siteUser.username}">user1@example.com</td>
       <td>
-        <button class="edit-btn">Edit</button>
+        <button class="edit-btn" th:onclick="'editUser(\'' + ${siteUser.username} + '\')'" >Edit</button>
         <button class="delete-btn" th:attr="data-username=${siteUser.username}">Delete</button>
       </td>
     </tr>

@@ -40,6 +40,12 @@ public class UserService {
         }
     }
 
+    public boolean isNicknameDuplicate(String nickname) {
+        Optional<SiteUser> existingUser = userRepository.findByNickname(nickname);
+        return existingUser.isPresent();
+    }
+
+
     public void deleteUser(SiteUser user) {
         if (user.getRole() == UserRole.ADMIN) {
             throw new IllegalArgumentException("관리자는 다른 사용자 계정을 삭제할 수 없습니다.");

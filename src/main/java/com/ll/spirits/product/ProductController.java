@@ -226,8 +226,6 @@ public class ProductController {
         // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
         return "redirect:/product/admin"; // 제품 저장후 제품목록으로 이동
     }
-
-
     @GetMapping("/detail/{id}") // 제품 상세보기
     @Transactional
     public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal) {
@@ -276,6 +274,35 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
+
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @GetMapping("/modify/{id}")
+//    public String productModify(ProductForm productForm, @PathVariable("id") Integer id, Principal principal) {
+//        Product product = this.productService.getProduct(id);
+//        if(!product.getAuthor().getUsername().equals(principal.getName())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//        }
+//        productForm.setSubject(product.getSubject());
+//        productForm.setContent(product.getContent());
+//        return "question_form";
+//    }
+//
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PostMapping("/modify/{id}")
+//    public String productModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
+//                                 Principal principal, @PathVariable("id") Integer id) {
+//        if (bindingResult.hasErrors()) {
+//            return "question_form";
+//        }
+//        Question question = this.questionService.getQuestion(id);
+//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//        }
+//        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+//        return String.format("redirect:/question/detail/%s", id);
+//    }
+
+
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정
     @GetMapping("/delete/{id}") // 제품 삭제
     public String productDelete(Principal principal, @PathVariable("id") Integer id) {
