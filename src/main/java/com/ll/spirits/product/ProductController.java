@@ -151,12 +151,30 @@ public class ProductController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
-    public String createProduct(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
+    public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
+        System.out.println("제품 정보 확인:");
+        System.out.println("이름: " + productForm.getName());
+        System.out.println("대분류: " + productForm.getMainCategoryId());
+        System.out.println("중분류: " + productForm.getSubCategoryId());
+        System.out.println("가격범위: " + productForm.getCostRangeId());
+        System.out.println("도수범위: " + productForm.getAbvRangeId());
+        System.out.println("용량: " + productForm.getNetWeightId());
+        System.out.println("안주: " + productForm.getPairings());
+        System.out.println("캐스크: " + productForm.getCasks());
+        System.out.println("생산국: " + productForm.getNationId());
+
+
+
         if (bindingResult.hasErrors()) {
+            System.out.println("유효성 검사 오류 발생");
             return "product_form";
         }
+
         SiteUser siteUser = this.userService.getUser(principal.getName());
         productService.createProduct(productForm, siteUser);
+
+        System.out.println("제품 등록 완료");
+
         return "redirect:/";
     }
 

@@ -114,24 +114,24 @@ public class ProductService {
                 .orElseThrow(() -> new DataNotFoundException("nation not found"));
 
         // 캐스크 ID 리스트 검증 및 조회
-        List<Integer> caskIds = productForm.getCasks();
-        if (caskIds == null || caskIds.isEmpty()) {
+        List<Integer> caskList = productForm.getCasks();
+        if (caskList == null || caskList.isEmpty()) {
             throw new IllegalArgumentException("오크통은 필수 입력항목입니다.");
         }
 
-        List<Cask> casks = caskRepository.findAllById(caskIds);
-        if (casks.size() != caskIds.size()) {
+        List<Cask> casks = caskRepository.findAllById(caskList);
+        if (casks.size() != caskList.size()) {
             throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
         }
 
         // 페어링 ID 리스트 검증 및 조회
-        List<Integer> pairingIds = productForm.getPairings();
-        if (pairingIds == null || pairingIds.isEmpty()) {
+        List<Integer> pairingList = productForm.getPairings();
+        if (pairingList == null || pairingList.isEmpty()) {
             throw new IllegalArgumentException("어울리는 안주는 필수 입력항목입니다.");
         }
 
-        List<Pairing> pairings = pairingRepository.findAllById(pairingIds);
-        if (pairings.size() != pairingIds.size()) {
+        List<Pairing> pairings = pairingRepository.findAllById(pairingList);
+        if (pairings.size() != pairingList.size()) {
             throw new DataNotFoundException("존재하지 않는 페어링 ID가 포함되어 있습니다.");
         }
 
@@ -149,10 +149,24 @@ public class ProductService {
         product.setNetWeight(netWeight);
         product.setNation(nation);
         product.setAuthor(siteUser);
-        product.setPairings(pairings);
-        product.setCasks(casks);
+
+        // product를 먼저 저장합니다.
+        product = productRepository.save(product);
+
+        // product와 맵핑되는 pairings를 생성합니다.
+        for (Pairing pairing : pairings) {
+            product.getPairings().add(pairing);
+        }
+
+        // product와 맵핑되는 casks를 생성합니다.
+        for (Cask cask : casks) {
+            product.getCasks().add(cask);
+        }
+
+        // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
+
 
 //    public void createProduct(ProductForm productForm) {
 //        Product product = convertToProduct(productForm);
