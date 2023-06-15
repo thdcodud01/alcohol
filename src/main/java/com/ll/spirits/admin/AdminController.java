@@ -66,10 +66,6 @@ public class AdminController {
         List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         List<SubCategory> filteredSubCategoryList = subCategoryService.getSubCategoriesByMainCategoryId(mainCategoryId);
 
-        MainCategory mainCategory = mainCategoryService.getMainCategoryId(mainCategoryId);
-        SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);
-
-
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
@@ -78,55 +74,41 @@ public class AdminController {
         model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("subCategoryId", subCategoryId);
         model.addAttribute("mainCategoryId", mainCategoryId);
-        model.addAttribute("subCategoryList", subCategoryList);
         model.addAttribute("mainCategoryList", mainCategoryList);
+        model.addAttribute("subCategoryList", subCategoryList);
         model.addAttribute("productList", productList);
-        model.addAttribute("mainCategory", mainCategory);
-        model.addAttribute("subCategory", subCategory);
-        model.addAttribute("subCategoryList", filteredSubCategoryList);
+        model.addAttribute("filteredSubCategoryList", filteredSubCategoryList);
 
         return "product_form";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
-    public String createProduct(@Valid @ModelAttribute("productForm") ProductForm productForm, BindingResult bindingResult,
-                                Principal principal, Model model) {
-        if (bindingResult.hasErrors()) {
-            return getProductCreateForm(productForm, model, productForm.getMainCategoryId(), productForm.getSubCategoryId());
-        }
+    public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
+        System.out.println("제품 정보 확인:");
+        System.out.println("이름: " + productForm.getName());
+        System.out.println("대분류: " + productForm.getMainCategoryId());
+        System.out.println("중분류: " + productForm.getSubCategoryId());
+        System.out.println("가격범위: " + productForm.getCostRangeId());
+        System.out.println("도수범위: " + productForm.getAbvRangeId());
+        System.out.println("용량: " + productForm.getNetWeightId());
+        System.out.println("안주: " + productForm.getPairings());
+        System.out.println("캐스크: " + productForm.getCasks());
+        System.out.println("생산국: " + productForm.getNationId());
 
-//        MainCategory mainCategory = mainCategoryService.getMainCategory(principal.getName());
-//        SubCategory subCategory = subCategoryService.getSubCategory(principal.getName());
-//        CostRange costRange = costRangeService.getCostRange(principal.getName());
-//        ABVrange abvRange = abvrangeService.getABVrange(principal.getName());
-//        NetWeight netWeight = netWeightService.getNetWeight(principal.getName());
-//        Nation nation = nationService.getNation(principal.getName());
+
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("유효성 검사 오류 발생");
+            return "product_form";
+        }
 
         SiteUser siteUser = this.userService.getUser(principal.getName());
-//        productService.createProduct(productForm);
-//        productService.create(productForm.getProductName(), productForm.getAbv(), productForm.getAroma(),
-//                productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser, mainCategory, subCategory, costRange, abvRange, netWeight, nation);
+        productService.createProduct(productForm, siteUser);
 
-        // Process Cask and Pairing information
-        // You can modify the code below based on your specific implementation
-        for (Integer caskId : productForm.getCaskIds()) {
-            if (caskId != null) {
-                Cask cask = caskService.getCaskById(caskId);
-                // Add logic to associate the cask with the created product
-                // Example: productService.addCaskToProduct(createdProductId, caskId);
-            }
-        }
+        System.out.println("제품 등록 완료");
 
-        for (Integer pairingId : productForm.getPairingIds()) {
-            if (pairingId != null) {
-                Pairing pairing = pairingService.getPairingById(pairingId);
-                // Add logic to associate the pairing with the created product
-                // Example: productService.addPairingToProduct(createdProductId, pairingId);
-            }
-        }
-
-        return "redirect:/product/list";
+        return "redirect:/";
     }
 
 
@@ -141,23 +123,6 @@ public class AdminController {
         model.addAttribute("reviewList",reviewList);
         model.addAttribute("siteUserList", siteUserList);
         return "admin";
-    }
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
-    @PostMapping("/product") // post == 보내다
-    public String adminProductCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal, Integer mainCategoryId, Integer subCategoryId, Model model) {
-
-        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-
-        model.addAttribute("productList", productList);
-
-        if (bindingResult.hasErrors()) {
-            return "redirect:/admin/product";
-        }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.create(productForm.getName(), productForm.getAbv(), productForm.getAroma(), productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser);
-        // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
-        // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
-        return "redirect:/admin/product"; // 제품 저장후 제품목록으로 이동
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정
