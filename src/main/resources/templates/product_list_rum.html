@@ -71,14 +71,15 @@
                             th:value="${pairing.id}" th:text="${pairing.pairing}"></option>
                 </select>
             </div>
+            <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
                 <label for="Cask-box"></label>
-                <select id="Cask-box" onchange="filterByCask-box()">
+                <select id="Cask-box" onchange="filterByCaskBox()">
                     <option value="오크통">오크통범위 전체</option>
-                    <option th:each="cask : ${caskList}"
-                            th:value="${cask.id}" th:text="${cask.cask}"></option>
+                    <option th:each="cask : ${caskList}" th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
             </div>
+
             <div class="nation">
                 <label for="nation"></label>
                 <select id="nation" onchange="filterBynation()">
@@ -115,7 +116,7 @@
 <script layout:fragment="script" type='text/javascript'>
 function filterBySubcategori() {
         var subCategoryId = document.getElementById("SubCategori").value;
-        window.location.href = "http://localhost:7000/product/list/럼?subCategoryId=" + subCategoryId;
+        window.location.href = "http://localhost:7777/product/list/럼?subCategoryId=" + subCategoryId;
     }
 function applyFilters() {
         var subCategorySelect = document.getElementById("subCategoryId");

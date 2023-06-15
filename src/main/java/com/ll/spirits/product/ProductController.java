@@ -6,6 +6,7 @@ import com.ll.spirits.product.productEntity.cask.Cask;
 import com.ll.spirits.product.productEntity.cask.CaskService;
 import com.ll.spirits.product.productEntity.costRange.CostRange;
 import com.ll.spirits.product.productEntity.costRange.CostRangeService;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import com.ll.spirits.product.productEntity.nation.NationService;
@@ -17,6 +18,7 @@ import com.ll.spirits.product.productEntity.subCategory.SubCategory;
 import com.ll.spirits.product.productEntity.subCategory.SubCategoryService;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewForm;
+import com.ll.spirits.review.ReviewService;
 import com.ll.spirits.user.SiteUser;
 import com.ll.spirits.user.UserService;
 import jakarta.validation.Valid;
@@ -29,9 +31,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -48,17 +52,19 @@ public class ProductController {
     private final NationService nationService;
     private final NetWeightService netWeightService;
     private final PairingService pairingService;
+    private final ReviewService reviewService;
 
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
                                              @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
                                              Model model) {
-        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+
         List<Cask> caskList = caskService.getAllCask();
-        List<CostRange> costRangeList = costRangeService.getAllCostRange();
         List<Nation> nationList = nationService.getAllNation();
-        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<Pairing> pairingList = pairingService.getAllPairing();
+        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+        List<CostRange> costRangeList = costRangeService.getAllCostRange();
+        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
@@ -72,16 +78,16 @@ public class ProductController {
             // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
             productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
         }
-        model.addAttribute("productList", productList);
-        model.addAttribute("mainCategoryId", mainCategoryId);
-        model.addAttribute("subCategoryId", subCategoryId);
-        model.addAttribute("subCategoryList", subCategoryList);
-        model.addAttribute("costRangeList", costRangeList);
-        model.addAttribute("abVrangeList", abVrangeList);
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
-        model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("pairingList", pairingList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("abVrangeList", abVrangeList);
+        model.addAttribute("netWeightList", netWeightList);
+        model.addAttribute("subCategoryId", subCategoryId);
+        model.addAttribute("costRangeList", costRangeList);
+        model.addAttribute("mainCategoryId", mainCategoryId);
+        model.addAttribute("subCategoryList", subCategoryList);
 
         String templateName;
         switch (mainCategoryId) {
@@ -111,25 +117,98 @@ public class ProductController {
         }
         return templateName;
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Get
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/create")
-    public String productCreate(ProductForm productForm) {
+    public String getProductCreateForm(@ModelAttribute("productForm") ProductForm productForm, Model model,
+                                       Integer mainCategoryId, Integer subCategoryId) {
+        List<Cask> caskList = caskService.getAllCask();
+        List<Nation> nationList = nationService.getAllNation();
+        List<Pairing> pairingList = pairingService.getAllPairing();
+        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
+        List<CostRange> costRangeList = costRangeService.getAllCostRange();
+        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
+        List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
+        List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
+
+        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+        List<SubCategory> filteredSubCategoryList = subCategoryService.getSubCategoriesByMainCategoryId(mainCategoryId);
+
+        model.addAttribute("caskList", caskList);
+        model.addAttribute("nationList", nationList);
+        model.addAttribute("pairingList", pairingList);
+        model.addAttribute("abVrangeList", abVrangeList);
+        model.addAttribute("costRangeList", costRangeList);
+        model.addAttribute("netWeightList", netWeightList);
+        model.addAttribute("subCategoryId", subCategoryId);
+        model.addAttribute("mainCategoryId", mainCategoryId);
+        model.addAttribute("mainCategoryList", mainCategoryList);
+        model.addAttribute("subCategoryList", subCategoryList);
+        model.addAttribute("productList", productList);
+        model.addAttribute("filteredSubCategoryList", filteredSubCategoryList);
+
         return "product_form";
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
-    @PostMapping("/create") // post == 보내다
-    public String productCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
-        // TODO 질문을 저장한다.
-        // (주석으로 "TODO" 를 달아놓으면 인텔리제이에서 인지해서 만약 계획된 TODO 에 관련된 로직이 작성이 안되면 커밋할때 한 번더 물어봐준다)
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/create")
+    public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
+        System.out.println("제품 정보 확인:");
+        System.out.println("이름: " + productForm.getName());
+        System.out.println("대분류: " + productForm.getMainCategoryId());
+        System.out.println("중분류: " + productForm.getSubCategoryId());
+        System.out.println("가격범위: " + productForm.getCostRangeId());
+        System.out.println("도수범위: " + productForm.getAbvRangeId());
+        System.out.println("용량: " + productForm.getNetWeightId());
+        System.out.println("안주: " + productForm.getPairings());
+        System.out.println("캐스크: " + productForm.getCasks());
+        System.out.println("생산국: " + productForm.getNationId());
+
+
+
         if (bindingResult.hasErrors()) {
+            System.out.println("유효성 검사 오류 발생");
             return "product_form";
         }
+
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.create(productForm.getProductName(), productForm.getAbv(), productForm.getAroma(), productForm.getFlavor(), productForm.getInfo(), productForm.getCost(), siteUser);
+        productService.createProduct(productForm, siteUser);
+
+        System.out.println("제품 등록 완료");
+
+        return "redirect:/";
+    }
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/admin")
+    public String adminProductCreate(ProductForm productForm, Model model) {
+
+        List<Product> productList = productService.getList();
+        List<Review> reviewList = reviewService.getList();
+        List<SiteUser> siteUserList = userService.getList();
+        model.addAttribute("productList", productList);
+        model.addAttribute("reviewList",reviewList);
+        model.addAttribute("siteUserList", siteUserList);
+        return "admin";
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
+    @PostMapping("/admin") // post == 보내다
+    public String adminProductCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal, Integer mainCategoryId, Integer subCategoryId, Model model) {
+
+        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+
+        model.addAttribute("productList", productList);
+
+        if (bindingResult.hasErrors()) {
+            return "redirect:/product/admin";
+        }
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        this.productService.createProduct(productForm, siteUser);
         // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
         // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
-        return "redirect:/product/list"; // 제품 저장후 제품목록으로 이동
+        return "redirect:/product/admin"; // 제품 저장후 제품목록으로 이동
     }
+
 
     @GetMapping("/detail/{id}") // 제품 상세보기
     @Transactional
@@ -142,7 +221,6 @@ public class ProductController {
         List<Integer> caskIds = casks.stream()
                 .map(cask -> cask.getId()) // Cask 엔티티에서 cask_id 대신 id 필드를 사용
                 .collect(Collectors.toList());
-
 
         List<Review> reviews = this.productService.getReviewsByProduct(product); // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
         if (principal != null) {
