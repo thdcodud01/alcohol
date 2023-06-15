@@ -1,5 +1,6 @@
 package com.ll.spirits.product.productEntity.subCategory;
 import com.ll.spirits.product.Product;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,8 @@ public class SubCategory {
     @Column(length = 200)
     private String subCategory;
 
-    @Column(name = "main_category_id")
-    private Integer mainCategoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "main_category_id")
+    private MainCategory mainCategory;
 
 }

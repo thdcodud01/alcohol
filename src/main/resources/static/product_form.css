@@ -1,39 +1,35 @@
 /* 노멀라이징 */
-
-a{
-  text-decoration:none;
-  color:inherit;
+a {
+  text-decoration: none;
+  color: inherit;
 }
-
-
 
 /* 스타일 시작 */
-
-.wrap{
-  width: 800px;
+.wrap {
+  width: 900px;
   margin-right: auto;
   margin-left: auto;
-  border:1px solid black;
-  box-sizing:border-box;
+  border: 1px solid black;
+  box-sizing: border-box;
   padding: 20px;
-  border-radius:5px;
+  border-radius: 5px;
 }
 
-.wrap>.title-box{
+.wrap .title-box {
   margin-top: 30px;
 }
 
-.wrap>.title-box>.title{
+.wrap .title-box .title {
   margin-bottom: 40px;
   font-size: 2rem;
   font-weight: bold;
 }
 
-.wrap>form>.Category {
+.wrap form .Category {
   margin-bottom: 40px;
 }
 
-.wrap>form>.SubCategory{
+.wrap form .SubCategory {
   margin-bottom: 40px;
 }
 
@@ -45,165 +41,151 @@ label {
 select {
   padding: 5px;
   border-radius: 4px;
-
 }
 
-.wrap>form>.product-name{
-  display:flex;
+.wrap form .product-name {
+  display: flex;
   margin-bottom: 40px;
 }
 
-.wrap>form>.product-name>.title{
+.wrap form .product-name .title {
   font-weight: bold;
   margin-top: 5px;
   margin-right: 10px;
-
 }
 
-.wrap>form>.product-name>input{
+.wrap form .product-name input {
   padding: 5px;
   margin-left: 12px;
 }
 
-.wrap>form>.Costrange-box>select{
+.wrap form .Costrange-box select {
   margin-left: 10px;
 }
 
-.wrap>form>.Costrange-box>input{
+.wrap form .Costrange-box input {
   padding: 5px;
   margin-left: 10px;
 }
 
-.wrap>form>.ABVrange-box{
+.wrap form .ABVrange-box {
   margin-top: 40px;
 }
 
-.wrap>form>.ABVrange-box>select{
+.wrap form .ABVrange-box select {
   margin-left: 10px;
 }
 
-.wrap>form>.ABVrange-box>input{
+.wrap form .ABVrange-box input {
   padding: 5px;
   margin-left: 10px;
 }
 
-.wrap>form>.net-weight-box{
+.wrap form .net-weight-box {
   margin-top: 40px;
 }
 
-.wrap>form>.net-weight-box>select{
+.wrap form .net-weight-box select {
   margin-left: 10px;
 }
 
-.wrap>form>.taste-box{
-  display:flex;
+.wrap form .taste-box {
+  display: flex;
   margin-top: 40px;
 }
 
-.wrap>form>.taste-box>.title{
+.wrap form .taste-box .title {
   font-weight: bold;
   margin-right: 33px;
   margin-top: 5px;
 }
 
-.wrap>form>.taste-box>input{
+.wrap form .taste-box input {
   padding: 5px;
 }
 
-
-.wrap>form>.incense-box{
-  display:flex;
+.wrap form .incense-box {
+  display: flex;
   margin-top: 40px;
 }
 
-.wrap>form>.incense-box>.title{
+.wrap form .incense-box .title {
   font-weight: bold;
   margin-right: 33px;
   margin-top: 5px;
 }
 
-.wrap>form>.incense-box>input{
+.wrap form .incense-box input {
   padding: 5px;
 }
 
-.wrap>form>.paring-box{
+.wrap form .paring-box {
   margin-top: 40px;
 }
 
-.wrap>form>.paring-box>select{
+.wrap form .paring-box select {
   margin-left: 10px;
 }
 
-.wrap>form>.Cask-box{
+.wrap form .Cask-box {
   margin-top: 40px;
 }
 
-.wrap>form>.Cask-box>select{
+.wrap form .Cask-box select {
   margin-left: -3px;
   margin-right: 10px;
 }
 
-.wrap>form>.nation{
+.wrap form .nation {
   margin-top: 40px;
 }
 
-.wrap>form>.nation>select{
+.wrap form .nation select {
   margin-left: 10px;
 }
 
-.wrap>form>.product-img-box{
+.wrap form .product-img-box {
   margin-top: 40px;
 }
 
-
-.wrap>form>.product-detail-img-box{
+.wrap form .product-detail-img-box {
   margin-top: 40px;
 }
 
-.wrap>form>.product-info-img-box{
+.wrap form .product-info-img-box {
   margin-top: 40px;
 }
 
-.wrap>.btn-section{
-  text-align:center;
+.wrap .btn-section {
+  text-align: center;
   margin-top: 30px;
 }
 
-.wrap>.btn-section>.btn-box{
-  display:inline-block;
+.wrap .btn-section .btn-box {
+  display: flex;
+  justify-content: center; /* 수정: 가로 중앙 정렬 */
+  margin-top: 30px;
 }
 
-.wrap>.btn-section>.btn-box>.btn{
+.wrap .btn-section .btn-box .btn,
+.wrap .btn-section .btn-box .btn-cancle {
   font-size: 15px;
   background-color: rgb(0, 150, 243);
-  border:1px solid rgb(0, 150, 243);
-  border-radius:5px;
-
+  border: 1px solid rgb(0, 150, 243);
+  border-radius: 5px;
   font-weight: bold;
-  color:white;
-  display:inline-block;
+  color: white;
+  padding: 10px 20px; /* 수정: 좀 더 넉넉한 패딩 조정 */
+  margin-right: 10px; /* 수정: 버튼 간격 조정 */
 }
 
-.wrap>.btn-section>.btn-box>.btn>a{
-    padding: 10px;
-  display:block;
-
-}
-
-.wrap>.btn-section>.btn-box>.btn-cancle{
-  font-size: 15px;
+.wrap .btn-section .btn-box .btn-cancle {
   background-color: #dfdfdf;
-  border:1px solid #dfdfdf;
-  border-radius:5px;
-  display:inline-block;
-  font-weight: bold;
-  color:black;
-  margin-top: 30px;
-  margin-left: 10px;
-
+  border: 1px solid #dfdfdf;
+  color: black;
 }
 
-.wrap>.btn-section>.btn-box>.btn-cancle>a{
-  padding: 10px;
-  display:block;
+.wrap .btn-section .btn-box .btn a,
+.wrap .btn-section .btn-box .btn-cancle a {
+  display: block;
 }

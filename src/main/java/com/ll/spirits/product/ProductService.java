@@ -1,12 +1,29 @@
 package com.ll.spirits.product;
 
 import com.ll.spirits.DataNotFoundException;
+import com.ll.spirits.product.productEntity.abvRange.ABVrange;
+import com.ll.spirits.product.productEntity.abvRange.ABVrangeRepository;
+import com.ll.spirits.product.productEntity.cask.Cask;
+import com.ll.spirits.product.productEntity.cask.CaskRepository;
+import com.ll.spirits.product.productEntity.costRange.CostRange;
+import com.ll.spirits.product.productEntity.costRange.CostRangeRepository;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
+import com.ll.spirits.product.productEntity.nation.Nation;
+import com.ll.spirits.product.productEntity.nation.NationRepository;
+import com.ll.spirits.product.productEntity.netWeight.NetWeight;
+import com.ll.spirits.product.productEntity.netWeight.NetWeightRepository;
+import com.ll.spirits.product.productEntity.pairing.Pairing;
+import com.ll.spirits.product.productEntity.pairing.PairingRepository;
+import com.ll.spirits.product.productEntity.subCategory.SubCategory;
+import com.ll.spirits.product.productEntity.subCategory.SubCategoryRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +32,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class ProductService {
+    private final ProductForm productForm;
     private final ProductRepository productRepository;
+    // 이하 외래키로 들어오는 것들.
     private final ReviewRepository reviewRepository;
+    private final MainCategoryRepository mainCategoryRepository;
+    private final SubCategoryRepository subCategoryRepository;
+    private final CostRangeRepository costRangeRepository;
+    private final ABVrangeRepository abvRangeRepository;
+    private final NetWeightRepository netWeightRepository;
+    private final NationRepository nationRepository;
+    private final CaskRepository caskRepository;
+    private final PairingRepository pairingRepository;
 
     private Specification<Product> search(String kw) {
         return new Specification<>() {
@@ -67,24 +94,79 @@ public class ProductService {
         return reviewRepository.findByProduct(product);
     }
 
-    public void create(String Name, Double abv, String aroma, String flavor, String info, Integer cost,
-                       SiteUser user) {
+    public void createProduct(ProductForm productForm, SiteUser siteUser) {
+        MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
+                .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));
+
+        SubCategory subCategory = subCategoryRepository.findById(productForm.getSubCategoryId())
+                .orElseThrow(() -> new DataNotFoundException("subCategory not found"));
+
+        CostRange costRange = costRangeRepository.findById(productForm.getCostRangeId())
+                .orElseThrow(() -> new DataNotFoundException("costRange not found"));
+
+        ABVrange abvRange = abvRangeRepository.findById(productForm.getAbvRangeId())
+                .orElseThrow(() -> new DataNotFoundException("abvRange not found"));
+
+        NetWeight netWeight = netWeightRepository.findById(productForm.getNetWeightId())
+                .orElseThrow(() -> new DataNotFoundException("netWeight not found"));
+
+        Nation nation = nationRepository.findById(productForm.getNationId())
+                .orElseThrow(() -> new DataNotFoundException("nation not found"));
+
+        // 캐스크 ID 리스트 검증 및 조회
+        List<Integer> caskList = productForm.getCasks();
+        if (caskList == null || caskList.isEmpty()) {
+            throw new IllegalArgumentException("오크통은 필수 입력항목입니다.");
+        }
+
+        List<Cask> casks = caskRepository.findAllById(caskList);
+        if (casks.size() != caskList.size()) {
+            throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
+        }
+
+        // 페어링 ID 리스트 검증 및 조회
+        List<Integer> pairingList = productForm.getPairings();
+        if (pairingList == null || pairingList.isEmpty()) {
+            throw new IllegalArgumentException("어울리는 안주는 필수 입력항목입니다.");
+        }
+
+        List<Pairing> pairings = pairingRepository.findAllById(pairingList);
+        if (pairings.size() != pairingList.size()) {
+            throw new DataNotFoundException("존재하지 않는 페어링 ID가 포함되어 있습니다.");
+        }
+
         Product product = new Product();
-        product.setName(Name);
-        product.setAbv(abv);
-        product.setAroma(aroma);
-        product.setFlavor(flavor);
-        product.setInfo(info);
-        product.setCost(cost);
-//        product.setMainCategory(mainCategory);
-//        product.setSubCategory(subCategory);
-//        product.setCostRange(costRange);
-//        product.setAbvRange(abvRange);
-//        product.setNetWeight(netWeight);
-//        product.setNation(nation);
-        product.setAuthor(user);
-        this.productRepository.save(product);
+        product.setName(productForm.getName());
+        product.setAbv(productForm.getAbv());
+        product.setAroma(productForm.getAroma());
+        product.setFlavor(productForm.getFlavor());
+        product.setInfo(productForm.getInfo());
+        product.setCost(productForm.getCost());
+        product.setMainCategory(mainCategory);
+        product.setSubCategory(subCategory);
+        product.setCostRange(costRange);
+        product.setAbvRange(abvRange);
+        product.setNetWeight(netWeight);
+        product.setNation(nation);
+        product.setAuthor(siteUser);
+
+        // product를 먼저 저장합니다.
+        product = productRepository.save(product);
+
+        // product와 맵핑되는 pairings를 생성합니다.
+        for (Pairing pairing : pairings) {
+            product.getPairings().add(pairing);
+        }
+
+        // product와 맵핑되는 casks를 생성합니다.
+        for (Cask cask : casks) {
+            product.getCasks().add(cask);
+        }
+
+        // 저장된 product를 다시 저장합니다.
+        productRepository.save(product);
     }
+
 
 //    public void createProduct(ProductForm productForm) {
 //        Product product = convertToProduct(productForm);

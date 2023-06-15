@@ -12,6 +12,7 @@ import com.ll.spirits.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +63,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "pairing_id")
             )
-    private List<Pairing> pairings;
+    private List<Pairing> pairings = new ArrayList<>();
 
     @ManyToMany
     @JoinTable
@@ -69,7 +71,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "cask_id")
             )
-    private List<Cask> casks;
+    private List<Cask> casks = new ArrayList<>();
 
     // product_pairing 테이블과 product_cask 테이블을 생성하여
     // Product 엔티티와 Pairing 엔티티, 그리고 Product 엔티티와 Cask 엔티티 간의 다대다 관계를 매핑

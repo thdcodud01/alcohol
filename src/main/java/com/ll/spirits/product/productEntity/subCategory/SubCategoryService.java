@@ -20,11 +20,6 @@ public class SubCategoryService {
         return subCategoryRepository.findAll();
     }
 
-    public SubCategory getSubCategoryById(Integer subCategoryId) {
-        // subCategoryId를 사용하여 SubCategory를 조회하는 로직을 구현
-        // 구현 예시:
-        return subCategoryRepository.findById(subCategoryId).orElse(null);
-    }
     public SubCategory getSubCategory(String subCategory) {
         Optional<SubCategory> subCategory1 = this.subCategoryRepository.findBySubCategory(subCategory);
         if (subCategory1.isPresent()) {
