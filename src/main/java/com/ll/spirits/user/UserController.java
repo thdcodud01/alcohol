@@ -63,10 +63,12 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/checkDuplicate/{nickname}")
-    public ResponseEntity<Boolean> checkDuplicateNickname(@PathVariable("nickname") String nickname) {
+    @GetMapping("/checkDuplicate")
+    @ResponseBody
+    public boolean checkDuplicateNickname(@RequestParam("nickname") String nickname) {
         boolean isDuplicate = userService.isNicknameDuplicate(nickname);
-        return ResponseEntity.ok(isDuplicate);
+
+        return isDuplicate;
     }
     @GetMapping("/login")
     public String login() {
@@ -117,17 +119,5 @@ public class UserController {
 //        model.addAttribute("error", true);
 //        return "login_form";
 //    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/delete/{username}") // 사용자 삭제
-    public String userDelete(Principal principal, @PathVariable("username") String username ) {
-        SiteUser user = userService.getUser(username);
-        if (user.getRole() == UserRole.ADMIN) {
-            throw new IllegalArgumentException("관리자는 다른 사용자 계정을 삭제할 수 없습니다.");
-        }
-
-        userService.deleteUser(user);
-        return "redirect:/";
-    }
 
 }

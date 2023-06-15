@@ -42,12 +42,13 @@
                     <div class="email-text">계정(이메일 형식) *</div>
                     <div class="email">
                         <input th:field="*{username}" type="email" placeholder="ex)  example@example.com"
-                               class="email-input" required="" value="">
+                               required="" value="">
+                        <div class="email-checkmark">✓</div>
                     </div>
                 </div>
-                <div class="email-box">
-                    <div class="email-text">생년월일*</div>
-                    <div class="email">
+                <div class="birthday-box">
+                    <div class="birthday-text">생년월일*</div>
+                    <div class="birthday">
                         <input th:field="*{birthDate}" type="date" placeholder=""
                                class="email-input" required="" value="">
                     </div>
@@ -56,14 +57,16 @@
                     <div class="password-text">비밀번호 * (영문,숫자 8글자 이상)</div>
                     <div class="password">
                         <input th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
-                               class="password-input" required="" value="">
+                               required="" value="">
+                        <div class="password-checkmark">✓</div>
                     </div>
                 </div>
                 <div class="password-check-box">
                     <div class="password-check-text">비밀번호 확인 *</div>
                     <div class="password-check">
                         <input th:field="*{password2}" type="password" placeholder="비밀번호를 입력해주세요."
-                               class="password-check-input" required="" value="">
+                               required="" value="">
+                        <div class="password-check-checkmark">✓</div>
                     </div>
                 </div>
                 <div class="nickname-box">
@@ -168,12 +171,33 @@
         // 예시: 여기에서는 닉네임이 중복되었다고 가정하고 결과를 보여줍니다.
         var isNicknameDuplicate = true;
 
-        // 닉네임 중복 여부에 따라 결과 출력
-        if (isNicknameDuplicate) {
-            document.getElementById("nicknameCheckResult").innerHTML = "이미 사용 중인 닉네임입니다.";
-        } else {
-            document.getElementById("nicknameCheckResult").innerHTML = "사용 가능한 닉네임입니다.";
-        }
+
+        $("#checkDuplicateBtn").on("click", function() {
+            $.ajax({
+              url: "/user/checkDuplicate",
+              type: 'GET',
+              dataType: "JSON",
+              data: {
+                nickname: nickname
+              },
+              success: function(response) {
+                //중복이 아니면 response false
+                if (!response) {
+                   isNicknameDuplicate = false // 중복이 아니다
+                }
+                // 닉네임 중복 여부에 따라 결과 출력
+                if (isNicknameDuplicate) { // 닉에임이 중복이면
+                    document.getElementById("nicknameCheckResult").innerHTML = "이미 사용 중인 닉네임입니다.";
+                } else {
+                    document.getElementById("nicknameCheckResult").innerHTML = "사용 가능한 닉네임입니다.";
+                }
+              },
+              error: function(xhr, status, error) {
+                console.error('유저 삭제 오류:', error);
+              }
+            });
+
+        })
     }
 
     document.getElementById("checkDuplicateBtn").addEventListener("click", checkNickname);

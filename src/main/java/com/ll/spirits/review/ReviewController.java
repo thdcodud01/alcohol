@@ -65,13 +65,10 @@ public class ReviewController {
                 review.getProduct().getId(), review.getId());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
     public String reviewDelete(Principal principal, @PathVariable("id") Long id) {
         Review review = this.reviewService.getReview(id);
-        if (!review.getAuthor().getUsername().equals(principal.getName())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
-        }
         this.reviewService.delete(review);
         return String.format("redirect:/product/detail/%s", review.getProduct().getId());
     }

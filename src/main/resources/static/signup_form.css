@@ -75,17 +75,18 @@ ul,li{
 
 .wrap>.signup-box>.email-box>.email-text{
   margin-right: 90px;
+  margin-left:60px;
 }
 
 .wrap>.signup-box>.email-box>.email{
   margin-top: 10px;
+  position:relative;
+  display:inline-block;
 }
 
-.wrap>.signup-box>.email-box>.email>.email-input{
+.wrap>.signup-box>.email-box>.email>input{
 
-  -webkit-box-align: center;
   align-items: center;
-  -webkit-box-pack: justify;
   justify-content: space-between;
   width: 300px;
   height: 50px;
@@ -96,6 +97,50 @@ ul,li{
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
   margin-left: 150px;
+}
+
+.wrap>.signup-box>.email-box>.email>.email-checkmark{
+    position:absolute;
+      top:10px;
+      right:10px;
+      color:green;
+      font-size: 30px;
+}
+
+/*생일입력*/
+
+.wrap>.signup-box>.birthday-box>.birthday-text{
+  margin-right: 90px;
+  margin-top:20px;
+}
+
+.wrap>.signup-box>.birthday-box>.birthday{
+  margin-top: 10px;
+  position:relative;
+  display:inline-block;
+}
+
+.wrap>.signup-box>.birthday-box>.birthday>input{
+
+  align-items: center;
+  justify-content: space-between;
+  width: 300px;
+  height: 50px;
+  box-sizing:border-box;
+  padding-left: 20px;
+  border: 1px solid rgb(95, 0, 128);
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
+  margin-left: 150px;
+}
+
+.wrap>.signup-box>.birthday-box>.birthday>.checkmark{
+    position:absolute;
+      top:10px;
+      right:10px;
+      color:green;
+      font-size: 30px;
 }
 
 
@@ -109,13 +154,12 @@ ul,li{
 
 .wrap>.signup-box>.password-box>.password{
   margin-top: 10px;
+  position:relative;
+  display:inline-block;
 }
 
-.wrap>.signup-box>.password-box>.password>.password-input{
-
-  -webkit-box-align: center;
+.wrap>.signup-box>.password-box>.password>input{
   align-items: center;
-  -webkit-box-pack: justify;
   justify-content: space-between;
   width: 300px;
   height: 50px;
@@ -126,6 +170,14 @@ ul,li{
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
   margin-left: 150px;
+}
+
+.wrap>.signup-box>.password-box>.password>.password-checkmark{
+    position:absolute;
+      top:10px;
+      right:10px;
+      color:green;
+      font-size: 30px;
 }
 
 
@@ -140,13 +192,12 @@ ul,li{
 
 .wrap>.signup-box>.password-check-box>.password-check{
   margin-top: 10px;
+  position:relative;
+  display:inline-block;
 }
 
-.wrap>.signup-box>.password-check-box>.password-check>.password-check-input{
-
-  -webkit-box-align: center;
+.wrap>.signup-box>.password-check-box>.password-check>input{
   align-items: center;
-  -webkit-box-pack: justify;
   justify-content: space-between;
   width: 300px;
   height: 50px;
@@ -157,6 +208,14 @@ ul,li{
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
   margin-left: 150px;
+}
+
+.wrap>.signup-box>.password-check-box>.password-check>.password-check-checkmark{
+    position:absolute;
+      top:10px;
+      right:10px;
+      color:green;
+      font-size: 30px;
 }
 
 /* qd */
@@ -230,7 +289,7 @@ ul,li{
 }
 
 .checkmark {
-  display: inline-block;
+  display: absolute;
   font-weight: bold;
   font-size: 30px;
   margin-left: 10px;
