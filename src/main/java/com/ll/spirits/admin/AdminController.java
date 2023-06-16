@@ -51,7 +51,7 @@ public class AdminController {
     private final PairingService pairingService;
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/create")
+    @GetMapping("/product/create")
     public String getProductCreateForm(@ModelAttribute("productForm") ProductForm productForm, Model model,
                                        Integer mainCategoryId, Integer subCategoryId) {
         List<Cask> caskList = caskService.getAllCask();
@@ -83,7 +83,7 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/create")
+    @PostMapping("/product/create")
     public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
         System.out.println("제품 정보 확인:");
         System.out.println("이름: " + productForm.getName());
@@ -113,7 +113,7 @@ public class AdminController {
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/product")
+    @GetMapping("/page")
     public String adminProductCreate(ProductForm productForm, Model model) {
 
         List<Product> productList = productService.getList();

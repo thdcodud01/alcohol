@@ -76,6 +76,12 @@ public class UserController {
         return "login_form";
     }
 
+    @GetMapping("/mypage")
+    public String myPage() {
+
+        return "my_page";
+    }
+
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
 

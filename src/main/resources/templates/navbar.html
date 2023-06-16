@@ -3,8 +3,7 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
     <link rel="stylesheet" type="text/css" th:href="@{/nav_style.css}">
@@ -20,9 +19,17 @@
 
         <div class="right-box">
             <div class="user-box">
-                <div class="login"><a th:href="@{/product/create}">제품등록</a></div>
-                <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
-                <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></div>
+                <div class="login" sec:authorize="isAnonymous()">
+                    <a th:href="@{/user/login}">로그인</a>
+                    <span th:text="${#authentication.name}"></span>
+                </div>
+                <div class="login" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin/page}">관리자페이지</a>
+                </div>
+                <div class="login" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/logout}">로그아웃</a>
+                    <a th:href="@{/user/mypage}" th:text="${#authentication.principal.nickname}"></a>
+                </div>
                 <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
             <div class="search-box">
