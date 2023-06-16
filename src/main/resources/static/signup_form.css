@@ -109,6 +109,11 @@ ul,li{
       display:none;
 }
 
+.wrap>.signup-box>.email-box>#email-format-error{
+    margin-left:50px;
+    margin-top:10px;
+}
+
 /*생일입력*/
 
 .wrap>.signup-box>.birthday-box>.birthday-text{
@@ -144,6 +149,7 @@ ul,li{
       color:green;
       font-size: 30px;
 }
+
 
 
 .wrap>.signup-box>.password-box{
@@ -183,6 +189,11 @@ ul,li{
       display:none;
 }
 
+.wrap>.signup-box>.password-box>#password-error{
+    margin-left:160px;
+    margin-top:10px;
+}
+
 
 /* gd */
 .wrap>.signup-box>.password-check-box{
@@ -220,6 +231,11 @@ ul,li{
       color:green;
       font-size: 30px;
       display:none;
+}
+
+.wrap>.signup-box>.password-check-box>#password-match-error{
+    margin-left:50px;
+    margin-top:10px;
 }
 
 /* qd */

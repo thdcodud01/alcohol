@@ -41,11 +41,14 @@
                 <div class="email-box">
                     <div class="email-text">계정(이메일 형식) *</div>
                     <div class="email">
-                        <input th:field="*{username}" type="email" placeholder="ex)  example@example.com"
-                               required="" value="">
+                        <input id="email-input" th:field="*{username}" type="email" placeholder="ex) example@example.com" required="" value="">
                         <div class="email-checkmark">✓</div>
                     </div>
+                    <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
                 </div>
+
+
+
                 <div class="birthday-box">
                     <div class="birthday-text">생년월일*</div>
                     <div class="birthday">
@@ -56,19 +59,21 @@
                 <div class="password-box">
                     <div class="password-text">비밀번호 * (영문,숫자 8글자 이상)</div>
                     <div class="password">
-                        <input th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
-                               required="" value="">
+                        <input id="password-input" th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요." required="" value="">
                         <div class="password-checkmark">✓</div>
                     </div>
+                    <div id="password-error" style="display: none; color: red;">비밀번호는 영문, 숫자 8글자 이상을 입력하세요.</div>
                 </div>
+
                 <div class="password-check-box">
                     <div class="password-check-text">비밀번호 확인 *</div>
                     <div class="password-check">
-                        <input th:field="*{password2}" type="password" placeholder="비밀번호를 입력해주세요."
-                               required="" value="">
+                        <input id="password-check-input" th:field="*{password2}" type="password" placeholder="비밀번호를 입력해주세요." required="" value="">
                         <div class="password-check-checkmark">✓</div>
                     </div>
+                    <div id="password-match-error" style="display: none; color: red;">비밀번호와 일치하지 않습니다.</div>
                 </div>
+
                 <div class="nickname-box">
                     <div class="nickname-text">닉네임 * (공백,특수문자 제외한 2~10글자)</div>
                     <div class="nickname">
@@ -88,72 +93,66 @@
     </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function () {
-        var emailInput = $('input[name="username"]');
-        var passwordInput = $('input[name="password1"]');
-        var confirmPasswordInput = $('input[name="password2"]');
-        var nicknameInput = $('input[name="nickname"]');
-        var emailRegex = /^\S+@\S+\.\S+$/;
-        var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+   $(document).ready(function() {
+  $('#email-input').on('input', function() {
+    var email = $(this).val();
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        emailInput.on('input', function () {
-            var value = $(this).val();
-            var errorMessage = '';
-            if (value && !emailRegex.test(value)) {
-                errorMessage = '이메일 형식을 지켜주세요.';
-            }
-            $(this).siblings('.checkmark, .error-message').remove();
-            if (errorMessage) {
-                $('<div class="error-message"></div>').text(errorMessage).insertAfter($(this));
-            } else {
-                $('<div class="checkmark">✓</div>').insertAfter($(this));
-            }
-        });
+    if (emailRegex.test(email)) {
+      $('.email-checkmark').css('display', 'block');
+      $('#email-format-error').css('display', 'none');
+    } else {
+      $('.email-checkmark').css('display', 'none');
+      $('#email-format-error').css('display', 'block');
+    }
+  });
 
-        passwordInput.on('input', function () {
-            var value = $(this).val();
-            var errorMessage = '';
-            if (value && !passwordRegex.test(value)) {
-                errorMessage = '영문, 숫자 8글자 이상을 입력해주세요.';
-            }
-            $(this).siblings('.checkmark, .error-message').remove();
-            if (errorMessage) {
-                $('<div class="error-message"></div>').text(errorMessage).insertAfter($(this));
-            } else {
-                $('<div class="checkmark">✓</div>').insertAfter($(this));
-            }
-        });
+  $('#email-input').on('focus', function() {
+    $('#email-format-error').css('display', 'none');
+  });
+});
 
-        confirmPasswordInput.on('input', function () {
-            var value = $(this).val();
-            var passwordValue = passwordInput.val();
-            var errorMessage = '';
-            if (value && value !== passwordValue) {
-                errorMessage = '이전에 입력한 비밀번호와 일치하지 않습니다.';
-            }
-            $(this).siblings('.checkmark, .error-message').remove();
-            if (errorMessage) {
-                $('<div class="error-message"></div>').text(errorMessage).insertAfter($(this));
-            } else {
-                $('<div class="checkmark">✓</div>').insertAfter($(this));
-            }
-        });
+$(document).ready(function() {
+  $('#password-input').on('input', function() {
+    var password = $(this).val();
+    var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
-        nicknameInput.on('input', function () {
-            var value = $(this).val();
-            var errorMessage = '';
-            if (value && (value.length < 2 || value.length > 10 || !/^[\wㄱ-ㅎㅏ-ㅣ가-힣]+$/.test(value))) {
-                errorMessage = '공백, 특수문자 제외한 2~10글자로 입력해주세요.';
-            }
-            $(this).siblings('.checkmark, .error-message').remove();
-            if (errorMessage) {
-                $('<div class="error-message"></div>').text(errorMessage).insertAfter($(this));
-            } else {
-                $('<div class="checkmark">✓</div>').insertAfter($(this));
-            }
-        });
-    });
+    if (regex.test(password)) {
+      $('.password-checkmark').css('display', 'block');
+      $('#password-error').css('display', 'none');
+    } else {
+      $('.password-checkmark').css('display', 'none');
+      $('#password-error').css('display', 'block');
+    }
+  });
+
+  $('#password-input').on('focus', function() {
+    $('#password-error').css('display', 'none');
+  });
+});
+
+$(document).ready(function() {
+  $('#password-check-input').on('input', function() {
+    var password = $('#password-input').val();
+    var confirmPassword = $(this).val();
+
+    if (password === confirmPassword) {
+      $('.password-check-checkmark').css('display', 'block');
+      $('#password-match-error').css('display', 'none');
+    } else {
+      $('.password-check-checkmark').css('display', 'none');
+      $('#password-match-error').css('display', 'block');
+    }
+  });
+
+  $('#password-check-input').on('focus', function() {
+    $('#password-match-error').css('display', 'none');
+  });
+});
+
+
 </script>
 <script>
     function checkNickname() {
@@ -202,6 +201,9 @@
 
     document.getElementById("checkDuplicateBtn").addEventListener("click", checkNickname);
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
