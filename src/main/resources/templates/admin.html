@@ -103,30 +103,25 @@
 $('.delete-btn').on('click', function() {
   var productId = $(this).data('product-id');
   var reviewId = $(this).data('review-id');
-  var username = $(this).data('username');
+  var userId = $(this).data('siteUser-id');
 
   if (productId) {
-    var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
-    if (confirmDelete) {
+    if (confirm("정말로 상품을 삭제하시겠습니까?")) {
       deleteProduct(productId);
     }
   } else if (reviewId) {
-    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");
-    if (confirmDelete) {
+    if (confirm("정말로 리뷰를 삭제하시겠습니까?")) {
       deleteReview(reviewId);
     }
-  } else if (username) {
-    var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");
-    if (confirmDelete) {
-      deleteUser(username);
+  } else if (userId) {
+    if (confirm("정말로 유저를 삭제하시겠습니까?")) {
+      deleteUser(userId);
     }
   }
 });
 
 // 상품 삭제를 처리하는 함수
 function deleteProduct(productId) {
-  var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
-  if (confirmDelete) {
     $.ajax({
       url: '/product/delete/' + productId,
       type: 'GET',
@@ -138,15 +133,10 @@ function deleteProduct(productId) {
         console.error('상품 삭제 오류:', error);
       }
     });
-  }
 }
-</script>
 
-<script>
   // 리뷰 삭제를 처리하는 함수
   function deleteReview(reviewId) {
-    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");
-    if (confirmDelete) {
       $.ajax({
         url: '/review/delete/' + reviewId,
         type: 'GET',
@@ -158,17 +148,12 @@ function deleteProduct(productId) {
           console.error('리뷰 삭제 오류:', error);
         }
       });
-    }
   }
-</script>
 
-<script>
 // 사용자 삭제를 처리하는 함수
-function deleteUser(username) {
-  var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");
-  if (confirmDelete) {
+function deleteUser(userId) {
     $.ajax({
-      url: '/siteUser/delete/' + username,
+      url: '/admin/siteUser/delete/' + userId,
       type: 'GET',
       success: function(response) {
         console.log('유저가 성공적으로 삭제되었습니다.');
@@ -178,7 +163,6 @@ function deleteUser(username) {
         console.error('유저 삭제 오류:', error);
       }
     });
-  }
 }
 </script>
 
