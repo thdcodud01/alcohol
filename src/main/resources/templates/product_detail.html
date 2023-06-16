@@ -230,7 +230,15 @@ $(window).scroll(function(){
   if(scrollTop>=600){
   }
 })
-
+document.getElementById(".share-button").addEventListener("click", function() {
+  var dummyInput = document.createElement("input");
+  document.body.appendChild(dummyInput);
+  dummyInput.setAttribute("value", window.location.href);
+  dummyInput.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummyInput);
+  alert("현재 URL이 클립보드에 복사되었습니다.");
+});
 
 
 
@@ -243,7 +251,5 @@ $(window).scroll(function(){
 
 
 </script>
-
-
 </body>
 </html>

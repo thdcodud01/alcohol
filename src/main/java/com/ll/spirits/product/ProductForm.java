@@ -38,7 +38,7 @@ public class ProductForm {
     private Integer cost; // 가격
 
     @NotEmpty(message = "제품정보는 필수 입력항목입니다.")
-    @Size(max = 300)
+    @Size(max = 5000, message = "제품정보는 최대 5000자까지 입력 가능합니다.")
     private String info; // 제품정보
 
     @NotNull(message = "대분류는 필수 입력항목입니다.")

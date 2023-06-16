@@ -149,20 +149,16 @@ public class ProductService {
         product.setNetWeight(netWeight);
         product.setNation(nation);
         product.setAuthor(siteUser);
-
         // product를 먼저 저장합니다.
         product = productRepository.save(product);
-
         // product와 맵핑되는 pairings를 생성합니다.
         for (Pairing pairing : pairings) {
             product.getPairings().add(pairing);
         }
-
         // product와 맵핑되는 casks를 생성합니다.
         for (Cask cask : casks) {
             product.getCasks().add(cask);
         }
-
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }

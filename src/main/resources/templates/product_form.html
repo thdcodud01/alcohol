@@ -78,9 +78,9 @@
             <input type="text" th:field="*{aroma}" name="aroma" id="aroma" placeholder="향을 입력해주세요">
         </div>
 
-        <div class="incense-box">
-            <div class="title">인포:</div>
-            <input type="text" th:field="*{info}" name="info" id="info" placeholder="제품설명을 입력해주세요">
+        <div class="product-info-box">
+            <label for="info">인포:</label>
+            <textarea th:field="*{info}" name="info" id="info" placeholder="제품 설명을 입력해주세요"></textarea>
         </div>
 
         <div class="paring-box">
@@ -149,7 +149,7 @@
         <div class="btn-section">
             <div class="btn-box">
                 <input type="submit" class="btn btn-primary btn-action" value="저장하기">
-                <button class="btn-cancle"><a href="">취소하기</a></button>
+                <button class="btn-cancel"><a href="">취소하기</a></button>
             </div>
         </div>
     </form>
