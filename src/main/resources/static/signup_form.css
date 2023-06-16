@@ -109,6 +109,11 @@ ul,li{
       display:none;
 }
 
+.wrap>.signup-box>.email-box>#email-format-error{
+    margin-left:50px;
+    margin-top:10px;
+}
+
 /*생일입력*/
 
 .wrap>.signup-box>.birthday-box>.birthday-text{
@@ -144,6 +149,7 @@ ul,li{
       color:green;
       font-size: 30px;
 }
+
 
 
 .wrap>.signup-box>.password-box{
@@ -183,6 +189,11 @@ ul,li{
       display:none;
 }
 
+.wrap>.signup-box>.password-box>#password-error{
+    margin-left:160px;
+    margin-top:10px;
+}
+
 
 /* gd */
 .wrap>.signup-box>.password-check-box{
@@ -220,6 +231,11 @@ ul,li{
       color:green;
       font-size: 30px;
       display:none;
+}
+
+.wrap>.signup-box>.password-check-box>#password-match-error{
+    margin-left:50px;
+    margin-top:10px;
 }
 
 /* qd */
@@ -270,27 +286,53 @@ ul,li{
   font-weight: normal;
   color:rgb(0, 150, 243);
   margin-left: 10px;
+  box-sizing:border-box;
 }
+
 
 .wrap>.signup-box>.nickname-box>.nickname>.btn>a{
   display:block;
+}
+
+.wrap>.signup-box>.nickname-box>#nicknameCheckResult{
+    margin-left:120px;
 }
 
 .wrap>.signup-box>.signup-btn{
   margin-top: 30px;
 }
 
+.wrap>.signup-box>.cancel-btn{
+    margin-top:10px;
+    display:inline-block;
+}
+
 .wrap>.signup-box>.signup-btn>.btn{
   width: 300px;
   font-size: 19px;
-  background-color: #bfbfbf;
-  border:1px solid #dfdfdf;
+  background-color: rgb(0, 150, 243);
+  border:1px solid rgb(0, 150, 243);
   border-radius:8px;
   padding: 10px;
   font-weight: bold;
   color:white;
   margin-left: 150px;
 }
+
+.wrap>.signup-box>.cancel-btn>.btn2{
+    width: 300px;
+      font-size: 19px;
+      background-color: #bfbfbf;
+      border:1px solid #dfdfdf;
+      border-radius:8px;
+      padding: 10px;
+      font-weight: bold;
+      color:white;
+      margin-left: 150px;
+
+}
+
+
 
 .checkmark {
   display: absolute;
