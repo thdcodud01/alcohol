@@ -27,7 +27,7 @@
                 <div class="profile">
                     <i class="fa-solid fa-user fa-xl"></i>
                 </div>
-                <div class="nick-name">블루하와이</div>
+                <div class="nick-name" th:text="${userNickName}"></div>
             </div>
         </div>
     </nav>
@@ -55,21 +55,21 @@
 
                     <div class="userID">
                         <div class="title">아이디: </div>
-                        <div>is.Hwang</div>
+                        <div th:text="${userName}"></div>
                     </div>
 
                     <div class="userPW">
                         <div class="title">비밀번호: </div>
-                        <div class="PW">insunginsung</div>
+                        <div class="PW" th:text="${#userPassword}"></div>
                     </div>
 
                     <div class="user-nick-name">
                         <div class="title">닉네임: </div>
-                        <div class="nick-name">블루하와이</div>
+                        <div class="nick-name" th:text="${userNickName}"></div>
                     </div>
                     <div class="user-birth-day">
                         <div class="title">생년월일: </div>
-                        <div class="birth-day">1993-11-03</div>
+                        <div class="birth-day" th:text="${userBrithDate}"></div>
                     </div>
                 </div>
 

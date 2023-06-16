@@ -3,6 +3,7 @@ package com.ll.spirits.user;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,14 +19,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserSecurityService userSecurityService;
@@ -70,6 +71,7 @@ public class UserController {
 
         return isDuplicate;
     }
+
     @GetMapping("/login")
     public String login() {
 
@@ -77,9 +79,16 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPage() {
+    public String myPage(Model model, Principal principal) {
+        String username = principal.getName();
+        SiteUser user = userService.getUser(username);
 
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("userPassword", user.getPassword());
+        model.addAttribute("userNickName", user.getNickname());
+        model.addAttribute("userBrithDate", user.getBirthDate());
         return "my_page";
+
     }
 
     @PostMapping("/login")
