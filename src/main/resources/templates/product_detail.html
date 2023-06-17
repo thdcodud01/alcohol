@@ -51,7 +51,7 @@
                             <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
                         </div>
                     </div>
-                    <div class="info"  th:if="${hasCask}">
+                    <div class="info" th:if="${hasCask}">
                         <div class="title">
                             캐스크:
                             <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
@@ -239,6 +239,7 @@ document.getElementById(".share-button").addEventListener("click", function() {
   document.body.removeChild(dummyInput);
   alert("현재 URL이 클립보드에 복사되었습니다.");
 });
+
 
 </script>
 </body>
