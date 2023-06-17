@@ -16,7 +16,6 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Getter
@@ -59,20 +58,20 @@ public class Product {
     private String aroma; // (향)향은 직접 작성할 것이기 때문에 String 타입으로 지정
 
     @ManyToMany
-    @JoinTable(
-            name = "product_pairings",
+    @JoinTable
+            (name = "product_pairings",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "pairing_id")
-    )
-    private List<Pairing> pairings;
+            )
+    private List<Pairing> pairings = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(
-            name = "product_casks",
+    @JoinTable
+            (name = "product_casks",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "cask_id")
-    )
-    private List<Cask> casks;
+            )
+    private List<Cask> casks = new ArrayList<>();
 
     // product_pairing 테이블과 product_cask 테이블을 생성하여
     // Product 엔티티와 Pairing 엔티티, 그리고 Product 엔티티와 Cask 엔티티 간의 다대다 관계를 매핑
