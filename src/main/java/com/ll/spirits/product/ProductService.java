@@ -117,14 +117,26 @@ public class ProductService {
 
         // 캐스크 ID 리스트 검증 및 조회
         List<Integer> caskList = productForm.getCasks();
-        if (caskList == null || caskList.isEmpty()) {
-            throw new IllegalArgumentException("오크통은 필수 입력항목입니다.");
+        if (caskList == null || caskList.isEmpty() || caskList.contains(null)) {
+            // caskList가 null이거나 비어 있거나 null 값을 포함하고 있는 경우,
+            // caskList를 null을 단일 요소로 갖는 리스트로 초기화합니다.
+            caskList = Collections.singletonList(null);
+        } else {
+            // caskList를 처리하여 빈 문자열을 제거하고 null로 변환합니다.
+            // "none"인 경우에도 null로 변환합니다.
+            caskList = caskList.stream()
+                    .filter(casks -> casks != null && !casks.equals("none") && casks.longValue() > 0)
+                    .map(casks -> casks.equals("") ? null : casks)
+                    .collect(Collectors.toList());
         }
 
+        // caskList에 해당하는 캐스크 객체들을 caskRepository에서 조회합니다.
         List<Cask> casks = caskRepository.findAllById(caskList);
-        if (casks.size() != caskList.size()) {
-            throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
-        }
+//        if (casks.size() != caskList.size()) {
+//            // 조회된 casks의 크기와 caskList의 크기가 일치하지 않는 경우,
+//            // DataNotFoundException을 발생시킵니다.
+//            throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
+//        }
 
         // 페어링 ID 리스트 검증 및 조회
         List<Integer> pairingList = productForm.getPairings();

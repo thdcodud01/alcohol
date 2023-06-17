@@ -51,9 +51,9 @@
                             <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
                         </div>
                     </div>
-                    <div class="info">
+                    <div class="info"  th:if="${hasCask}">
                         <div class="title">
-                            캐스크1:
+                            캐스크:
                             <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
                                 <span th:text="${cask.cask}"></span>
                                 <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
@@ -112,7 +112,7 @@
                     </span>
                 </div>
             </div>
-            <div class="point-box4">
+            <div class="point-box4" th:if="${hasCask}">
                 <div class="taste-title">사용한 캐스크</div>
                 <div class="taste-text">
                     <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">

@@ -199,6 +199,9 @@ public class ProductController {
         List<Cask> casks = product.getCasks(); // Product 엔티티에서 casks 필드를 가져옴
         List<Pairing> pairings = product.getPairings(); // Product 엔티티에서 pairings 필드를 가져옴
 
+        // 캐스크값이 있는지 확인
+        boolean hasCask = !casks.isEmpty();
+
         // cask_id 값을 추출하여 리스트에 저장
         List<Integer> caskIds = casks.stream()
                 .map(cask -> cask.getId()) // Cask 엔티티에서 cask_id 대신 id 필드를 사용
@@ -214,8 +217,11 @@ public class ProductController {
         model.addAttribute("casks", casks);
         model.addAttribute("pairings", pairings);
         model.addAttribute("caskIds", caskIds);
+        model.addAttribute("hasCask", hasCask); // 캐스크값의 존재 여부를 모델에 추가
+
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}") // 제품 추천
     public String productVote(Principal principal, @PathVariable("id") Integer id) {
