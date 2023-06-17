@@ -19,18 +19,18 @@
 
         <div class="right-box">
             <div class="user-box">
+                <div class="login" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/admin/page}">관리자페이지</a>
+                </div>
                 <div class="login" sec:authorize="isAnonymous()">
                     <a th:href="@{/user/login}">로그인</a>
                     <span th:text="${#authentication.name}"></span>
                 </div>
-                <div class="login" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/admin/page}">관리자페이지</a>
-                </div>
                 <div class="login" sec:authorize="isAuthenticated()">
-                    <a th:href="@{/user/logout}">로그아웃</a>
                     <a th:href="@{/user/mypage}" th:text="${#authentication.principal.nickname}"></a>
+                    <a th:href="@{/user/logout}">로그아웃</a>
                 </div>
-                <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
+                <div class="sign-up" sec:authorize="isAnonymous()"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
             <div class="search-box">
                 <input type="text" placeholder="검색어를 입력해주세요.">

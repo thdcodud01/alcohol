@@ -105,21 +105,25 @@
             <label for="cask1">캐스크:</label>
             <select id="cask1" name="casks">
                 <option value="none">오크통1 선택</option>
+                <option value="">오크통 선택 안함</option>
                 <option th:each="cask1 : ${caskList}" th:value="${cask1.id}" th:text="${cask1.cask}">
             </select>
             <label for="cask2"></label>
             <select id="cask2" name="casks">
                 <option value="none">오크통2 선택</option>
+                <option value="">오크통 선택 안함</option>
                 <option th:each="cask2 : ${caskList}" th:value="${cask2.id}" th:text="${cask2.cask}">
             </select>
             <label for="cask3"></label>
             <select id="cask3" name="casks">
                 <option value="none">오크통3 선택</option>
+                <option value="">오크통 선택 안함</option>
                 <option th:each="cask3 : ${caskList}" th:value="${cask3.id}" th:text="${cask3.cask}">
             </select>
             <label for="cask4"></label>
             <select id="cask4" name="casks">
                 <option value="none">오크통4 선택</option>
+                <option value="">오크통 선택 안함</option>
                 <option th:each="cask4 : ${caskList}" th:value="${cask4.id}" th:text="${cask4.cask}">
             </select>
         </div>

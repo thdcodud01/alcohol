@@ -39,6 +39,14 @@ public class UserService {
             throw new DataNotFoundException("siteuser not found");
         }
     }
+    public SiteUser getUserId(Long id) {// Integer 로 타입이 들어오면 null 값도 허용해줄 수 있음
+        Optional<SiteUser> siteUser = this.userRepository.findById(id);
+        if (siteUser.isPresent()) {
+            return siteUser.get();
+        } else {
+            throw new DataNotFoundException("siteUserId not found"); // 예외처리로 에러(DataNotFoundException)를 표시
+        }
+    }
 
     public boolean isNicknameDuplicate(String nickname) {
         Optional<SiteUser> existingUser = userRepository.findByNickname(nickname);

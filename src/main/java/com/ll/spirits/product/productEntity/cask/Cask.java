@@ -16,5 +16,4 @@ public class Cask {
 
     @Column(length = 200)
     private String cask;
-
 }

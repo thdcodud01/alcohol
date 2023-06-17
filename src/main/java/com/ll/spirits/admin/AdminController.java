@@ -142,11 +142,11 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/delete/siteUser/{username}") // 사용자 삭제
-    public String userDelete(Principal principal, @PathVariable("username") String username ) {
-        SiteUser user = this.userService.getUser(username);
+    @GetMapping("/delete/siteUser/{id}") // 사용자 삭제
+    public String userDelete(Principal principal, @PathVariable("id") Long id ) {
+        SiteUser user = this.userService.getUserId(id);
         this.userService.deleteUser(user);
-        return "redirect:/admin/product";
+        return "redirect:/admin/page";
     }
 
 }

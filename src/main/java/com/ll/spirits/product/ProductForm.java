@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -56,6 +57,6 @@ public class ProductForm {
     private List<Integer> pairings = new ArrayList<>(); // 페어링 엔티티 리스트
     @NotNull(message = "생산국가는 필수 입력항목입니다.")
     private Integer nationId; // 생산국가 ID
-    @NotNull(message = "오크통은 필수 입력항목입니다.")
+
     private List<Integer> casks = new ArrayList<>(); // 캐스크 엔티티 리스트
 }
