@@ -117,79 +117,9 @@ public class ProductController {
         }
         return templateName;
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/create")
-    public String getProductCreateForm(@ModelAttribute("productForm") ProductForm productForm, Model model,
-                                       Integer mainCategoryId, Integer subCategoryId) {
-        List<Cask> caskList = caskService.getAllCask();
-        List<Nation> nationList = nationService.getAllNation();
-        List<Pairing> pairingList = pairingService.getAllPairing();
-        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
-        List<CostRange> costRangeList = costRangeService.getAllCostRange();
-        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
-        List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
-        List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
-
-        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-        List<SubCategory> filteredSubCategoryList = subCategoryService.getSubCategoriesByMainCategoryId(mainCategoryId);
-
-        model.addAttribute("caskList", caskList);
-        model.addAttribute("nationList", nationList);
-        model.addAttribute("pairingList", pairingList);
-        model.addAttribute("abVrangeList", abVrangeList);
-        model.addAttribute("costRangeList", costRangeList);
-        model.addAttribute("netWeightList", netWeightList);
-        model.addAttribute("subCategoryId", subCategoryId);
-        model.addAttribute("mainCategoryId", mainCategoryId);
-        model.addAttribute("mainCategoryList", mainCategoryList);
-        model.addAttribute("subCategoryList", subCategoryList);
-        model.addAttribute("productList", productList);
-        model.addAttribute("filteredSubCategoryList", filteredSubCategoryList);
-
-        return "product_form";
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/create")
-    public String createProduct(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
-        if (bindingResult.hasErrors()) {
-            return "product_form";
-        }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        productService.createProduct(productForm, siteUser);
-        return "redirect:/";
-    }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/admin")
-    public String adminProductCreate(ProductForm productForm, Model model) {
 
-        List<Product> productList = productService.getList();
-        List<Review> reviewList = reviewService.getList();
-        List<SiteUser> siteUserList = userService.getList();
-        model.addAttribute("productList", productList);
-        model.addAttribute("reviewList",reviewList);
-        model.addAttribute("siteUserList", siteUserList);
-        return "admin";
-    }
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
-    @PostMapping("/admin") // post == 보내다
-    public String adminProductCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal, Integer mainCategoryId, Integer subCategoryId, Model model) {
-
-        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-
-        model.addAttribute("productList", productList);
-
-        if (bindingResult.hasErrors()) {
-            return "redirect:/product/admin";
-        }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.createProduct(productForm, siteUser);
-        // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
-        // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
-        return "redirect:/product/admin"; // 제품 저장후 제품목록으로 이동
-    }
 
 
     @GetMapping("/detail/{id}") // 제품 상세보기
@@ -246,31 +176,4 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
-
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @GetMapping("/modify/{id}")
-//    public String productModify(ProductForm productForm, @PathVariable("id") Integer id, Principal principal) {
-//        Product product = this.productService.getProduct(id);
-//        if(!product.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
-//        productForm.setSubject(product.getSubject());
-//        productForm.setContent(product.getContent());
-//        return "question_form";
-//    }
-//
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @PostMapping("/modify/{id}")
-//    public String productModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
-//                                 Principal principal, @PathVariable("id") Integer id) {
-//        if (bindingResult.hasErrors()) {
-//            return "question_form";
-//        }
-//        Question question = this.questionService.getQuestion(id);
-//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
-//        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-//        return String.format("redirect:/question/detail/%s", id);
-//    }
 }

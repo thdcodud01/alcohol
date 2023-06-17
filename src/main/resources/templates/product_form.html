@@ -14,7 +14,7 @@
     <div class="title-box">
         <div class="title">상품등록</div>
     </div>
-    <form th:object="${productForm}" method="POST" th:action="@{/product/create}">
+    <form th:object="${productForm}" method="POST">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="Category">
             <label for="category">대분류:</label>

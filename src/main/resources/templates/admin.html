@@ -41,8 +41,13 @@
             <td th:text="${product.name}">Product 1</td>
             <td th:text="${product.cost}">cost</td>
             <td>
-                <button class="edit-btn" th:onclick="'editProduct(' + ${product.id} + ')'">Edit</button>
-                <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>
+                <form th:action="@{/admin/product/modify/{id}(id=${product.id})}" method="GET">
+                    <button type="submit" class="edit-btn">Edit</button>
+                </form>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/product/{id}(id=${product.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/product/{id}(id=${product.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -89,7 +94,7 @@
             <td th:text="${siteUser.username}">user1@example.com</td>
             <td>
                 <form th:action="@{/admin/delete/siteUser/{id}(id=${siteUser.id})}" method="get">
-                    <input type="hidden" name="_method" value="delete" />
+                    <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" class="delete-btn">Delete</button>
                 </form>
             </td>
@@ -102,105 +107,17 @@
     <p>&copy; 2023 Admin Dashboard</p>
 </footer>
 <script>
-const delete_elements = document.getElementsByClassName("delete");
-Array.from(delete_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = this.dataset.uri;
-        };
-    });
-});
-<!--// 삭제 버튼에 이벤트 핸들러 등록-->
-<!--$('.delete-btn').on('click', function() {-->
-<!--  var productId = $(this).data('product-id');-->
-<!--  var reviewId = $(this).data('review-id');-->
-<!--  var username = $(this).data('username');-->
-
-<!--  if (productId) {-->
-<!--    var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");-->
-<!--    if (confirmDelete) {-->
-<!--      deleteProduct(productId);-->
-<!--    }-->
-<!--  } else if (reviewId) {-->
-<!--    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");-->
-<!--    if (confirmDelete) {-->
-<!--      deleteReview(reviewId);-->
-<!--    }-->
-<!--  } else if (username) {-->
-<!--    var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");-->
-<!--    if (confirmDelete) {-->
-<!--      deleteUser(username);-->
-<!--    }-->
-<!--  }-->
-<!--});-->
-
-// 상품 삭제를 처리하는 함수
-function deleteProduct(productId) {
-  var confirmDelete = confirm("정말로 상품을 삭제하시겠습니까?");
-  if (confirmDelete) {
-    $.ajax({
-      url: '/product/delete/' + productId,
-      type: 'GET',
-      success: function(response) {
-        console.log('상품이 성공적으로 삭제되었습니다.');
-        location.reload();
-      },
-      error: function(xhr, status, error) {
-        console.error('상품 삭제 오류:', error);
-      }
-    });
-  }
-}
-
-</script>
-
-<script>
-  // 리뷰 삭제를 처리하는 함수
-  function deleteReview(reviewId) {
-    var confirmDelete = confirm("정말로 리뷰를 삭제하시겠습니까?");
-    if (confirmDelete) {
-      $.ajax({
-        url: '/review/delete/' + reviewId,
-        type: 'GET',
-        success: function(response) {
-          console.log('리뷰가 성공적으로 삭제되었습니다.');
-          location.reload();
-        },
-        error: function(xhr, status, error) {
-          console.error('리뷰 삭제 오류:', error);
+    function confirmDelete(event) {
+        event.preventDefault();
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            location.href = event.target.getAttribute("data-uri");
         }
-      });
     }
-  }
 
-</script>
-
-<script>
-<!--// 사용자 삭제를 처리하는 함수-->
-<!--function deleteUser(username) {-->
-<!--  var confirmDelete = confirm("정말로 유저를 삭제하시겠습니까?");-->
-<!--  if (confirmDelete) {-->
-<!--    $.ajax({-->
-<!--      url: '/siteUser/delete/' + username,-->
-<!--      type: 'GET',-->
-<!--      success: function(response) {-->
-<!--        console.log('유저가 성공적으로 삭제되었습니다.');-->
-<!--        location.reload();-->
-<!--      },-->
-<!--      error: function(xhr, status, error) {-->
-<!--        console.error('유저 삭제 오류:', error);-->
-<!--      }-->
-<!--    });-->
-<!--  }-->
-<!--}-->
-
-</script>
-
-<script>
-  // Add Product 누르면 product_form 으로 이동
-  function openProductForm() {
-    window.location.href = "product/create";
-  }
+    // Add Product 누르면 product_form 으로 이동
+    function openProductForm() {
+        window.location.href = "product/create";
+    }
 
 </script>
 </body>

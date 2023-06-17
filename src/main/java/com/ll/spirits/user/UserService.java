@@ -1,12 +1,15 @@
 package com.ll.spirits.user;
 
 import com.ll.spirits.DataNotFoundException;
-import com.ll.spirits.review.Review;
+//import com.ll.spirits.user.emailService.EmailService;
+//import com.ll.spirits.user.emailService.EmailVerificationToken;
+//import com.ll.spirits.user.emailService.EmailVerificationTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +18,9 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+//    private final EmailVerificationTokenRepository tokenRepository;
+//    private final EmailService emailService;
 
     public SiteUser create(String username, String password, String nickname, LocalDate birthDate, UserRole role) {
         SiteUser user = new SiteUser();
@@ -64,7 +70,30 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-//    public Optional<SiteUser> getUserByRole(String username) {
-//        return userRepository.findByRole(username);
+//    public void registerUser(SiteUser user) {
+//        // 비밀번호 암호화
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//
+//        // 사용자 저장
+//        userRepository.save(user);
+//
+//        // 이메일 인증 토큰 생성
+//        EmailVerificationToken token = new EmailVerificationToken();
+//        token.setToken(generateToken());
+//        token.setUser(user);
+//        token.setExpiryDate(LocalDateTime.now().plusHours(24));
+//        tokenRepository.save(token);
+//
+//        // 이메일 발송
+//        String subject = "이메일 인증을 완료해주세요.";
+//        String body = "인증을 완료하려면 다음 링크를 클릭하세요: http://example.com/verify?token=" + token.getToken();
+//        emailService.sendEmail(user.getUsername(), subject, body);
 //    }
+//
+//    private String generateToken() {
+//        // 토큰 생성 로직 구현
+//        // 예시: 랜덤한 문자열 생성 또는 UUID 사용
+//        return "generated_token";
+//    }
+
 }

@@ -1,80 +1,103 @@
 /* 전체 페이지 스타일 */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-}
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+        }
 
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
-nav ul li {
-    display: inline;
-    margin-right: 10px;
-}
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
 
-main {
-    padding: 20px;
-}
+        main {
+            padding: 20px;
+        }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
 
-h2 {
-    margin-top: 30px;
-}
+        h2 {
+            margin-top: 30px;
+        }
 
-.product-table, .review-table, .user-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        .product-table,
+        .review-table,
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-.product-table th, .product-table td,
-.review-table th, .review-table td,
-.user-table th, .user-table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-}
+        .product-table th,
+        .product-table td,
+        .review-table th,
+        .review-table td,
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
 
-.product-table th, .review-table th, .user-table th {
-    background-color: #f2f2f2;
-}
+        .product-table th,
+        .review-table th,
+        .user-table th {
+            background-color: #f2f2f2;
+        }
 
-.add-btn, .edit-btn, .delete-btn {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
+        .add-btn,
+        .edit-btn,
+        .delete-btn {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
 
-.edit-btn {
-    background-color: #ff9800;
-    margin-right: 5px;
-}
+        .edit-btn {
+            background-color: #ff9800;
+            margin-right: 5px;
+        }
 
-.delete-btn {
-    background-color: #f44336;
-    margin-right: 5px;
-}
+        .delete-btn {
+            background-color: #f44336;
+            margin-right: 5px;
+        }
 
-/* 추가적인 스타일을 필요에 따라 추가하세요 */
+        a.delete-btn {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        a.delete-btn:hover {
+            background-color: #e53935;
+        }
+
+        table {
+            background-color: #fff;
+        }

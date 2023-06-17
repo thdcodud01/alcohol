@@ -16,6 +16,7 @@ configurations {
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 dependencies { // JSON 언어로 작성된 디펜던시
@@ -41,6 +42,29 @@ dependencies { // JSON 언어로 작성된 디펜던시
 
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 카카오 소셜로그인을 위한 디펜던시
 	implementation 'com.github.scribejava:scribejava-apis:7.1.1' // 카카오 소셜로그인을 위한 디펜던시
+
+//	// EmailVerificationToken에 대한 의존성
+//	implementation 'com.example:email-verification-token:1.0.0'
+//
+//	// EmailService에 대한 의존성
+//	implementation 'com.example:email-service:1.0.0'
+//
+//	// UserService에 대한 의존성
+//	implementation 'com.example:user-service:1.0.0'
+//
+//	// VerificationController에 대한 의존성
+//	implementation 'com.example:verification-controller:1.0.0'
+//
+//	implementation 'org.springframework.boot:spring-boot-starter-mail'
+//
+//	implementation files('/path/to/email-verification-token-1.0.0.jar')
+
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
+
+	// spring mail
+// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 
 }
 

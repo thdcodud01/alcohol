@@ -28,6 +28,7 @@
                 </div>
                 <div class="login" sec:authorize="isAuthenticated()">
                     <a th:href="@{/user/mypage}" th:text="${#authentication.principal.nickname}"></a>
+                    님 환영합니다!
                     <a th:href="@{/user/logout}">로그아웃</a>
                 </div>
                 <div class="sign-up" sec:authorize="isAnonymous()"><a th:href="@{|/user/signup|}">회원가입</a></div>
