@@ -1,42 +1,32 @@
-
-$(".user-information").click(function(){
-  $(".user-wish").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-info").addClass("active");
+$(".user-wishlist").click(function () {
+  
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-wish").addClass("active").css('display','block');
 });
 
-$(".user-wishlist").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-wish").addClass("active");
+$(".user-reviewlist").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-review").addClass("active").css('display','block');
 });
 
-$(".user-reviewlist").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-wish").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-review").addClass("active");
+$(".user-likelist").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-like").addClass("active").css('display','block');
 });
 
-
-$(".user-likelist").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-wish").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-like").addClass("active");
-});
-
-
-$(".user-information-modify").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-wish").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-modify").addClass("active");
+$(".user-information-modify").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-modify").addClass("active").css('display','block');
 });
