@@ -80,16 +80,17 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String myPage(Model model, Principal principal) {
-        String username = principal.getName();
-        SiteUser user = userService.getUser(username);
+        String User = principal.getName();
+        SiteUser user = userService.getUser(User);
 
         model.addAttribute("userName", user.getUsername());
-        model.addAttribute("userPassword", user.getPassword());
         model.addAttribute("userNickName", user.getNickname());
         model.addAttribute("userBrithDate", user.getBirthDate());
         return "my_page";
 
     }
+
+
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
