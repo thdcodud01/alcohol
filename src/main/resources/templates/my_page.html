@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyPage</title>
     <link rel="stylesheet" type="text/css" th:href="@{/my_page_style.css}">
+<!--        <link rel="script" type="text/js" th:href="@{/my_page_script.js}">--><!--  js는 안쓸거같아요!  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="path/to/my_page_script.js"></script>
@@ -40,29 +41,23 @@
     <div class="main-section">
         <div class="left-box">
             <ul>
-                <li class="user-information"><a href="#">회원정보</a></li>
-                <li class="user-wishlist"><a href="#">찜한상품</a></li>
-                <li class="user-reviewlist"><a href="#">내 댓글</a></li>
-                <li class="user-likelist"><a href="#">좋아요</a></li>
-                <li class="user-information-modify"><a href="#">개인정보 변경</a></li>
+                <li class="user-information"><a href="#user-info">회원정보</a></li>
+                <li class="user-wishlist"><a href="#user-wish">찜한상품</a></li>
+                <li class="user-reviewlist"><a href="#user-review">내 댓글</a></li>
+                <li fclass="user-likelist"><a href="#user-like">좋아요</a></li>
+                <li class="user-information-modify"><a href="#user-modify">개인정보 변경</a></li>
             </ul>
         </div>
         <div class="right-box">
 
             <!--       회원정보 -->
-            <div class="user-info active">
+            <div class="user-info active" id="user-info">
                 <div class="info-box">
 
                     <div class="userID">
                         <div class="title">아이디: </div>
                         <div th:text="${userName}"></div>
                     </div>
-
-                    <div class="userPW">
-                        <div class="title">비밀번호: </div>
-                        <div class="PW" th:text="${#userPassword}"></div>
-                    </div>
-
                     <div class="user-nick-name">
                         <div class="title">닉네임: </div>
                         <div class="nick-name" th:text="${userNickName}"></div>
@@ -78,7 +73,7 @@
 
 
             <!--       내가찜한상품 -->
-            <div class="user-wish ">
+            <div class="user-wish" id="user-wish">
                 <div class="wish-product">
                     <div class="product-wrap">
                         <div class="img-box">
@@ -107,7 +102,7 @@
 
 
             <!--       내가쓴 댓글 -->
-            <div class="user-review ">
+            <div class="user-review" id="user-review">
                 <div class="review-list">
                     <div class="review-info">
                         <div class="number">번호</div>
@@ -127,7 +122,7 @@
             </div>
 
             <!--       내가 누른 좋아요 -->
-            <div class="user-like ">
+            <div class="user-like" id="user-like">
                 <div class="like-box">
                     <div class="info">
                         <div class="left">
@@ -148,7 +143,7 @@
             </div>
 
             <!--       회원정보수정 -->
-            <div class="user-modify ">
+            <div class="user-modify" id="user-modify">
                 <div class="modify-box">
                     <div class="pw-modify">
                         <form action="">
@@ -170,49 +165,53 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+$(".user-information ").click(function () {
 
-$(".user-information").click(function(){
-  $(".user-wish").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-info").addClass("active");
+
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-info").addClass("active").css('display','block');
 });
 
-$(".user-wishlist").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-wish").addClass("active");
+$(".user-wishlist").click(function () {
+
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-wish").addClass("active").css('display','block');
 });
 
-$(".user-reviewlist").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-wish").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-review").addClass("active");
+$(".user-reviewlist").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-review").addClass("active").css('display','block');
+});
+
+$(".user-likelist").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-like").addClass("active").css('display','block');
+});
+
+$(".user-information-modify").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-modify").addClass("active").css('display','block');
 });
 
 
-$(".user-likelist").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-wish").removeClass("active");
-  $(".user-modify").removeClass("active");
-  $(".user-like").addClass("active");
-});
-
-
-$(".user-information-modify").click(function(){
-  $(".user-info").removeClass("active");
-  $(".user-review").removeClass("active");
-  $(".user-wish").removeClass("active");
-  $(".user-like").removeClass("active");
-  $(".user-modify").addClass("active");
-});
 </script>
 </body>
 </html>
