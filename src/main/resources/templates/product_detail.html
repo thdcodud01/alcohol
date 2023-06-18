@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>상품 상세보기 페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/product_detail_style.css}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
           integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -69,22 +68,25 @@
                     <span class="num">￦</span> <!--가격-->
                 </div>
                 <div class="logo-box">
+                    <!-- HTML 코드 -->
                     <div class="like">
-                        <a href="#"> <!--찜버튼-->
-                            <i class="fa-regular fa-heart fa-2xl"></i>
+                        <a href="#" id="heart-button">
+                            <i id="heart-icon" class="fa-regular fa-heart fa-2xl"></i>
                         </a>
                     </div>
+
                     <div class="wish">
-                        <a href="#"> <!--좋아요(추천)버튼-->
-                            <i class="fa-regular fa-thumbs-up fa-2xl"></i>
+                        <a href="#" id="thumbs-up-button">
+                            <i id="thumbs-up-icon" class="fa-regular fa-thumbs-up fa-2xl"></i>
                         </a>
                     </div>
                     <div class="link">
-                        <a href="#" class="share-button"> <!--링크복사버튼-->
+                        <a href="#" class="share-button" id="copy-link-button">
                             <i class="fa-solid fa-share-nodes fa-2xl"></i>
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="point-section">
@@ -214,10 +216,10 @@
     </div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
-$(document).ready(function(){
-//   끝
-})
 
 $(".btn").click(function(){
   $("html , body").animate({
@@ -231,9 +233,12 @@ $(window).scroll(function(){
   }
 })
 
-
-
-
+// JQuery 코드
+$(document).ready(function() {
+  $('#heart-button').click(function() {
+    $('#heart-icon').removeClass = ("fa-solid fa-heart fa-2xl");
+  });
+});
 
 
 

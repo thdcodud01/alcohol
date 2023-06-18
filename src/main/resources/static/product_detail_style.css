@@ -13,17 +13,15 @@ ul,li{
 }
 
 
-
 .wrap{
-  width: 900px;
-
-
+  width: 900px !important;
   margin-left: auto;
   margin-right: auto;
 }
 
 .wrap>.product-box{
   display:flex;
+  margin-top:40px;
 }
 
 .wrap>.product-box>.left-box{
