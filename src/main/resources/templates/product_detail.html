@@ -42,7 +42,7 @@
                     <div class="info">
                         <div class="title"> <!--용량-->
                             용량 :
-                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
+                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span>ml</span>
                         </div>
                     </div>
                     <div class="info">
@@ -75,8 +75,8 @@
                         </a>
                     </div>
                     <div class="wish">
-                        <a href="#"> <!--좋아요(추천)버튼-->
-                            <i class="fa-regular fa-thumbs-up fa-2xl"></i>
+                        <a href="javascript:void(0);" th:data-uri="@{|/product/vote/{id}(id=${product.id})|}" onclick="confirmRecommend(event)"> <!--좋아요(추천)버튼-->
+                            <i class="fa-regular fa-thumbs-up fa-2xl" th:text="${#lists.size(product.voter)}"></i>
                         </a>
                     </div>
                     <div class="link">
@@ -239,6 +239,13 @@ document.getElementById(".share-button").addEventListener("click", function() {
   document.body.removeChild(dummyInput);
   alert("현재 URL이 클립보드에 복사되었습니다.");
 });
+
+function confirmRecommend(event) {
+        event.preventDefault();
+        if (confirm("정말로 추천하시겠습니까?")) {
+            location.href = event.target.getAttribute("data-uri");
+        }
+    }
 
 
 </script>

@@ -170,7 +170,7 @@ public class ProductController {
         Product product = this.productService.getProduct(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
         if (product.getVoter().contains(siteUser)) {
-            this.productService.cancleWish(product, siteUser); // 찜 취소 기능
+            this.productService.cancelWish(product, siteUser); // 찜 취소 기능
         } else {
             this.productService.wish(product, siteUser); // 찜 기능
         }

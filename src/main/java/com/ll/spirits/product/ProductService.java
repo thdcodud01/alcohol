@@ -191,12 +191,12 @@ public class ProductService {
     }
 
     public void wish(Product product, SiteUser siteUser) { // 찜 메서드
-        product.getVoter().add(siteUser);
+        product.getWish().add(siteUser);
         this.productRepository.save(product);
     }
 
-    public void cancleWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
-        product.getVoter().remove(siteUser);
+    public void cancelWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
+        product.getWish().remove(siteUser);
         this.productRepository.save(product);
     }
 

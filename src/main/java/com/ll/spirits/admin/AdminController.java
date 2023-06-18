@@ -195,6 +195,7 @@ public class AdminController {
     @PostMapping("/product/modify/{id}")
     public String productModify(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id) {
+        Product product = productService.getProduct(id);
         System.out.println("제품 수정 정보 확인:");
         System.out.println("수정된 이름: " + productForm.getName());
         System.out.println("수정된 대분류: " + productForm.getMainCategoryId());
@@ -214,7 +215,7 @@ public class AdminController {
 
         System.out.println("제품 수정 완료");
 
-        return "redirect:/";
+        return String.format("redirect:/product/detail/%s", product.getId());
     }
 
 

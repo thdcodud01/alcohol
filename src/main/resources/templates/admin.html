@@ -20,6 +20,7 @@
             <li><a href="user.html">User Management</a></li>
             <li><a href="settings.html">System Settings</a></li>
             <li><a href="logout.html">Logout</a></li>
+            <li><a th:href="@{/}">Go to Main</a></li>
         </ul>
     </nav>
 </header>
@@ -41,11 +42,8 @@
             <td th:text="${product.name}">Product 1</td>
             <td th:text="${product.cost}">cost</td>
             <td>
-                <form th:action="@{/admin/product/modify/{id}(id=${product.id})}" method="GET">
-                    <button type="submit" class="edit-btn">Edit</button>
-                </form>
-                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/product/{id}(id=${product.id})}"
-                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/product/modify/{id}(id=${product.id})}"
+                   class="edit-btn" onclick="confirmEdit(event)">Edit</a>
                 <a href="javascript:void(0);" th:data-uri="@{/admin/delete/product/{id}(id=${product.id})}"
                    class="delete-btn" onclick="confirmDelete(event)">Delete</a>
             </td>
@@ -71,7 +69,8 @@
             <td th:text="${review.author.nickname}">User 1</td>
             <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
             <td>
-                <button class="delete-btn" th:onclick="'deleteReview(' + ${review.id} + ')'">Delete</button>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/review/{id}(id=${review.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -93,10 +92,8 @@
             <td th:text="${siteUser.nickname}">User 1</td>
             <td th:text="${siteUser.username}">user1@example.com</td>
             <td>
-                <form th:action="@{/admin/delete/siteUser/{id}(id=${siteUser.id})}" method="get">
-                    <input type="hidden" name="_method" value="delete"/>
-                    <button type="submit" class="delete-btn">Delete</button>
-                </form>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/siteUser/{id}(id=${siteUser.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
             </td>
         </tr>
         </tbody>
@@ -110,6 +107,12 @@
     function confirmDelete(event) {
         event.preventDefault();
         if (confirm("정말로 삭제하시겠습니까?")) {
+            location.href = event.target.getAttribute("data-uri");
+        }
+    }
+    function confirmEdit(event) {
+        event.preventDefault();
+        if (confirm("정말로 수정하시겠습니까?")) {
             location.href = event.target.getAttribute("data-uri");
         }
     }
