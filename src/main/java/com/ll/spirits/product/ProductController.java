@@ -117,97 +117,9 @@ public class ProductController {
         }
         return templateName;
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/create")
-    public String getProductCreateForm(@ModelAttribute("productForm") ProductForm productForm, Model model,
-                                       Integer mainCategoryId, Integer subCategoryId) {
-        List<Cask> caskList = caskService.getAllCask();
-        List<Nation> nationList = nationService.getAllNation();
-        List<Pairing> pairingList = pairingService.getAllPairing();
-        List<ABVrange> abVrangeList = abVrangeService.getAllABVrange();
-        List<CostRange> costRangeList = costRangeService.getAllCostRange();
-        List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
-        List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
-        List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
-
-        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-        List<SubCategory> filteredSubCategoryList = subCategoryService.getSubCategoriesByMainCategoryId(mainCategoryId);
-
-        model.addAttribute("caskList", caskList);
-        model.addAttribute("nationList", nationList);
-        model.addAttribute("pairingList", pairingList);
-        model.addAttribute("abVrangeList", abVrangeList);
-        model.addAttribute("costRangeList", costRangeList);
-        model.addAttribute("netWeightList", netWeightList);
-        model.addAttribute("subCategoryId", subCategoryId);
-        model.addAttribute("mainCategoryId", mainCategoryId);
-        model.addAttribute("mainCategoryList", mainCategoryList);
-        model.addAttribute("subCategoryList", subCategoryList);
-        model.addAttribute("productList", productList);
-        model.addAttribute("filteredSubCategoryList", filteredSubCategoryList);
-
-        return "product_form";
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/create")
-    public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult, Principal principal) {
-        System.out.println("제품 정보 확인:");
-        System.out.println("이름: " + productForm.getName());
-        System.out.println("대분류: " + productForm.getMainCategoryId());
-        System.out.println("중분류: " + productForm.getSubCategoryId());
-        System.out.println("가격범위: " + productForm.getCostRangeId());
-        System.out.println("도수범위: " + productForm.getAbvRangeId());
-        System.out.println("용량: " + productForm.getNetWeightId());
-        System.out.println("안주: " + productForm.getPairings());
-        System.out.println("캐스크: " + productForm.getCasks());
-        System.out.println("생산국: " + productForm.getNationId());
 
 
 
-        if (bindingResult.hasErrors()) {
-            System.out.println("유효성 검사 오류 발생");
-            return "product_form";
-        }
-
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        productService.createProduct(productForm, siteUser);
-
-        System.out.println("제품 등록 완료");
-
-        return "redirect:/";
-    }
-
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/admin")
-    public String adminProductCreate(ProductForm productForm, Model model) {
-
-        List<Product> productList = productService.getList();
-        List<Review> reviewList = reviewService.getList();
-        List<SiteUser> siteUserList = userService.getList();
-        model.addAttribute("productList", productList);
-        model.addAttribute("reviewList",reviewList);
-        model.addAttribute("siteUserList", siteUserList);
-        return "admin";
-    }
-    @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정 // 제품 등록 Post
-    @PostMapping("/admin") // post == 보내다
-    public String adminProductCreate(@Valid ProductForm productForm, BindingResult bindingResult, Principal principal, Integer mainCategoryId, Integer subCategoryId, Model model) {
-
-        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-
-        model.addAttribute("productList", productList);
-
-        if (bindingResult.hasErrors()) {
-            return "redirect:/product/admin";
-        }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.createProduct(productForm, siteUser);
-        // 사진을 띄워야 하는데 여기 create 로직에서 처리할지 HTML 템플릿에서 처리할지 고민해봐야 함
-        // create(이 안에 get으로 가져오는 것들이 리스트 상에서 띄울 제품정보);
-        return "redirect:/product/admin"; // 제품 저장후 제품목록으로 이동
-    }
 
 
     @GetMapping("/detail/{id}") // 제품 상세보기
@@ -216,6 +128,9 @@ public class ProductController {
         Product product = this.productService.getProduct(id);
         List<Cask> casks = product.getCasks(); // Product 엔티티에서 casks 필드를 가져옴
         List<Pairing> pairings = product.getPairings(); // Product 엔티티에서 pairings 필드를 가져옴
+
+        // 캐스크값이 있는지 확인
+        boolean hasCask = !casks.isEmpty();
 
         // cask_id 값을 추출하여 리스트에 저장
         List<Integer> caskIds = casks.stream()
@@ -232,8 +147,11 @@ public class ProductController {
         model.addAttribute("casks", casks);
         model.addAttribute("pairings", pairings);
         model.addAttribute("caskIds", caskIds);
+        model.addAttribute("hasCask", hasCask); // 캐스크값의 존재 여부를 모델에 추가
+
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}") // 제품 추천
     public String productVote(Principal principal, @PathVariable("id") Integer id) {
@@ -252,37 +170,10 @@ public class ProductController {
         Product product = this.productService.getProduct(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
         if (product.getVoter().contains(siteUser)) {
-            this.productService.cancleWish(product, siteUser); // 찜 취소 기능
+            this.productService.cancelWish(product, siteUser); // 찜 취소 기능
         } else {
             this.productService.wish(product, siteUser); // 찜 기능
         }
         return String.format("redirect:/product/detail/%s", id);
     }
-
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @GetMapping("/modify/{id}")
-//    public String productModify(ProductForm productForm, @PathVariable("id") Integer id, Principal principal) {
-//        Product product = this.productService.getProduct(id);
-//        if(!product.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
-//        productForm.setSubject(product.getSubject());
-//        productForm.setContent(product.getContent());
-//        return "question_form";
-//    }
-//
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    @PostMapping("/modify/{id}")
-//    public String productModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
-//                                 Principal principal, @PathVariable("id") Integer id) {
-//        if (bindingResult.hasErrors()) {
-//            return "question_form";
-//        }
-//        Question question = this.questionService.getQuestion(id);
-//        if (!question.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
-//        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-//        return String.format("redirect:/question/detail/%s", id);
-//    }
 }

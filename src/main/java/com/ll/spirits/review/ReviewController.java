@@ -65,13 +65,7 @@ public class ReviewController {
                 review.getProduct().getId(), review.getId());
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
-    public String reviewDelete(Principal principal, @PathVariable("id") Long id) {
-        Review review = this.reviewService.getReview(id);
-        this.reviewService.delete(review);
-        return String.format("redirect:/product/detail/%s", review.getProduct().getId());
-    }
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")

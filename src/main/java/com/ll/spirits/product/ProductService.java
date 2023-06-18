@@ -26,8 +26,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -115,14 +117,26 @@ public class ProductService {
 
         // 캐스크 ID 리스트 검증 및 조회
         List<Integer> caskList = productForm.getCasks();
-        if (caskList == null || caskList.isEmpty()) {
-            throw new IllegalArgumentException("오크통은 필수 입력항목입니다.");
+        if (caskList == null || caskList.isEmpty() || caskList.contains(null)) {
+            // caskList가 null이거나 비어 있거나 null 값을 포함하고 있는 경우,
+            // caskList를 null을 단일 요소로 갖는 리스트로 초기화합니다.
+            caskList = Collections.singletonList(null);
+        } else {
+            // caskList를 처리하여 빈 문자열을 제거하고 null로 변환합니다.
+            // "none"인 경우에도 null로 변환합니다.
+            caskList = caskList.stream()
+                    .filter(casks -> casks != null && !casks.equals("none") && casks.longValue() > 0)
+                    .map(casks -> casks.equals("") ? null : casks)
+                    .collect(Collectors.toList());
         }
 
+        // caskList에 해당하는 캐스크 객체들을 caskRepository에서 조회합니다.
         List<Cask> casks = caskRepository.findAllById(caskList);
-        if (casks.size() != caskList.size()) {
-            throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
-        }
+//        if (casks.size() != caskList.size()) {
+//            // 조회된 casks의 크기와 caskList의 크기가 일치하지 않는 경우,
+//            // DataNotFoundException을 발생시킵니다.
+//            throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
+//        }
 
         // 페어링 ID 리스트 검증 및 조회
         List<Integer> pairingList = productForm.getPairings();
@@ -149,48 +163,22 @@ public class ProductService {
         product.setNetWeight(netWeight);
         product.setNation(nation);
         product.setAuthor(siteUser);
-
         // product를 먼저 저장합니다.
         product = productRepository.save(product);
-
         // product와 맵핑되는 pairings를 생성합니다.
         for (Pairing pairing : pairings) {
             product.getPairings().add(pairing);
         }
-
         // product와 맵핑되는 casks를 생성합니다.
         for (Cask cask : casks) {
             product.getCasks().add(cask);
         }
-
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
 
 
-//    public void createProduct(ProductForm productForm) {
-//        Product product = convertToProduct(productForm);
-//        productRepository.save(product);
-//    }
-//    private Product convertToProduct(ProductForm productForm) {
-//        Product product = new Product();
-//        // ProductForm에서 필요한 데이터 추출하여 Product 엔티티에 설정
-//        product.setName(productForm.getProductName());
-//        product.setAbv(productForm.getAbv());
-//        product.setAroma(productForm.getAroma());
-//        product.setFlavor(productForm.getFlavor());
-//        product.setCost(productForm.getCost());
-//        product.setInfo(productForm.getInfo());
-//        product.setMainCategory(new MainCategory(productForm.getMainCategoryId()));
-//        product.setSubCategory(new SubCategory(productForm.getSubCategoryId()));
-//        product.setAbvRange(new ABVrange(productForm.getAbvRangeId()));
-//        product.setNetWeight(new NetWeight(productForm.getNetWeightId()));
-//        product.setPairings(productForm.getPairingIds());
-//        product.setNation(new Nation(productForm.getNationId()));
-//        product.setCasks(productForm.getCaskIds());
-//
-//        return product;
-//    }
+
 
     public void vote(Product product, SiteUser siteUser) { // 추천 메서드
         product.getVoter().add(siteUser);
@@ -203,13 +191,100 @@ public class ProductService {
     }
 
     public void wish(Product product, SiteUser siteUser) { // 찜 메서드
-        product.getVoter().add(siteUser);
+        product.getWish().add(siteUser);
         this.productRepository.save(product);
     }
 
-    public void cancleWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
-        product.getVoter().remove(siteUser);
+    public void cancelWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
+        product.getWish().remove(siteUser);
         this.productRepository.save(product);
+    }
+
+    public void modify(Integer id, ProductForm productForm, SiteUser siteUser) { // 추천 메서드
+        Product product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            // 제품이 존재하지 않을 경우, 에러 처리 또는 다른 동작 수행
+            System.out.println("존재하지 않는 제품입니다.");
+            return;
+        }
+
+        MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
+                .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));
+
+        SubCategory subCategory = subCategoryRepository.findById(productForm.getSubCategoryId())
+                .orElseThrow(() -> new DataNotFoundException("subCategory not found"));
+
+        CostRange costRange = costRangeRepository.findById(productForm.getCostRangeId())
+                .orElseThrow(() -> new DataNotFoundException("costRange not found"));
+
+        ABVrange abvRange = abvRangeRepository.findById(productForm.getAbvRangeId())
+                .orElseThrow(() -> new DataNotFoundException("abvRange not found"));
+
+        NetWeight netWeight = netWeightRepository.findById(productForm.getNetWeightId())
+                .orElseThrow(() -> new DataNotFoundException("netWeight not found"));
+
+        Nation nation = nationRepository.findById(productForm.getNationId())
+                .orElseThrow(() -> new DataNotFoundException("nation not found"));
+
+        // 캐스크 ID 리스트 검증 및 조회
+        List<Integer> caskList = productForm.getCasks();
+        if (caskList == null || caskList.isEmpty() || caskList.contains(null)) {
+            // caskList가 null이거나 비어 있거나 null 값을 포함하고 있는 경우,
+            // caskList를 null을 단일 요소로 갖는 리스트로 초기화합니다.
+            caskList = Collections.singletonList(null);
+        } else {
+            // caskList를 처리하여 빈 문자열을 제거하고 null로 변환합니다.
+            // "none"인 경우에도 null로 변환합니다.
+            caskList = caskList.stream()
+                    .filter(casks -> casks != null && !casks.equals("none") && casks.longValue() > 0)
+                    .map(casks -> casks.equals("") ? null : casks)
+                    .collect(Collectors.toList());
+        }
+
+        // caskList에 해당하는 캐스크 객체들을 caskRepository에서 조회합니다.
+        List<Cask> casks = caskRepository.findAllById(caskList);
+//        if (casks.size() != caskList.size()) {
+//            // 조회된 casks의 크기와 caskList의 크기가 일치하지 않는 경우,
+//            // DataNotFoundException을 발생시킵니다.
+//            throw new DataNotFoundException("존재하지 않는 캐스크 ID가 포함되어 있습니다.");
+//        }
+
+        // 페어링 ID 리스트 검증 및 조회
+        List<Integer> pairingList = productForm.getPairings();
+        if (pairingList == null || pairingList.isEmpty()) {
+            throw new IllegalArgumentException("어울리는 안주는 필수 입력항목입니다.");
+        }
+
+        List<Pairing> pairings = pairingRepository.findAllById(pairingList);
+        if (pairings.size() != pairingList.size()) {
+            throw new DataNotFoundException("존재하지 않는 페어링 ID가 포함되어 있습니다.");
+        }
+        // 제품 정보 업데이트
+        product.setName(productForm.getName());
+        product.setAbv(productForm.getAbv());
+        product.setAroma(productForm.getAroma());
+        product.setFlavor(productForm.getFlavor());
+        product.setInfo(productForm.getInfo());
+        product.setCost(productForm.getCost());
+        product.setMainCategory(mainCategory);
+        product.setSubCategory(subCategory);
+        product.setCostRange(costRange);
+        product.setAbvRange(abvRange);
+        product.setNetWeight(netWeight);
+        product.setNation(nation);
+        product.setAuthor(siteUser);
+        // product를 먼저 저장합니다.
+        product = productRepository.save(product);
+        // product와 맵핑되는 pairings를 생성합니다.
+        for (Pairing pairing : pairings) {
+            product.getPairings().add(pairing);
+        }
+        // product와 맵핑되는 casks를 생성합니다.
+        for (Cask cask : casks) {
+            product.getCasks().add(cask);
+        }
+        // 저장된 product를 다시 저장합니다.
+        productRepository.save(product);
     }
 
     public void delete(Product product) { // 삭제 메서드

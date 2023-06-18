@@ -14,10 +14,10 @@
     <div class="title-box">
         <div class="title">상품등록</div>
     </div>
-    <form th:object="${productForm}" method="POST" th:action="@{/product/create}">
+    <form th:object="${productForm}" method="POST">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="Category">
-            <label for="category">대분류:</label>
+            <label for="category">대분류(필수):</label>
             <select id="category" name="mainCategoryId">
                 <option value="none">대분류 선택</option>
                 <option th:each="mainCategory : ${mainCategoryList}" th:value="${mainCategory.id}"
@@ -26,7 +26,7 @@
         </div>
 
         <div class="SubCategory">
-            <label for="subCategory">중분류:</label>
+            <label for="subCategory">중분류(필수):</label>
             <select id="subCategory" name="subCategoryId">
                 <option value="none">중분류 선택</option>
                 <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}"
@@ -35,56 +35,65 @@
         </div>
 
         <div class="product-name">
-            <div class="title">이름:</div>
+            <div class="title">제품 이름(필수):</div>
             <input type="text" th:field="*{name}" name="name" id="name" placeholder="이름을 입력해주세요">
         </div>
 
         <div class="Costrange-box">
-            <label for="Costrange">가격:</label>
+            <label for="Costrange">제품 가격 - ￦(필수):</label>
             <select id="Costrange" name="costRangeId">
                 <option value="none">가격 선택</option>
                 <option th:each="costRange : ${costRangeList}" th:value="${costRange.id}"
-                        th:text="${costRange.costRange}"></option>
+                        th:text="${costRange.costRange} + '￦'"></option>
             </select>
             <input type="number" th:field="*{cost}" name="cost" id="cost" placeholder="가격을 입력해주세요">
         </div>
 
         <div class="ABVrange-box">
-            <label for="ABVrange">도수:</label>
+            <label for="ABVrange">제품 도수 - %(필수):</label>
             <select id="ABVrange" name="abvRangeId">
                 <option value="none">도수 선택</option>
                 <option th:each="abvRange : ${abVrangeList}" th:value="${abvRange.id}"
-                        th:text="${abvRange.abvRange}"></option>
+                        th:text="${abvRange.abvRange} + '%'"></option>
             </select>
             <input type="number" step="0.01" th:field="*{abv}" name="abv" id="abv" placeholder="도수를 입력해주세요">
         </div>
 
         <div class="net-weight-box">
-            <label for="net-weight">용량:</label>
+            <label for="net-weight">제품 용량 - ml(필수):</label>
             <select id="net-weight" name="netWeightId">
                 <option value="none">용량 선택</option>
                 <option th:each="netWeight : ${netWeightList}" th:value="${netWeight.id}"
-                        th:text="${netWeight.netWeight}">
+                        th:text="${netWeight.netWeight} + 'ml'"></option>
+            </select>
+        </div>
+
+        <div class="nation">
+            <label for="nation">국가(필수):</label>
+            <select id="nation" name="nationId">
+                <option value="none">국가 선택</option>
+                <option th:each="nation : ${nationList}" th:value="${nation.id}" th:text="${nation.nation}">
             </select>
         </div>
 
         <div class="taste-box">
-            <div class="title">맛:</div>
+            <div class="title">제품 맛(필수):</div>
             <input type="text" th:field="*{flavor}" name="flavor" id="flavor" placeholder="맛을 입력해주세요">
         </div>
 
         <div class="incense-box">
-            <div class="title">향:</div>
+            <div class="title">제품 향(필수):</div>
             <input type="text" th:field="*{aroma}" name="aroma" id="aroma" placeholder="향을 입력해주세요">
         </div>
 
-        <div class="incense-box">
-            <div class="title">인포:</div>
-            <input type="text" th:field="*{info}" name="info" id="info" placeholder="제품설명을 입력해주세요">
+        <div class="product-info-box">
+            <label for="info">제품 설명(필수):</label>
+            <textarea th:field="*{info}" name="info" id="info" placeholder="제품 설명을 입력해주세요"></textarea>
         </div>
 
+
         <div class="paring-box">
-            <label for="paring1">안주:</label>
+            <label for="paring1">안주(필수):</label>
             <select id="paring1" name="pairings">
                 <option value="none">안주1 선택</option>
                 <option th:each="pairing1 : ${pairingList}" th:value="${pairing1.id}" th:text="${pairing1.pairing}">
@@ -102,33 +111,25 @@
         </div>
 
         <div class="Cask-box">
-            <label for="cask1">캐스크:</label>
+            <label for="cask1">캐스크(선택입력사항):</label>
             <select id="cask1" name="casks">
-                <option value="none">오크통1 선택</option>
+                <option value="">오크통1 선택</option>
                 <option th:each="cask1 : ${caskList}" th:value="${cask1.id}" th:text="${cask1.cask}">
             </select>
             <label for="cask2"></label>
             <select id="cask2" name="casks">
-                <option value="none">오크통2 선택</option>
+                <option value="">오크통2 선택</option>
                 <option th:each="cask2 : ${caskList}" th:value="${cask2.id}" th:text="${cask2.cask}">
             </select>
             <label for="cask3"></label>
             <select id="cask3" name="casks">
-                <option value="none">오크통3 선택</option>
+                <option value="">오크통3 선택</option>
                 <option th:each="cask3 : ${caskList}" th:value="${cask3.id}" th:text="${cask3.cask}">
             </select>
             <label for="cask4"></label>
             <select id="cask4" name="casks">
-                <option value="none">오크통4 선택</option>
+                <option value="">오크통4 선택</option>
                 <option th:each="cask4 : ${caskList}" th:value="${cask4.id}" th:text="${cask4.cask}">
-            </select>
-        </div>
-
-        <div class="nation">
-            <label for="nation">국가:</label>
-            <select id="nation" name="nationId">
-                <option value="none">국가 선택</option>
-                <option th:each="nation : ${nationList}" th:value="${nation.id}" th:text="${nation.nation}">
             </select>
         </div>
 
@@ -149,7 +150,9 @@
         <div class="btn-section">
             <div class="btn-box">
                 <input type="submit" class="btn btn-primary btn-action" value="저장하기">
-                <button class="btn-cancle"><a href="">취소하기</a></button>
+                <a class="btn-cancel" th:href="@{/admin/page}">
+                    취소하기
+                </a>
             </div>
         </div>
     </form>

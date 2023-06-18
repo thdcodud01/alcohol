@@ -131,7 +131,7 @@
 <script layout:fragment="script" type='text/javascript'>
 function filterBySubcategori() {
         var subCategoryId = document.getElementById("SubCategori").value;
-        window.location.href = "http://localhost:7777/product/list/위스키?subCategoryId=" + subCategoryId;
+        window.location.href = "http://localhost:7777/product/list/Whiskey?subCategoryId=" + subCategoryId;
     }
 function applyFilters() {
         var subCategorySelect = document.getElementById("subCategoryId");
@@ -139,7 +139,7 @@ function applyFilters() {
         var subCategoryIds = selectedOptions.map(function(option) {
             return option.value;
         });
-        var url = "/product/list/위스키?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
+        var url = "/product/list/Whiskey?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
         window.location.href = url;
     }
 

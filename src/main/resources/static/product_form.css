@@ -1,191 +1,121 @@
-/* 노멀라이징 */
-a {
-  text-decoration: none;
-  color: inherit;
+/* 전체 페이지 스타일 */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
 }
 
-/* 스타일 시작 */
+/* 컨테이너 스타일 */
 .wrap {
-  width: 900px;
-  margin-right: auto;
-  margin-left: auto;
-  border: 1px solid black;
-  box-sizing: border-box;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
-  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.wrap .title-box {
-  margin-top: 30px;
+/* 제목 스타일 */
+.title-box {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.wrap .title-box .title {
-  margin-bottom: 40px;
-  font-size: 2rem;
+.title {
+  font-size: 24px;
   font-weight: bold;
+  color: #fff;
 }
 
-.wrap form .Category {
-  margin-bottom: 40px;
+/* 폼 스타일 */
+form {
+  margin-bottom: 20px;
 }
 
-.wrap form .SubCategory {
-  margin-bottom: 40px;
+/* 입력 요소 스타일 */
+.Category,
+.SubCategory,
+.product-name,
+.Costrange-box,
+.ABVrange-box,
+.net-weight-box,
+.taste-box,
+.incense-box,
+.paring-box,
+.Cask-box,
+.nation,
+.product-img-box,
+.product-detail-img-box,
+.product-info-img-box {
+  margin-bottom: 15px;
 }
 
 label {
   font-weight: bold;
-  margin-right: 5px;
+  font-size: 18px;
+  color: #fff;
 }
 
-select {
-  padding: 5px;
+select,
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 8px;
   border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #333;
+  color: #fff;
 }
 
-.wrap form .product-name {
-  display: flex;
-  margin-bottom: 40px;
+textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
-.wrap form .product-name .title {
-  font-weight: bold;
-  margin-top: 5px;
-  margin-right: 10px;
-}
-
-.wrap form .product-name input {
-  padding: 5px;
-  margin-left: 12px;
-}
-
-.wrap form .Costrange-box select {
-  margin-left: 10px;
-}
-
-.wrap form .Costrange-box input {
-  padding: 5px;
-  margin-left: 10px;
-}
-
-.wrap form .ABVrange-box {
-  margin-top: 40px;
-}
-
-.wrap form .ABVrange-box select {
-  margin-left: 10px;
-}
-
-.wrap form .ABVrange-box input {
-  padding: 5px;
-  margin-left: 10px;
-}
-
-.wrap form .net-weight-box {
-  margin-top: 40px;
-}
-
-.wrap form .net-weight-box select {
-  margin-left: 10px;
-}
-
-.wrap form .taste-box {
-  display: flex;
-  margin-top: 40px;
-}
-
-.wrap form .taste-box .title {
-  font-weight: bold;
-  margin-right: 33px;
-  margin-top: 5px;
-}
-
-.wrap form .taste-box input {
-  padding: 5px;
-}
-
-.wrap form .incense-box {
-  display: flex;
-  margin-top: 40px;
-}
-
-.wrap form .incense-box .title {
-  font-weight: bold;
-  margin-right: 33px;
-  margin-top: 5px;
-}
-
-.wrap form .incense-box input {
-  padding: 5px;
-}
-
-.wrap form .paring-box {
-  margin-top: 40px;
-}
-
-.wrap form .paring-box select {
-  margin-left: 10px;
-}
-
-.wrap form .Cask-box {
-  margin-top: 40px;
-}
-
-.wrap form .Cask-box select {
-  margin-left: -3px;
-  margin-right: 10px;
-}
-
-.wrap form .nation {
-  margin-top: 40px;
-}
-
-.wrap form .nation select {
-  margin-left: 10px;
-}
-
-.wrap form .product-img-box {
-  margin-top: 40px;
-}
-
-.wrap form .product-detail-img-box {
-  margin-top: 40px;
-}
-
-.wrap form .product-info-img-box {
-  margin-top: 40px;
-}
-
-.wrap .btn-section {
+/* 버튼 스타일 */
+.btn-section {
   text-align: center;
-  margin-top: 30px;
 }
 
-.wrap .btn-section .btn-box {
-  display: flex;
-  justify-content: center; /* 수정: 가로 중앙 정렬 */
-  margin-top: 30px;
+.btn-box {
+  margin-top: 20px;
 }
 
-.wrap .btn-section .btn-box .btn,
-.wrap .btn-section .btn-box .btn-cancle {
-  font-size: 15px;
-  background-color: rgb(0, 150, 243);
-  border: 1px solid rgb(0, 150, 243);
-  border-radius: 5px;
+.btn-action,
+.btn-cancel {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
   font-weight: bold;
-  color: white;
-  padding: 10px 20px; /* 수정: 좀 더 넉넉한 패딩 조정 */
-  margin-right: 10px; /* 수정: 버튼 간격 조정 */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.wrap .btn-section .btn-box .btn-cancle {
-  background-color: #dfdfdf;
-  border: 1px solid #dfdfdf;
-  color: black;
+.btn-action {
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  color: #fff;
+  margin-right: 10px;
 }
 
-.wrap .btn-section .btn-box .btn a,
-.wrap .btn-section .btn-box .btn-cancle a {
-  display: block;
+.btn-cancel {
+  background-color: #dc3545;
+  border: 2px solid #dc3545;
+  color: #fff;
+  margin-left: 10px;
+  padding: 10px 20px;
+}
+
+.btn-action:hover,
+.btn-cancel:hover {
+  opacity: 0.8;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
 }

@@ -1,176 +1,127 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>관리자 페이지</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/admin.css}">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/admin.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <header>
-  <h1>Admin Dashboard</h1>
-  <nav>
-    <ul>
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="product.html">Product Management</a></li>
-      <li><a href="review.html">Review Management</a></li>
-      <li><a href="user.html">User Management</a></li>
-      <li><a href="settings.html">System Settings</a></li>
-      <li><a href="logout.html">Logout</a></li>
-    </ul>
-  </nav>
+    <h1>Admin Dashboard</h1>
+    <nav>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="product.html">Product Management</a></li>
+            <li><a href="review.html">Review Management</a></li>
+            <li><a href="user.html">User Management</a></li>
+            <li><a href="settings.html">System Settings</a></li>
+            <li><a href="logout.html">Logout</a></li>
+            <li><a th:href="@{/}">Go to Main</a></li>
+        </ul>
+    </nav>
 </header>
 <main>
-  <h2>Product Management</h2>
-  <button class="add-btn" onclick="openProductForm()">Add Product</button>
-  <table class="product-table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Cost</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="product : ${productList}">
-      <td th:text="${product.id}">1</td>
-      <td th:text="${product.name}">Product 1</td>
-      <td th:text="${product.cost}">cost</td>
-      <td>
-        <button class="edit-btn" th:onclick="'editProduct(' + ${product.id} + ')'" >Edit</button>
-        <button class="delete-btn" th:attr="data-product-id=${product.id}">Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <h2>Product Management</h2>
+    <button class="add-btn" onclick="openProductForm()">Add Product</button>
+    <table class="product-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${productList}">
+            <td th:text="${product.id}">1</td>
+            <td th:text="${product.name}">Product 1</td>
+            <td th:text="${product.cost}">cost</td>
+            <td>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/product/modify/{id}(id=${product.id})}"
+                   class="edit-btn" onclick="confirmEdit(event)">Edit</a>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/product/{id}(id=${product.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-  <h2>Review Management</h2>
-  <table class="review-table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Product</th>
-      <th>User</th>
-      <th>Review</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="review : ${reviewList}">
-      <td th:text="${review.id}">1</td>
-      <td th:text="${review.product.name}">Product 1</td>
-      <td th:text="${review.author.nickname}">User 1</td>
-      <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
-      <td>
-        <button class="delete-btn" th:onclick="'deleteReview(' + ${review.id} + ')'" >Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <h2>Review Management</h2>
+    <table class="review-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>User</th>
+            <th>Review</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="review : ${reviewList}">
+            <td th:text="${review.id}">1</td>
+            <td th:text="${review.product.name}">Product 1</td>
+            <td th:text="${review.author.nickname}">User 1</td>
+            <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
+            <td>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/review/{id}(id=${review.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-  <h2>User Management</h2>
-  <table class="user-table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="siteUser : ${siteUserList}">
-      <td th:text="${siteUser.id}">1</td>
-      <td th:text="${siteUser.nickname}">User 1</td>
-      <td th:text="${siteUser.username}">user1@example.com</td>
-      <td>
-        <button class="edit-btn" th:data-username="${siteUser.id}" onclick="editUser(this.getAttribute('data-id'))">Edit</button>
-        <button class="delete-btn" th:onclick="'deleteUser(' + ${siteUser.id} + ')'" >Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <h2>User Management</h2>
+    <table class="user-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="siteUser : ${siteUserList}">
+            <td th:text="${siteUser.id}">1</td>
+            <td th:text="${siteUser.nickname}">User 1</td>
+            <td th:text="${siteUser.username}">user1@example.com</td>
+            <td>
+                <a href="javascript:void(0);" th:data-uri="@{/admin/delete/siteUser/{id}(id=${siteUser.id})}"
+                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </main>
 <footer>
-  <p>&copy; 2023 Admin Dashboard</p>
+    <p>&copy; 2023 Admin Dashboard</p>
 </footer>
 <script>
-// 삭제 버튼에 이벤트 핸들러 등록
-$('.delete-btn').on('click', function() {
-  var productId = $(this).data('product-id');
-  var reviewId = $(this).data('review-id');
-  var userId = $(this).data('siteUser-id');
-
-  if (productId) {
-    if (confirm("정말로 상품을 삭제하시겠습니까?")) {
-      deleteProduct(productId);
-    }
-  } else if (reviewId) {
-    if (confirm("정말로 리뷰를 삭제하시겠습니까?")) {
-      deleteReview(reviewId);
-    }
-  } else if (userId) {
-    if (confirm("정말로 유저를 삭제하시겠습니까?")) {
-      deleteUser(userId);
-    }
-  }
-});
-
-// 상품 삭제를 처리하는 함수
-function deleteProduct(productId) {
-    $.ajax({
-      url: '/product/delete/' + productId,
-      type: 'GET',
-      success: function(response) {
-        console.log('상품이 성공적으로 삭제되었습니다.');
-        location.reload();
-      },
-      error: function(xhr, status, error) {
-        console.error('상품 삭제 오류:', error);
-      }
-    });
-}
-
-  // 리뷰 삭제를 처리하는 함수
-  function deleteReview(reviewId) {
-      $.ajax({
-        url: '/review/delete/' + reviewId,
-        type: 'GET',
-        success: function(response) {
-          console.log('리뷰가 성공적으로 삭제되었습니다.');
-          location.reload();
-        },
-        error: function(xhr, status, error) {
-          console.error('리뷰 삭제 오류:', error);
+    function confirmDelete(event) {
+        event.preventDefault();
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            location.href = event.target.getAttribute("data-uri");
         }
-      });
-  }
+    }
+    function confirmEdit(event) {
+        event.preventDefault();
+        if (confirm("정말로 수정하시겠습니까?")) {
+            location.href = event.target.getAttribute("data-uri");
+        }
+    }
 
-// 사용자 삭제를 처리하는 함수
-function deleteUser(userId) {
-    $.ajax({
-      url: '/siteUser/delete/' + userId,
-      type: 'GET',
-      success: function(response) {
-        console.log('유저가 성공적으로 삭제되었습니다.');
-        location.reload();
-      },
-      error: function(xhr, status, error) {
-        console.error('유저 삭제 오류:', error);
-      }
-    });
-}
-</script>
+    // Add Product 누르면 product_form 으로 이동
+    function openProductForm() {
+        window.location.href = "product/create";
+    }
 
-<script>
-  // Add Product 누르면 product_form 으로 이동
-  function openProductForm() {
-    window.location.href = "admin/product/create";
-  }
 </script>
 </body>
 </html>

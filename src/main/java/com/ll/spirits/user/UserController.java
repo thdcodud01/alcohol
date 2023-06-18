@@ -3,6 +3,7 @@ package com.ll.spirits.user;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,14 +19,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+
 
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserSecurityService userSecurityService;
@@ -70,11 +71,26 @@ public class UserController {
 
         return isDuplicate;
     }
+
     @GetMapping("/login")
     public String login() {
 
         return "login_form";
     }
+
+    @GetMapping("/mypage")
+    public String myPage(Model model, Principal principal) {
+        String User = principal.getName();
+        SiteUser user = userService.getUser(User);
+
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("userNickName", user.getNickname());
+        model.addAttribute("userBrithDate", user.getBirthDate());
+        return "my_page";
+
+    }
+
+
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
@@ -96,28 +112,5 @@ public class UserController {
             return "login_form";
         }
     }
-
-
-//    @PostMapping("/login")
-//    public String login(@RequestParam("userId") String userId, @RequestParam("password1") String password, HttpSession session, Model model) {
-//        // 로그인 로직을 구현합니다.
-//        // 예시로 간단히 userId와 password가 일치하는지 확인하는 로직을 작성하였습니다.
-//        // 실제로는 사용자 인증을 위해 Spring Security 또는 별도의 인증 로직을 구현해야 합니다.
-//
-//        Optional<SiteUser> optionalUser = userService.getUserByuserId(userId);
-//        if (optionalUser.isPresent()) {
-//            SiteUser user = optionalUser.get();
-//            if (passwordEncoder.matches(password, user.getPassword())) {
-//                // 비밀번호 일치
-//                session.setAttribute("userId", userId);
-//                return "redirect:/";
-//            }
-//        }
-//
-//        // 로그인 실패 시 처리할 로직을 작성합니다.
-//        // 실패 메시지를 전달하거나 로그인 폼 페이지로 리디렉션합니다.
-//        model.addAttribute("error", true);
-//        return "login_form";
-//    }
 
 }
