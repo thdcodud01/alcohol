@@ -15,6 +15,7 @@
         .checkmark {
             color: green;
         }
+
     </style>
 </head>
 <body>
@@ -31,29 +32,36 @@
                     <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
                 </div>
             </div>
+
             <div class="hello">
                 <div class="hello-box">
                     <div class="title">환영합니다! SPIRITS 입니다.</div>
 
                 </div>
             </div>
+
             <div class="signup-box">
                 <div class="email-box">
                     <div class="email-text">계정(이메일 형식) *</div>
                     <div class="email">
-                        <input id="email-input" th:field="*{username}" type="email"
-                               placeholder="ex) example@example.com" required="" value="">
+                        <input id="email-input" th:field="*{username}" type="email" placeholder="ex) example@example.com" required="" value="">
                         <div class="email-checkmark">✓</div>
+                        <button id="send-verification" type="submit">인증번호 전송</button>
+                    </div>
+                    <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
+                </div>
+
+                <div class="email-check-box">
+                    <div class="email-check-text">이메일 인증 *</div>
+                    <div class="email-check">
+                        <input id="verification-code" type="text" placeholder="인증번호">
+                        <div class="email-check-checkmark">✓</div>
+                        <div id="timer">3:00</div>
+                        <div id="timer-expired" style="display: none; color: red;">인증시간이 만료되었습니다.</div>
                     </div>
                 </div>
 
-                <div class="email-verification">
-                    <h2>Email Verification</h2>
-                    <p>Please enter your email address to receive a verification code.</p>
-                    <input type="email" id="email-input" placeholder="Enter your email address">
-                    <button id="verify-button">Verify</button>
-                    <p id="verification-status"></p>
-                </div>
+
 
 
                 <div class="birthday-box">
@@ -93,6 +101,9 @@
                     </div>
                     <div id="nicknameCheckResult" style="margin-top: 10px;"></div>
                 </div>
+
+
+
                 <div class="signup-btn">
                     <button type="submit" class="btn btn-primary" onclick="showPopup()">회원가입</button>
                 </div>
@@ -104,6 +115,46 @@
     </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+/*인증번호 타이머 스크립트*/
+<script>
+   $(document).ready(function() {
+  var timer;
+  var minutes = 3;
+  var seconds = 0;
+
+  function startTimer() {
+    timer = setInterval(updateTimer, 1000);
+  }
+
+  function updateTimer() {
+    if (seconds === 0) {
+      if (minutes === 0) {
+        clearInterval(timer);
+        $("#timer").hide();
+        $("#timer-expired").show();
+        return;
+      }
+      minutes--;
+      seconds = 59;
+    } else {
+      seconds--;
+    }
+
+    var formattedTime = ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
+    $("#timer").text(formattedTime);
+  }
+
+  $("#send-verification").click(function() {
+    $("#email-format-error").hide(); // 숨기기
+    startTimer();
+  });
+});
+
+
+</script>
+
 <script>
    $(document).ready(function() {
   $('#email-input').on('input', function() {
@@ -229,6 +280,7 @@ $(document).ready(function() {
 
 
     document.getElementById("checkDuplicateBtn").addEventListener("click", checkNickname);
+
 </script>
 
 </body>

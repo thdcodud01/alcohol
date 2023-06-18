@@ -15,6 +15,8 @@ ul,li{
 }
 
 
+/*스타일시작*/
+
 .big-wrap{
    width: 1200px;
   margin-left: auto;
@@ -89,7 +91,7 @@ ul,li{
 
   align-items: center;
   justify-content: space-between;
-  width: 300px;
+  width: 200px;
   height: 50px;
   box-sizing:border-box;
   padding-left: 20px;
@@ -103,16 +105,75 @@ ul,li{
 .wrap>.signup-box>.email-box>.email>.email-checkmark{
     position:absolute;
       top:10px;
-      right:10px;
+      right:110px;
       color:green;
       font-size: 30px;
       display:none;
+}
+
+.wrap>.signup-box>.email-box>.email>button{
+    width:100px;
+    height:50px;
+    box-sizing:border-box;
+     border: 1px solid rgb(95, 0, 128);
+      border-radius: 8px;
+      background-color: rgb(255, 255, 255);
+      box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
 }
 
 .wrap>.signup-box>.email-box>#email-format-error{
     margin-left:50px;
     margin-top:10px;
 }
+
+/*이메일 인증*/
+
+.wrap>.signup-box>.email-check-box>.email-check{
+    display:flex;
+    align-items:flex-end;
+    margin-left:265px;
+    position:relative;
+  }
+
+.wrap>.signup-box>.email-check-box>.email-check-text{
+margin-right: 90px;
+  margin-top:20px;
+  margin-left:20px;
+  margin-bottom:10px;
+  }
+
+  .wrap>.signup-box>.email-check-box>.email-check>input{
+    align-items: center;
+      justify-content: space-between;
+      width: 250px;
+      height: 50px;
+      box-sizing:border-box;
+      padding-left: 20px;
+      border: 1px solid rgb(95, 0, 128);
+      border-radius: 8px;
+      background-color: rgb(255, 255, 255);
+      box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
+      margin-left: 150px;
+  }
+
+  .wrap>.signup-box>.email-check-box>.email-check>.email-check-checkmark{
+      position:absolute;
+        top:10px;
+        right:330px;
+        color:green;
+        font-size: 30px;
+        display:block;
+  }
+
+ .wrap>.signup-box>.email-check-box>.email-check>#timer-expired{
+    margin-left:20px;
+ }
+
+
+
+  .wrap>.signup-box>.email-check-box>.email-check>#timer{
+    margin-left:10px;
+  }
 
 /*생일입력*/
 
@@ -339,46 +400,4 @@ ul,li{
   font-weight: bold;
   font-size: 30px;
   margin-left: 10px;
-}
-
-.email-verification {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.email-verification h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.email-verification p {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.email-verification input[type="email"] {
-  width: 300px;
-  height: 40px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.email-verification button {
-  width: 120px;
-  height: 40px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.email-verification p#verification-status {
-  margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
 }
