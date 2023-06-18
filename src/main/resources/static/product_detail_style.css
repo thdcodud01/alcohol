@@ -16,8 +16,6 @@ ul,li{
 
 .wrap{
   width: 900px;
-
-
   margin-left: auto;
   margin-right: auto;
 }
@@ -66,7 +64,6 @@ ul,li{
 
 .wrap>.product-box>.right-box>.cost-box>.num{
   font-size: 40px;
-  display : inline-block;
 }
 
 .wrap>.product-box>.right-box>.logo-box{
@@ -83,10 +80,8 @@ ul,li{
 
 
 .wrap>.point-section{
+  height: 900px;
   background-color: #dfdfdf;
-  padding-bottom : 40px;
-  /*height : 900px; 잡혀있던거 빼고 padding-bottom : 40px;로 바꿈
-  자식 크기만큼만 point-section이 크기를 차지하기 위함임*/
 }
 
 
@@ -150,7 +145,7 @@ ul,li{
 
 }
 
-.wrap>.point-section .point-box4{
+.wrap>.point-section>.point-box4{
   display:inline-block;
   background-color: white;
   width: 600px;
@@ -159,7 +154,7 @@ ul,li{
   padding: 40px;
 }
 
-.wrap>.point-section .point-box4>.taste-title{
+.wrap>.point-section>.point-box4>.taste-title{
   font-size: 24px;
   font-weight:bold;
   margin-bottom: 20px;
@@ -246,8 +241,27 @@ ul,li{
 
 .wrap>.review-box>.review-list>.review-info>.left-box{
   margin-left: 20px;
+  display:flex;
+}
+
+.wrap>.review-box>.review-list>.review-info>.left-box>.nick-name{
+  margin-right: 40px;
+}
+
+.wrap>.review-box>.review-list>.review-info>.left-box>.modify{
+  margin-right: 10px;
 
 }
+
+.wrap>.review-box>.review-list>.review-info>.left-box>.modify>a{
+  font-size: 13px;
+}
+
+.wrap>.review-box>.review-list>.review-info>.left-box>.delete>a{
+  font-size: 13px;
+  margin-left: 10px;
+}
+
 
 .wrap>.review-box>.review-list>.review-info>.right-box>.product-name{
   margin-right: 20px;
@@ -257,6 +271,22 @@ ul,li{
 .wrap>.review-box>.review-list>.review-info>.right-box>.review-date{
   margin-right: 20px;
   display:inline-block;
+}
+
+.wrap>.review-box>.review-list>.review-info>.right-box>#recommendation{
+  display:inline-block;
+  margin-right: 15px;
+  cursor:pointer;
+}
+
+#recommendation i {
+  font-size: 24px;
+
+}
+
+#recommendation.clicked i:before {
+  content: "\f164"; /* 꽉 찬 엄지 아이콘의 유니코드 값 */
+
 }
 
 .wrap>.review-box>.review-list>.review{
@@ -315,7 +345,7 @@ ul,li{
 }
 
 .footer-wrap>.list>li:first-child{
-  margin-left: 0px;
+  margin-left: -40px ;
 }
 
 .btn{

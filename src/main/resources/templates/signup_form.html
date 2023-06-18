@@ -15,7 +15,6 @@
         .checkmark {
             color: green;
         }
-
     </style>
 </head>
 <body>
@@ -46,7 +45,6 @@
                                placeholder="ex) example@example.com" required="" value="">
                         <div class="email-checkmark">✓</div>
                     </div>
-                    <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
                 </div>
 
                 <div class="email-verification">
@@ -95,9 +93,6 @@
                     </div>
                     <div id="nicknameCheckResult" style="margin-top: 10px;"></div>
                 </div>
-
-
-
                 <div class="signup-btn">
                     <button type="submit" class="btn btn-primary" onclick="showPopup()">회원가입</button>
                 </div>
@@ -109,7 +104,6 @@
     </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
    $(document).ready(function() {
   $('#email-input').on('input', function() {
@@ -235,23 +229,10 @@ $(document).ready(function() {
 
 
     document.getElementById("checkDuplicateBtn").addEventListener("click", checkNickname);
-
-
-    const verifyButton = document.getElementById('verify-button');
-const emailInput = document.getElementById('email-input');
-const verificationStatus = document.getElementById('verification-status');
-
-verifyButton.addEventListener('click', () => {
-  const email = emailInput.value;
-
-  // 서버로 이메일 주소 전송 및 인증 로직 처리
-
-  // 인증 결과에 따라 메시지 표시
-  verificationStatus.textContent = 'Verification successful!';
-});
-
-
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
