@@ -88,8 +88,8 @@
       <td th:text="${siteUser.nickname}">User 1</td>
       <td th:text="${siteUser.username}">user1@example.com</td>
       <td>
-        <button class="edit-btn" th:data-username="${siteUser.username}" onclick="editUser(this.getAttribute('data-username'))">Edit</button>
-        <button class="delete-btn" th:data-username="${siteUser.username}" onclick="deleteUser(this.getAttribute('data-username'))">Delete</button> <!-- 수정된 부분: deleteUser 함수로 연결 -->
+        <button class="edit-btn" th:data-username="${siteUser.id}" onclick="editUser(this.getAttribute('data-id'))">Edit</button>
+        <button class="delete-btn" th:onclick="'deleteUser(' + ${siteUser.id} + ')'" >Delete</button>
       </td>
     </tr>
     </tbody>
@@ -153,7 +153,7 @@ function deleteProduct(productId) {
 // 사용자 삭제를 처리하는 함수
 function deleteUser(userId) {
     $.ajax({
-      url: '/admin/siteUser/delete/' + userId,
+      url: '/siteUser/delete/' + userId,
       type: 'GET',
       success: function(response) {
         console.log('유저가 성공적으로 삭제되었습니다.');

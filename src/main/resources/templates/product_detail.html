@@ -149,12 +149,22 @@
                 <div class="review-info">
                     <div class="left-box">
                         <div class="nick-name" th:text="${review.author.nickname}">황.인.성</div> <!--유저 닉네임-->
+                        <div class="modify">
+                            <a href="#">수정</a>
+                        </div>
+                        <div> / </div>
+                        <div class="delete">
+                            <a href="#"> 삭제</a>
+                        </div>
                     </div>
                     <div class="right-box">
                         <div class="product-name" th:each="product : ${product}" th:text="${product.name}"></div>
                         <!--리뷰에 해당하는 제품 이름-->
                         <div class="review-date"
                              th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div> <!--리뷰 작성일-->
+                        <div id="recommendation">
+                            <i class="far fa-thumbs-up"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="review">
@@ -230,20 +240,6 @@ $(window).scroll(function(){
   if(scrollTop>=600){
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
-
-
 </body>
 </html>
