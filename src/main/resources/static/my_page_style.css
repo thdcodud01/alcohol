@@ -65,12 +65,10 @@ ul,li{
   border:2px solid black;
   border-radius:6px;
   margin-top: 20px;
-}
-
-.wrap>.main-section{
-  display:flex;
+    display:flex;
   justify-content:space-between;
 }
+
 
 .wrap>.main-section>.left-box{
   border-right:2px solid black;
@@ -223,7 +221,6 @@ ul,li{
   display:flex;
   margin-top: 20px;
   border-radius:6px;
-  display:flex;
   justify-content:space-around;
   align-items:center;
 }
@@ -234,7 +231,6 @@ ul,li{
   margin-left: 180px;
   margin-right: 200px;
 }
-
 
 .wrap>.main-section>.right-box>.user-review>.review-list>.review-info>.product-name{
   margin-right: 140px;

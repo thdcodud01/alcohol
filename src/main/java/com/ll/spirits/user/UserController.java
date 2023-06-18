@@ -3,7 +3,10 @@ package com.ll.spirits.user;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,16 +18,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.security.Principal;
+
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
+    @Autowired
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserSecurityService userSecurityService;
     private final UserRepository userRepository;
-//    private final EmailService emailService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -65,6 +71,7 @@ public class UserController {
 
         return isDuplicate;
     }
+
     @GetMapping("/login")
     public String login() {
 
@@ -72,10 +79,18 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPage() {
+    public String myPage(Model model, Principal principal) {
+        String User = principal.getName();
+        SiteUser user = userService.getUser(User);
 
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("userNickName", user.getNickname());
+        model.addAttribute("userBrithDate", user.getBirthDate());
         return "my_page";
+
     }
+
+
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
