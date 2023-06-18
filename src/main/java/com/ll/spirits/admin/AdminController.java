@@ -218,9 +218,6 @@ public class AdminController {
         return String.format("redirect:/product/detail/%s", product.getId());
     }
 
-
-
-
     @PreAuthorize("hasRole('ROLE_ADMIN')") // 관리자만 접근 가능하도록 설정
     @GetMapping("/delete/product/{id}") // 제품 삭제
     public String productDelete(Principal principal, @PathVariable("id") Integer id) {
@@ -234,7 +231,7 @@ public class AdminController {
     public String reviewDelete(Principal principal, @PathVariable("id") Long id) {
         Review review = this.reviewService.getReview(id);
         this.reviewService.delete(review);
-        return String.format("redirect:/product/detail/%s", review.getProduct().getId());
+        return "redirect:/admin/page";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
