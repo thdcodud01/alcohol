@@ -15,233 +15,293 @@ ul,li{
   list-style:none;
 }
 
-.wrap{
-  width: 1200px;
-  margin-left:auto;
-  margin-right: auto;
 
+/* 스타일 시작 */
+.main-wrap {
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top:30px;
 }
 
-.wrap>.top-wrap{
+
+
+/* 메인정보 스타일 시작 */
+.info-box {
+  height: 300px;
+  background-image: url("https://static.cdn.soomgo.com/upload/portfolio/d304e0be-1ea6-4dcd-8444-108a90f7834b.jpg?webp=1");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.font {
+  color: white;
+  font-size: 40px;
+}
+
+.main-section>.slider-wrap{
+  max-width:1200px;
+  margin-top: 30px;
+}
+
+
+/* 메인 슬라이더 스타일 시작 */
+.slider-wrap{
+  max-width:1200px;
+  margin: 0 auto;
+  position:relative;
+}
+
+.slider-wrap>.slider .content>a>img{
+  width: 100%;
+  height: 600px;
+  display:block;
+}
+
+.slider-wrap>.slider .content{
+  position:relative;
+}
+
+.slider-wrap>.slider .content>.txt-box{
+  position:absolute;
+  top:5%;
+  left:50%;
+  transform:translate(-50%,-50%);
   text-align:center;
+  color:white;
+  font-size: 30px;
+}
+
+.slider-wrap>.slider .content>.txt-box>h2{
+  transform:translatey(30px);
+}
+
+.slider-wrap>.slider .content.active>.txt-box>h2{
+  transform:translatey(0px);
+}
+
+
+.slider-wrap .slick-dots{
+  bottom: 100;
+}
+
+.slider-wrap>.left-btn{
+  width: 50px;
+  height: 50px;
+  position:absolute;
+  top: 50%;
+  left:0;
+  z-index:999;
+  transform:translatey(-50%);
   display:flex;
-  justify-content: space-between;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor:pointer;
+}
+.slider-wrap>.right-btn{
+  width: 50px;
+  height: 50px;
+  position:absolute;
+  top: 50%;
+  right:0;
+  z-index:999;
+  transform:translatey(-50%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor:pointer;
+}
+
+.slider-wrap>.state-btn{
+  width: 30px;
+  height: 30px;
+  text-align:center;
+  line-height:10px;
+  position:absolute;
+  left:50%;
+  transform:translatex(-30%);
+}
+
+.state-btn>div{
+  display:none;
+}
+
+.state-btn>div.active{
+  display:block;
+}
+
+
+/* top5순위 스타일 시작 */
+
+.main-section>.ranking-section{
+  width: 1200px;
+  height: 400px;
+  margin-top: 60px;
+  border:2px solid black;
+  border-radius:6px;
+}
+
+.main-section>.ranking-section>.ranking-title{
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 30px;
   margin-top: 20px;
 }
 
-
-.wrap>.top-wrap>.logo-box>.logo>a>img{
-  width: 200px;
-  height: 100px;
-  margin-left: 80px;
-}
-
-.wrap>.top-wrap>.user-box>.login,.sign-up{
-  display:inline-block;
-}
-
-.wrap>.top-wrap>.user-box>.login{
-  margin-right: 10px;
-}
-
-.wrap>.menu-wrap{
-  margin-top: 30px;
-}
-
-.wrap>.menu-wrap>ul{
+.main-section>.ranking-section>.ranking{
   display:flex;
-  justify-content: space-between;
+  justify-content:space-between;
   text-align:center;
 }
 
 
-.wrap>.menu-wrap>ul>li{
-  display:inline-block;
-  text-align:center;
-  width:calc(100%/7);
-  box-sizing:border-box;
+.main-section>.ranking-section>.ranking .img-box>img{
+  width: 220px;
+  height: 300px;
+}
+
+.main-section>.ranking-section>.ranking .name{
+  margin-top: 10px;
 }
 
 
-.wrap>.menu-wrap>ul>li>a{
-  display:block;
-  border-left:2px solid black;
+/* ad 슬라이더 스타일 시작 */
+
+.ad-slider-wrap{
+  max-width:1200px;
+  margin: 0 auto;
+  position:relative;
+  margin-top: 50px;
 }
 
-.wrap>.menu-wrap>ul>li:last-child>a{
-  border-right:2px solid black;
-}
-
-.wrap>.menu-wrap>ul>li:hover>a{
-  color: #00498c;
-  text-decoration:underline;
-
-}
-
-.contain{
+.ad-slider-wrap>.slider .content>a>img{
   width: 100%;
-
-
-  margin-top: 30px;
-}
-
-.contain>.top-section{
-  height: 300px;
-  background-image:url("https://static.cdn.soomgo.com/upload/portfolio/d304e0be-1ea6-4dcd-8444-108a90f7834b.jpg?webp=1");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center ;
-
-}
-
-.contain>.top-section>.top{
-  text-align:center;
-}
-
-.contain>.top-section>.top>.font{
-  font-size: 40px;
-  color:white;
-  padding: 150px;
-}
-
-
-.contain>.main-section>.section1{
-  height: 700px;
-  text-align:center;
-  background-color: #EEEDF3;
-}
-
-.contain>.main-section>.section1>.font{
-  display:inline-block;
-  font-size: 25px;
-  font-weight: bold;
-  color:gray;
-  margin-top: 100px;
-}
-
-.contain>.main-section>.section1>.img-wrap{
+  height: 400px;
   display:block;
-  margin-top: 30px;
 }
 
-.contain>.main-section>.section1>.img-wrap>img{
-  width: 400px;
-  height: 300px;
+.ad-slider-wrap>.slider .content{
+  position:relative;
 }
 
-.contain>.main-section>.section1>.btn{
-  font-size: 20px;
-  background-color: rgb(0, 150, 243);
-  border:1px solid rgb(0, 150, 243);
-  border-radius:5px;
-  padding: 10px;
-  font-weight: bold;
-  color:white;
-  margin-top: 50px;
+.slider-wrap .slick-dots{
+  bottom: 100;
 }
 
-
-.contain>.main-section2>.section2{
-  text-align:center;
-  height: 700px;
-  background-color:#FBE1AF;
-  font-size:0;
-}
-
-.contain>.main-section2>.section2>.font{
-  display:inline-block;
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 100px;
-}
-
-.contain>.main-section2>.section2>.img-wrap{
-  display:block;
-
-}
-
-.contain>.main-section2>.section2>.img-wrap>img{
-  width: 400px;
-  height: 300px;
-}
-
-.contain>.main-section2>.section2>.font2{
-  display:inline-block;
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 60px;
-}
-
-.contain>.main-section2>.section2>.btn{
-  font-size: 20px;
-  background-color: rgb(0, 150, 243);
-  border:1px solid rgb(0, 150, 243);
-  border-radius:5px;
-  padding: 10px;
-  font-weight: bold;
-  color:white;
-  margin-top: 50px;
-}
-
-
-.contain>.main-section3>.section3{
-  text-align:center;
-  height: 700px;
-  background-color:white;
-  font-size:0;
-}
-
-.contain>.main-section3>.section3>.font{
-  display:inline-block;
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 100px;
-}
-
-.contain>.main-section3>.section3>.img-wrap{
-  display:block;
-  margin-top: 30px;
-}
-
-.contain>.main-section3>.section3>.img-wrap>img{
-  width: 400px;
-  height: 300px;
-}
-
-.contain>.main-section3>.section3>.font2{
-  display:inline-block;
-  font-size: 25px;
-  font-weight: bold;
-  margin-top: 50px;
-}
-
-.contain>.main-section3>.section3>.btn{
-  font-size: 20px;
-  background-color: rgb(0, 150, 243);
-  border:1px solid rgb(0, 150, 243);
-  border-radius:5px;
-  padding: 10px;
-  font-weight: bold;
-  color:white;
-  margin-top: 50px;
-
-}
-
-.footer-wrap{
-  margin-left: 20px;
-}
-
-.footer-wrap>.footer-main{
-  margin-top: 30px;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.footer-wrap>.list{
+.ad-slider-wrap>.left-btn{
+  width: 50px;
+  height: 50px;
+  position:absolute;
+  top: 50%;
+  left:0;
+  z-index:999;
+  transform:translatey(-50%);
   display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor:pointer;
+}
+.ad-slider-wrap>.right-btn{
+  width: 50px;
+  height: 50px;
+  position:absolute;
+  top: 50%;
+  right:0;
+  z-index:999;
+  transform:translatey(-50%);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor:pointer;
 }
 
-.footer-wrap>.list>li{
-  margin-right: 20px;
+.ad-slider-wrap>.state-btn{
+  width: 30px;
+  height: 30px;
+  text-align:center;
+  line-height:10px;
+  position:absolute;
+  left:50%;
+  transform:translatex(-30%);
 }
+
+.state-btn>div{
+  display:none;
+}
+
+.state-btn>div.active{
+  display:block;
+}
+
+.main-wrap>.footer-section{
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-section>.title{
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+.footer-section>.profile{
+  display:flex;
+  justify-content:space-around;
+}
+
+.footer-section>.profile>.profile-box>.profile-info{
+  text-align:center;
+  margin-top: 10px;
+}
+
+.footer-section>.profile>.profile-box>.img-box>img{
+  width: 200px;
+  height: 250px;
+}
+
+hr{
+  margin-top: 80px;
+  border:0;
+  height:3px;
+  background-color: black;
+}
+
+
+
+.btn{
+  width: 40px;
+  height: 40px;
+  background-color: #dfdfdf;
+  text-align:center;
+  border-radius:100%;
+  box-sizing:border-box;
+  padding-top: 10px;
+  position:fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+.btn.active{
+  opacity:1;
+  visibility:visible;
+}
+
+
