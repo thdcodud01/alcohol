@@ -45,6 +45,10 @@ ul,li{
   margin-right: 20px;
 }
 
+.wrap>nav>.right-box>.user-box>.login>a{
+    margin-left:10px;
+}
+
 .wrap>nav>.right-box>.user-box>.admin-button{
     margin-right:20px;
 }
@@ -67,7 +71,7 @@ ul,li{
   font-size: 14px;
 }
 
-.wrap>nav>.right-box>.search-box>img{
+.wrap>nav>.right-box>.search-box>a>img{
   position : absolute;
   width: 17px;
   top: 10px;
