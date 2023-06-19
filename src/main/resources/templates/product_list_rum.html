@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="drop-down-box">
-            <div class="SubCategori-box">
-                <label for="SubCategori"></label>
-                <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
+            <div class="SubCategory-box">
+                <label for="SubCategory"></label>
+                <select id="SubCategory" onchange="SubCategory()" multiple size="5">
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
                             th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
@@ -114,8 +114,8 @@
 </div>
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
-function filterBySubcategori() {
-        var subCategoryId = document.getElementById("SubCategori").value;
+function filterBySubCategory() {
+        var subCategoryId = document.getElementById("SubCategory").value;
         window.location.href = "http://localhost:7777/product/list/럼?subCategoryId=" + subCategoryId;
     }
 function applyFilters() {

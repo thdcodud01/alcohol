@@ -95,17 +95,17 @@
         <div class="paring-box">
             <label for="paring1">안주(필수):</label>
             <select id="paring1" name="pairings">
-                <option value="none">안주1 선택</option>
+                <option value="">안주1 선택</option>
                 <option th:each="pairing1 : ${pairingList}" th:value="${pairing1.id}" th:text="${pairing1.pairing}">
             </select>
             <label for="paring2"></label>
             <select id="paring2" name="pairings">
-                <option value="none">안주2 선택</option>
+                <option value="">안주2 선택</option>
                 <option th:each="pairing2 : ${pairingList}" th:value="${pairing2.id}" th:text="${pairing2.pairing}">
             </select>
             <label for="paring3"></label>
             <select id="paring3" name="pairings">
-                <option value="none">안주3 선택</option>
+                <option value="">안주3 선택</option>
                 <option th:each="pairing3 : ${pairingList}" th:value="${pairing3.id}" th:text="${pairing3.pairing}">
             </select>
         </div>
