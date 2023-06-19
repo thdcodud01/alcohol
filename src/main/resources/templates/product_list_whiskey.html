@@ -28,7 +28,7 @@
             <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
             <div class="SubCategory-box">
                 <label for="SubCategori"></label>
-                <select id="SubCategori" onchange="filterBySubcategori()" multiple>
+                <select id="SubCategori" onchange="filterBySubcategory()" multiple>
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
                             th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
