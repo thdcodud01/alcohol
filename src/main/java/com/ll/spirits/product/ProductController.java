@@ -133,23 +133,23 @@ public class ProductController {
         return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
     }
 
-    @GetMapping("/list/Whiskey")
-    @ResponseBody
-    public Map<String, Object> getWhiskeyProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                                  @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                                  @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                                  @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                                  @RequestParam(value = "paring", required = false) Integer paringId,
-                                                  @RequestParam(value = "cask", required = false) Integer caskId,
-                                                  @RequestParam(value = "nation", required = false) Integer nationId,
-                                                  Model model) {
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("products", productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId));
-        response.put("subCategoryList", subCategoryService.getAllSubCategories());
-
-        return response;
-    }
+//    @GetMapping("/list/Whiskey")
+//    @ResponseBody
+//    public Map<String, Object> getWhiskeyProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
+//                                                  @RequestParam(value = "costRange", required = false) Integer costRangeId,
+//                                                  @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+//                                                  @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+//                                                  @RequestParam(value = "paring", required = false) Integer paringId,
+//                                                  @RequestParam(value = "cask", required = false) Integer caskId,
+//                                                  @RequestParam(value = "nation", required = false) Integer nationId,
+//                                                  Model model) {
+//
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("products", productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId));
+//        response.put("subCategoryList", subCategoryService.getAllSubCategories());
+//
+//        return response;
+//    }
 
 
     @GetMapping("/detail/{id}") // 제품 상세보기
