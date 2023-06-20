@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.security.Principal;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -72,24 +73,100 @@ public class UserController {
         return isDuplicate;
     }
 
+//    @PostMapping("/changePassword")
+//    public String changePassword(
+//            @RequestParam("currentPassword") String currentPassword,
+//            @RequestParam("newPassword") String newPassword,
+//            @RequestParam("confirmPassword") String confirmPassword,
+//            Model model) {
+//
+//        // 현재 사용자 정보 가져오기
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+//        Optional<SiteUser> user = userRepository.findByUsername(username);
+//
+//        // 현재 비밀번호가 일치하는지 확인
+//        if (!passwordEncoder.matches(currentPassword, user.get().getPassword())) {
+//            model.addAttribute("error", "현재 비밀번호가 일치하지 않습니다.");
+//            return "redirect:/user/myPage";
+//        }
+//
+//        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
+//        if (!newPassword.equals(confirmPassword)) {
+//            model.addAttribute("error", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+//            return "redirect:/user/myPage";
+//        }
+//
+//        // 회원 가입 시 설정한 비밀번호와 변경할 비밀번호가 서로 다른 값인지 확인
+//        if (!passwordEncoder.matches(newPassword, user.get().getPassword())) {
+//            model.addAttribute("error", "기존 비밀번호와 새 비밀번호가 일치합니다.");
+//            return "redirect:/user/myPage";
+//        }
+//
+//        // 비밀번호 변경
+//        String encodedNewPassword = passwordEncoder.encode(newPassword);
+//        user.get().setPassword(encodedNewPassword);
+//        userRepository.save(user.get());
+//
+//        // 변경 성공 메시지 등을 설정하여 model에 추가
+//        model.addAttribute("success", "비밀번호가 성공적으로 변경되었습니다.");
+//
+//        return "redirect:/user/myPage"; // 비밀번호 변경 후 마이페이지로 리다이렉트
+//    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(
+            @RequestParam("currentPassword") String currentPassword,
+            @RequestParam("newPassword") String newPassword,
+            @RequestParam("confirmPassword") String confirmPassword) {
+
+        // 현재 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        Optional<SiteUser> user = userRepository.findByUsername(username);
+
+        // 현재 비밀번호가 일치하는지 확인
+        if (!passwordEncoder.matches(currentPassword, user.get().getPassword())) {
+            return ResponseEntity.badRequest().body("{\"error\": \"현재 비밀번호가 일치하지 않습니다.\"}");
+        }
+
+        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
+        if (!newPassword.equals(confirmPassword)) {
+            return ResponseEntity.badRequest().body("{\"error\": \"새 비밀번호와 확인 비밀번호가 일치하지 않습니다.\"}");
+        }
+
+        // 회원 가입 시 설정한 비밀번호와 변경할 비밀번호가 서로 다른 값인지 확인
+        if (passwordEncoder.matches(newPassword, user.get().getPassword())) {
+            return ResponseEntity.badRequest().body("{\"error\": \"기존 비밀번호와 새 비밀번호가 일치합니다.\"}");
+        }
+
+        // 비밀번호 변경
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+        user.get().setPassword(encodedNewPassword);
+        userRepository.save(user.get());
+
+        return ResponseEntity.ok("{\"success\": true}");
+    }
+
     @GetMapping("/login")
     public String login() {
 
         return "login_form";
     }
 
-    @GetMapping("/mypage")
+    @GetMapping("/myPage")
     public String myPage(Model model, Principal principal) {
-        String User = principal.getName();
-        SiteUser user = userService.getUser(User);
+        if (principal != null) {
+            String username = principal.getName();
+            SiteUser user = userService.getUser(username);
 
-        model.addAttribute("userName", user.getUsername());
-        model.addAttribute("userNickName", user.getNickname());
-        model.addAttribute("userBrithDate", user.getBirthDate());
-        return "my_page";
+            model.addAttribute("userName", user.getUsername());
+            model.addAttribute("userNickName", user.getNickname());
+            model.addAttribute("userBirthDate", user.getBirthDate());
+        }
 
+        return "mypage";
     }
-
 
 
     @PostMapping("/login")

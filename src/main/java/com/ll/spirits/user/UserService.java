@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +65,13 @@ public class UserService {
     public boolean isNicknameDuplicate(String nickname) {
         Optional<SiteUser> existingUser = userRepository.findByNickname(nickname);
         return existingUser.isPresent();
+    }
+
+    public CurrentUser updateUser(String newUsername, String newPassword) {
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.setUsername(newUsername);
+        currentUser.setPassword(newPassword);
+        return currentUser;
     }
 
 
