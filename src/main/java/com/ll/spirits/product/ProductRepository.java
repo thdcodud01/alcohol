@@ -38,7 +38,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 //                                       @Param("pairingId") Integer pairingId,
 //                                       @Param("caskId") Integer caskId,
 //                                       @Param("nationId") Integer nationId);
-List<Product> findBySubCategory_IdAndCostRange_IdAndAbvRange_IdAndNetWeight_IdAndPairings_IdAndCasks_IdAndNation_Id(
+List<Product> findBySubCategory_IdOrCostRange_IdOrAbvRange_IdOrNetWeight_IdOrPairings_IdOrCasks_IdOrNation_Id(
         Integer subCategoryId, Integer costRangeId, Integer abvRangeId, Integer netWeightId, Integer pairingId, Integer caskId, Integer nationId);
 
 

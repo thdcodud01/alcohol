@@ -35,9 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -58,15 +56,7 @@ public class ProductController {
     private final ProductRepository productRepository;
 
     @GetMapping("/list/{mainCategory}")
-    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
-                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
-                                             @RequestParam(value = "caskId", required = false) Integer caskId,
-                                             @RequestParam(value = "nationId", required = false) Integer nationId,
-                                             @RequestParam(value = "pairingId", required = false) Integer pairingId,
-                                             @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
-                                             @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
-                                             @RequestParam(value = "netWeightId", required = false) Integer netWeightId,
-                                             Model model) {
+    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory, @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId, @RequestParam(value = "caskId", required = false) Integer caskId, @RequestParam(value = "nationId", required = false) Integer nationId, @RequestParam(value = "pairingId", required = false) Integer pairingId, @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId, @RequestParam(value = "costRangeId", required = false) Integer costRangeId, @RequestParam(value = "netWeightId", required = false) Integer netWeightId, Model model) {
 
         List<Cask> caskList = caskService.getAllCask();
         List<Nation> nationList = nationService.getAllNation();
@@ -128,19 +118,38 @@ public class ProductController {
         return templateName;
     }
 
-    @GetMapping("/list/Beer")
-    public List<Product> getFilteredProducts(
-            @RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-            @RequestParam(value = "costRange", required = false) Integer costRangeId,
-            @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-            @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-            @RequestParam(value = "paring", required = false) Integer paringId,
-            @RequestParam(value = "cask", required = false) Integer caskId,
-            @RequestParam(value = "nation", required = false) Integer nationId) {
+    @GetMapping("/list/beerCategory")
+    @ResponseBody
+    public List<Product> getBeerProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
+                                     @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                     @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                     @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                     @RequestParam(value = "paring", required = false) Integer paringId,
+                                     @RequestParam(value = "cask", required = false) Integer caskId,
+                                     @RequestParam(value = "nation", required = false) Integer nationId,
+                                     Model model) {
+
 
         return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
     }
 
+    @GetMapping("/list/Whiskey")
+    @ResponseBody
+    public Map<String, Object> getWhiskeyProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
+                                                  @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                                  @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                                  @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                                  @RequestParam(value = "paring", required = false) Integer paringId,
+                                                  @RequestParam(value = "cask", required = false) Integer caskId,
+                                                  @RequestParam(value = "nation", required = false) Integer nationId,
+                                                  Model model) {
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("products", productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId));
+        response.put("subCategoryList", subCategoryService.getAllSubCategories());
+
+        return response;
+    }
 
 
     @GetMapping("/detail/{id}") // 제품 상세보기
@@ -154,8 +163,7 @@ public class ProductController {
         boolean hasCask = !casks.isEmpty();
 
         // cask_id 값을 추출하여 리스트에 저장
-        List<Integer> caskIds = casks.stream()
-                .map(cask -> cask.getId()) // Cask 엔티티에서 cask_id 대신 id 필드를 사용
+        List<Integer> caskIds = casks.stream().map(cask -> cask.getId()) // Cask 엔티티에서 cask_id 대신 id 필드를 사용
                 .collect(Collectors.toList());
 
         List<Review> reviews = this.productService.getReviewsByProduct(product); // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것

@@ -103,7 +103,7 @@
 
             <section class="goods-list-section">
                 <div class="goods-list">
-                    <div class="goods-1" th:each="product : ${productList}">
+                    <div id="goods" class="goods-1" th:each="product : ${productList}">
                         <a th:href="@{|/product/detail/${product.id}|}">
                             <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg"
                                  alt="">
@@ -161,11 +161,9 @@ function filterByNation() {
   filterProducts(null, null, null, null, null, null, selectedNation);
 }
 
-// ...
-
 // 제품 필터링 함수
 function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId) {
-  var url = "/product/list/Beer?";
+  var url = "/product/list/beerCategory?";
 
   if (subCategoryId !== null) {
     url += "subCategory=" + subCategoryId + "&";
@@ -195,20 +193,40 @@ function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, par
     url += "nation=" + nationId + "&";
   }
 
-  // 마지막 '&' 문자 제거
   url = url.slice(0, -1);
 
   $.ajax({
     url: url,
     type: "GET",
+    dataType: "JSON",
     success: function (filteredProducts) {
-      console.log(filteredProducts);
+      var goodsList = $(".goods-list");
+      goodsList.empty(); // 기존 상품 목록을 비움.
+ // 필터링된 상품 목록을 순회하며 HTML 요소를 생성하여 추가.
+      filteredProducts.forEach(function (product) {
+        var productElement = $("<div></div>")
+          .addClass("goods-1")
+          .append(
+            $("<a></a>")
+              .attr("href", "/product/detail/" + product.id)
+              .append($("<img>").attr("src", product.image))
+              .append($("<p></p>").addClass("goods-name").text(product.name))
+              .append($("<p></p>").text(product.cost + "원"))
+          );
+        goodsList.append(productElement);
+      });
     },
     error: function (error) {
       console.log(error);
     }
-  });
+  })
+  .done(function (result) {
+        console.log(result);
+        $("#goods").replaceWith(result);
+  })
+  ;
 }
+
 
 </script>
 </body>

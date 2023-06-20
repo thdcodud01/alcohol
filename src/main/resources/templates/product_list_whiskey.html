@@ -250,6 +250,10 @@
             error: function (error) {
                 console.log(error);
             }
+        })
+        .done(function (result) {
+            console.log(result);
+            $("#goods").replaceWith(result);
         });
     }
 </script>
