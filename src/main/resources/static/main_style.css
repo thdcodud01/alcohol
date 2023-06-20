@@ -145,10 +145,8 @@ ul,li{
 
 .main-section>.ranking-section{
   width: 1200px;
-  height: 400px;
+  height: auto;
   margin-top: 60px;
-  border:2px solid black;
-  border-radius:6px;
 }
 
 .main-section>.ranking-section>.ranking-title{

@@ -19,7 +19,8 @@
                 고품질의 코냑산 포도주로 만들어진 강렬하고 부드러우며 귀족적인 멋과 세련된 풍미를 지닌 특별한 스피리트입니다.
             </div>
             <div class="img-box">
-                <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/uWtyG5bpRo5XHuvNcpohK-dAoT4 " alt="">
+                <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/uWtyG5bpRo5XHuvNcpohK-dAoT4 "
+                     alt="">
             </div>
         </div>
         <!--드롭다운메뉴 시작-->
@@ -27,16 +28,9 @@
             <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
             <div class="SubCategory-box">
                 <label for="SubCategory"></label>
-                <select id="SubCategory" onchange="filterBySubcategory()" multiple size="5">
+                <select id="SubCategory" onchange="filterBySubcategory()">
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
-                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
-               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
-               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
-               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
-               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
-               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
-               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
                             th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
@@ -62,9 +56,9 @@
             </div>
 
             <!-- 용량 드롭다운 메뉴 -->
-            <div class="net-weight-box">
-                <label for="net-weight"></label>
-                <select id="net-weight" onchange="filterBynet-weight()">
+            <div class="NetWeight-box">
+                <label for="NetWeight"></label>
+                <select id="NetWeight" onchange="filterByNetWeight()">
                     <option value="용량">용량범위 전체</option>
                     <option th:each="netWeight : ${netWeightList}"
                             th:value="${netWeight.id}" th:text="${netWeight.netWeight}"></option>
@@ -73,8 +67,8 @@
 
             <!-- 안주 드롭다운 메뉴 -->
             <div class="paring-box">
-                <label for="paring"></label>
-                <select id="paring" onchange="filterByparing()">
+                <label for="Paring"></label>
+                <select id="Paring" onchange="filterByParing()">
                     <option value="안주">안주범위 전체</option>
                     <option th:each="pairing : ${pairingList}"
                             th:value="${pairing.id}" th:text="${pairing.pairing}"></option>
@@ -83,8 +77,8 @@
 
             <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
-                <label for="Cask-box"></label>
-                <select id="Cask-box" onchange="filterByCaskBox()">
+                <label for="Cask"></label>
+                <select id="Cask" onchange="filterByCask()">
                     <option value="오크통">오크통범위 전체</option>
                     <option th:each="cask : ${caskList}" th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
@@ -92,15 +86,14 @@
 
 
             <!-- 국가 드롭다운 메뉴 -->
-            <div class="nation">
-                <label for="nation"></label>
-                <select id="nation" onchange="filterBynation()">
+            <div class="Nation">
+                <label for="Nation"></label>
+                <select id="Nation" onchange="filterByNation()">
                     <option value="국가">국가범위 전체</option>
                     <option th:each="nation : ${nationList}"
                             th:value="${nation.id}" th:text="${nation.nation}"></option>
                 </select>
             </div>
-            <button onclick="applyFilters()">필터 적용</button>
         </div>
         <!--개별리스트 목록 끝-->
         <div class="section">
@@ -139,6 +132,7 @@ function applyFilters() {
         var url = "/product/list/브랜디?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
         window.location.href = url;
     }
+
 </script>
 </body>
 </html>

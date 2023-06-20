@@ -31,9 +31,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,10 +55,17 @@ public class ProductController {
     private final NetWeightService netWeightService;
     private final PairingService pairingService;
     private final ReviewService reviewService;
+    private final ProductRepository productRepository;
 
     @GetMapping("/list/{mainCategory}")
     public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
                                              @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
+                                             @RequestParam(value = "caskId", required = false) Integer caskId,
+                                             @RequestParam(value = "nationId", required = false) Integer nationId,
+                                             @RequestParam(value = "pairingId", required = false) Integer pairingId,
+                                             @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
+                                             @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
+                                             @RequestParam(value = "netWeightId", required = false) Integer netWeightId,
                                              Model model) {
 
         List<Cask> caskList = caskService.getAllCask();
@@ -68,6 +77,7 @@ public class ProductController {
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
+
 
         List<Product> productList;
         // 서브카테고리가 null이거나 0인 경우
@@ -118,7 +128,18 @@ public class ProductController {
         return templateName;
     }
 
+    @GetMapping("/list/Beer")
+    public List<Product> getFilteredProducts(
+            @RequestParam(value = "subCategory", required = false) Integer subCategoryId,
+            @RequestParam(value = "costRange", required = false) Integer costRangeId,
+            @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+            @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+            @RequestParam(value = "paring", required = false) Integer paringId,
+            @RequestParam(value = "cask", required = false) Integer caskId,
+            @RequestParam(value = "nation", required = false) Integer nationId) {
 
+        return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
+    }
 
 
 
@@ -164,6 +185,7 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/wish/{id}") // 제품 찜하기
     public String productWish(Principal principal, @PathVariable("id") Integer id) {

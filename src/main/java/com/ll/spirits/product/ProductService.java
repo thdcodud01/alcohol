@@ -51,6 +51,7 @@ public class ProductService {
     private Specification<Product> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
+
             @Override
             public Predicate toPredicate(Root<Product> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
@@ -70,16 +71,18 @@ public class ProductService {
 
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);
-        if (product.isPresent()){
+        if (product.isPresent()) {
             return product.get();
         } else {
             throw new DataNotFoundException("product not found"); // 예외처리로 에러(DataNotFoundException)를 표시
         }
     }
+
     public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return productRepository.findByMainCategoryId(mainCategory);
     }
+
     public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
         return productRepository.findBySubCategoryId(subCategoryId);
     }
@@ -172,8 +175,6 @@ public class ProductService {
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
-
-
 
 
     public void vote(Product product, SiteUser siteUser) { // 추천 메서드
@@ -291,4 +292,76 @@ public class ProductService {
         this.productRepository.delete(product);
     }
 
+
+//    public List<Product> getFilteredProducts(Integer subCategoryId, Integer costRangeId, Integer abvRangeId, Integer netWeightId, Integer paringId, Integer caskId, Integer nationId) {
+//        List<Product> filteredProducts = new ArrayList<>();
+//
+//        List<Product> allProducts = productRepository.findAll(); // 모든 제품 조회
+//
+//        for (Product product : allProducts) {
+//            boolean isMatched = true;
+//
+//            if (subCategoryId != null && !product.getSubCategory().getId().equals(subCategoryId)) {
+//                isMatched = false; // 중분류 필터링
+//            }
+//
+//            if (costRangeId != null && !product.getCostRange().getId().equals(costRangeId)) {
+//                isMatched = false; // 가격범위 필터링
+//            }
+//
+//            if (abvRangeId != null && !product.getAbvRange().getId().equals(abvRangeId)) {
+//                isMatched = false; // 알콜도수범위 필터링
+//            }
+//
+//            if (netWeightId != null && !product.getNetWeight().getId().equals(netWeightId)) {
+//                isMatched = false; // 용량 필터링
+//            }
+//
+//            if (paringId != null && !isProductHasPairing(product, paringId)) {
+//                isMatched = false; // 안주 필터링
+//            }
+//
+//            if (caskId != null && !isProductHasCask(product, caskId)) {
+//                isMatched = false; // 오크통 필터링
+//            }
+//
+//            if (nationId != null && !product.getNation().getId().equals(nationId)) {
+//                isMatched = false; // 국가 필터링
+//            }
+//
+//            if (isMatched) {
+//                filteredProducts.add(product);
+//            }
+//        }
+//
+//        return filteredProducts;
+//    }
+
+    private boolean isProductHasPairing(Product product, Long pairingId) {
+        for (Pairing pairing : product.getPairings()) {
+            if (pairing.getId().equals(pairingId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isProductHasCask(Product product, Long caskId) {
+        for (Cask cask : product.getCasks()) {
+            if (cask.getId().equals(caskId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public List<Product> getFilteredProducts(Integer subCategoryId, Integer costRangeId, Integer abvRangeId, Integer netWeightId, Integer pairingId, Integer caskId, Integer nationId) {
+        if (subCategoryId == null && costRangeId == null && abvRangeId == null && netWeightId == null && pairingId == null && caskId == null && nationId == null) {
+            return productRepository.findAll(); // 필터링 조건이 없는 경우 모든 제품 조회
+        }
+
+        return productRepository.findBySubCategory_IdAndCostRange_IdAndAbvRange_IdAndNetWeight_IdAndPairings_IdAndCasks_IdAndNation_Id(
+                subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId);
+    }
+
 }
+
