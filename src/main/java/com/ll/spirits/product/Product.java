@@ -60,16 +60,16 @@ public class Product {
     @ManyToMany
     @JoinTable
             (name = "product_pairings",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "pairing_id")
+                    joinColumns = @JoinColumn(name = "product_id"),
+                    inverseJoinColumns = @JoinColumn(name = "pairing_id")
             )
     private List<Pairing> pairings = new ArrayList<>();
 
     @ManyToMany
     @JoinTable
             (name = "product_casks",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "cask_id")
+                    joinColumns = @JoinColumn(name = "product_id"),
+                    inverseJoinColumns = @JoinColumn(name = "cask_id")
             )
     private List<Cask> casks = new ArrayList<>();
 

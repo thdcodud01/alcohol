@@ -46,7 +46,7 @@
                     <div class="email">
                         <input id="email-input" th:field="*{username}" type="email" placeholder="ex) example@example.com" required="" value="">
                         <div class="email-checkmark">✓</div>
-                        <button id="send-verification" type="submit">인증번호 전송</button>
+                        <button id="send-verification" type="button">인증번호 전송</button>
                     </div>
                     <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
                 </div>
@@ -144,6 +144,7 @@
 
     var formattedTime = ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
     $("#timer").text(formattedTime);
+    $("#test").text("재발송")
   }
 
   $("#send-verification").click(function() {

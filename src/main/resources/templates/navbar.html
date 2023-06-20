@@ -24,18 +24,18 @@
                 </div>
                 <div class="login" sec:authorize="isAnonymous()">
                     <a th:href="@{/user/login}">로그인</a>
-                    <span th:text="${#authentication.name}"></span>
+
                 </div>
                 <div class="login" sec:authorize="isAuthenticated()">
                     <a th:href="@{/user/mypage}" th:text="${#authentication.principal.nickname}"></a>
-                    님 환영합니다!
+                    님
                     <a th:href="@{/user/logout}">로그아웃</a>
                 </div>
                 <div class="sign-up" sec:authorize="isAnonymous()"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
             <div class="search-box">
                 <input type="text" placeholder="검색어를 입력해주세요.">
-                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"></a>
             </div>
         </div>
     </nav>

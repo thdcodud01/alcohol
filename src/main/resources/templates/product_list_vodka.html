@@ -9,9 +9,9 @@
     <title>보드카 리스트 페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/vodka_list_style.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
-layout
 <div layout:fragment="content">
     <div class="wrap">
 
@@ -27,20 +27,14 @@ layout
                 <img src="https://blog.kakaocdn.net/dn/cQSygf/btqC5nYOLQO/7JZPafuCyUD2A4q6NSjZYK/img.jpg" alt="">
             </div>
         </div>
+        <!--드롭다운메뉴 시작-->
         <div class="drop-down-box">
             <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
             <div class="SubCategory-box">
-                <label for="SubCategori"></label>
-                <select id="SubCategori" onchange="filterBySubcategori()" multiple size="5">
+                <label for="SubCategory"></label>
+                <select id="SubCategory" onchange="filterBySubcategory()">
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
-                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
-               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
-               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
-               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
-               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
-               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
-               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
                             th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
@@ -48,7 +42,7 @@ layout
             <!-- 가격범위 드롭다운 메뉴 -->
             <div class="Costrange-box">
                 <label for="Costrange"></label>
-                <select id="Costrange" onchange="filterByCostrange()" multiple size="5">
+                <select id="Costrange" onchange="filterByCostrange()">
                     <option value="가격">가격범위 전체</option>
                     <option th:each="costRange : ${costRangeList}"
                             th:value="${costRange.id}" th:text="${costRange.costRange}"></option>
@@ -58,7 +52,7 @@ layout
             <!-- 알콜도수범위 드롭다운 메뉴 -->
             <div class="ABVrange-box">
                 <label for="ABVrange"></label>
-                <select id="ABVrange" onchange="filterByABVrange()" multiple size="5">
+                <select id="ABVrange" onchange="filterByABVrange()">
                     <option value="도수">도수범위 전체</option>
                     <option th:each="aBVrange : ${abVrangeList}"
                             th:value="${aBVrange.id}" th:text="${aBVrange.abvRange}"></option>
@@ -66,9 +60,9 @@ layout
             </div>
 
             <!-- 용량 드롭다운 메뉴 -->
-            <div class="net-weight-box">
-                <label for="net-weight"></label>
-                <select id="net-weight" onchange="filterBynet-weight()" multiple size="5">
+            <div class="NetWeight-box">
+                <label for="NetWeight"></label>
+                <select id="NetWeight" onchange="filterByNetWeight()">
                     <option value="용량">용량범위 전체</option>
                     <option th:each="netWeight : ${netWeightList}"
                             th:value="${netWeight.id}" th:text="${netWeight.netWeight}"></option>
@@ -77,8 +71,8 @@ layout
 
             <!-- 안주 드롭다운 메뉴 -->
             <div class="paring-box">
-                <label for="paring"></label>
-                <select id="paring" onchange="filterByparing()" multiple size="5">
+                <label for="Paring"></label>
+                <select id="Paring" onchange="filterByParing()">
                     <option value="안주">안주범위 전체</option>
                     <option th:each="pairing : ${pairingList}"
                             th:value="${pairing.id}" th:text="${pairing.pairing}"></option>
@@ -87,30 +81,31 @@ layout
 
             <!-- 오크통(캐스크) 드롭다운 메뉴 -->
             <div class="Cask-box">
-                <label for="Cask-box"></label>
-                <select id="Cask-box" onchange="filterByCask-box()" multiple size="5">
+                <label for="Cask"></label>
+                <select id="Cask" onchange="filterByCask()">
                     <option value="오크통">오크통범위 전체</option>
-                    <option th:each="cask : ${caskList}"
-                            th:value="${cask.id}" th:text="${cask.cask}"></option>
+                    <option th:each="cask : ${caskList}" th:value="${cask.id}" th:text="${cask.cask}"></option>
                 </select>
             </div>
 
+
             <!-- 국가 드롭다운 메뉴 -->
-            <div class="nation">
-                <label for="nation"></label>
-                <select id="nation" onchange="filterBynation()" multiple size="5">
+            <div class="Nation">
+                <label for="Nation"></label>
+                <select id="Nation" onchange="filterByNation()">
                     <option value="국가">국가범위 전체</option>
                     <option th:each="nation : ${nationList}"
                             th:value="${nation.id}" th:text="${nation.nation}"></option>
                 </select>
             </div>
-            <button onclick="applyFilters()">필터 적용</button>
         </div>
         <!--개별리스트 목록 끝-->
+
         <div class="section">
-            <p>
-            <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
-            건의 결과가 있어요</p>
+            <div class="search-box">
+                <div class="search-result" th:text="${productList.size()}" style="display : inline-block;"></div>
+                건의 결과가 있어요
+            </div>
 
             <section class="goods-list-section">
                 <div class="goods-list">
@@ -130,65 +125,92 @@ layout
 </div>
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
-function filterBySubcategori() {
-        var subCategoryId = document.getElementById("SubCategori").value;
-        window.location.href = "http://localhost:7777/product/list/보드카?subCategoryId=" + subCategoryId;
-    }
-function applyFilters() {
-        var subCategorySelect = document.getElementById("subCategoryId");
-        var selectedOptions = Array.from(subCategorySelect.selectedOptions);
-        var subCategoryIds = selectedOptions.map(function(option) {
-            return option.value;
+    // Ajax 요청을 통해 필터링된 결과를 받아서 리스팅하는 함수
+    function updateProductList(filteredProductList) {
+        var goodsListSection = $('.goods-list-section');
+        goodsListSection.empty();  // 기존 상품 목록 비우기
+
+        // 필터링된 상품 목록 추가
+        filteredProductList.forEach(function (product) {
+            var goods = $('<div class="goods-1"></div>');
+
+            var link = $('<a></a>').attr('href', '/product/detail/' + product.id);
+            var img = $('<img>').attr('src', 'https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg').attr('alt', '');
+            var name = $('<p class="goods-name"></p>').text(product.name).css({'font-weight': 'bold', 'font-size': '2rem'});
+            var cost = $('<p></p>').text(product.cost + '원');
+
+            link.append(img, name, cost);
+            goods.append(link);
+            goodsListSection.append(goods);
         });
-        var url = "/product/list/보드카?subCategoryId=" + subCategoryIds.join("&subCategoryId=");
-        window.location.href = url;
     }
 
-// 선택된 옵션들을 추적하는 함수
-    function trackSelectedOptions(selectId) {
-        var selectElement = document.getElementById(selectId);
-        var selectedOptions = [];
+    // 중분류로 필터링
+    function filterBySubcategory() {
+        var selectedSubcategories = $('#SubCategory').val();  // 선택된 중분류 목록
 
-        for (var i = 0; i < selectElement.options.length; i++) {
-            var option = selectElement.options[i];
-            if (option.selected) {
-                selectedOptions.push(option.value);
+        // Ajax 요청
+        $.ajax({
+            url: '/product/list/Whiskey',
+            url: '/product/list/Vodka',
+            url: '/product/list/Tequila',
+            url: '/product/list/Gin',
+            url: '/product/list/Rum',
+            url: '/product/list/Brandy',
+            url: '/product/list/Beer',
+            type: 'GET',
+            data: {subCategoryId: selectedSubcategories},
+            success: function (response) {
+                updateProductList(response.productList);
+            },
+            error: function (error) {
+                console.log(error);
             }
-        }
-
-        // 선택된 옵션들을 활용하여 필요한 동작 수행
-        // 예: 선택된 옵션들을 출력하기
-        console.log(selectedOptions);
+        });
     }
 
-    // 각 드롭다운 메뉴의 변경을 추적하고 필요한 동작을 호출
-    document.getElementById("SubCategori").addEventListener("change", function () {
-        trackSelectedOptions("SubCategori");
-    });
+    // 가격범위로 필터링
+    function filterByCostrange() {
+        var selectedCostrange = $('#Costrange').val();  // 선택된 가격범위
 
-    document.getElementById("Costrange").addEventListener("change", function () {
-        trackSelectedOptions("Costrange");
-    });
+        // Ajax 요청
+        $.ajax({
+            url: '/product/list/Whiskey',
+            url: '/product/list/Vodka',
+            url: '/product/list/Tequila',
+            url: '/product/list/Gin',
+            url: '/product/list/Rum',
+            url: '/product/list/Brandy',
+            url: '/product/list/Beer',
+            type: 'GET',
+            data: {costRangeId: selectedCostrange},
+            success: function (response) {
+                console.log(response);
+                updateProductList(response.productList);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 
-    document.getElementById("ABVrange").addEventListener("change", function () {
-        trackSelectedOptions("ABVrange");
-    });
+    // 도수범위로 필터링 (filterByABVrange() 함수와 같은 방식으로 구현)
 
-    document.getElementById("net-weight").addEventListener("change", function () {
-        trackSelectedOptions("net-weight");
-    });
+    // 용량범위로 필터링 (filterByNetWeight() 함수와 같은 방식으로 구현)
 
-    document.getElementById("paring").addEventListener("change", function () {
-        trackSelectedOptions("paring");
-    });
+    // 안주범위로 필터링 (filterByParing() 함수와 같은 방식으로 구현)
 
-    document.getElementById("Cask-box").addEventListener("change", function () {
-        trackSelectedOptions("Cask-box");
-    });
+    // 오크통범위로 필터링 (filterByCaskBox() 함수와 같은 방식으로 구현)
 
-    document.getElementById("nation").addEventListener("change", function () {
-        trackSelectedOptions("nation");
-    });
+    // 국가범위로 필터링 (filterByNation() 함수와 같은 방식으로 구현)
+
+
+
+
+
+
+
+
 </script>
 </body>
 </html>
