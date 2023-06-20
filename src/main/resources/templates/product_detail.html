@@ -143,38 +143,39 @@
                 </div>
             </div>
         </div>
-        <div class="review-box">
-            <div class="title-box">
-                <div class="title">리뷰 남기기</div>
-            </div>
-            <div class="review-list" th:each="review : ${reviews}">
-                <div class="review-info">
-                    <div class="left-box">
-                        <div class="nick-name" th:text="${review.author.nickname}">황.인.성</div> <!--유저 닉네임-->
-                    </div>
-                    <div class="right-box">
-                        <div class="product-name" th:each="product : ${product}" th:text="${product.name}"></div>
-                        <!--리뷰에 해당하는 제품 이름-->
-                        <div class="review-date"
-                             th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div> <!--리뷰 작성일-->
+        <div class="review-title">리뷰 남기기</div>
+        <div class="review-wrap">
+            <div class="review-info-box">
+                <div class="left-box">
+                    <div class="nick-name">블루하와이</div>
+                    <div class="modify">
+                        <a href="#" class="edit">수정</a>
+                    </div> /
+                    <div class="delete">
+                        <a href="">삭제</a>
                     </div>
                 </div>
-                <div class="review">
-                    <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
-                </div>
-            </div>
 
-            <div class="review-form" th:each="product : ${product}">
-                <form name="review" th:action="@{|/review/create/${product.id}|}" th:object="${reviewForm}"
-                      method="post">
-                    <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
-                    <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
-                              cols="30" rows="15"></textarea>
-                    <textarea sec:authorize="isAuthenticated()" th:field="*{content}" name="content" cols="30"
-                              rows="15"></textarea>
-                    <input type="submit" value="리뷰등록">
-                </form>
+                <div class="right-box">
+                    <div class="product-name">고흥 유자주 8%</div>
+                    등록일: <div class="create-date">2023-06-19-13:01</div>
+                </div>
             </div>
+        </div>
+        <div class="review-list">
+            <div class="content">생각보다 도수가 낮은거 같아요.</div>
+            <div class="modify-box">
+                <div class="modify">
+                    <div class="title">수정일:</div>
+                    <div class="date">2023-06-19-13:01</div>
+                </div>
+            </div>
+        </div>
+        <div class="review-input">
+            <form action="">
+                <textarea name="review" id="" cols="30" rows="10"></textarea>
+                <button type="submit">등록하기</button>
+            </form>
         </div>
     </div>
 
@@ -264,6 +265,49 @@ $(document).ready(function() {
     icon.toggleClass("fa-regular fa-solid");
   });
 });
+
+
+$(document).ready(function() {
+  $(".edit").click(function() {
+    var reviewText = $(".content").text();
+    var modifyDate = $(".date").text();
+
+    // 새로운 textarea와 수정하기 버튼 생성
+    var editForm = $("<form>");
+    var textarea = $("<textarea>").attr({ "name": "review", "cols": "30", "rows": "10" }).val(reviewText);
+    var modifyButton = $("<button>").attr("type", "submit").text("수정하기");
+    editForm.append(textarea, modifyButton);
+    $(".review-input").html(editForm);
+
+    // 수정하기 버튼 클릭 이벤트 처리
+    modifyButton.click(function(event) {
+      event.preventDefault();
+
+      var newReviewText = textarea.val();
+      var newModifyDate = getCurrentDateTime();
+
+      // 수정된 내용과 수정일자 업데이트
+      $(".content").text(newReviewText);
+      $(".date").text(newModifyDate);
+
+      // 이전 내용으로 복원
+      $(".review-input").html('<form action=""><textarea name="review" id="" cols="30" rows="10"></textarea><button type="submit">등록하기</button></form>');
+    });
+  });
+});
+
+// 현재 날짜와 시간을 가져오는 함수
+function getCurrentDateTime() {
+  var now = new Date();
+  var year = now.getFullYear();
+  var month = String(now.getMonth() + 1).padStart(2, "0");
+  var day = String(now.getDate()).padStart(2, "0");
+  var hours = String(now.getHours()).padStart(2, "0");
+  var minutes = String(now.getMinutes()).padStart(2, "0");
+  var seconds = String(now.getSeconds()).padStart(2, "0");
+
+  return year + "-" + month + "-" + day + "-" + hours + ":" + minutes + ":" + seconds;
+}
 
 
 
