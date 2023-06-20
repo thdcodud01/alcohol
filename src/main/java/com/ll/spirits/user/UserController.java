@@ -154,7 +154,7 @@ public class UserController {
         return "login_form";
     }
 
-    @GetMapping("/myPage")
+    @GetMapping("/mypage")
     public String myPage(Model model, Principal principal) {
         if (principal != null) {
             String username = principal.getName();
