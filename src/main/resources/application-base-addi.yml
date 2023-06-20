@@ -1,7 +1,0 @@
-spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          kakao:
-            clientId: 3c35881ebb2a44ca79547aae99512188
