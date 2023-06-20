@@ -148,6 +148,7 @@
                 <div class="title">리뷰 남기기</div>
             </div>
             <div class="review-list" th:each="review : ${reviews}">
+                <a th:id="|review_${review.id}|"></a>
                 <div class="review-info">
                     <div class="left-box">
                         <div class="nick-name" th:text="${review.author.nickname}">황.인.성</div> <!--유저 닉네임-->
