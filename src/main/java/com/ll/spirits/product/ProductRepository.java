@@ -40,6 +40,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 //                                       @Param("nationId") Integer nationId);
 List<Product> findBySubCategory_IdOrCostRange_IdOrAbvRange_IdOrNetWeight_IdOrPairings_IdOrCasks_IdOrNation_Id(
         Integer subCategoryId, Integer costRangeId, Integer abvRangeId, Integer netWeightId, Integer pairingId, Integer caskId, Integer nationId);
-
-
 }
