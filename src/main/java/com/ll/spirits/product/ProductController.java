@@ -122,13 +122,13 @@ public class ProductController {
     @GetMapping("/list/beerCategory")
     @ResponseBody
     public List<Product> getBeerProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                     @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                     @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                     @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                     @RequestParam(value = "paring", required = false) Integer paringId,
-                                     @RequestParam(value = "cask", required = false) Integer caskId,
-                                     @RequestParam(value = "nation", required = false) Integer nationId,
-                                     Model model) {
+                                            @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                            @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                            @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                            @RequestParam(value = "paring", required = false) Integer paringId,
+                                            @RequestParam(value = "cask", required = false) Integer caskId,
+                                            @RequestParam(value = "nation", required = false) Integer nationId,
+                                            Model model) {
 
 
         return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
@@ -137,13 +137,13 @@ public class ProductController {
     @GetMapping("/list/Whiskey")
     @ResponseBody
     public Map<String, Object> getWhiskeyProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                                  @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                                  @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                                  @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                                  @RequestParam(value = "paring", required = false) Integer paringId,
-                                                  @RequestParam(value = "cask", required = false) Integer caskId,
-                                                  @RequestParam(value = "nation", required = false) Integer nationId,
-                                                  Model model) {
+                                                     @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                                     @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                                     @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                                     @RequestParam(value = "paring", required = false) Integer paringId,
+                                                     @RequestParam(value = "cask", required = false) Integer caskId,
+                                                     @RequestParam(value = "nation", required = false) Integer nationId,
+                                                     Model model) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("products", productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId));
@@ -191,20 +191,6 @@ public class ProductController {
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/vote/{id}") // 제품 추천
-    public String productVote(Principal principal, @PathVariable("id") Integer id) {
-        Product product = this.productService.getProduct(id);
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        boolean hasVoted = product.getVoter().contains(siteUser);
-        if (hasVoted) {
-            this.productService.cancelVote(product, siteUser); // 추천 취소 기능
-        } else {
-            this.productService.vote(product, siteUser); // 추천 기능
-        }
-        return String.format("redirect:/product/detail/%s", id);
-    }
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/wish/{id}") // 제품 찜하기
@@ -219,4 +205,42 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{id}") // 제품 추천
+    public String productVote(Principal principal, @PathVariable("id") Integer id) {
+        Product product = this.productService.getProduct(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        boolean hasVoted = product.getVoter().contains(siteUser);
+        if (hasVoted) {
+            this.productService.cancelVote(product, siteUser); // 추천 취소 기능
+        } else {
+            this.productService.vote(product, siteUser); // 추천 기능
+        }
+        return String.format("redirect:/product/detail/%s", id);
+    }
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/check-like-status/{id}")
+//    public boolean checkLikeStatus(Principal principal, @PathVariable("id") Integer id) {
+//        Product product = productService.getProduct(id);
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        return product.getVoter().contains(siteUser);
+//    }
+//
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/vote/{id}")
+//    public void voteProduct(Principal principal, @PathVariable("id") Integer id) {
+//        Product product = productService.getProduct(id);
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        productService.vote(product, siteUser);
+//    }
+//
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/cancel-vote/{id}")
+//    public void cancelVoteProduct(Principal principal, @PathVariable("id") Integer id) {
+//        Product product = productService.getProduct(id);
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        productService.cancelVote(product, siteUser);
+//    }
+
 }
