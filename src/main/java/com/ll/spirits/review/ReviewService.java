@@ -4,6 +4,7 @@ import com.ll.spirits.DataNotFoundException;
 import com.ll.spirits.product.Product;
 import com.ll.spirits.user.SiteUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class ReviewService {
+
+    @Autowired
     private final ReviewRepository reviewRepository;
 
     public List<Review> getList () {
@@ -35,6 +38,14 @@ public class ReviewService {
         } else {
             throw new DataNotFoundException("review not found"); // 예외처리로 에러(DataNotFoundException)를 표시
         }
+    }
+    public List<Review> getReviewsByAuthor(SiteUser author) {
+        return reviewRepository.findByAuthor(author);
+    }
+
+
+    public List<Review> findAll() {
+        return this.reviewRepository.findAll();
     }
 
     public void modify(Review review, String content) {

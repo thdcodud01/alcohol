@@ -1,333 +1,330 @@
 /* 노멀라이징 */
+*{
+  margin:0;
+  padding:0;
+}
+
 a{
   text-decoration:none;
   color:inherit;
 }
 
 ul,li{
-  list-style:none;
   text-decoration:none;
+  list-style:none;
 }
 
-.active{
-  display:block !important;
-}
+
 
 
 /* 스타일 시작 */
 .wrap{
-  width:1200px;
-  margin-right: auto;
-  margin-left: auto;
+  width: 1200px;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+/* 내비바 */
+
+.wrap>nav{
+
 }
 
 .wrap>nav{
   display:flex;
   justify-content:space-between;
+  align-items:end;
 }
 
-.wrap>nav>.left-box>.logo>a>img{
+.wrap>nav>.left-box>.logo-box>a>img{
   width: 180px;
   height: 100px;
 }
 
-.wrap>nav>.right-box>.user{
-  display:flex;
-  margin-top: 60px;
-}
 
-.wrap>nav>.right-box>.user>div{
+.wrap>nav>.right-box>.user-box{
+  display:flex;
   margin-right: 20px;
-}
-
-.wrap>nav>.right-box>.user>.nick-name{
-  margin-top: 5px;
-  margin-right: 40px;
-}
-
-.wrap>.title{
-
-
-  margin-top: 30px;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.wrap>.title>.text{
-  margin-left: 20px;
-  margin-top: 10px;
-}
-
-.wrap>.main-section{
-  width: 100%;
-  height: 600px;
-
-  border:2px solid black;
-  border-radius:6px;
-  margin-top: 20px;
-    display:flex;
-  justify-content:space-between;
-}
-
-
-.wrap>.main-section>.left-box{
-  border-right:2px solid black;
-  border-radius:6px;
-  background-color: #dfdf;
-}
-
-.wrap>.main-section>.left-box>ul{
-  text-align:center;
-  margin-right: 40px;
-}
-
-
-.wrap>.main-section>.left-box>ul>li{
-  margin-top: 80px;
-  font-size: 23px;
-  font-weight: bold;
-}
-
-.wrap>.main-section>.left-box>ul>li:hover>a{
-  text-decoration:underline;
-  color: #00498c;
-}
-
-
-/* 회원정보 */
-.wrap>.main-section>.right-box>.user-info{
-  width: 1000px;
-  height: 600px;
-  text-align:center;
-  display:none;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box{
-  display:inline-block;
-  margin-top: 150px;
-}
-
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.userID{
-  display: flex;
-  font-size: 20px;
-  justify-content:center;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.userID>.title{
-  margin-right: 10px;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.userPW{
-  display:flex;
-  font-size: 20px;
-  justify-content:center;
-  margin-top: 50px;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.userPW>.title{
-  margin-right: 10px;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.user-nick-name{
-  display:flex;
-  font-size: 20px;
-  justify-content:center;
-  margin-top: 50px;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.user-nick-name>.title{
-  margin-right: 10px;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.user-birth-day{
-  display:flex;
-  font-size: 20px;
-  justify-content:center;
-  margin-top: 50px;
-}
-
-.wrap>.main-section>.right-box>.user-info>.info-box>.user-birth-day>.title{
-  margin-right: 10px;
-}
-
-
-/* 내가찜한상품 */
-.wrap>.main-section>.right-box>.user-wish{
-  width: 1000px;
-  height: 600px;
-  text-align:center;
-  display:none;
-}
-
-.wrap>.main-section>.right-box>.user-wish>.wish-product{
-  display:flex;
-  justify-content:space-between;
-}
-
-.wrap>.main-section>.right-box>.user-wish>.wish-product:first-child{
-  margin-left: 20px;
-
-}
-
-.wrap>.main-section>.right-box>.user-wish>.wish-product:last-child{
-  margin-right: 20px;
-}
-
-
-.wrap>.main-section>.right-box>.user-wish>.wish-product>.product-wrap{
-  width: 210px;
-  height: 300px;
-  border-radius:6px;
-  margin-top: 20px;
-  box-sizing:border-box;
-}
-
-.wrap>.main-section>.right-box>.user-wish>.wish-product>.product-wrap>.img-box>img{
-  width: 210px;
-  height: 250px;
-  border-radius:6px;
   margin-bottom: 10px;
 }
 
-.wrap>.main-section>.right-box>.user-wish>.wish-product>.product-wrap>.title{
-
+.wrap>nav>.right-box>.user-box>.profile-img{
+  margin-right: 10px;
 }
 
 
 
 
 
+/* 마이페이지 스타일 시작 */
+.wrap>.title{
+  font-size: 3rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.wrap>.mypage-wrap{
+  margin-top: 50px;
+  margin-left: 20px;
+  border:2px solid black;
+  border-radius:6px;
+  display:flex;
+}
+
+.wrap>.mypage-wrap{
+  margin-bottom: 30px;
+}
+
+.wrap>.mypage-wrap>.right-box{
+  width: 100%;
+  margin-bottom: 1px;
+}
+
+.right-box>.info-box>.user-info-box{
+   border:2px solid black;
+  margin-top: 30px;
+  width: 95%;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius:6px;
+  padding: 10px;
+}
 
 
+.right-box>.info-box>.user-info-box>.id-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+
+
+}
+
+.right-box>.info-box>.user-info-box>.id-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.id-box>.user-id{
+  margin-right: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.nickname-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.nickname-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.nickname-box>.nickname{
+  margin-right: 20px;
+}
+
+
+.right-box>.info-box>.user-info-box>.birth-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.birth-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.birth-box>.birth{
+  margin-right: 20px;
+}
+
+.right-box>.info-box>.user-info-box>.password-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+.right-box>.info-box>.user-info-box>.password-box>.subtitle{
+  margin-left: 20px;
+}
+
+
+.right-box>.info-box>.user-info-box>.password-box>.password{
+  margin-right: 20px;
+}
+
+/* 나만의 찜 */
+
+.right-box>.wish-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  border:2px solid black;
+  border-radius:6px;
+  padding: 10px;
+
+}
+
+.right-box>.wish-box>.product{
+ display:flex;
+  justify-content:space-between;
+  margin-top: 30px;
+  text-align:center;
+}
+
+
+.right-box>.wish-box>.product>.product-box>.img-box{
+ width:calc(100%/4);
+}
+
+
+.right-box>.wish-box>.product>.product-box>.img-box>img{
+
+  height: 300px;
+}
+
+.right-box>.wish-box>.product-box>.text-box{
+  text-align:center;
+}
 
 /* 내가 쓴 댓글 */
 
-.wrap>.main-section>.right-box>.user-review{
-  width: 1000px;
-  height: 600px;
-  display:none;
-}
-
-.wrap>.main-section>.right-box>.user-review>.review-list{
-  display:flex;
-  justify-content:center;
-}
-
-.wrap>.main-section>.right-box>.user-review>.review-list>.review-info{
-  width: 900px;
-  height: 50px;
-  background-color: #dfdfdf;
-  display:flex;
-  margin-top: 20px;
+.right-box>.review-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  border:2px solid black;
   border-radius:6px;
+  padding: 10px;
+}
+
+.right-box>.review-box>.review-wrap>.review-info{
+  height: 40px;
+  display:flex;
   justify-content:space-around;
   align-items:center;
+  margin-top: 20px;
+  background-color: #dfdfdf;
+  border-radius:6px;
+  text-align:center;
 }
 
-
-.wrap>.main-section>.right-box>.user-review>.review-list>.review-info>.content{
-  display:flex;
-  margin-left: 180px;
-  margin-right: 200px;
+.right-box>.review-box>.review-wrap>.review-info>.num{
+  width: 10%;
 }
 
-.wrap>.main-section>.right-box>.user-review>.review-list>.review-info>.product-name{
-  margin-right: 140px;
+.right-box>.review-box>.review-wrap>.review-info>.content{
+  width:50%;
 }
 
-.wrap>.main-section>.right-box>.user-review>.review-list>.review-info>.date{
-  margin-right: 40px;
+.right-box>.review-box>.review-wrap>.review-info>.product-name{
+  width:20%;
 }
 
-.wrap>.main-section>.right-box>.user-review>.review-content{
+.right-box>.review-box>.review-wrap>.review-info>.create-date{
+  width:20%;
+}
+
+.right-box>.review-box>.review-wrap>.review-content{
   display:flex;
   justify-content:space-around;
-  margin-top: 20px;
+  margin-top: 10px;
+  text-align:center;
 }
+
+.right-box>.review-box>.review-wrap>.review-content>.number{
+  width: 0%;
+}
+
+
+.right-box>.review-box>.review-wrap>.review-content>.content{
+  width: 40%;
+}
+
+.right-box>.review-box>.review-wrap>.review-content>.product-name{
+  width:20%;
+}
+
+.right-box>.review-box>.review-wrap>.review-content>.date{
+  widht:40%;
+}
+
 
 /* 내가 누른 좋아요 */
 
-.wrap>.main-section>.right-box>.user-like{
-  width: 1000px;
-  height: 600px;
-  text-align:center;
-  display:none;
-}
-
-.wrap>.main-section>.right-box>.user-like>.like-box{
-  width: 900px;
-  height: 50px;
-  background-color: #dfdfdf;
-  margin-top: 30px;
-  display:inline-block;
+.right-box>.like-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  border:2px solid black;
   border-radius:6px;
+  padding: 10px;
 }
 
-.wrap>.main-section>.right-box>.user-like>.like-box>.info{
+.right-box>.like-box>.like-wrap>.like-info{
   display:flex;
   justify-content:space-around;
+  background-color: #dfdfdf;
+  border-radius:6px;
+  height: 40px;
   align-items:center;
-}
-
-.wrap>.main-section>.right-box>.user-like>.like-box>.info>.left{
-  margin-top: 15px;
-  margin-right: 90px;
-}
-
-.wrap>.main-section>.right-box>.user-like>.like-box>.info>.right{
-  margin-top: 13px;
-
-}
-
-.wrap>.main-section>.right-box>.user-like>.like-content{
-  display:flex;
-  justify-content:space-around;
   margin-top: 20px;
 }
 
 
+.right-box>.like-box>.like-wrap>.like-content{
+  display:flex;
+  justify-content:space-around;
+  margin-top: 10px;
+}
+
 /* 개인정보 변경 */
 
-.wrap>.main-section>.right-box>.user-modify{
-  width: 1000px;
-  height: 600px;
-  display:none;
+.right-box>.user-change-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border:2px solid black;
+  border-radius:6px;
+  padding: 10px;
+}
+
+.right-box>.user-change-box>.user-change-wrap>form{
   text-align:center;
+  margin-top: 100px;
+  margin-bottom: 40px;
 }
 
-.wrap>.main-section>.right-box>.user-modify>.modify-box{
-  display:inline-block;
-  margin-top: 170px;
-}
 
-.wrap>.main-section>.right-box>.user-modify>.modify-box>.pw-modify>form>.title{
-  margin-bottom: 10px;
-  margin-left: -200px;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.wrap>.main-section>.right-box>.user-modify>.modify-box>.pw-modify>form>input{
-  width: 300px;
-  height: 35px;
+.right-box>.user-change-box>.user-change-wrap>form>input{
+  margin-top: 10px;
+  width: 200px;
+  height: 30px;
   border-radius:6px;
 }
 
-.wrap>.main-section>.right-box>.user-modify>.modify-box>.pw-modify>form>.subtitle{
-  font-size: 20px;
-  margin-left: -200px;
-  margin-top: 50px;
-  margin-bottom: 10px;
-  font-weight: bold;
+.right-box>.user-change-box>.user-change-wrap>form>.password{
+  margin-left: -140px;
 }
 
-.wrap>.main-section>.right-box>.user-modify>.modify-box>.pw-modify>button{
+.right-box>.user-change-box>.user-change-wrap>form>.ps-title{
+  margin-left: -110px;
   margin-top: 50px;
-  margin-right: 10px;
-  margin-left: 10px;
-  width: 80px;
-  height: 30px;
 }
 
 
+.right-box>.user-change-box>.user-change-wrap>form>.ps-check-title{
+  margin-top: 50px;
+  margin-left: -80px;
+}
+
+.right-box>.user-change-box>.user-change-wrap>form>button{
+  display:block;
+  margin-left: 520px;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius:6px;
+
+}

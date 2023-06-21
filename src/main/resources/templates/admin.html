@@ -70,7 +70,8 @@
             <td th:text="${review.content}">Lorem ipsum dolor sit amet</td>
             <td>
                 <a href="javascript:void(0);" th:data-uri="@{/admin/delete/review/{id}(id=${review.id})}"
-                   class="delete-btn" onclick="confirmDelete(event)">Delete</a>
+                   class="delete-btn" onclick="confirmDelete(event)">Delete
+                </a>
             </td>
         </tr>
         </tbody>

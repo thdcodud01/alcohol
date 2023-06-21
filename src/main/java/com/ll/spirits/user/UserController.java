@@ -1,13 +1,12 @@
 package com.ll.spirits.user;
 
+import com.ll.spirits.review.Review;
+import com.ll.spirits.review.ReviewService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,15 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.client.RestTemplate;
 
 import java.security.Principal;
-import java.util.Optional;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -38,6 +34,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UserSecurityService userSecurityService;
     private final UserRepository userRepository;
+    private final ReviewService reviewService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -79,81 +76,6 @@ public class UserController {
         return isDuplicate;
     }
 
-//    @PostMapping("/changePassword")
-//    public String changePassword(
-//            @RequestParam("currentPassword") String currentPassword,
-//            @RequestParam("newPassword") String newPassword,
-//            @RequestParam("confirmPassword") String confirmPassword,
-//            Model model) {
-//
-//        // 현재 사용자 정보 가져오기
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        Optional<SiteUser> user = userRepository.findByUsername(username);
-//
-//        // 현재 비밀번호가 일치하는지 확인
-//        if (!passwordEncoder.matches(currentPassword, user.get().getPassword())) {
-//            model.addAttribute("error", "현재 비밀번호가 일치하지 않습니다.");
-//            return "redirect:/user/myPage";
-//        }
-//
-//        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
-//        if (!newPassword.equals(confirmPassword)) {
-//            model.addAttribute("error", "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-//            return "redirect:/user/myPage";
-//        }
-//
-//        // 회원 가입 시 설정한 비밀번호와 변경할 비밀번호가 서로 다른 값인지 확인
-//        if (!passwordEncoder.matches(newPassword, user.get().getPassword())) {
-//            model.addAttribute("error", "기존 비밀번호와 새 비밀번호가 일치합니다.");
-//            return "redirect:/user/myPage";
-//        }
-//
-//        // 비밀번호 변경
-//        String encodedNewPassword = passwordEncoder.encode(newPassword);
-//        user.get().setPassword(encodedNewPassword);
-//        userRepository.save(user.get());
-//
-//        // 변경 성공 메시지 등을 설정하여 model에 추가
-//        model.addAttribute("success", "비밀번호가 성공적으로 변경되었습니다.");
-//
-//        return "redirect:/user/myPage"; // 비밀번호 변경 후 마이페이지로 리다이렉트
-//    }
-
-//    @PostMapping("/changePassword")
-//    public ResponseEntity<?> changePassword(
-//            @RequestParam("currentPassword") String currentPassword,
-//            @RequestParam("newPassword") String newPassword,
-//            @RequestParam("confirmPassword") String confirmPassword) {
-//
-//        // 현재 사용자 정보 가져오기
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        Optional<SiteUser> user = userRepository.findByUsername(username);
-//
-//        // 현재 비밀번호가 일치하는지 확인
-//        if (!passwordEncoder.matches(currentPassword, user.get().getPassword())) {
-//            return ResponseEntity.badRequest().body("{\"error\": \"현재 비밀번호가 일치하지 않습니다.\"}");
-//        }
-//
-//        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
-//        if (!newPassword.equals(confirmPassword)) {
-//            return ResponseEntity.badRequest().body("{\"error\": \"새 비밀번호와 확인 비밀번호가 일치하지 않습니다.\"}");
-//        }
-//
-//        // 회원 가입 시 설정한 비밀번호와 변경할 비밀번호가 서로 다른 값인지 확인
-//        if (passwordEncoder.matches(newPassword, user.get().getPassword())) {
-//            return ResponseEntity.badRequest().body("{\"error\": \"기존 비밀번호와 새 비밀번호가 일치합니다.\"}");
-//        }
-//
-//        // 비밀번호 변경
-//        String encodedNewPassword = passwordEncoder.encode(newPassword);
-//        user.get().setPassword(encodedNewPassword);
-//        userRepository.save(user.get());
-//
-//        return ResponseEntity.ok("{\"success\": true}");
-//    }
-
     @GetMapping("/login")
     public String login() {
 
@@ -165,14 +87,19 @@ public class UserController {
         if (principal != null) {
             String username = principal.getName();
             SiteUser user = userService.getUser(username);
-
+            List<Review> reviewList = reviewService.getReviewsByAuthor(user);
             model.addAttribute("userName", user.getUsername());
             model.addAttribute("userNickName", user.getNickname());
             model.addAttribute("userBirthDate", user.getBirthDate());
+            model.addAttribute("reviewList", reviewList);
+            System.out.println(reviewList.toString());
+
         }
 
         return "mypage";
     }
+
+
 
 
     @PostMapping("/login")
@@ -185,37 +112,15 @@ public class UserController {
 
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
+            // auth 정보가 admin . user
+            // user 면
+            // redirect main
+
             return "redirect:/";
         } else {
             model.addAttribute("error", true);
             return "login_form";
         }
-    }
-
-    @GetMapping("/login/oauth2/code/kakao")
-    public @ResponseBody String kakaoCallback(String code) {
-        //POST방식으로 key=value 데이터 요청- 카카오로
-        RestTemplate rt = new RestTemplate();
-
-        //HttpHeader 오브젝트 생성
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        //HttpBody 오브젝트 생성
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant-type", "authorization_code");
-        params.add("client_key", "3c35881ebb2a44ca79547aae99512188");
-        params.add("redirect_url", "http://localhost:7777/login/oauth2/code/kakao");
-        params.add("code", code);
-
-        //HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
-                new HttpEntity<>(params, headers);
-
-        //Http 요청하기 - POST 방식으로 그리고 response 변수의 응답
-        ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token"
-                , HttpMethod.POST, kakaoTokenRequest, String.class);
-        return "카카오 토큰 요청 완료 : 토큰에 대한 응답 : " + response;
     }
 
 }
