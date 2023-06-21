@@ -120,39 +120,39 @@ public class UserController {
 //        return "redirect:/user/myPage"; // 비밀번호 변경 후 마이페이지로 리다이렉트
 //    }
 
-    @PostMapping("/changePassword")
-    public ResponseEntity<?> changePassword(
-            @RequestParam("currentPassword") String currentPassword,
-            @RequestParam("newPassword") String newPassword,
-            @RequestParam("confirmPassword") String confirmPassword) {
-
-        // 현재 사용자 정보 가져오기
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        Optional<SiteUser> user = userRepository.findByUsername(username);
-
-        // 현재 비밀번호가 일치하는지 확인
-        if (!passwordEncoder.matches(currentPassword, user.get().getPassword())) {
-            return ResponseEntity.badRequest().body("{\"error\": \"현재 비밀번호가 일치하지 않습니다.\"}");
-        }
-
-        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
-        if (!newPassword.equals(confirmPassword)) {
-            return ResponseEntity.badRequest().body("{\"error\": \"새 비밀번호와 확인 비밀번호가 일치하지 않습니다.\"}");
-        }
-
-        // 회원 가입 시 설정한 비밀번호와 변경할 비밀번호가 서로 다른 값인지 확인
-        if (passwordEncoder.matches(newPassword, user.get().getPassword())) {
-            return ResponseEntity.badRequest().body("{\"error\": \"기존 비밀번호와 새 비밀번호가 일치합니다.\"}");
-        }
-
-        // 비밀번호 변경
-        String encodedNewPassword = passwordEncoder.encode(newPassword);
-        user.get().setPassword(encodedNewPassword);
-        userRepository.save(user.get());
-
-        return ResponseEntity.ok("{\"success\": true}");
-    }
+//    @PostMapping("/changePassword")
+//    public ResponseEntity<?> changePassword(
+//            @RequestParam("currentPassword") String currentPassword,
+//            @RequestParam("newPassword") String newPassword,
+//            @RequestParam("confirmPassword") String confirmPassword) {
+//
+//        // 현재 사용자 정보 가져오기
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+//        Optional<SiteUser> user = userRepository.findByUsername(username);
+//
+//        // 현재 비밀번호가 일치하는지 확인
+//        if (!passwordEncoder.matches(currentPassword, user.get().getPassword())) {
+//            return ResponseEntity.badRequest().body("{\"error\": \"현재 비밀번호가 일치하지 않습니다.\"}");
+//        }
+//
+//        // 새로운 비밀번호와 확인 비밀번호가 일치하는지 확인
+//        if (!newPassword.equals(confirmPassword)) {
+//            return ResponseEntity.badRequest().body("{\"error\": \"새 비밀번호와 확인 비밀번호가 일치하지 않습니다.\"}");
+//        }
+//
+//        // 회원 가입 시 설정한 비밀번호와 변경할 비밀번호가 서로 다른 값인지 확인
+//        if (passwordEncoder.matches(newPassword, user.get().getPassword())) {
+//            return ResponseEntity.badRequest().body("{\"error\": \"기존 비밀번호와 새 비밀번호가 일치합니다.\"}");
+//        }
+//
+//        // 비밀번호 변경
+//        String encodedNewPassword = passwordEncoder.encode(newPassword);
+//        user.get().setPassword(encodedNewPassword);
+//        userRepository.save(user.get());
+//
+//        return ResponseEntity.ok("{\"success\": true}");
+//    }
 
     @GetMapping("/login")
     public String login() {
@@ -194,11 +194,7 @@ public class UserController {
 
     @GetMapping("/login/oauth2/code/kakao")
     public @ResponseBody String kakaoCallback(String code) {
-
-        //POST방식으로 key=value 데이터 요청(카카오쪽으로)
-        //Retrofit2
-        //OkHttp
-        //RestTemplate
+        //POST방식으로 key=value 데이터 요청- 카카오로
         RestTemplate rt = new RestTemplate();
 
         //HttpHeader 오브젝트 생성

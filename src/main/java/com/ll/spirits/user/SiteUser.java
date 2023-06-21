@@ -1,8 +1,8 @@
 package com.ll.spirits.user;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -14,13 +14,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(callSuper = true)
 public class SiteUser {
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role.getValue()));
-        return authorities;
-    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +33,10 @@ public class SiteUser {
     private UserRole role;
 
     private LocalDate birthDate; // 생년월일 필드 추가
+
+
+    public SiteUser(String username, String password, List<GrantedAuthority> authorities) {
+    }
 
     public boolean isAdmin() {
         // 관리자 여부를 판별하는 로직을 구현

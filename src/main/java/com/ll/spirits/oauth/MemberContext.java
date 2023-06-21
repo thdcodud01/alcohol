@@ -5,13 +5,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
-public class MemberContext extends User implements OAuth2User { // Spring Security와 OAuth2를 사용하여 로그인한 사용자의 정보를 담음, 이를 활용하여 인증과 권한 부여를 처리하는 Spring Security의 기능을 사용
+public class MemberContext extends SiteUser implements OAuth2User { // Spring Security와 OAuth2를 사용하여 로그인한 사용자의 정보를 담음, 이를 활용하여 인증과 권한 부여를 처리하는 Spring Security의 기능을 사용
     private final Long id;
     private final String password;
 
@@ -28,11 +29,6 @@ public class MemberContext extends User implements OAuth2User { // Spring Securi
         this(user, authorities);
         this.attributes = attributes;
         this.userNameAttributeName = userNameAttributeName;
-    }
-
-    @Override
-    public Set<GrantedAuthority> getAuthorities() {
-        return super.getAuthorities().stream().collect(Collectors.toSet());
     }
 
     @Override
