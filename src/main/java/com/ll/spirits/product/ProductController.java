@@ -178,7 +178,7 @@ public class ProductController {
         model.addAttribute("caskIds", caskIds);
         model.addAttribute("hasCask", hasCask); // 캐스크값의 존재 여부를 모델에 추가
 
-        return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
+        return "product_detail2"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
 
     @PreAuthorize("isAuthenticated()")

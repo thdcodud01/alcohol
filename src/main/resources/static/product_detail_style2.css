@@ -14,7 +14,6 @@ ul,li{
 
 
 .wrap{
-  width: 900px !important;
   margin-left: auto;
   margin-right: auto;
 }
@@ -83,7 +82,7 @@ ul,li{
 .wrap>.point-section{
   height: auto;
   background-color: #dfdfdf;
-  text-align:center;
+  text-align:right;
   margin-bottom: 40px;
   padding-bottom : 40px;
 }
@@ -99,7 +98,7 @@ ul,li{
 .wrap>.point-section>.point-box1{
   display:inline-block;
   background-color: white;
-  width: 600px;
+  width: 1000px;
   margin-top: 20px;
   border-radius:8px;
   padding: 40px;
@@ -116,7 +115,7 @@ ul,li{
 .wrap>.point-section>.point-box2{
   display:inline-block;
   background-color: white;
-  width: 600px;
+  width: 1000px;
   margin-top: 40px;
   border-radius:8px;
   padding: 40px;
@@ -132,7 +131,7 @@ ul,li{
 .wrap>.point-section>.point-box3{
   display:inline-block;
   background-color: white;
-  width: 600px;
+  width: 1000px;
   margin-top: 40px;
   border-radius:8px;
   padding: 40px;
@@ -148,7 +147,7 @@ ul,li{
 .wrap>.point-section>.point-box4{
   display:inline-block;
   background-color: white;
-  width: 600px;
+  width: 1000px;
   margin-top: 40px;
   border-radius:8px;
   padding: 40px;

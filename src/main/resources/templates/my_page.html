@@ -14,153 +14,119 @@
 <body>
 <!-- 문서시작 -->
 <div class="wrap">
+
     <nav>
         <div class="left-box">
-            <div class="logo">
-                <a th:href="@{|/main|}">
-                    <img src="https://ifh.cc/g/BRzb5o.png" alt="">
-                </a>
+            <div class="logo-box">
+                <a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a>
             </div>
         </div>
+
         <div class="right-box">
-            <div class="user">
-                <div class="profile">
-                    <i class="fa-solid fa-user fa-xl"></i>
+            <div class="user-box">
+                <div class="profile-img">
+                    <i class="fa-solid fa-user fa-lg"></i>
                 </div>
-                <div class="nick-name" th:text="${userNickName}"></div>
+                <div class="user-nickname" th:text="${#authentication.principal.nickname}"></div>
             </div>
         </div>
     </nav>
 
     <hr>
 
-    <div class="title">
-        <div class="text">마이페이지</div>
-    </div>
-    <div class="main-section">
-        <div class="left-box">
-            <ul>
-                <li class="user-information"><a href="#user-info">회원정보</a></li>
-                <li class="user-wishlist"><a href="#user-wish">찜한상품</a></li>
-                <li class="user-reviewlist"><a href="#user-review">내 댓글</a></li>
-                <li class="user-likelist"><a href="#user-like">좋아요</a></li>
-                <li class="user-information-modify"><a href="#user-modify">개인정보 변경</a></li>
-            </ul>
-        </div>
+    <div class="title">마이페이지</div>
+    <div class="mypage-wrap">
+
         <div class="right-box">
+            <div class="info-box">
+                <div class="user-info-box">
+                    <div class="title">회원정보</div>
+                    <hr>
+                    <div class="id-box">
+                        <div class="subtitle">아이디 :</div>
+                        <div class="user-id" th:text="${#authentication.principal.username}">tjqls@gmail.com</div>
+                    </div>
+                    <div class="nickname-box">
+                        <div class="subtitle">닉네임 :</div>
+                        <div class="nickname" th:text="${#authentication.principal.nickname}"></div>
+                    </div>
+                    <div class="birth-box">
+                        <div class="subtitle">생년월일 :</div>
+                        <div class="birth" th:text="${userBrithDate}"></div>
+                    </div>
 
-            <!--       회원정보 -->
-            <div class="user-info active" id="user-info">
-                <div class="info-box">
-
-                    <div class="userID">
-                        <div class="title">아이디: </div>
-                        <div th:text="${userName}"></div>
-                    </div>
-                    <div class="user-nick-name">
-                        <div class="title">닉네임: </div>
-                        <div class="nick-name" th:text="${userNickName}"></div>
-                    </div>
-                    <div class="user-birth-day">
-                        <div class="title">생년월일: </div>
-                        <div class="birth-day" th:text="${userBrithDate}"></div>
-                    </div>
                 </div>
-
             </div>
-
-
-
-            <!--       내가찜한상품 -->
-            <div class="user-wish" id="user-wish">
-                <div class="wish-product">
-                    <div class="product-wrap">
+            <div class="wish-box">
+                <div class="title">나만의 찜</div>
+                <hr>
+                <div class="product">
+                    <div class="product-box" th:each="product : ${productList}">
                         <div class="img-box">
-                            <img src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg" alt="">
+                            <img src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/rC0W-1659321041025-0.jpg" alt="">
                         </div>
-                        <div class="title">
-                            [썬키스트] 팬시 레몬 300g(3입)
-                        </div>
-                        <div class="cost">2,980원</div>
-                    </div>
-                    <div class="product-wrap">
-                        <div class="img-box"></div>
-                        <div class="title"></div>
-                    </div>
-                    <div class="product-wrap">
-                        <div class="img-box"></div>
-                        <div class="title"></div>
-                    </div>
-                    <div class="product-wrap">
-                        <div class="img-box"></div>
-                        <div class="title"></div>
+                        <div class="text-box" th:text="${product.name}"></div>
                     </div>
                 </div>
+
             </div>
-
-
-
-            <!--       내가쓴 댓글 -->
-            <div class="user-review" id="user-review">
-                <div class="review-list">
+            <div class="review-box">
+                <div class="review-wrap">
+                    <div class="title">내가 쓴 댓글</div>
+                    <hr>
                     <div class="review-info">
-                        <div class="number">번호</div>
+                        <div class="num">번호</div>
                         <div class="content">리뷰</div>
-                        <div class="product-name">상품이름</div>
-                        <div class="date">등록일</div>
-                    </div>
-                </div>
-                <div class="review-content">
-
-                    <div class="num">1 </div>
-                    <div class="content">생각보다 맛있는거 같아요</div>
-                    <div class="product-name">고흥유자주 8%</div>
-                    <div class="date">2023-06-12</div>
-
-                </div>
-            </div>
-
-            <!--       내가 누른 좋아요 -->
-            <div class="user-like" id="user-like">
-                <div class="like-box">
-                    <div class="info">
-                        <div class="left">
-                            <div class="num">번호</div>
-                        </div>
-                        <div class="right">
-                            <div class="product-name">
-                                좋아요 누른 상품
-                            </div>
-                        </div>
+                        <div class="product-name">상품</div>
+                        <div class="create-date">등록일</div>
 
                     </div>
-                </div>
-                <div class="like-content">
-                    <div class="num">1 </div>
-                    <div class="like-product">고흥유자주 8%</div>
+                    <div class="review-content">
+                        <div class="number">1</div>
+                        <div class="content">
+                            생각한거 보다 맛있네요!
+                        </div>
+                        <div class="product-name">
+                            고흥유자주 8%</div>
+                        <div class="date">2023-06-20</div>
+                    </div>
                 </div>
             </div>
-
-            <!--       회원정보수정 -->
-            <div class="user-modify" id="user-modify">
-                <div class="modify-box">
-                    <div class="pw-modify">
-                        <form action="">
-                            <div class="title">비밀번호 변경</div>
-                            <input type="text" placeholder="비밀번호를 입력해주세요">
-                            <div class="subtitle">비밀번호 확인</div>
-                            <input type="text" placeholder="비밀번호를 입력해주세요">
-                        </form>
-
+            <div class="like-box">
+                <div class="like-wrap">
+                    <div class="title">
+                        내가 누른 좋아요
+                    </div>
+                    <hr>
+                    <div class="like-info">
+                        <div class="num">번호</div>
+                        <div class="like-product">
+                            좋아요 누른 상품
+                        </div>
+                    </div>
+                    <div class="like-content">
+                        <div class="number">1</div>
+                        <div class="product-name">
+                            고흥유자주8%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-change-box">
+                <div class="user-change-wrap">
+                    <div class="title">개인정보 변경</div>
+                    <hr>
+                    <form action="">
+                        <div class="password">기존 비밀번호</div>
+                        <input type="text" placeholder="비밀번호를 입력해주세요.">
+                        <div class="ps-title">비밀번호 변경</div>
+                        <input type="text" placeholder=" 새 비밀번호를 입력해주세요.">
+                        <div class="ps-check-title">비밀번호 변경 확인</div>
+                        <input type="text" placeholder=" 새 비밀번호를 입력해주세요.">
                         <button type="submit">변경하기</button>
-                        <button type="reset">취소</button>
-
-                    </div>
+                    </form>
                 </div>
             </div>
-
-            <!--       회원정보수정 끝 -->
-
         </div>
     </div>
 </div>
