@@ -113,17 +113,18 @@
                 <div class="user-change-wrap">
                     <div class="title">개인정보 변경</div>
                     <hr>
-                    <form action="">
+                    <form action="/user/changePassword" method="post">
                         <div class="password">기존 비밀번호</div>
-                        <input type="text" placeholder="비밀번호를 입력해주세요.">
+                        <input type="password" name="oldPassword" placeholder="비밀번호를 입력해주세요.">
                         <div class="ps-title">비밀번호 변경</div>
-                        <input type="text" placeholder=" 새 비밀번호를 입력해주세요.">
+                        <input type="password" name="newPassword" placeholder="새 비밀번호를 입력해주세요.">
                         <div class="ps-check-title">비밀번호 변경 확인</div>
-                        <input type="text" placeholder=" 새 비밀번호를 입력해주세요.">
+                        <input type="password" name="confirmPassword" placeholder="새 비밀번호를 다시 입력해주세요.">
                         <button type="submit">변경하기</button>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -31,6 +31,17 @@ public class UserService {
         this.userRepository.save(user);
         return user;
     }
+    public SiteUser modifyPassword(String password) {
+        SiteUser user = new SiteUser();
+        user.setPassword(passwordEncoder.encode(password));
+        this.userRepository.save(user);
+        return user;
+    }
+    public SiteUser confirmPassword(String password) {
+        SiteUser user = new SiteUser();
+        this.userRepository.save(user);
+        return user;
+    }
 
     public List<SiteUser> getList () {
         return this.userRepository.findAll();
@@ -73,7 +84,6 @@ public class UserService {
         currentUser.setPassword(newPassword);
         return currentUser;
     }
-
 
     public void deleteUser(SiteUser user) {
         this.userRepository.delete(user);

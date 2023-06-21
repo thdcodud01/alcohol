@@ -1,9 +1,9 @@
 package com.ll.spirits.oauth;
 
-//import com.ll.spirits.member.Member;
 import com.ll.spirits.user.SiteUser;
 import com.ll.spirits.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,9 +21,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class OAuth2UserService extends DefaultOAuth2UserService {
 
-    private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
-
+    @Autowired
+    private UserRepository userRepository;
     @Override
     @Transactional
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -56,10 +55,10 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
                     }
 
                     user = SiteUser.builder()
-                            .username(username)
-                            .password(passwordEncoder.encode(UUID.randomUUID().toString()))
+                            .nickname(nickname)
+                            .username(email)
+                            .password("")
                             .build();
-
                     userRepository.save(user);
                 }
             }
@@ -67,7 +66,7 @@ public class OAuth2UserService extends DefaultOAuth2UserService {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("USER"));
-        return new MemberContext(user, authorities, attributes, userNameAttributeName);
+        return new MemberDTO(user, authorities, attributes, userNameAttributeName);
     }
 
 

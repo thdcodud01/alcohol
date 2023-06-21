@@ -26,14 +26,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(
-                        csrf -> csrf.disable()
-                )
-                .authorizeRequests(
-                        authorizeRequests -> authorizeRequests.
-                                requestMatchers(
-                                    new AntPathRequestMatcher("/**")
-                                )
+                .authorizeHttpRequests(
+                        authorizeHttpRequests -> authorizeHttpRequests
+                                .requestMatchers("/**")
                                 .permitAll()
                 )
                 .formLogin(
@@ -46,11 +41,12 @@ public class SecurityConfig {
                                 .loginPage("/user/login")
                                 .userInfoEndpoint(
                                         userInfoEndpoint -> userInfoEndpoint
-                                                .userService(oAuth2UserService) //  OAuth2 로그인을 설정하고, 사용자 정보를 처리하는 OAuth2UserService를 등록
+                                                .userService(oAuth2UserService)
                                 )
                 )
-                .logout(logout -> logout
-                        .logoutUrl("/user/logout")
+                .logout(
+                        logout -> logout
+                                .logoutUrl("/user/logout")
                 );
         return http.build();
     }

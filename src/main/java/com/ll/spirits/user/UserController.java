@@ -2,6 +2,8 @@ package com.ll.spirits.user;
 
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +78,36 @@ public class UserController {
         return isDuplicate;
     }
 
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/modify/password")
+//    public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
+//        if (bindingResult.hasErrors()) {
+//            return "modify_password_form";
+//        }
+//
+//        SiteUser user = this.userService.getUser(principal.getName());
+//        if (!this.userService.confirmPassword(userModifyForm.getPresentPW(), user)) {
+//            bindingResult.rejectValue("presentPW", "passwordInCorrect",
+//                    "현재 비밀번호를 바르게 입력해주세요.");
+//            return "modify_password_form";
+//        }
+//
+//        // 비밀번호와 비밀번호 확인에 입력한 문자열이 서로 다르면 다시 입력 하도록
+//        if (!userModifyForm.getNewPW().equals(userModifyForm.getNewPW2())) {
+//            bindingResult.rejectValue("newPW2", "passwordInCorrect",
+//                    "입력한 비밀번호가 일치하지 않습니다.");
+//            return "modify_password_form";
+//        }
+//
+//        userService.modifyPassword(userModifyForm.getNewPW(), user);
+//
+//        return "redirect:/user/logout";
+//    }
+//
+//    public void modifyPassword(String password, SiteUser user) {
+//        user.setPassword(passwordEncoder.encode(password));
+//        this.userRepository.save(user);
+//    }
     @GetMapping("/login")
     public String login() {
 
@@ -93,14 +125,10 @@ public class UserController {
             model.addAttribute("userBirthDate", user.getBirthDate());
             model.addAttribute("reviewList", reviewList);
             System.out.println(reviewList.toString());
-
         }
 
         return "mypage";
     }
-
-
-
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
@@ -111,10 +139,6 @@ public class UserController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
-
-            // auth 정보가 admin . user
-            // user 면
-            // redirect main
 
             return "redirect:/";
         } else {
