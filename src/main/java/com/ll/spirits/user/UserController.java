@@ -87,7 +87,6 @@ public class UserController {
         model.addAttribute("userNickName", user.getNickname());
         model.addAttribute("userBrithDate", user.getBirthDate());
         return "my_page";
-
     }
 
 

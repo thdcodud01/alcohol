@@ -41,6 +41,10 @@ public class ProductForm {
     @Size(max = 5000, message = "제품정보는 최대 5000자까지 입력 가능합니다.")
     private String info; // 제품정보
 
+    @NotEmpty(message = "제품설명제목은 필수 입력항목입니다.")
+    @Size(max = 500, message = "제품정보는 최대 500자까지 입력 가능합니다.")
+    private String subject; // 제품정보
+
     @NotNull(message = "대분류는 필수 입력항목입니다.")
     private Integer mainCategoryId; // 대분류 ID
 

@@ -87,6 +87,11 @@
         </div>
 
         <div class="product-info-box">
+            <label for="subject">제품 설명 제목(필수):</label>
+            <input type="text" th:field="*{subject}" name="subject" id="subject" placeholder="제품 설명의 제목을 입력해주세요">
+        </div>
+
+        <div class="product-info-box">
             <label for="info">제품 설명(필수):</label>
             <textarea th:field="*{info}" name="info" id="info" placeholder="제품 설명을 입력해주세요"></textarea>
         </div>
