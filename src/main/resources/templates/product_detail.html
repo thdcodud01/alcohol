@@ -7,7 +7,7 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>상품 상세보기 페이지</title>
-    <link rel="stylesheet" th:href="@{/product_detail_style2.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/product_detail_style.css}" type="text/css">
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
@@ -23,7 +23,6 @@
           integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-
 </head>
 <body>
 <div layout:fragment="content">
@@ -259,9 +258,12 @@
 
     </div>
 
+    <hr>
+    <div class="btn">
+        <i class="fa-solid fa-angles-up"></i>
+    </div>
+
 </div>
-
-
 
 <script layout:fragment="script" type='text/javascript'>
 $(document).ready(function(){

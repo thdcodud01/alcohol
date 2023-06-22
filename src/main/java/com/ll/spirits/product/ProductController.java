@@ -57,7 +57,16 @@ public class ProductController {
     private final ProductRepository productRepository;
 
     @GetMapping("/list/{mainCategory}")
-    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory, @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId, @RequestParam(value = "caskId", required = false) Integer caskId, @RequestParam(value = "nationId", required = false) Integer nationId, @RequestParam(value = "pairingId", required = false) Integer pairingId, @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId, @RequestParam(value = "costRangeId", required = false) Integer costRangeId, @RequestParam(value = "netWeightId", required = false) Integer netWeightId, Model model) {
+    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
+                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
+                                             @RequestParam(value = "caskId", required = false) Integer caskId,
+                                             @RequestParam(value = "nationId", required = false) Integer nationId,
+                                             @RequestParam(value = "pairingId", required = false) Integer pairingId,
+                                             @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
+                                             @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
+                                             @RequestParam(value = "netWeightId", required = false) Integer netWeightId,
+                                             @RequestParam(value = "kw", defaultValue = "") String kw,
+                                             Model model) {
 
         List<Cask> caskList = caskService.getAllCask();
         List<Nation> nationList = nationService.getAllNation();
@@ -68,7 +77,6 @@ public class ProductController {
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
-
 
         List<Product> productList;
         // 서브카테고리가 null이거나 0인 경우
@@ -89,34 +97,27 @@ public class ProductController {
         model.addAttribute("costRangeList", costRangeList);
         model.addAttribute("mainCategoryId", mainCategoryId);
         model.addAttribute("subCategoryList", subCategoryList);
+        model.addAttribute("kw", kw);
 
-        String templateName;
-        switch (mainCategoryId) {
-            case 1:
-                templateName = "product_list_whiskey";
-                break;
-            case 2:
-                templateName = "product_list_vodka";
-                break;
-            case 3:
-                templateName = "product_list_tequila";
-                break;
-            case 4:
-                templateName = "product_list_gin";
-                break;
-            case 5:
-                templateName = "product_list_rum";
-                break;
-            case 6:
-                templateName = "product_list_brandy";
-                break;
-            case 7:
-                templateName = "product_list_beer";
-                break;
-            default:
-                templateName = "error";
-        }
-        return templateName;
+        return "product_list";
+    }
+    @GetMapping("/search")
+    public String searchProducts(Model model,
+                                 @RequestParam(required = false) Integer mainCategoryId,
+                                 @RequestParam(required = false) Integer subCategoryId,
+                                 @RequestParam(required = false) Integer caskId,
+                                 @RequestParam(required = false) Integer nationId,
+                                 @RequestParam(required = false) Integer pairingId,
+                                 @RequestParam(required = false) Integer abvRangeId,
+                                 @RequestParam(required = false) Integer costRangeId,
+                                 @RequestParam(required = false) Integer netWeightId,
+                                 @RequestParam(required = false) String kw) {
+
+        List<Product> searchResults = productService.searchProducts(mainCategoryId, subCategoryId, caskId,
+                nationId, pairingId, abvRangeId, costRangeId, netWeightId, kw);
+        model.addAttribute("kw", kw);
+        model.addAttribute("results", searchResults);
+        return "product_list_beer"; // 검색 결과를 표시할 뷰의 이름
     }
 
     @GetMapping("/list/beerCategory")
@@ -132,24 +133,6 @@ public class ProductController {
 
 
         return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
-    }
-
-    @GetMapping("/list/Whiskey")
-    @ResponseBody
-    public Map<String, Object> getWhiskeyProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                                     @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                                     @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                                     @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                                     @RequestParam(value = "paring", required = false) Integer paringId,
-                                                     @RequestParam(value = "cask", required = false) Integer caskId,
-                                                     @RequestParam(value = "nation", required = false) Integer nationId,
-                                                     Model model) {
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("products", productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId));
-        response.put("subCategoryList", subCategoryService.getAllSubCategories());
-
-        return response;
     }
 
 
@@ -188,7 +171,7 @@ public class ProductController {
             this.productService.countingViews(product);
             request.getSession().setAttribute("viewedProductId", String.valueOf(product.getId()));
         }
-        return "product_detail2"; // 템플릿 이름 또는 뷰의 경로를 반환
+        return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
 
 
@@ -219,28 +202,5 @@ public class ProductController {
         }
         return String.format("redirect:/product/detail/%s", id);
     }
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/check-like-status/{id}")
-//    public boolean checkLikeStatus(Principal principal, @PathVariable("id") Integer id) {
-//        Product product = productService.getProduct(id);
-//        SiteUser siteUser = userService.getUser(principal.getName());
-//        return product.getVoter().contains(siteUser);
-//    }
-//
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/vote/{id}")
-//    public void voteProduct(Principal principal, @PathVariable("id") Integer id) {
-//        Product product = productService.getProduct(id);
-//        SiteUser siteUser = userService.getUser(principal.getName());
-//        productService.vote(product, siteUser);
-//    }
-//
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/cancel-vote/{id}")
-//    public void cancelVoteProduct(Principal principal, @PathVariable("id") Integer id) {
-//        Product product = productService.getProduct(id);
-//        SiteUser siteUser = userService.getUser(principal.getName());
-//        productService.cancelVote(product, siteUser);
-//    }
 
 }

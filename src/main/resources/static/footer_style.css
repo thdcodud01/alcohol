@@ -1,0 +1,27 @@
+.footer-section{
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-section>.title{
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+.footer-section>.profile{
+  display:flex;
+  justify-content:space-around;
+}
+
+.footer-section>.profile>.profile-box>.profile-info{
+  text-align:center;
+  margin-top: 10px;
+}
+
+.footer-section>.profile>.profile-box>.img-box>img{
+  width: 200px;
+  height: 250px;
+}
