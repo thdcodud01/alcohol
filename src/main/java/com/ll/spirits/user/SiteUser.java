@@ -44,7 +44,8 @@ public class SiteUser {
         return "admin@gmail.com".equals(username) ||
                 "admin1@gmail.com".equals(username) ||
                 "admin2@gmail.com".equals(username) ||
-                "insung5189@gmail.com".equals(username)
+                "insung5189@gmail.com".equals(username) ||
+                "hwlee5104@naver.com".equals(username)
                 ;
     }
 }

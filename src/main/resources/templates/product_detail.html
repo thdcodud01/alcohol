@@ -23,34 +23,33 @@
           integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-
 </head>
 <body>
-<!-- 문서시작 -->
 <div layout:fragment="content">
     <div class="wrap">
+
         <div class="product-box">
-            <div class="left-box"> <!--제품이미지 백그라운드 컬러로 이미지소스 이용해서 CSS로 삽입-->
+            <div class="left-box">
+
             </div>
             <div class="right-box">
                 <div class="title-box">
-                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2> <!--제품명-->
+                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2>
                 </div>
                 <div class="info-box">
-                    <div class="info"> <!--메인카테고리?-->
+                    <div class="info">
                         <div class="title">
                             주종 :
                             <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
-                        </div>
+                        </div>위스키
                     </div>
                     <div class="info">
-                        <div class="title"> <!--도수-->
-                            도수 :
+                        <div class="title">도수 :
                             <span th:each="product : ${product}" th:text="${product.abv}"></span><span>%</span>
                         </div>
                     </div>
                     <div class="info">
-                        <div class="title"> <!--용량-->
+                        <div class="title">
                             용량 :
                             <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span>ml</span>
                         </div>
@@ -73,10 +72,9 @@
                 </div>
                 <div class="cost-box">
                     <div class="title">
-                        <h3>판매가격</h3>
+                        <h2>판매가격</h2>
                     </div>
-                    <div class="num" th:each="product : ${product}" th:text="${product.cost}"></div>
-                    <span class="num">￦</span> <!--가격-->
+                    <div class="num">2000만원</div>
                 </div>
                 <div class="logo-box">
                     <div class="wish">
@@ -110,53 +108,96 @@
                 </div>
             </div>
         </div>
+
         <div class="point-section">
-            <div class="title-box">
-                <h2 class="title">핵심 포인트</h2>
-            </div>
-            <div class="point-box1">
-                <div class="taste-title">맛</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한
-                    약주
-                </div> <!--맛 설명-->
-            </div>
-            <div class="point-box2">
-                <div class="taste-title">향</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한
-                    약주
-                </div> <!--향 설명-->
-            </div>
-            <div class="point-box3">
-                <div class="taste-title">이런 음식들과 잘 어울려요!</div>
-                <div class="taste-text">
-                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+            <div class="title">핵심포인트</div>
+            <div class="point-wrap">
+                <div class="point-box">
+                    <div class="point-content">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">맛</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.flavor}">유자맛 개꿀</div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+                        <div></div>
+                    </div>
+                    <div class="point-content2">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">향</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.aroma}">유자향 개꿀</div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+                        <div></div>
+                    </div>
+                    <div class="point-content3">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">이런 음식들과 잘 어울려요!</div>
+                                <div class="text">
+                                <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
                                 <span th:text="${pairing.pairing}"></span>
                                 <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
                     </span>
-                </div>
-            </div>
-            <div class="point-box4" th:if="${hasCask}">
-                <div class="taste-title">사용한 캐스크</div>
-                <div class="taste-text">
-                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="point-content4" th:if="${hasCask}">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">사용한 캐스크</div>
+                                <div class="text">
+                                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
                         <span th:text="${cask.cask}"></span>
                         <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
                     </span>
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+                        <div></div>
+                    </div>
                 </div>
+
             </div>
         </div>
-        <div class="information-section" th:each="product : ${product}">
-            <div class="img-box"> <!--제품설명이미지-->
-                <img alt=""
-                     src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321062780-1.jpg">
-            </div>
-            <div class="text-box">
-                <div class="title">
-                    <h2 th:text="${product.subject}"></h2>
+
+        <div class="info-section" th:each="product : ${product}">
+            <div class="info-box">
+                <div class="info-img">
+                    <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321057571-2.jpg" alt="">
                 </div>
-                <div class="text" th:text="${product.info}"></div><!--제품인포-->
+                <div class="product-title" th:text="${product.subject}">고흥 유자주 8%</div>
+                <div class="product-text" th:text="${product.info}"></div>
             </div>
         </div>
+
         <div class="review-box">
             <div class="title-box">
                 <div class="title">리뷰 남기기</div>
@@ -189,6 +230,7 @@
                 </div>
                 <div class="review">
                     <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
+                    <div class="modify-review-date">2023-06-22 13:00</div>
                 </div>
                 <form class="review-modify hidden" th:id="|review_modify_form_${review.id}|" method="post" th:object="${reviewForm}" th:action="@{|/review/modify/${review.id}|}">
                     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
@@ -213,6 +255,7 @@
                 </form>
             </div>
         </div>
+
     </div>
 
     <hr>

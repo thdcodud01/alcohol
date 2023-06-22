@@ -45,4 +45,34 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Modifying
     @Query("UPDATE Product p SET p.views = p.views + 1 WHERE p.id = :productId")
     void incrementProductHits(@Param("productId") Integer productId);
+
+
+    @Query(nativeQuery = true, value = "SELECT DISTINCT p.id, p.abv, p.aroma, p.cost, p.flavor, p.info, p.name, p.abv_range_id, " +
+            "p.author_id, p.cost_range_id, p.main_category_id, p.nation_id, p.net_weight_id, " +
+            "p.sub_category_id, p.subject, p.views " +
+            "FROM product p " +
+            "LEFT JOIN product_pairings pp ON p.id = pp.product_id " +
+            "LEFT JOIN pairing pr ON pp.pairing_id = pr.id " +
+            "LEFT JOIN product_casks pc ON p.id = pc.product_id " +
+            "LEFT JOIN cask c ON pc.cask_id = c.id " +
+            "WHERE (:mainCategoryId IS NULL OR p.main_category_id = :mainCategoryId) " +
+            "AND (:subCategoryId IS NULL OR p.sub_category_id = :subCategoryId) " +
+            "AND (:caskId IS NULL OR c.id = :caskId) " +
+            "AND (:nationId IS NULL OR p.nation_id = :nationId) " +
+            "AND (:pairingId IS NULL OR pr.id = :pairingId) " +
+            "AND (:abvRangeId IS NULL OR p.abv_range_id = :abvRangeId) " +
+            "AND (:costRangeId IS NULL OR p.cost_range_id = :costRangeId) " +
+            "AND (:netWeightId IS NULL OR p.net_weight_id = :netWeightId) " +
+            "AND (LOWER(p.name) LIKE LOWER(CONCAT('%', :kw, '%')) OR LOWER(p.info) LIKE LOWER(CONCAT('%', :kw, '%')))")
+    List<Product> searchProducts(
+            @Param("mainCategoryId") Integer mainCategoryId,
+            @Param("subCategoryId") Integer subCategoryId,
+            @Param("caskId") Integer caskId,
+            @Param("nationId") Integer nationId,
+            @Param("pairingId") Integer pairingId,
+            @Param("abvRangeId") Integer abvRangeId,
+            @Param("costRangeId") Integer costRangeId,
+            @Param("netWeightId") Integer netWeightId,
+            @Param("kw") String kw
+    );
 }
