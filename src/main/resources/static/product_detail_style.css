@@ -248,13 +248,16 @@ ul,li{
   margin-right: 40px;
 }
 
-.wrap>.review-box>.review-list>.review-info>.left-box>.modify{
+.wrap>.review-box>.review-list>.review-info>.left-box>.modify-btn{
   margin-right: 10px;
 
 }
 
-.wrap>.review-box>.review-list>.review-info>.left-box>.modify>a{
+.wrap>.review-box>.review-list>.review-info>.left-box>.modify-btn>a{
   font-size: 13px;
+}
+.wrap>.review-box>.review-list>.review-info>.left-box>.modify-btn>a.active{
+  display: inline;
 }
 
 .wrap>.review-box>.review-list>.review-info>.left-box>.delete>a{
@@ -277,6 +280,13 @@ ul,li{
   display:inline-block;
   margin-right: 15px;
   cursor:pointer;
+}
+
+.review-modify {
+  display: none;
+}
+.review-modify.active {
+  display: block;
 }
 
 #recommendation i {
