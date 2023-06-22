@@ -357,11 +357,39 @@ ul,li{
   cursor:pointer;
 }
 
+.review-list>.review{
+    display:flex;
+    justify-content:space-between;
+}
+
+.review-list>.review>.modify-review-date{
+    margin-right:20px;
+}
+
 .review-modify {
   display: none;
 }
 .review-modify.active {
   display: block;
+
+}
+
+
+.review-modify>.mb-3>.form-label{
+    font-size:15px;
+    font-weight:bold;
+}
+
+.review-modify>.mb-3>textarea{
+    width:1200px;
+    margin-top:10px;
+    margin-bottom:10px;
+    border:3px solid black;
+}
+
+.review-modify>.submitbtn{
+    padding:10px;
+    margin-bottom:10px;
 }
 
 #recommendation i {
@@ -390,7 +418,7 @@ ul,li{
 }
 
 .wrap>.review-box>.review-form>form>textarea{
-  width: 895px;
+  width: 1200px;
   height: 200px;
   padding: 0;
   border:3px solid black;

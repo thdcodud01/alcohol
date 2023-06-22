@@ -231,6 +231,7 @@
                 </div>
                 <div class="review">
                     <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
+                    <div class="modify-review-date">2023-06-22 13:00</div>
                 </div>
                 <form class="review-modify hidden" th:id="|review_modify_form_${review.id}|" method="post" th:object="${reviewForm}" th:action="@{|/review/modify/${review.id}|}">
                     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
