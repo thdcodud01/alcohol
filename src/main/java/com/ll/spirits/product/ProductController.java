@@ -21,6 +21,7 @@ import com.ll.spirits.review.ReviewForm;
 import com.ll.spirits.review.ReviewService;
 import com.ll.spirits.user.SiteUser;
 import com.ll.spirits.user.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -121,13 +122,13 @@ public class ProductController {
     @GetMapping("/list/beerCategory")
     @ResponseBody
     public List<Product> getBeerProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                     @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                     @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                     @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                     @RequestParam(value = "paring", required = false) Integer paringId,
-                                     @RequestParam(value = "cask", required = false) Integer caskId,
-                                     @RequestParam(value = "nation", required = false) Integer nationId,
-                                     Model model) {
+                                            @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                            @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                            @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                            @RequestParam(value = "paring", required = false) Integer paringId,
+                                            @RequestParam(value = "cask", required = false) Integer caskId,
+                                            @RequestParam(value = "nation", required = false) Integer nationId,
+                                            Model model) {
 
 
         return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
@@ -136,13 +137,13 @@ public class ProductController {
     @GetMapping("/list/Whiskey")
     @ResponseBody
     public Map<String, Object> getWhiskeyProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                                  @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                                  @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                                  @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                                  @RequestParam(value = "paring", required = false) Integer paringId,
-                                                  @RequestParam(value = "cask", required = false) Integer caskId,
-                                                  @RequestParam(value = "nation", required = false) Integer nationId,
-                                                  Model model) {
+                                                     @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                                     @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                                     @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                                     @RequestParam(value = "paring", required = false) Integer paringId,
+                                                     @RequestParam(value = "cask", required = false) Integer caskId,
+                                                     @RequestParam(value = "nation", required = false) Integer nationId,
+                                                     Model model) {
 
         Map<String, Object> response = new HashMap<>();
         response.put("products", productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId));
@@ -154,8 +155,9 @@ public class ProductController {
 
     @GetMapping("/detail/{id}") // 제품 상세보기
     @Transactional
-    public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal) {
+    public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal, HttpServletRequest request) {
         Product product = this.productService.getProduct(id);
+
         List<Cask> casks = product.getCasks(); // Product 엔티티에서 casks 필드를 가져옴
         List<Pairing> pairings = product.getPairings(); // Product 엔티티에서 pairings 필드를 가져옴
 
@@ -166,7 +168,7 @@ public class ProductController {
         List<Integer> caskIds = casks.stream().map(cask -> cask.getId()) // Cask 엔티티에서 cask_id 대신 id 필드를 사용
                 .collect(Collectors.toList());
 
-        List<Review> reviews = this.productService.getReviewsByProduct(product); // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
+        List<Review> reviews = this.productService.getReviewsByProduct(product);
         if (principal != null) {
             SiteUser siteUser = this.userService.getUser(principal.getName());
             model.addAttribute("siteUser", siteUser);
@@ -178,7 +180,30 @@ public class ProductController {
         model.addAttribute("caskIds", caskIds);
         model.addAttribute("hasCask", hasCask); // 캐스크값의 존재 여부를 모델에 추가
 
-        return "product_detail2"; // 템플릿 이름 또는 뷰의 경로를 반환
+        // 조회수 증가 처리(새로고침시 조회수 증가 X)
+        String viewedProductId = (String) request.getSession().getAttribute("viewedProductId");
+        if (viewedProductId == null || !viewedProductId.equals(String.valueOf(product.getId()))) {
+            // 조회한 상품과 세션에 저장된 상품 ID가 다를 경우에만 조회수 증가
+            product.setViews(product.getViews() + 1);
+            this.productService.countingViews(product);
+            request.getSession().setAttribute("viewedProductId", String.valueOf(product.getId()));
+        }
+        return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/wish/{id}") // 제품 찜하기
+    public String productWish(Principal principal, @PathVariable("id") Integer id) {
+        Product product = this.productService.getProduct(id);
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        boolean hasWished = product.getWish().contains(siteUser);
+        if (hasWished) {
+            this.productService.cancelWish(product, siteUser); // 찜 취소 기능
+        } else {
+            this.productService.wish(product, siteUser); // 찜 기능
+        }
+        return String.format("redirect:/product/detail/%s", id);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -186,24 +211,36 @@ public class ProductController {
     public String productVote(Principal principal, @PathVariable("id") Integer id) {
         Product product = this.productService.getProduct(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        if (product.getVoter().contains(siteUser)) {
+        boolean hasVoted = product.getVoter().contains(siteUser);
+        if (hasVoted) {
             this.productService.cancelVote(product, siteUser); // 추천 취소 기능
         } else {
             this.productService.vote(product, siteUser); // 추천 기능
         }
         return String.format("redirect:/product/detail/%s", id);
     }
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/check-like-status/{id}")
+//    public boolean checkLikeStatus(Principal principal, @PathVariable("id") Integer id) {
+//        Product product = productService.getProduct(id);
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        return product.getVoter().contains(siteUser);
+//    }
+//
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/vote/{id}")
+//    public void voteProduct(Principal principal, @PathVariable("id") Integer id) {
+//        Product product = productService.getProduct(id);
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        productService.vote(product, siteUser);
+//    }
+//
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/cancel-vote/{id}")
+//    public void cancelVoteProduct(Principal principal, @PathVariable("id") Integer id) {
+//        Product product = productService.getProduct(id);
+//        SiteUser siteUser = userService.getUser(principal.getName());
+//        productService.cancelVote(product, siteUser);
+//    }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/wish/{id}") // 제품 찜하기
-    public String productWish(Principal principal, @PathVariable("id") Integer id) {
-        Product product = this.productService.getProduct(id);
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        if (product.getVoter().contains(siteUser)) {
-            this.productService.cancelWish(product, siteUser); // 찜 취소 기능
-        } else {
-            this.productService.wish(product, siteUser); // 찜 기능
-        }
-        return String.format("redirect:/product/detail/%s", id);
-    }
 }

@@ -81,6 +81,9 @@ public class Product {
     private Nation nation; // (생산국가) 생산국가는 여러 술이 있을 수 있지만 국가는 무조건 한 개임 => ManyToOne
 
     @Column(columnDefinition = "TEXT")
+    private String subject; // (제품상세정보) 제품상세정보는 직접 작성할 것이기 때문에 String 타입으로 지정
+
+    @Column(columnDefinition = "TEXT")
     private String info; // (제품상세정보) 제품상세정보는 직접 작성할 것이기 때문에 String 타입으로 지정
 
     @ManyToOne
@@ -91,4 +94,7 @@ public class Product {
 
     @ManyToMany
     Set<SiteUser> wish;
+
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int views;
 }
