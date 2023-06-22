@@ -118,23 +118,19 @@ public class UserController {
         return "login_form";
     }
 
-    @GetMapping("/mypage")
-    public String myPage(Model model, Principal principal, Integer id) {
-        if (principal != null) {
-            String username = principal.getName();
-            SiteUser user = userService.getUser(username);
-            List<Review> reviewList = reviewService.getReviewsByAuthor(user);
-            //Product product = this.productService.getProduct(id);
-            model.addAttribute("userName", user.getUsername());
-            model.addAttribute("userNickName", user.getNickname());
-            model.addAttribute("userBirthDate", user.getBirthDate());
-            model.addAttribute("reviewList", reviewList);
-            //model.addAttribute("voter", product.);
-            System.out.println(reviewList.toString());
-        }
-
-        return "mypage";
-    }
+//    @GetMapping("/mypage")
+//    public String myPage(Model model, Principal principal) {
+//            String user = userService.getUser(principal.getName());
+//            List<Review> reviewList = reviewService.getReviewsByAuthor(user);
+//            model.addAttribute("userName", user.getUsername());
+//            model.addAttribute("userNickName", user.getNickname());
+//            model.addAttribute("userBirthDate", user.getBirthDate());
+//            model.addAttribute("reviewList", reviewList);
+//            //model.addAttribute("voter", product.);
+//            System.out.println(reviewList.toString());
+//
+//        return "mypage";
+//    }
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
