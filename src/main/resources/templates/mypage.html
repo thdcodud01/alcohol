@@ -79,7 +79,6 @@
                         <div class="content">리뷰</div>
                         <div class="product-name">상품</div>
                         <div class="create-date">등록일</div>
-
                     </div>
                     <div class="review-content" th:each="review : ${reviewList}">
                         <div class="number" th:text="${review.id}"></div>
@@ -96,16 +95,12 @@
                     </div>
                     <hr>
                     <div class="like-info">
-                        <div class="num">번호</div>
-                        <div class="like-product">
-                            좋아요 누른 상품
-                        </div>
+                        <div class="like-product">좋아요 누른 상품</div>
+                        <div class="cost">가격</div>
                     </div>
-                    <div class="like-content">
-                        <div class="number">1</div>
-                        <div class="product-name">
-                            고흥유자주8%
-                        </div>
+                    <div class="like-content" th:each="product : ${productList}">
+                        <div class="product-name" th:text="${product.name}">고흥유자주8%</div>
+                        <div class="cost" th:text="${product.cost}">1</div>
                     </div>
                 </div>
             </div>

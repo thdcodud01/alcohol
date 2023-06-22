@@ -1,5 +1,7 @@
 package com.ll.spirits.user;
 
+import com.ll.spirits.product.Product;
+import com.ll.spirits.product.ProductService;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewService;
 import jakarta.servlet.ServletException;
@@ -24,6 +26,7 @@ import org.springframework.ui.Model;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 
 @RequiredArgsConstructor
@@ -37,6 +40,7 @@ public class UserController {
     private final UserSecurityService userSecurityService;
     private final UserRepository userRepository;
     private final ReviewService reviewService;
+    private final ProductService productService;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -115,15 +119,17 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPage(Model model, Principal principal) {
+    public String myPage(Model model, Principal principal, Integer id) {
         if (principal != null) {
             String username = principal.getName();
             SiteUser user = userService.getUser(username);
             List<Review> reviewList = reviewService.getReviewsByAuthor(user);
+            //Product product = this.productService.getProduct(id);
             model.addAttribute("userName", user.getUsername());
             model.addAttribute("userNickName", user.getNickname());
             model.addAttribute("userBirthDate", user.getBirthDate());
             model.addAttribute("reviewList", reviewList);
+            //model.addAttribute("voter", product.);
             System.out.println(reviewList.toString());
         }
 
