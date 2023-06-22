@@ -7,7 +7,7 @@
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>상품 상세보기 페이지</title>
-    <link rel="stylesheet" th:href="@{/product_detail_style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/product_detail_style2.css}" type="text/css">
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
@@ -26,31 +26,31 @@
 
 </head>
 <body>
-<!-- 문서시작 -->
 <div layout:fragment="content">
     <div class="wrap">
+
         <div class="product-box">
-            <div class="left-box"> <!--제품이미지 백그라운드 컬러로 이미지소스 이용해서 CSS로 삽입-->
+            <div class="left-box">
+
             </div>
             <div class="right-box">
                 <div class="title-box">
-                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2> <!--제품명-->
+                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2>
                 </div>
                 <div class="info-box">
-                    <div class="info"> <!--메인카테고리?-->
+                    <div class="info">
                         <div class="title">
                             주종 :
                             <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
-                        </div>
+                        </div>위스키
                     </div>
                     <div class="info">
-                        <div class="title"> <!--도수-->
-                            도수 :
+                        <div class="title">도수 :
                             <span th:each="product : ${product}" th:text="${product.abv}"></span><span>%</span>
                         </div>
                     </div>
                     <div class="info">
-                        <div class="title"> <!--용량-->
+                        <div class="title">
                             용량 :
                             <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span>ml</span>
                         </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="info" th:if="${hasCask}">
                         <div class="title">
-                            캐스크:
+                            캐스크 :
                             <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
                                 <span th:text="${cask.cask}"></span>
                                 <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
@@ -73,14 +73,13 @@
                 </div>
                 <div class="cost-box">
                     <div class="title">
-                        <h3>판매가격</h3>
+                        <h2>판매가격</h2>
                     </div>
-                    <div class="num" th:each="product : ${product}" th:text="${product.cost}"></div>
-                    <span class="num">￦</span> <!--가격-->
+                    <div class="num">2000만원</div>
                 </div>
                 <div class="logo-box">
                     <div class="wish">
-                        <a href="javascript:void(0);" class="zzim"
+                        <a class="zzim" href="javascript:void(0);"
                            th:data-uri="@{|/product/wish/${product.id}|}"> <!--찜버튼-->
                             <i class="fa-regular fa-heart fa-2xl"></i>
                             <span th:text="${#lists.size(product.wish)}"></span>
@@ -88,7 +87,7 @@
                     </div>
 
                     <div class="like">
-                        <a href="javascript:void(0);" class="recommend"
+                        <a class="recommend" href="javascript:void(0);"
                            th:data-uri="@{|/product/vote/${product.id}|}">
                             <i class="fa-thumbs-up fa-2xl fa-regular"></i>
                             <span th:text="${#lists.size(product.voter)}"></span>
@@ -107,66 +106,121 @@
                             <i class="fa-solid fa-share-nodes fa-2xl"></i>
                         </a>
                     </div>
-
                 </div>
             </div>
         </div>
+
         <div class="point-section">
-            <div class="title-box">
-                <h2 class="title">핵심 포인트</h2>
-            </div>
-            <div class="point-box1">
-                <div class="taste-title">맛</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한
-                    약주
-                </div> <!--맛 설명-->
-            </div>
-            <div class="point-box2">
-                <div class="taste-title">향</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한
-                    약주
-                </div> <!--향 설명-->
-            </div>
-            <div class="point-box3">
-                <div class="taste-title">이런 음식들과 잘 어울려요!</div>
-                <div class="taste-text">
-                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+            <div class="title">핵심포인트</div>
+            <div class="point-wrap">
+                <div class="point-box">
+                    <div class="point-content">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">맛</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.flavor}">유자맛 개꿀</div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+                        <div></div>
+                    </div>
+                    <div class="point-content2">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">향</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.aroma}">유자향 개꿀</div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+                        <div></div>
+                    </div>
+                    <div class="point-content3">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">이런 음식들과 잘 어울려요!</div>
+                                <div class="text">
+                                <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
                                 <span th:text="${pairing.pairing}"></span>
                                 <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
                     </span>
-                </div>
-            </div>
-            <div class="point-box4" th:if="${hasCask}">
-                <div class="taste-title">사용한 캐스크</div>
-                <div class="taste-text">
-                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="point-content4" th:if="${hasCask}">
+                        <div class="point">
+
+                            <div class="left-box">
+                                <div class="title">사용한 캐스크</div>
+                                <div class="text">
+                                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
                         <span th:text="${cask.cask}"></span>
                         <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
                     </span>
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+
+                        </div>
+
+                        <div></div>
+                    </div>
                 </div>
+
             </div>
         </div>
-        <div class="information-section" th:each="product : ${product}">
-            <div class="img-box"> <!--제품설명이미지-->
-                <img alt=""
-                     src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321062780-1.jpg">
-            </div>
-            <div class="text-box">
-                <div class="title">
-                    <h2 th:text="${product.subject}"></h2>
+
+        <div class="info-section" th:each="product : ${product}">
+            <div class="info-box">
+                <div class="info-img">
+                    <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321057571-2.jpg" alt="">
                 </div>
-                <div class="text" th:text="${product.info}"></div><!--제품인포-->
+                <div class="product-title" th:text="${product.subject}">고흥 유자주 8%</div>
+                <div class="product-text" th:text="${product.info}"></div>
             </div>
         </div>
+
         <div class="review-box">
             <div class="title-box">
                 <div class="title">리뷰 남기기</div>
             </div>
-            <div class="review-list" th:each="review : ${reviews}">
+            <div class="review-list" id="review-list" th:each="review : ${reviews}">
                 <a th:id="|review_${review.id}|"></a>
                 <div class="review-info">
                     <div class="left-box">
-                        <div class="nick-name" th:text="${review.author.nickname}">황.인.성</div> <!--유저 닉네임-->
+                        <div class="nick-name" th:text="${review.author.nickname}"></div> <!--유저 닉네임-->
+                        <!--수정버튼-->
+                        <a class="modify-btn"
+                           th:onclick="toggleReviewModifyForm(this)"
+                           th:data-form="|#review_modify_form_${review.id}|"
+                           th:data-content="${review.content}"
+                           sec:authorize="isAuthenticated()"
+                           th:if="${review.author != null and #authentication.getPrincipal().getUsername() == review.author.username}"
+                           th:text="수정"></a>
+                        <!--삭제버튼-->
+                        <a class="delete delete-btn" href="javascript:void(0);"
+                           sec:authorize="isAuthenticated()" th:data-uri="@{|/review/delete/${review.id}|}"
+                           th:if="${review.author != null and #authentication.getPrincipal().getUsername() == review.author.username}"
+                           th:text="삭제"></a>
                     </div>
                     <div class="right-box">
                         <div class="product-name" th:each="product : ${product}" th:text="${product.name}"></div>
@@ -178,12 +232,21 @@
                 <div class="review">
                     <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
                 </div>
+                <form class="review-modify hidden" th:id="|review_modify_form_${review.id}|" method="post" th:object="${reviewForm}" th:action="@{|/review/modify/${review.id}|}">
+                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+                    <div class="mb-3">
+                        <label class="form-label">내용</label>
+                        <textarea class="form-control" rows="3" th:field="*{content}"></textarea>
+                    </div>
+                    <input class="submitbtn" type="submit" value="저장하기">
+                </form>
             </div>
 
             <div class="review-form" th:each="product : ${product}">
                 <form method="post" name="review" th:action="@{|/review/create/${product.id}|}"
                       th:object="${reviewForm}">
-                    <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
                     <textarea cols="30" disabled name="content" rows="15"
                               sec:authorize="isAnonymous()" th:field="*{content}"></textarea>
                     <textarea cols="30" name="content" rows="15" sec:authorize="isAuthenticated()"
@@ -192,46 +255,12 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    <hr>
-
-    <div class="footer-wrap">
-        <div class="footer-main">SPIRITS 주식회사</div>
-        <div>고객센터: 070-5014-1282
-
-        </div>
-        <div>평일 10:00 - 18:00, 주말 휴무</div>
-        <br>
-        <ul class="list">
-            <li><a href="">이용약관</a></li>
-            <li><a href="">개인정보처리방침</a></li>
-            <li><a href="">입점문의</a></li>
-        </ul>
-        <br>
-        <div>대표 : 황인성<br>
-
-            사업자등록번호 : 620-81-58299
-
-            사업자확인
-            통신판매 신고번호: 2021-서울서초-2084
-        </div>
-        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, SPRITS)<br>
-
-            정보보호 책임자 : 송채영<br>
-
-            대표 전화 : 070-5014-1282
-
-            이메일 : info@sooldamhwa.com
-        </div>
-    </div>
-
-
-    <div class="btn">
-        <i class="fa-solid fa-angles-up"></i>
     </div>
 
 </div>
+
+
 
 <script layout:fragment="script" type='text/javascript'>
 $(document).ready(function(){
@@ -255,23 +284,21 @@ $(".share-button").click(function() {
       alert("URL을 복사하는 동안 오류가 발생했습니다.");
     });
 });
-
-
-$(document).ready(function() {
-
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
 });
 
-$(document).ready(function() {
-
-});
-})
 const zzim_elements = document.getElementsByClassName("zzim");
 Array.from(zzim_elements).forEach(function(element) {
 $(".wish").click(function() {
     $(this).find("i").toggleClass("fa-regular fa-solid");
   });
     element.addEventListener('click', function() {
-
             location.href = this.dataset.uri;
     });
 });
@@ -281,69 +308,23 @@ $(".like").click(function() {
     $(this).find("i").toggleClass("fa-regular fa-solid");
   });
     element.addEventListener('click', function() {
-
             location.href = this.dataset.uri;
     });
 });
 
-<!--// 좋아요 상태 체크-->
-<!--$.ajax({-->
-<!--  url: "/product/check-like-status/" + productId,-->
-<!--  method: "GET",-->
-<!--  success: function(response) {-->
-<!--    if (response === true) {-->
-<!--      // 이미 좋아요를 누른 상태인 경우-->
-<!--      console.log("사용자가 이미 좋아요를 누른 상태입니다.");-->
-<!--      // 좋아요 버튼을 활성화하는 등의 작업을 수행할 수 있습니다.-->
-<!--      $(".recommend i").removeClass("fa-regular").addClass("fa-solid");-->
-<!--    } else {-->
-<!--      // 좋아요를 아직 누르지 않은 상태인 경우-->
-<!--      console.log("사용자가 좋아요를 누르지 않은 상태입니다.");-->
-<!--    }-->
-<!--  },-->
-<!--  error: function() {-->
-<!--    console.log("좋아요 상태를 확인하는 동안 오류가 발생했습니다.");-->
-<!--  }-->
-<!--});-->
 
-<!--// 좋아요 버튼 클릭-->
-<!--$(".recommend").click(function() {-->
-<!--  var productId = $(this).data("productId");-->
-<!--  var likeStatus = $(this).data("likeStatus");-->
+})
 
-<!--  if (likeStatus === true) {-->
-<!--    // 이미 좋아요를 누른 상태인 경우-->
-<!--    // 좋아요 취소 요청-->
-<!--    $.ajax({-->
-<!--      url: "/product/cancel-vote/" + productId,-->
-<!--      method: "POST",-->
-<!--      success: function() {-->
-<!--        console.log("좋아요를 취소했습니다.");-->
-<!--        // 좋아요 버튼을 업데이트하거나 다른 작업을 수행할 수 있습니다.-->
-<!--        $(".recommend i").removeClass("fa-solid").addClass("fa-regular");-->
-<!--      },-->
-<!--      error: function() {-->
-<!--        console.log("좋아요를 취소하는 동안 오류가 발생했습니다.");-->
-<!--      }-->
-<!--    });-->
-<!--  } else {-->
-<!--    // 좋아요를 아직 누르지 않은 상태인 경우-->
-<!--    // 좋아요 요청-->
-<!--    $.ajax({-->
-<!--      url: "/product/vote/" + productId,-->
-<!--      method: "POST",-->
-<!--      success: function() {-->
-<!--        console.log("좋아요를 눌렀습니다.");-->
-<!--        // 좋아요 버튼을 업데이트하거나 다른 작업을 수행할 수 있습니다.-->
-<!--        $(".recommend i").removeClass("fa-regular").addClass("fa-solid");-->
-<!--      },-->
-<!--      error: function() {-->
-<!--        console.log("좋아요를 누르는 동안 오류가 발생했습니다.");-->
-<!--      }-->
-<!--    });-->
-<!--  }-->
-<!--});-->
-
+function toggleReviewModifyForm(_this) {
+<!--    alert(_this.dataset.form);-->
+<!--    alert(_this.dataset.content);-->
+    if(confirm("리뷰를 수정하시겠어요?")) {
+    $(_this.dataset.form + " textarea").val(_this.dataset.content);
+    $(_this.dataset.form).toggleClass("active");
+        };
+<!--  var reviewModifyForm = a.parentElement.parentElement.nextElementSibling;-->
+<!--  reviewModifyForm.classList.toggle('active');-->
+}
 </script>
 </body>
 </html>

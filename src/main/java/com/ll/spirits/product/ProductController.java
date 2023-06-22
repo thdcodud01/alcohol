@@ -188,7 +188,7 @@ public class ProductController {
             this.productService.countingViews(product);
             request.getSession().setAttribute("viewedProductId", String.valueOf(product.getId()));
         }
-        return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
+        return "product_detail2"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
 
 
