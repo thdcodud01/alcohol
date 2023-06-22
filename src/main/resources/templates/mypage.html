@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MyPage</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/my_page_style.css}">
-<!--        <link rel="script" type="text/js" th:href="@{/my_page_script.js}">--><!--  js는 안쓸거같아요!  -->
+    <link rel="stylesheet" type="text/css" th:href="@{/mypage_style.css}">
+    <!--        <link rel="script" type="text/js" th:href="@{/my_page_script.js}">--><!--  js는 안쓸거같아요!  -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="birth-box">
                         <div class="subtitle">생년월일 :</div>
-                        <div class="birth" th:text="${userBrithDate}"></div>
+                        <div class="birth" th:text="${userBirthDate}"></div>
                     </div>
 
                 </div>
@@ -81,14 +81,11 @@
                         <div class="create-date">등록일</div>
 
                     </div>
-                    <div class="review-content">
-                        <div class="number">1</div>
-                        <div class="content">
-                            생각한거 보다 맛있네요!
-                        </div>
-                        <div class="product-name">
-                            고흥유자주 8%</div>
-                        <div class="date">2023-06-20</div>
+                    <div class="review-content" th:each="review : ${reviewList}">
+                        <div class="number" th:text="${review.id}"></div>
+                        <div class="content" th:text="${review.content}"></div>
+                        <div class="product-name" th:text="${review.product.name}"></div>
+                        <div class="date" th:text="${review.createDate}"></div>
                     </div>
                 </div>
             </div>
@@ -116,17 +113,18 @@
                 <div class="user-change-wrap">
                     <div class="title">개인정보 변경</div>
                     <hr>
-                    <form action="">
+                    <form action="/user/changePassword" method="post">
                         <div class="password">기존 비밀번호</div>
-                        <input type="text" placeholder="비밀번호를 입력해주세요.">
+                        <input type="password" name="oldPassword" placeholder="비밀번호를 입력해주세요.">
                         <div class="ps-title">비밀번호 변경</div>
-                        <input type="text" placeholder=" 새 비밀번호를 입력해주세요.">
+                        <input type="password" name="newPassword" placeholder="새 비밀번호를 입력해주세요.">
                         <div class="ps-check-title">비밀번호 변경 확인</div>
-                        <input type="text" placeholder=" 새 비밀번호를 입력해주세요.">
+                        <input type="password" name="confirmPassword" placeholder="새 비밀번호를 다시 입력해주세요.">
                         <button type="submit">변경하기</button>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

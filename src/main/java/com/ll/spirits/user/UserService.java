@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +28,17 @@ public class UserService {
         user.setNickname(nickname);
         user.setBirthDate(birthDate);
         user.setRole(role);
+        this.userRepository.save(user);
+        return user;
+    }
+    public SiteUser modifyPassword(String password) {
+        SiteUser user = new SiteUser();
+        user.setPassword(passwordEncoder.encode(password));
+        this.userRepository.save(user);
+        return user;
+    }
+    public SiteUser confirmPassword(String password) {
+        SiteUser user = new SiteUser();
         this.userRepository.save(user);
         return user;
     }
@@ -68,6 +78,12 @@ public class UserService {
         return existingUser.isPresent();
     }
 
+    public CurrentUser updateUser(String newUsername, String newPassword) {
+        CurrentUser currentUser = new CurrentUser();
+        currentUser.setUsername(newUsername);
+        currentUser.setPassword(newPassword);
+        return currentUser;
+    }
 
     public void deleteUser(SiteUser user) {
         this.userRepository.delete(user);
