@@ -190,7 +190,6 @@ public class ProductController {
     public String productWish(Principal principal, @PathVariable("id") Integer id) {
         Product product = this.productService.getProduct(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.wish(product, siteUser);
         boolean hasWished = product.getWish().contains(siteUser);
         if (hasWished) {
             this.productService.cancelWish(product, siteUser); // 찜 취소 기능
@@ -205,7 +204,6 @@ public class ProductController {
     public String productVote(Principal principal, @PathVariable("id") Integer id) {
         Product product = this.productService.getProduct(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.vote(product, siteUser);
         boolean hasVoted = product.getVoter().contains(siteUser);
         if (hasVoted) {
             this.productService.cancelVote(product, siteUser); // 추천 취소 기능
