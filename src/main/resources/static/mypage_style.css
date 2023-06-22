@@ -179,8 +179,7 @@ ul,li{
 }
 
 
-.right-box>.wish-box>.product>.product-box>.img-box>img{
-
+.right-box>.wish-box>.product>.product-box>.a-link>.img-box>img{
   height: 300px;
 }
 
@@ -233,20 +232,20 @@ ul,li{
   text-align:center;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.number{
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.number{
   width: 0%;
 }
 
 
-.right-box>.review-box>.review-wrap>.review-content>.content{
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.content{
   width: 40%;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.product-name{
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.product-name{
   width:20%;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.date{
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.date{
   widht:40%;
 }
 

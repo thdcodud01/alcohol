@@ -2,14 +2,17 @@
 <html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>MyPage</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/mypage_style.css}">
+    <link rel="stylesheet" th:href="@{/mypage_style.css}" type="text/css">
     <!--        <link rel="script" type="text/js" th:href="@{/my_page_script.js}">--><!--  js는 안쓸거같아요!  -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
 </head>
 <body>
 <!-- 문서시작 -->
@@ -18,7 +21,7 @@
     <nav>
         <div class="left-box">
             <div class="logo-box">
-                <a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a>
+                <a th:href="@{|/main|}"><img alt="" src="https://ifh.cc/g/BRzb5o.png"></a>
             </div>
         </div>
 
@@ -61,18 +64,22 @@
                 <div class="title">나만의 찜</div>
                 <hr>
                 <div class="product">
-                    <div class="product-box" th:each="product : ${productList}">
-                        <div class="img-box">
-                            <img src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/rC0W-1659321041025-0.jpg" alt="">
-                        </div>
-                        <div class="text-box" th:text="${product.name}"></div>
+                    <div class="product-box" th:each="product : ${wishProducts}">
+                        <a class="a-link" th:href="@{|/product/detail/${product.id}|}">
+                            <div class="img-box">
+                                <img alt=""
+                                     src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/rC0W-1659321041025-0.jpg">
+                            </div>
+                            <div class="text-box" th:text="${product.name}"></div>
+                            <div class="text-box" th:text="${product.cost}"></div>
+                        </a>
                     </div>
                 </div>
 
             </div>
             <div class="review-box">
                 <div class="review-wrap">
-                    <div class="title">내가 쓴 댓글</div>
+                    <div class="title">내가 쓴 리뷰</div>
                     <hr>
                     <div class="review-info">
                         <div class="num">번호</div>
@@ -81,10 +88,13 @@
                         <div class="create-date">등록일</div>
                     </div>
                     <div class="review-content" th:each="review : ${reviewList}">
-                        <div class="number" th:text="${review.id}"></div>
-                        <div class="content" th:text="${review.content}"></div>
-                        <div class="product-name" th:text="${review.product.name}"></div>
-                        <div class="date" th:text="${review.createDate}"></div>
+                        <a class="a-lin" th:href="@{|/product/detail/${}|}">
+                            <div class="number" th:text="${review.id}"></div>
+                            <div class="content" th:text="${review.content}"></div>
+                            <div class="product-name" th:text="${review.product.name}"></div>
+                            <div class="date"
+                                 th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -98,9 +108,9 @@
                         <div class="like-product">좋아요 누른 상품</div>
                         <div class="cost">가격</div>
                     </div>
-                    <div class="like-content" th:each="product : ${productList}">
-                        <div class="product-name" th:text="${product.name}">고흥유자주8%</div>
-                        <div class="cost" th:text="${product.cost}">1</div>
+                    <div class="like-content" th:each="product : ${voterProducts}">
+                        <div class="product-name" th:text="${product.name}"></div>
+                        <div class="cost" th:text="${product.cost}"></div>
                     </div>
                 </div>
             </div>
@@ -110,11 +120,11 @@
                     <hr>
                     <form action="/user/changePassword" method="post">
                         <div class="password">기존 비밀번호</div>
-                        <input type="password" name="oldPassword" placeholder="비밀번호를 입력해주세요.">
+                        <input name="oldPassword" placeholder="비밀번호를 입력해주세요." type="password">
                         <div class="ps-title">비밀번호 변경</div>
-                        <input type="password" name="newPassword" placeholder="새 비밀번호를 입력해주세요.">
+                        <input name="newPassword" placeholder="새 비밀번호를 입력해주세요." type="password">
                         <div class="ps-check-title">비밀번호 변경 확인</div>
-                        <input type="password" name="confirmPassword" placeholder="새 비밀번호를 다시 입력해주세요.">
+                        <input name="confirmPassword" placeholder="새 비밀번호를 다시 입력해주세요." type="password">
                         <button type="submit">변경하기</button>
                     </form>
                 </div>
@@ -168,6 +178,9 @@ $(".user-information-modify").click(function () {
   $(".user-like").removeClass("active").css('display','none');
   $(".user-modify").addClass("active").css('display','block');
 });
+
+
+
 
 
 </script>

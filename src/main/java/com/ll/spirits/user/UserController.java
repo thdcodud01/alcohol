@@ -120,19 +120,18 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String myPage(Model model, Principal principal, Integer id) {
-        if (principal != null) {
-            String username = principal.getName();
-            SiteUser user = userService.getUser(username);
-            List<Review> reviewList = reviewService.getReviewsByAuthor(user);
-            //Product product = this.productService.getProduct(id);
-            model.addAttribute("userName", user.getUsername());
-            model.addAttribute("userNickName", user.getNickname());
-            model.addAttribute("userBirthDate", user.getBirthDate());
-            model.addAttribute("reviewList", reviewList);
-            //model.addAttribute("voter", product.);
-            System.out.println(reviewList.toString());
-        }
+        SiteUser user = userService.getUser(principal.getName());
+        List<Review> reviewList = reviewService.getReviewsByAuthor(user);
+        List<Product> voterProducts = productService.getProductsByVoter(user);
+        List<Product> wishProducts = productService.getProductsByWish(user);
+        model.addAttribute("voterProducts", voterProducts);
+        model.addAttribute("wishProducts", wishProducts);
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("userNickName", user.getNickname());
+        model.addAttribute("userBirthDate", user.getBirthDate());
+        model.addAttribute("reviewList", reviewList);
 
+        System.out.println(reviewList.toString());
         return "mypage";
     }
 

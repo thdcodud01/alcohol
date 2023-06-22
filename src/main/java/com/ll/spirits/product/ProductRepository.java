@@ -3,6 +3,7 @@ package com.ll.spirits.product;
 import com.ll.spirits.product.productEntity.cask.Cask;
 import com.ll.spirits.product.productEntity.pairing.Pairing;
 import com.ll.spirits.review.Review;
+import com.ll.spirits.user.SiteUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId);
 
     List<Product> getProductsByMainCategoryAndSubCategory(String mainCategory, String subCategory);
+
+    List<Product> findByVoter(SiteUser voter);
+    List<Product> findByWish(SiteUser wish);
 
     //    @Query("SELECT p FROM Product p " +
 //            "WHERE (:subCategoryId IS NULL OR p.subCategory.id = :subCategoryId) " +
