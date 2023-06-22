@@ -78,7 +78,7 @@ public class UserController {
         return isDuplicate;
     }
 
-//    @PreAuthorize("isAuthenticated()")
+    //    @PreAuthorize("isAuthenticated()")
 //    @PostMapping("/modify/password")
 //    public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
 //        if (bindingResult.hasErrors()) {
