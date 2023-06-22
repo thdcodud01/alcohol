@@ -80,11 +80,15 @@ public class ProductController {
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
 
         List<Product> productList = productService.getListSearch(kw);
+        List<Review> reviewList = productService.getListReviewSearch(kw);
+        List<SiteUser> siteUserList = productService.getListSiteUserSearch(kw);
 
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
         model.addAttribute("productList", productList);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("siteUserList", siteUserList);
         model.addAttribute("abVrangeList", abVrangeList);
         model.addAttribute("netWeightList", netWeightList);
         model.addAttribute("subCategoryId", subCategoryId);

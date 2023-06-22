@@ -58,6 +58,12 @@ public class ProductService {
     public List<Product> getListSearch(String kw) {
         return this.productRepository.findAllByKeyword(kw);
     }
+    public List<Review> getListReviewSearch(String kw) {
+        return this.productRepository.findAllByKeywordInReview(kw);
+    }
+    public List<SiteUser> getListSiteUserSearch(String kw) {
+        return this.productRepository.findAllByKeywordInSiteUser(kw);
+    }
 
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);

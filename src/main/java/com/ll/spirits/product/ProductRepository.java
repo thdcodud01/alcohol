@@ -68,6 +68,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "OR c.cask LIKE %:kw% " +
             "OR pa.pairing LIKE %:kw% ")
     List<Product> findAllByKeyword(@Param("kw") String kw);
+    @Query("SELECT r FROM Review r JOIN FETCH r.author WHERE r.content LIKE %:kw% OR r.author.username LIKE %:kw%")
+    List<Review> findAllByKeywordInReview(@Param("kw") String kw);
+
+    @Query("SELECT u FROM SiteUser u WHERE u.username LIKE %:kw% OR u.nickname LIKE %:kw%")
+    List<SiteUser> findAllByKeywordInSiteUser(@Param("kw") String kw);
+
+
+
 
     // 통합 검색을 위한 메서드
 
