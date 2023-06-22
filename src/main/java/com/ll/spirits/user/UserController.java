@@ -118,19 +118,22 @@ public class UserController {
         return "login_form";
     }
 
-//    @GetMapping("/mypage")
-//    public String myPage(Model model, Principal principal) {
-//            String user = userService.getUser(principal.getName());
-//            List<Review> reviewList = reviewService.getReviewsByAuthor(user);
-//            model.addAttribute("userName", user.getUsername());
-//            model.addAttribute("userNickName", user.getNickname());
-//            model.addAttribute("userBirthDate", user.getBirthDate());
-//            model.addAttribute("reviewList", reviewList);
-//            //model.addAttribute("voter", product.);
-//            System.out.println(reviewList.toString());
-//
-//        return "mypage";
-//    }
+    @GetMapping("/mypage")
+    public String myPage(Model model, Principal principal, Integer id) {
+        SiteUser user = userService.getUser(principal.getName());
+        List<Review> reviewList = reviewService.getReviewsByAuthor(user);
+        List<Product> voterProducts = productService.getProductsByVoter(user);
+        List<Product> wishProducts = productService.getProductsByWish(user);
+        model.addAttribute("voterProducts", voterProducts);
+        model.addAttribute("wishProducts", wishProducts);
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("userNickName", user.getNickname());
+        model.addAttribute("userBirthDate", user.getBirthDate());
+        model.addAttribute("reviewList", reviewList);
+
+        System.out.println(reviewList.toString());
+        return "mypage";
+    }
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpSession session, Model model) {
