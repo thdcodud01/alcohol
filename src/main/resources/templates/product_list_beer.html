@@ -31,6 +31,13 @@
                 <select id="SubCategory" onchange="filterBySubcategory()">
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
+                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+               ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
+               ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
+               ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
+               ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
+               ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
+               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
                             th:value="${subCategory.id}" th:text="${subCategory.subCategory}"></option>
                 </select>
             </div>
@@ -198,7 +205,6 @@ function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, par
   $.ajax({
     url: url,
     type: "GET",
-    dataType: "JSON",
     success: function (filteredProducts) {
       var goodsList = $(".goods-list");
       goodsList.empty(); // 기존 상품 목록을 비움.
@@ -225,8 +231,8 @@ function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, par
         $("#goods").replaceWith(result);
   })
   ;
-}
 
+}
 
 </script>
 </body>

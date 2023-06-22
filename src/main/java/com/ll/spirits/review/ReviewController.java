@@ -26,7 +26,11 @@ public class ReviewController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String createReview(Model model, @PathVariable("id") Integer id, @Valid ReviewForm reviewForm, BindingResult bindingResult, Principal principal) {
+    public String createReview(@PathVariable("id") Integer id,
+                               @Valid ReviewForm reviewForm,
+                               BindingResult bindingResult,
+                               Principal principal,
+                               Model model) {
         Product product = this.productService.getProduct(id);
         // TODO: 리뷰를 저장한다.
         SiteUser siteUser = this.userService.getUser(principal.getName());
@@ -41,13 +45,21 @@ public class ReviewController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String reviewModify(ReviewForm reviewForm, @PathVariable("id") Long id, Principal principal) {
+    public String reviewModify(@PathVariable("id") Long id,
+                               ReviewForm reviewForm,
+                               Principal principal,
+                               Model model) {
         Review review = this.reviewService.getReview(id);
-        if (!review.getAuthor().getUsername().equals(principal.getName())) { // getName Username의 데이터값을 가져옴. getName은 내장함수.
+        if (!review.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         reviewForm.setContent(review.getContent());
-        return "review_form";
+
+        // 리뷰 목록과 리뷰 폼을 다시 전달
+        model.addAttribute("reviews", reviewService.getList()); // 리뷰 목록 데이터
+        model.addAttribute("reviewForm", new ReviewForm()); // 리뷰 폼 초기화
+
+        return String.format("redirect:/product/detail/%s#review_%s", review.getProduct().getId(), review.getId());
     }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
@@ -61,20 +73,29 @@ public class ReviewController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.reviewService.modify(review, reviewForm.getContent());
-        return String.format("redirect:/product/detail/%s#review_%s",
-                review.getProduct().getId(), review.getId());
+        return String.format("redirect:/product/detail/%s#review_%s", review.getProduct().getId(), review.getId());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String reviewDelete(Principal principal, @PathVariable("id") Long id) {
+        Review review = this.reviewService.getReview(id);
+        if (!review.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.reviewService.delete(review);
+        return String.format("redirect:/product/detail/%s", review.getProduct().getId());
     }
 
 
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
-    public String reviewVote(Principal principal, @PathVariable("id") Long id) {
+    public String reviewVote(@PathVariable("id") Long id,
+                             Principal principal) {
         Review review = this.reviewService.getReview(id);
         SiteUser siteUser = this.userService.getUser(principal.getName());
         this.reviewService.vote(review, siteUser);
-        return String.format("redirect:/question/detail/%s#answer_%s",
-                review.getProduct().getId(), review.getId());
+        return String.format("redirect:/question/detail/%s#answer_%s", review.getProduct().getId(), review.getId());
     }
-
 }

@@ -155,6 +155,7 @@ public class ProductService {
         product.setAroma(productForm.getAroma());
         product.setFlavor(productForm.getFlavor());
         product.setInfo(productForm.getInfo());
+        product.setSubject(productForm.getSubject());
         product.setCost(productForm.getCost());
         product.setMainCategory(mainCategory);
         product.setSubCategory(subCategory);
@@ -259,6 +260,7 @@ public class ProductService {
         product.setAroma(productForm.getAroma());
         product.setFlavor(productForm.getFlavor());
         product.setInfo(productForm.getInfo());
+        product.setSubject(productForm.getSubject());
         product.setCost(productForm.getCost());
         product.setMainCategory(mainCategory);
         product.setSubCategory(subCategory);
@@ -367,6 +369,14 @@ public class ProductService {
 
         return productRepository.findBySubCategory_IdOrCostRange_IdOrAbvRange_IdOrNetWeight_IdOrPairings_IdOrCasks_IdOrNation_Id(
                 subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId);
+    }
+
+    public Product countingViews(Product product) {
+        // Logic to save the product, such as calling a repository or performing other operations
+        // For example:
+        Product savedProduct = productRepository.save(product);
+        // Additional logic or operations if needed
+        return savedProduct;
     }
 
 }
