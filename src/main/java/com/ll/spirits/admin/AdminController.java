@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -98,8 +99,7 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/product/create")
-    public String getProductCreateForm(@ModelAttribute("productForm") ProductForm productForm, Model model,
-                                       Integer mainCategoryId, Integer subCategoryId) {
+    public String getProductCreateForm(@ModelAttribute("productForm") ProductForm productForm, Model model) {
         List<Cask> caskList = caskService.getAllCask();
         List<Nation> nationList = nationService.getAllNation();
         List<Pairing> pairingList = pairingService.getAllPairing();
@@ -109,21 +109,14 @@ public class AdminController {
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
         List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
 
-        List<Product> productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-        List<SubCategory> filteredSubCategoryList = subCategoryService.getSubCategoriesByMainCategoryId(mainCategoryId);
-
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
         model.addAttribute("abVrangeList", abVrangeList);
         model.addAttribute("costRangeList", costRangeList);
         model.addAttribute("netWeightList", netWeightList);
-        model.addAttribute("subCategoryId", subCategoryId);
-        model.addAttribute("mainCategoryId", mainCategoryId);
         model.addAttribute("mainCategoryList", mainCategoryList);
         model.addAttribute("subCategoryList", subCategoryList);
-        model.addAttribute("productList", productList);
-        model.addAttribute("filteredSubCategoryList", filteredSubCategoryList);
 
         return "product_form";
     }

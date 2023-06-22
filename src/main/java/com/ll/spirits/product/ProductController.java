@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.model.IModel;
 
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -141,6 +142,13 @@ public class ProductController {
     public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal, HttpServletRequest request) {
         Product product = this.productService.getProduct(id);
 
+        // product.cost 값을 변수로 할당
+        long cost = product.getCost();
+
+        // 천 단위 구분 기호가 있는 형식으로 변환
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        String formattedCost = decimalFormat.format(cost);
+
         List<Cask> casks = product.getCasks(); // Product 엔티티에서 casks 필드를 가져옴
         List<Pairing> pairings = product.getPairings(); // Product 엔티티에서 pairings 필드를 가져옴
 
@@ -162,6 +170,7 @@ public class ProductController {
         model.addAttribute("pairings", pairings);
         model.addAttribute("caskIds", caskIds);
         model.addAttribute("hasCask", hasCask); // 캐스크값의 존재 여부를 모델에 추가
+        model.addAttribute("formattedCost", formattedCost); // 변환된 가격을 모델에 추가
 
         // 조회수 증가 처리(새로고침시 조회수 증가 X)
         String viewedProductId = (String) request.getSession().getAttribute("viewedProductId");
@@ -173,6 +182,7 @@ public class ProductController {
         }
         return "product_detail"; // 템플릿 이름 또는 뷰의 경로를 반환
     }
+
 
 
     @PreAuthorize("isAuthenticated()")
