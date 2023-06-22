@@ -34,8 +34,10 @@
                 <div class="sign-up" sec:authorize="isAnonymous()"><a th:href="@{|/user/signup|}">회원가입</a></div>
             </div>
             <div class="search-box">
-                <input type="text" id="search_kw" th:value="${kw}" placeholder="검색어를 입력해주세요.">
-                <a href=""><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"></a>
+                <form id="search-form" th:action="@{|/product/list/${mainCategory}|}" method="get">
+                    <input type="text" id="search_kw" name="kw" th:value="${kw}" placeholder="검색어를 입력해주세요.">
+                    <button type="submit"><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"></button>
+                </form>
             </div>
         </div>
     </nav>
@@ -51,5 +53,25 @@
         </ul>
     </div>
 </div>
+<script>
+    const searchInput = document.getElementById('search_kw');
+    const searchForm = document.getElementById('search-form');
+
+    // 입력 필드에 포커스가 있는 경우 스타일을 변경합니다.
+    searchInput.addEventListener('focus', function () {
+        searchInput.style.boxShadow = '0 0 5px #ccc';
+    });
+
+    // 입력 필드에 포커스가 없는 경우 스타일을 초기화합니다.
+    searchInput.addEventListener('blur', function () {
+        searchInput.style.boxShadow = 'none';
+    });
+
+    // 제출 버튼을 클릭할 때 폼을 제출합니다.
+    searchForm.addEventListener('submit', function () {
+        searchForm.submit();
+    });
+
+</script>
 </body>
 </html>

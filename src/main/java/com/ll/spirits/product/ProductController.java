@@ -79,15 +79,8 @@ public class ProductController {
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
 
-        List<Product> productList;
-        // 서브카테고리가 null이거나 0인 경우
-        if (subCategoryId == null) {
-            // 서브카테고리가 지정되지 않은 경우, 대분류에 해당하는 모든 제품을 가져옴
-            productList = productService.getProductsByMainCategoryId(mainCategoryId);
-        } else {
-            // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
-            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-        }
+        List<Product> productList = productService.getListSearch(kw);
+
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
@@ -102,26 +95,8 @@ public class ProductController {
 
         return "product_list";
     }
-    @GetMapping("/search")
-    public String searchProducts(Model model,
-                                 @RequestParam(required = false) Integer mainCategoryId,
-                                 @RequestParam(required = false) Integer subCategoryId,
-                                 @RequestParam(required = false) Integer caskId,
-                                 @RequestParam(required = false) Integer nationId,
-                                 @RequestParam(required = false) Integer pairingId,
-                                 @RequestParam(required = false) Integer abvRangeId,
-                                 @RequestParam(required = false) Integer costRangeId,
-                                 @RequestParam(required = false) Integer netWeightId,
-                                 @RequestParam(required = false) String kw) {
 
-        List<Product> searchResults = productService.searchProducts(mainCategoryId, subCategoryId, caskId,
-                nationId, pairingId, abvRangeId, costRangeId, netWeightId, kw);
-        model.addAttribute("kw", kw);
-        model.addAttribute("results", searchResults);
-        return "product_list_beer"; // 검색 결과를 표시할 뷰의 이름
-    }
-
-    @GetMapping("/list/beerCategory")
+    @GetMapping("/list/category")
     @ResponseBody
     public List<Product> getBeerProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
                                             @RequestParam(value = "costRange", required = false) Integer costRangeId,
