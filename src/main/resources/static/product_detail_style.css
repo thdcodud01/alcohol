@@ -1,3 +1,5 @@
+product_detail_style2.css
+
 /* 노멀라이징 */
 
 
@@ -69,6 +71,7 @@ ul,li{
 
 .wrap>.product-box>.right-box>.cost-box>.num{
   font-size: 40px;
+  display : inline-block;
 }
 
 .wrap>.product-box>.right-box>.logo-box{
@@ -103,6 +106,7 @@ ul,li{
 
 .wrap>.point-section>.point-wrap>.point-box{
   text-align:center;
+  padding-bottom : 40px;
 }
 
 
@@ -251,6 +255,11 @@ ul,li{
 
 .wrap>.point-section>.point-wrap>.point-box>.point-content4>.point>.right-box>i{
   margin-right: 40px;
+}
+.wrap>.point-section>.point-wrap>.point-box>.point-content4>.point>.right-box>img{
+  margin-right: 27px;
+  width : 60px;
+  height : 60px;
 }
 
 

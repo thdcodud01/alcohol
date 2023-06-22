@@ -47,7 +47,6 @@ public class ProductForm {
 
     @NotNull(message = "대분류는 필수 입력항목입니다.")
     private Integer mainCategoryId; // 대분류 ID
-
     @NotNull(message = "중분류는 필수 입력항목입니다.")
     private Integer subCategoryId; // 중분류 ID
     @NotNull(message = "가격 범위는 필수 입력항목입니다.")

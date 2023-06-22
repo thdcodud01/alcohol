@@ -23,6 +23,7 @@
           integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
 </head>
 <body>
 <div layout:fragment="content">
@@ -41,7 +42,7 @@
                         <div class="title">
                             주종 :
                             <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
-                        </div>위스키
+                        </div>
                     </div>
                     <div class="info">
                         <div class="title">도수 :
@@ -74,7 +75,8 @@
                     <div class="title">
                         <h2>판매가격</h2>
                     </div>
-                    <div class="num">2000만원</div>
+                    <div class="num" th:each="product : ${product}" th:text="${formattedCost}"></div>
+                    <span class="num">￦</span> <!--가격-->
                 </div>
                 <div class="logo-box">
                     <div class="wish">
@@ -108,96 +110,80 @@
                 </div>
             </div>
         </div>
-
         <div class="point-section">
             <div class="title">핵심포인트</div>
             <div class="point-wrap">
                 <div class="point-box">
                     <div class="point-content">
                         <div class="point">
-
                             <div class="left-box">
                                 <div class="title">맛</div>
-                                <div class="text" th:each="product : ${product}" th:text="${product.flavor}">유자맛 개꿀</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.flavor}"></div>
                             </div>
                             <div class="right-box">
                                 <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
                             </div>
-
                         </div>
-
-                        <div></div>
                     </div>
                     <div class="point-content2">
                         <div class="point">
-
                             <div class="left-box">
                                 <div class="title">향</div>
-                                <div class="text" th:each="product : ${product}" th:text="${product.aroma}">유자향 개꿀</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.aroma}"></div>
                             </div>
                             <div class="right-box">
                                 <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
                             </div>
-
                         </div>
-
-                        <div></div>
                     </div>
                     <div class="point-content3">
                         <div class="point">
-
                             <div class="left-box">
                                 <div class="title">이런 음식들과 잘 어울려요!</div>
                                 <div class="text">
-                                <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
-                                <span th:text="${pairing.pairing}"></span>
-                                <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
-                    </span>
+                                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+                                        <span th:text="${pairing.pairing}"></span>
+                                        <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="right-box">
                                 <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
                             </div>
-
                         </div>
-
-
                     </div>
                     <div class="point-content4" th:if="${hasCask}">
                         <div class="point">
-
                             <div class="left-box">
                                 <div class="title">사용한 캐스크</div>
                                 <div class="text">
                                     <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
-                        <span th:text="${cask.cask}"></span>
-                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
-                    </span>
+                                        <span th:text="${cask.cask}"></span>
+                                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                                    </span>
                                 </div>
                             </div>
                             <div class="right-box">
-                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                                <img alt=""
+                                     src="https://previews.123rf.com/images/alekseyvanin/alekseyvanin1705/alekseyvanin170500535/77418446-%EB%82%98%EB%AC%B4-%ED%86%B5-%EB%B0%B0%EB%9F%B4%EB%8B%B9-%EC%95%84%EC%9D%B4%EC%BD%98-%EB%B2%A1%ED%84%B0-%EC%B1%84%EC%9B%8C%EC%A7%84-%ED%8F%89%EB%A9%B4-%EA%B8%B0%ED%98%B8-%EB%8B%A8%EC%83%89-%EA%B7%B8%EB%A6%BC-%ED%9D%B0%EC%83%89%EC%9C%BC%EB%A1%9C-%EA%B2%A9%EB%A6%AC-%EA%B8%B0%ED%98%B8-%EB%A1%9C%EA%B3%A0-%EA%B7%B8%EB%A6%BC%EC%9E%85%EB%8B%88%EB%8B%A4-%EC%99%84%EB%B2%BD%ED%95%9C.jpg">
+                                <!--                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>-->
                             </div>
-
                         </div>
-
-                        <div></div>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div class="info-section" th:each="product : ${product}">
-            <div class="info-box">
+            <div class="info-box"> <!--제품설명이미지-->
                 <div class="info-img">
-                    <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321057571-2.jpg" alt="">
+                    <img alt=""
+                         src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321057571-2.jpg">
                 </div>
-                <div class="product-title" th:text="${product.subject}">고흥 유자주 8%</div>
+                <div class="product-title" th:text="${product.subject}"></div>
                 <div class="product-text" th:text="${product.info}"></div>
             </div>
         </div>
-
         <div class="review-box">
             <div class="title-box">
                 <div class="title">리뷰 남기기</div>
@@ -209,11 +195,11 @@
                         <div class="nick-name" th:text="${review.author.nickname}"></div> <!--유저 닉네임-->
                         <!--수정버튼-->
                         <a class="modify-btn"
-                           th:onclick="toggleReviewModifyForm(this)"
-                           th:data-form="|#review_modify_form_${review.id}|"
-                           th:data-content="${review.content}"
                            sec:authorize="isAuthenticated()"
+                           th:data-content="${review.content}"
+                           th:data-form="|#review_modify_form_${review.id}|"
                            th:if="${review.author != null and #authentication.getPrincipal().getUsername() == review.author.username}"
+                           th:onclick="toggleReviewModifyForm(this)"
                            th:text="수정"></a>
                         <!--삭제버튼-->
                         <a class="delete delete-btn" href="javascript:void(0);"
@@ -230,9 +216,14 @@
                 </div>
                 <div class="review">
                     <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
-                    <div class="modify-review-date">2023-06-22 13:00</div>
+                    <div class="modify-review-date"
+                         th:if="${review.modifyDate != null}">
+                        <div class="modified-at">리뷰 수정됨</div>
+                        <div th:text="${#temporals.format(review.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
                 </div>
-                <form class="review-modify hidden" th:id="|review_modify_form_${review.id}|" method="post" th:object="${reviewForm}" th:action="@{|/review/modify/${review.id}|}">
+                <form class="review-modify hidden" method="post" th:action="@{|/review/modify/${review.id}|}"
+                      th:id="|review_modify_form_${review.id}|" th:object="${reviewForm}">
                     <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
                     <div th:replace="~{form_errors :: formErrorsFragment}"></div>
                     <div class="mb-3">
@@ -258,12 +249,8 @@
 
     </div>
 
-    <hr>
-    <div class="btn">
-        <i class="fa-solid fa-angles-up"></i>
-    </div>
-
 </div>
+
 
 <script layout:fragment="script" type='text/javascript'>
 $(document).ready(function(){
@@ -314,8 +301,6 @@ $(".like").click(function() {
             location.href = this.dataset.uri;
     });
 });
-
-
 })
 
 function toggleReviewModifyForm(_this) {
@@ -328,6 +313,12 @@ function toggleReviewModifyForm(_this) {
 <!--  var reviewModifyForm = a.parentElement.parentElement.nextElementSibling;-->
 <!--  reviewModifyForm.classList.toggle('active');-->
 }
+
+
+
+
+
+
 </script>
 </body>
 </html>
