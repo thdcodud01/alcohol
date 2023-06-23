@@ -23,6 +23,10 @@ import com.ll.spirits.user.SiteUser;
 import jakarta.persistence.criteria.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
@@ -46,8 +50,19 @@ public class ProductService {
     private final CaskRepository caskRepository;
     private final PairingRepository pairingRepository;
 
+
+
     public List<Product> getList() {
         return this.productRepository.findAll();
+    }
+    public List<Product> getListSearch(String kw) {
+        return this.productRepository.findAllByKeyword(kw);
+    }
+    public List<Review> getListReviewSearch(String kw) {
+        return this.productRepository.findAllByKeywordInReview(kw);
+    }
+    public List<SiteUser> getListSiteUserSearch(String kw) {
+        return this.productRepository.findAllByKeywordInSiteUser(kw);
     }
 
     public Product getProduct(Integer id) {
@@ -315,75 +330,49 @@ public class ProductService {
         // Additional logic or operations if needed
         return savedProduct;
     }
-
-    private Specification<Product> search(String kw) {
-        return new Specification<>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                query.distinct(true);  // 중복을 제거
-                Join<Product, SiteUser> authorJoin = root.join("author", JoinType.LEFT);
-                Join<Product, Review> reviewJoin = root.join("reviews", JoinType.LEFT);
-                Join<Review, SiteUser> reviewAuthorJoin = reviewJoin.join("author", JoinType.LEFT);
-                return cb.or(
-                        cb.like(root.get("name"), "%" + kw + "%"),                  // 제품 이름
-                        cb.like(root.get("info"), "%" + kw + "%"),                  // 제품 정보
-                        cb.like(authorJoin.get("username"), "%" + kw + "%"),        // 제품 작성자
-                        cb.like(reviewJoin.get("content"), "%" + kw + "%"),         // 리뷰 내용
-                        cb.like(reviewAuthorJoin.get("username"), "%" + kw + "%")   // 리뷰 작성자
-                );
-            }
-        };
-    }
-
-    public List<Product> searchProducts(Integer mainCategoryId, Integer subCategoryId, Integer caskId,
-                                        Integer nationId, Integer pairingId, Integer abvRangeId,
-                                        Integer costRangeId, Integer netWeightId, String kw) {
-        Specification<Product> spec = Specification.where(null);
-
-        if (mainCategoryId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("mainCategory").get("id"), mainCategoryId));
-        }
-
-        if (subCategoryId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("subCategory").get("id"), subCategoryId));
-        }
-
-        if (caskId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("casks").get("id"), caskId));
-        }
-
-        if (nationId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("nation").get("id"), nationId));
-        }
-
-        if (pairingId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("pairings").get("id"), pairingId));
-        }
-
-        if (abvRangeId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("abvRange").get("id"), abvRangeId));
-        }
-
-        if (costRangeId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("costRange").get("id"), costRangeId));
-        }
-
-        if (netWeightId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("netWeight").get("id"), netWeightId));
-        }
-
-        if (kw != null && !kw.isEmpty()) {
-            spec = spec.and(search(kw));
-        }
-
-        return productRepository.findAll();
-    }
     public List<Product> getProductsByVoter(SiteUser voter) {
         return productRepository.findByVoter(voter);
     }
     public List<Product> getProductsByWish(SiteUser wish) {
         return productRepository.findByWish(wish);
     }
+
+    private Specification<Product> search(String kw) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Predicate toPredicate(Root<Product> p, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                Join<Product, SiteUser> u1 = p.join("author", JoinType.LEFT);
+                Join<Product, Review> r = p.join("reviewList", JoinType.LEFT);
+                Join<Review, SiteUser> u2 = r.join("author", JoinType.LEFT);
+                Join<Product, ABVrange> abvRange = p.join("abvRange", JoinType.LEFT);
+                Join<Product, CostRange> costRange = p.join("costRange", JoinType.LEFT);
+                Join<Product, MainCategory> mainCategory = p.join("mainCategory", JoinType.LEFT);
+                Join<Product, Nation> nation = p.join("nation", JoinType.LEFT);
+                Join<Product, NetWeight> netWeight = p.join("netWeight", JoinType.LEFT);
+                Join<Product, SubCategory> subCategory = p.join("subCategory", JoinType.LEFT);
+                Join<Product, Cask> cask = p.join("casks", JoinType.LEFT);
+                Join<Product, Pairing> pairing = p.join("pairings", JoinType.LEFT);
+
+                return cb.or(
+                        cb.like(p.get("name"), "%" + kw + "%"),                          // 제품명
+                        cb.like(p.get("info"), "%" + kw + "%"),                          // 상품 정보
+                        cb.like(u1.get("username"), "%" + kw + "%"),                     // 질문 작성자
+                        cb.like(u2.get("username"), "%" + kw + "%"),                     // 답변 작성자
+                        cb.like(p.get("subject"), "%" + kw + "%"),                        // 제목
+                        cb.like(p.get("content"), "%" + kw + "%"),                        // 내용
+                        cb.like(abvRange.get("abvRange"), "%" + kw + "%"),                // ABV 범위
+                        cb.like(costRange.get("costRange"), "%" + kw + "%"),              // 가격 범위
+                        cb.like(mainCategory.get("mainCategory"), "%" + kw + "%"),        // 메인 카테고리
+                        cb.like(nation.get("nation"), "%" + kw + "%"),                    // 국가
+                        cb.like(netWeight.get("netWeight"), "%" + kw + "%"),              // 순중량
+                        cb.like(subCategory.get("subCategory"), "%" + kw + "%"),          // 서브 카테고리
+                        cb.like(cask.get("cask"), "%" + kw + "%"),                        // Cask
+                        cb.like(pairing.get("pairing"), "%" + kw + "%")                   // Pairing
+                );
+            }
+        };
+    }
+
 }

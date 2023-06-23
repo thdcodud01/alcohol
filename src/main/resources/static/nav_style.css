@@ -107,3 +107,31 @@ ul,li{
   color: #00498c;
   background:left / 100% 100% no-repeat linear-gradient(red, red);
 }
+
+.search-box {
+    position: relative;
+}
+
+#search_kw {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#search-form {
+    display: flex;
+    align-items: center;
+}
+
+#search-form button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#search-form button img {
+    width: 20px;
+    height: 20px;
+}

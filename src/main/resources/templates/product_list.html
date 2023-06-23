@@ -92,6 +92,15 @@
                 <img alt="" src="https://img.daily.co.kr/@files/www.daily.co.kr/content/food/2020/20200416/1700df053197b11cc51905180589e995.jpg">
             </div>
         </div>
+        <!-- 검색 information-box -->
+        <div class="information-box" th:if="${mainCategoryId == null && searchKeyword != null}">
+            <div class="title">
+                <h2>검색 결과</h2>
+            </div>
+            <div class="text">
+                검색어에 대한 결과입니다.
+            </div>
+        </div>
         <!--드롭다운메뉴 시작-->
         <div class="drop-down-box">
             <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
@@ -195,114 +204,145 @@
 </div>
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
+// 검색 필터링
+function filterBySearch() {
+    var searchKeyword = $("#search_kw").val();
+    filterProducts(null, null, null, null, null, null, null, searchKeyword);
+}
+
 // 중분류 선택 시 필터링
 function filterBySubcategory() {
-  var selectedSubCategory = $("#SubCategory").val();
-  filterProducts(selectedSubCategory, null, null, null, null, null, null);
+    var selectedSubCategory = $("#SubCategory").val();
+    filterProducts(selectedSubCategory, null, null, null, null, null, null);
 }
 
 // 가격범위 선택 시 필터링
 function filterByCostrange() {
-  var selectedCostRange = $("#Costrange").val();
-  filterProducts(null, selectedCostRange, null, null, null, null, null);
+    var selectedCostRange = $("#Costrange").val();
+    filterProducts(null, selectedCostRange, null, null, null, null, null);
 }
 
 // 알콜도수범위 선택 시 필터링
 function filterByABVrange() {
-  var selectedABVRange = $("#ABVrange").val();
-  filterProducts(null, null, selectedABVRange, null, null, null, null);
+    var selectedABVRange = $("#ABVrange").val();
+    filterProducts(null, null, selectedABVRange, null, null, null, null);
 }
 
 // 용량 선택 시 필터링
 function filterByNetWeight() {
-  var selectedNetWeight = $("#NetWeight").val();
-  filterProducts(null, null, null, selectedNetWeight, null, null, null);
+    var selectedNetWeight = $("#NetWeight").val();
+    filterProducts(null, null, null, selectedNetWeight, null, null, null);
 }
 
 // 안주 선택 시 필터링
 function filterByParing() {
-  var selectedParing = $("#Paring").val();
-  filterProducts(null, null, null, null, selectedParing, null, null);
+    var selectedParing = $("#Paring").val();
+    filterProducts(null, null, null, null, selectedParing, null, null);
 }
 
 // 오크통 선택 시 필터링
 function filterByCask() {
-  var selectedCask = $("#Cask").val();
-  filterProducts(null, null, null, null, null, selectedCask, null);
+    var selectedCask = $("#Cask").val();
+    filterProducts(null, null, null, null, null, selectedCask, null);
 }
 
 // 국가 선택 시 필터링
 function filterByNation() {
-  var selectedNation = $("#Nation").val();
-  filterProducts(null, null, null, null, null, null, selectedNation);
+    var selectedNation = $("#Nation").val();
+    filterProducts(null, null, null, null, null, null, selectedNation);
 }
 
 // 제품 필터링 함수
-function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId) {
-  var url = "/product/list/beerCategory?";
+function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId, searchKeyword) {
+    var url = "/product/list/category?";
 
-  if (subCategoryId !== null) {
-    url += "subCategory=" + subCategoryId + "&";
-  }
-
-  if (costRangeId !== null) {
-    url += "costRange=" + costRangeId + "&";
-  }
-
-  if (abvRangeId !== null) {
-    url += "abvRange=" + abvRangeId + "&";
-  }
-
-  if (netWeightId !== null) {
-    url += "netWeight=" + netWeightId + "&";
-  }
-
-  if (paringId !== null) {
-    url += "paring=" + paringId + "&";
-  }
-
-  if (caskId !== null) {
-    url += "cask=" + caskId + "&";
-  }
-
-  if (nationId !== null) {
-    url += "nation=" + nationId + "&";
-  }
-
-  url = url.slice(0, -1);
-
-  $.ajax({
-    url: url,
-    type: "GET",
-    success: function (filteredProducts) {
-      var goodsList = $(".goods-list");
-      goodsList.empty(); // 기존 상품 목록을 비움.
- // 필터링된 상품 목록을 순회하며 HTML 요소를 생성하여 추가.
-      filteredProducts.forEach(function (product) {
-        var productElement = $("<div></div>")
-          .addClass("goods-1")
-          .append(
-            $("<a></a>")
-              .attr("href", "/product/detail/" + product.id)
-              .append($("<img>").attr("src", product.image))
-              .append($("<p></p>").addClass("goods-name").text(product.name))
-              .append($("<p></p>").text(product.cost + "원"))
-          );
-        goodsList.append(productElement);
-      });
-    },
-    error: function (error) {
-      console.log(error);
+    if (subCategoryId !== null) {
+        url += "subCategory=" + subCategoryId + "&";
     }
-  })
-  .done(function (result) {
-        console.log(result);
-        $("#goods").replaceWith(result);
-  })
-  ;
 
+    if (costRangeId !== null) {
+        url += "costRange=" + costRangeId + "&";
+    }
+
+    if (abvRangeId !== null) {
+        url += "abvRange=" + abvRangeId + "&";
+    }
+
+    if (netWeightId !== null) {
+        url += "netWeight=" + netWeightId + "&";
+    }
+
+    if (paringId !== null) {
+        url += "paring=" + paringId + "&";
+    }
+
+    if (caskId !== null) {
+        url += "cask=" + caskId + "&";
+    }
+
+    if (nationId !== null) {
+        url += "nation=" + nationId + "&";
+    }
+
+    if (searchKeyword !== null) {
+        url += "searchKeyword=" + searchKeyword + "&";
+    }
+
+    url = url.slice(0, -1);
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (filteredProducts) {
+            var goodsList = $(".goods-list");
+            goodsList.empty(); // 기존 상품 목록을 비움.
+
+            // 필터링된 상품 목록을 순회하며 HTML 요소를 생성하여 추가.
+            filteredProducts.forEach(function (product) {
+                var productElement = $("<div></div>")
+                    .addClass("goods-1")
+                    .append(
+                        $("<a></a>")
+                            .attr("href", "/product/detail/" + product.id)
+                            .append($("<img>").attr("src", product.image))
+                            .append($("<p></p>").addClass("goods-name").text(product.name))
+                            .append($("<p></p>").text(product.cost + "원"))
+                    );
+                goodsList.append(productElement);
+            });
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+        .done(function (result) {
+            console.log(result);
+            $("#goods").replaceWith(result);
+        });
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+            var productList = data.productList;
+            var searchResultsDiv = $("#search-results");
+            searchResultsDiv.empty();
+
+            // 검색 결과를 동적으로 생성하여 searchResultsDiv에 추가
+            productList.forEach(function (product) {
+                var productDiv = $("<div>").addClass("product");
+                var productName = $("<p>").text(product.name);
+                var productPrice = $("<p>").text(product.price + "원");
+
+                productDiv.append(productName, productPrice);
+                searchResultsDiv.append(productDiv);
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error("Error occurred during filtering products:", textStatus, errorThrown);
+        }
+    });
 }
-
 
 </script>
 </body>
