@@ -31,16 +31,17 @@ public class UserService {
         this.userRepository.save(user);
         return user;
     }
-    public SiteUser modifyPassword(String password) {
-        SiteUser user = new SiteUser();
+    public SiteUser modifyPassword(String password, SiteUser user) {
         user.setPassword(passwordEncoder.encode(password));
         this.userRepository.save(user);
         return user;
     }
-    public SiteUser confirmPassword(String password) {
-        SiteUser user = new SiteUser();
-        this.userRepository.save(user);
-        return user;
+    public boolean confirmPassword(String password, SiteUser user) {
+        if (password == user.getPassword()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<SiteUser> getList () {

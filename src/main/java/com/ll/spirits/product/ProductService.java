@@ -20,6 +20,8 @@ import com.ll.spirits.product.productEntity.subCategory.SubCategoryRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +51,14 @@ public class ProductService {
     private final NationRepository nationRepository;
     private final CaskRepository caskRepository;
     private final PairingRepository pairingRepository;
+    private final EntityManager entityManager;
 
-
+    public List<Product> getTopVotedProducts(int limit) {
+        String jpql = "SELECT p FROM Product p ORDER BY SIZE(p.voter) DESC";
+        TypedQuery<Product> query = entityManager.createQuery(jpql, Product.class);
+        query.setMaxResults(limit);
+        return query.getResultList();
+    }
 
     public List<Product> getList() {
         return this.productRepository.findAll();
@@ -327,8 +335,8 @@ public class ProductService {
             return productRepository.findAll(); // 필터링 조건이 없는 경우 모든 제품 조회
         }
 
-        return productRepository.findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKw(
-                subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw);
+        return productRepository.findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKwAndCaskAndPairing(
+                subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw, caskId, pairingId);
 
     }
 
