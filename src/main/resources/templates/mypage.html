@@ -88,7 +88,7 @@
                         <div class="create-date">등록일</div>
                     </div>
                     <div class="review-content" th:each="review : ${reviewList}">
-                        <a class="a-link" th:href="@{|/product/detail/${}|}">
+                        <a class="a-lin" th:href="@{|/product/detail/${}|}">
                             <div class="number" th:text="${review.id}"></div>
                             <div class="content" th:text="${review.content}"></div>
                             <div class="product-name" th:text="${review.product.name}"></div>
@@ -105,14 +105,14 @@
                     </div>
                     <hr>
                     <div class="like-info">
+                        <div class="num">번호</div>
                         <div class="like-product">좋아요 누른 상품</div>
                         <div class="cost">가격</div>
                     </div>
                     <div class="like-content" th:each="product : ${voterProducts}">
-                        <a class="a-link" th:href="@{|/product/detail/${}|}">
+                        <div class="number" th:text="${product.id}"></div>
                         <div class="product-name" th:text="${product.name}"></div>
-                            <div class="cost" th:text="${product.cost}"></div>
-                        </a>
+                        <div class="cost" th:text="${product.cost}"></div>
                     </div>
                 </div>
             </div>
@@ -121,11 +121,11 @@
                     <div class="title">개인정보 변경</div>
                     <hr>
                     <form action="/user/changePassword" method="post">
-                        <div class="password">기존 비밀번호</div>
+                        <div class="password"> 기존 비밀번호</div>
                         <input name="oldPassword" placeholder="비밀번호를 입력해주세요." type="password">
-                        <div class="ps-title">비밀번호 변경</div>
+                        <div class="ps-title"> 비밀번호 변경</div>
                         <input name="newPassword" placeholder="새 비밀번호를 입력해주세요." type="password">
-                        <div class="ps-check-title">비밀번호 변경 확인</div>
+                        <div class="ps-check-title"> 비밀번호 변경 확인</div>
                         <input name="confirmPassword" placeholder="새 비밀번호를 다시 입력해주세요." type="password">
                         <button type="submit">변경하기</button>
                     </form>

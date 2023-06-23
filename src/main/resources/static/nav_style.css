@@ -63,7 +63,7 @@ ul,li{
   margin-top: 20px;
 }
 
-.wrap>nav>.right-box>.search-box>input{
+.wrap>nav>.right-box>.search-box>#search-form>input{
   width: 270px;
   border: 1px solid #bbb;
   border-radius: 8px;
@@ -71,7 +71,7 @@ ul,li{
   font-size: 14px;
 }
 
-.wrap>nav>.right-box>.search-box>a>img{
+.wrap>nav>.right-box>.search-box>#search-form>button>img{
   position : absolute;
   width: 17px;
   top: 10px;

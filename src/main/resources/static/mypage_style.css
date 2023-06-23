@@ -91,6 +91,10 @@ ul,li{
   padding: 10px;
 }
 
+.right-box>.info-box>.user-info-box>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
 
 .right-box>.info-box>.user-info-box>.id-box{
   display:flex;
@@ -166,16 +170,29 @@ ul,li{
 
 }
 
+.right-box>.wish-box>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
 .right-box>.wish-box>.product{
  display:flex;
-  justify-content:space-between;
   margin-top: 30px;
   text-align:center;
+  flex-wrap: wrap;
+    margin-left:30px;
+
 }
 
 
+.right-box>.wish-box>.product>.product-box{
+    margin-left:20px;
+       margin-right:20px;
+}
+
 .right-box>.wish-box>.product>.product-box>.img-box{
  width:calc(100%/4);
+
 }
 
 
@@ -183,8 +200,9 @@ ul,li{
   height: 300px;
 }
 
-.right-box>.wish-box>.product-box>.text-box{
+.right-box>.wish-box>.product>.product-box>.a-link>.text-box{
   text-align:center;
+  margin-bottom:10px;
 }
 
 /* 내가 쓴 댓글 */
@@ -196,6 +214,11 @@ ul,li{
   border:2px solid black;
   border-radius:6px;
   padding: 10px;
+}
+
+.right-box>.review-box>.review-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
 }
 
 .right-box>.review-box>.review-wrap>.review-info{
@@ -232,21 +255,29 @@ ul,li{
   text-align:center;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.a-link>.number{
-  width: 0%;
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+}
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.number{
+  width: 10%;
 }
 
 
-.right-box>.review-box>.review-wrap>.review-content>.a-link>.content{
-  width: 40%;
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.content{
+  width: 50%;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.a-link>.product-name{
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.product-name{
   width:20%;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.a-link>.date{
-  width:40%;
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.date{
+  width:20%;
 }
 
 
@@ -261,6 +292,12 @@ ul,li{
   padding: 10px;
 }
 
+.right-box>.like-box>.like-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+
 .right-box>.like-box>.like-wrap>.like-info{
   display:flex;
   justify-content:space-around;
@@ -269,6 +306,20 @@ ul,li{
   height: 40px;
   align-items:center;
   margin-top: 20px;
+  text-align:center;
+}
+
+.right-box>.like-box>.like-wrap>.like-info>.num{
+    width:10%;
+}
+
+.right-box>.like-box>.like-wrap>.like-info>.like-product{
+    width:60%;
+}
+
+
+.right-box>.like-box>.like-wrap>.like-info>.cost{
+    width:30%;
 }
 
 
@@ -276,7 +327,22 @@ ul,li{
   display:flex;
   justify-content:space-around;
   margin-top: 10px;
+  text-align:center;
 }
+
+.right-box>.like-box>.like-wrap>.like-content>.number{
+    width:10%;
+}
+
+.right-box>.like-box>.like-wrap>.like-content>.product-name{
+    width:60%;
+}
+
+
+.right-box>.like-box>.like-wrap>.like-content>.cost{
+    width:30%;
+}
+
 
 /* 개인정보 변경 */
 
@@ -290,6 +356,13 @@ ul,li{
   padding: 10px;
 }
 
+
+.right-box>.user-change-box>.user-change-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+
 .right-box>.user-change-box>.user-change-wrap>form{
   text-align:center;
   margin-top: 100px;
@@ -302,10 +375,11 @@ ul,li{
   width: 200px;
   height: 30px;
   border-radius:6px;
+  padding-left:10px;
 }
 
 .right-box>.user-change-box>.user-change-wrap>form>.password{
-  margin-left: -140px;
+  margin-left: -110px;
 }
 
 .right-box>.user-change-box>.user-change-wrap>form>.ps-title{

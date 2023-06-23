@@ -3,7 +3,7 @@
       xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>맥주 리스트 페이지</title>
+    <title>제품 리스트 페이지</title>
     <link rel="stylesheet" th:href="@{/beer_list_style.css}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -12,6 +12,7 @@
     <div class="wrap">
         <!-- 위스키 information-box -->
         <span th:text="${mainCategoryId}"></span>
+        <span th:text="${mainCategory}"></span>
         <div class="information-box" th:if="${mainCategoryId == 1}">
             <div class="title">
                 <h2>위스키</h2>
@@ -29,7 +30,7 @@
                 클래식한 투명한 술로, 보드카는 중성적이고 깔끔한 맛을 가진 독특한 알코올 음료입니다.
             </div>
             <div class="img-box">
-                <img src="https://blog.kakaocdn.net/dn/cQSygf/btqC5nYOLQO/7JZPafuCyUD2A4q6NSjZYK/img.jpg" alt="">
+                <img alt="" src="https://blog.kakaocdn.net/dn/cQSygf/btqC5nYOLQO/7JZPafuCyUD2A4q6NSjZYK/img.jpg">
             </div>
         </div>
         <!-- 데킬라 information-box -->
@@ -41,7 +42,8 @@
                 멕시코에서 탄생한 강력하고 향긋한 술로, 데킬라는 특유의 맛과 효과를 가진 알코올 음료입니다.
             </div>
             <div class="img-box">
-                <img src="https://koreadailytimes.com/files/attach/images/149/252/070/dc2f7e851e73692c5e15684b06a71140.jpg" alt="">
+                <img alt=""
+                     src="https://koreadailytimes.com/files/attach/images/149/252/070/dc2f7e851e73692c5e15684b06a71140.jpg">
             </div>
         </div>
         <!-- 럼 information-box -->
@@ -53,7 +55,7 @@
                 열대 향기로운 여름의 고향, 럼은 달콤하고 풍부한 맛으로 즐기는 알코올 음료입니다.
             </div>
             <div class="img-box">
-                <img src="https://www.omynara.com/wp-content/uploads/2018/12/RUM.jpg" alt="">
+                <img alt="" src="https://www.omynara.com/wp-content/uploads/2018/12/RUM.jpg">
             </div>
         </div>
         <!-- 진 information-box -->
@@ -65,7 +67,8 @@
                 고품질의 투명한 술로, 진은 허브와 시트러스의 조화로운 맛과 향을 지니며, 클래식한 칵테일의 필수 재료입니다.
             </div>
             <div class="img-box">
-                <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/H0MzLVwwne_A7G45vERhdc4jrYo" alt="">
+                <img alt=""
+                     src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/H0MzLVwwne_A7G45vERhdc4jrYo">
             </div>
         </div>
         <!-- 브랜디 information-box -->
@@ -77,7 +80,8 @@
                 고품질의 코냑산 포도주로 만들어진 강렬하고 부드러우며 귀족적인 멋과 세련된 풍미를 지닌 특별한 스피리트입니다.
             </div>
             <div class="img-box">
-                <img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/uWtyG5bpRo5XHuvNcpohK-dAoT4" alt="">
+                <img alt=""
+                     src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/uWtyG5bpRo5XHuvNcpohK-dAoT4">
             </div>
         </div>
         <!-- 맥주 information-box -->
@@ -89,7 +93,8 @@
                 상큼하고 가벼운 대중적인 알코올 음료, 맥주는 사람들에게 사랑받는다.
             </div>
             <div class="img-box">
-                <img alt="" src="https://img.daily.co.kr/@files/www.daily.co.kr/content/food/2020/20200416/1700df053197b11cc51905180589e995.jpg">
+                <img alt=""
+                     src="https://img.daily.co.kr/@files/www.daily.co.kr/content/food/2020/20200416/1700df053197b11cc51905180589e995.jpg">
             </div>
         </div>
         <!-- 검색 information-box -->
@@ -183,8 +188,9 @@
         <!--개별리스트 목록 끝-->
         <div class="section">
             <p>
-            <div class="search-result" style="display : inline-block;" th:text="${productList.size()}"></div>
-            건의 결과가 있어요</p>
+            <div class="search-result" style="display : inline-block;" th:text="${productList.size()}" id="search-results-count"></div>
+            건의 결과가 있어요
+            </p>
 
             <section class="goods-list-section">
                 <div class="goods-list">
@@ -204,146 +210,122 @@
 </div>
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
-// 검색 필터링
-function filterBySearch() {
-    var searchKeyword = $("#search_kw").val();
-    filterProducts(null, null, null, null, null, null, null, searchKeyword);
-}
-
-// 중분류 선택 시 필터링
-function filterBySubcategory() {
-    var selectedSubCategory = $("#SubCategory").val();
-    filterProducts(selectedSubCategory, null, null, null, null, null, null);
-}
-
-// 가격범위 선택 시 필터링
-function filterByCostrange() {
-    var selectedCostRange = $("#Costrange").val();
-    filterProducts(null, selectedCostRange, null, null, null, null, null);
-}
-
-// 알콜도수범위 선택 시 필터링
-function filterByABVrange() {
-    var selectedABVRange = $("#ABVrange").val();
-    filterProducts(null, null, selectedABVRange, null, null, null, null);
-}
-
-// 용량 선택 시 필터링
-function filterByNetWeight() {
-    var selectedNetWeight = $("#NetWeight").val();
-    filterProducts(null, null, null, selectedNetWeight, null, null, null);
-}
-
-// 안주 선택 시 필터링
-function filterByParing() {
-    var selectedParing = $("#Paring").val();
-    filterProducts(null, null, null, null, selectedParing, null, null);
-}
-
-// 오크통 선택 시 필터링
-function filterByCask() {
-    var selectedCask = $("#Cask").val();
-    filterProducts(null, null, null, null, null, selectedCask, null);
-}
-
-// 국가 선택 시 필터링
-function filterByNation() {
-    var selectedNation = $("#Nation").val();
-    filterProducts(null, null, null, null, null, null, selectedNation);
-}
-
-// 제품 필터링 함수
-function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId, searchKeyword) {
-    var url = "/product/list/category?";
-
-    if (subCategoryId !== null) {
-        url += "subCategory=" + subCategoryId + "&";
+    // 검색 필터링
+    function filterBySearch() {
+        var searchKeyword = $("#search_kw").val();
+        filterProducts(null, null, null, null, null, null, null, searchKeyword);
     }
 
-    if (costRangeId !== null) {
-        url += "costRange=" + costRangeId + "&";
+    // 중분류 선택 시 필터링
+    function filterBySubcategory() {
+        var selectedSubCategory = $("#SubCategory").val();
+        filterProducts(selectedSubCategory, null, null, null, null, null, null);
     }
 
-    if (abvRangeId !== null) {
-        url += "abvRange=" + abvRangeId + "&";
+    // 가격범위 선택 시 필터링
+    function filterByCostrange() {
+        var selectedCostRange = $("#Costrange").val();
+        filterProducts(null, selectedCostRange, null, null, null, null, null);
     }
 
-    if (netWeightId !== null) {
-        url += "netWeight=" + netWeightId + "&";
+    // 알콜도수범위 선택 시 필터링
+    function filterByABVrange() {
+        var selectedABVRange = $("#ABVrange").val();
+        filterProducts(null, null, selectedABVRange, null, null, null, null);
     }
 
-    if (paringId !== null) {
-        url += "paring=" + paringId + "&";
+    // 용량 선택 시 필터링
+    function filterByNetWeight() {
+        var selectedNetWeight = $("#NetWeight").val();
+        filterProducts(null, null, null, selectedNetWeight, null, null, null);
     }
 
-    if (caskId !== null) {
-        url += "cask=" + caskId + "&";
+    // 안주 선택 시 필터링
+    function filterByParing() {
+        var selectedParing = $("#Paring").val();
+        filterProducts(null, null, null, null, selectedParing, null, null);
     }
 
-    if (nationId !== null) {
-        url += "nation=" + nationId + "&";
+    // 오크통 선택 시 필터링
+    function filterByCask() {
+        var selectedCask = $("#Cask").val();
+        filterProducts(null, null, null, null, null, selectedCask, null);
     }
 
-    if (searchKeyword !== null) {
-        url += "searchKeyword=" + searchKeyword + "&";
+    // 국가 선택 시 필터링
+    function filterByNation() {
+        var selectedNation = $("#Nation").val();
+        filterProducts(null, null, null, null, null, null, selectedNation);
     }
 
-    url = url.slice(0, -1);
+    // 제품 필터링 함수
+    function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId, searchKeyword) {
+        var url = "/product/list/category?";
 
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: function (filteredProducts) {
-            var goodsList = $(".goods-list");
-            goodsList.empty(); // 기존 상품 목록을 비움.
-
-            // 필터링된 상품 목록을 순회하며 HTML 요소를 생성하여 추가.
-            filteredProducts.forEach(function (product) {
-                var productElement = $("<div></div>")
-                    .addClass("goods-1")
-                    .append(
-                        $("<a></a>")
-                            .attr("href", "/product/detail/" + product.id)
-                            .append($("<img>").attr("src", product.image))
-                            .append($("<p></p>").addClass("goods-name").text(product.name))
-                            .append($("<p></p>").text(product.cost + "원"))
-                    );
-                goodsList.append(productElement);
-            });
-        },
-        error: function (error) {
-            console.log(error);
+        if (subCategoryId !== null) {
+            url += "subCategory=" + subCategoryId + "&";
         }
-    })
-        .done(function (result) {
-            console.log(result);
-            $("#goods").replaceWith(result);
+
+        if (costRangeId !== null) {
+            url += "costRange=" + costRangeId + "&";
+        }
+
+        if (abvRangeId !== null) {
+            url += "abvRange=" + abvRangeId + "&";
+        }
+
+        if (netWeightId !== null) {
+            url += "netWeight=" + netWeightId + "&";
+        }
+
+        if (paringId !== null) {
+            url += "paring=" + paringId + "&";
+        }
+
+        if (caskId !== null) {
+            url += "cask=" + caskId + "&";
+        }
+
+        if (nationId !== null) {
+            url += "nation=" + nationId + "&";
+        }
+
+        if (searchKeyword !== null) {
+            url += "searchKeyword=" + searchKeyword + "&";
+        }
+
+        url = url.slice(0, -1);
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            success: function (filteredProducts) {
+                var goodsList = $(".goods-list");
+                goodsList.empty(); // 기존 상품 목록을 비움.
+
+                // 필터링된 상품 목록을 순회하며 HTML 요소를 생성하여 추가.
+                filteredProducts.forEach(function (product) {
+                    var productElement = $("<div></div>")
+                        .addClass("goods-1")
+                        .append(
+                            $("<a></a>")
+                                .attr("href", "/product/detail/" + product.id)
+                                .append($("<img>").attr("src", product.image))
+                                .append($("<p></p>").addClass("goods-name").text(product.name))
+                                .append($("<span></span>").text(product.cost + "원"))
+                        );
+                    goodsList.append(productElement);
+                });
+
+                // 검색 결과 개수를 업데이트
+                var searchResultsCount = filteredProducts.length;
+                $("#search-results-count").text(searchResultsCount);
+            },
+            error: function (error) {
+                console.log(error);
+            }
         });
-
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: function (data) {
-            var productList = data.productList;
-            var searchResultsDiv = $("#search-results");
-            searchResultsDiv.empty();
-
-            // 검색 결과를 동적으로 생성하여 searchResultsDiv에 추가
-            productList.forEach(function (product) {
-                var productDiv = $("<div>").addClass("product");
-                var productName = $("<p>").text(product.name);
-                var productPrice = $("<p>").text(product.price + "원");
-
-                productDiv.append(productName, productPrice);
-                searchResultsDiv.append(productDiv);
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error("Error occurred during filtering products:", textStatus, errorThrown);
-        }
-    });
-}
-
+    }
 </script>
 </body>
 </html>
