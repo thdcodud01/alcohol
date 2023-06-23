@@ -82,36 +82,37 @@ public class UserController {
         return isDuplicate;
     }
 
-    //    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/modify/password")
-//    public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
-//        if (bindingResult.hasErrors()) {
-//            return "modify_password_form";
-//        }
-//
-//        SiteUser user = this.userService.getUser(principal.getName());
-//        if (!this.userService.confirmPassword(userModifyForm.getPresentPW(), user)) {
-//            bindingResult.rejectValue("presentPW", "passwordInCorrect",
-//                    "현재 비밀번호를 바르게 입력해주세요.");
-//            return "modify_password_form";
-//        }
-//
-//        // 비밀번호와 비밀번호 확인에 입력한 문자열이 서로 다르면 다시 입력 하도록
-//        if (!userModifyForm.getNewPW().equals(userModifyForm.getNewPW2())) {
-//            bindingResult.rejectValue("newPW2", "passwordInCorrect",
-//                    "입력한 비밀번호가 일치하지 않습니다.");
-//            return "modify_password_form";
-//        }
-//
-//        userService.modifyPassword(userModifyForm.getNewPW(), user);
-//
-//        return "redirect:/user/logout";
-//    }
-//
-//    public void modifyPassword(String password, SiteUser user) {
-//        user.setPassword(passwordEncoder.encode(password));
-//        this.userRepository.save(user);
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modifyPassword")
+    public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        if (bindingResult.hasErrors()) {
+            return "mypage";
+        }
+
+        SiteUser user = this.userService.getUser(principal.getName());
+        if (!userService.confirmPassword(userModifyForm.getPresentPW(), user)) {
+            bindingResult.rejectValue("presentPW", "passwordInCorrect",
+                    "현재 비밀번호를 바르게 입력해주세요.");
+            return "mypage";
+        }
+
+        // 비밀번호와 비밀번호 확인에 입력한 문자열이 서로 다르면 다시 입력 하도록
+        if (!userModifyForm.getNewPW().equals(userModifyForm.getNewPW2())) {
+            bindingResult.rejectValue("newPW2", "passwordInCorrect",
+                    "입력한 비밀번호가 일치하지 않습니다.");
+            return "mypage";
+        }
+
+        userService.modifyPassword(userModifyForm.getNewPW(), user);
+
+        return "redirect:/user/logout";
+    }
+
+    public void modifyPassword(String password, SiteUser user) {
+        user.setPassword(passwordEncoder.encode(password));
+        this.userRepository.save(user);
+    }
     @GetMapping("/login")
     public String login() {
 
