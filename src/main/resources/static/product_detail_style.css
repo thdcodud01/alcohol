@@ -441,3 +441,21 @@ ul,li{
   margin-top: 20px;
 
 }
+
+.btn{
+  width: 40px;
+  height: 40px;
+  background-color: #dfdfdf;
+  text-align:center;
+  border-radius:100%;
+  box-sizing:border-box;
+  padding-top: 10px;
+  position:fixed;
+  bottom: 30px;
+  right: 30px;
+}
+
+.btn.active{
+  opacity:1;
+  visibility:visible;
+}
