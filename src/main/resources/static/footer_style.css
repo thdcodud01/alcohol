@@ -1,5 +1,11 @@
+.wrap{
+    width:1200px;
+    display:flex;
+    justify-content:center;
+}
+
 .footer-section{
-  width: 100%;
+
   margin-top: 60px;
   margin-bottom: 60px;
 }
@@ -9,11 +15,17 @@
   font-weight: bold;
   margin-left: 20px;
   margin-bottom: 30px;
+  text-align:center;
 }
 
 .footer-section>.profile{
   display:flex;
   justify-content:space-around;
+}
+
+.footer-section>.profile>.profile-box{
+    margin-right:40px;
+    margin-left:40px;
 }
 
 .footer-section>.profile>.profile-box>.profile-info{
