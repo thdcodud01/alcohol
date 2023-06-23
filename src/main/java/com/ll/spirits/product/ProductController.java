@@ -106,13 +106,14 @@ public class ProductController {
                                             @RequestParam(value = "costRange", required = false) Integer costRangeId,
                                             @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
                                             @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                            @RequestParam(value = "paring", required = false) Integer paringId,
+                                            @RequestParam(value = "pairing", required = false) Integer pairingId,
                                             @RequestParam(value = "cask", required = false) Integer caskId,
                                             @RequestParam(value = "nation", required = false) Integer nationId,
+                                            @RequestParam(value = "kw", required = false) String kw,
                                             Model model) {
 
 
-        return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId);
+        return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId, kw);
     }
 
 

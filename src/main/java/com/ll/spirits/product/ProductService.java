@@ -308,19 +308,28 @@ public class ProductService {
         return false;
     }
 
-    public List<Product> getFilteredProducts(Integer subCategoryId, Integer costRangeId, Integer abvRangeId, Integer netWeightId, Integer pairingId, Integer caskId, Integer nationId) {
+    public List<Product> getFilteredProducts(Integer subCategoryId,
+                                             Integer costRangeId,
+                                             Integer abvRangeId,
+                                             Integer netWeightId,
+                                             Integer pairingId,
+                                             Integer caskId,
+                                             Integer nationId,
+                                             String kw) {
         if (subCategoryId == null &&
                 costRangeId == null &&
                 abvRangeId == null &&
                 netWeightId == null &&
                 pairingId == null &&
                 caskId == null &&
-                nationId == null) {
+                nationId == null &&
+                kw == null) {
             return productRepository.findAll(); // 필터링 조건이 없는 경우 모든 제품 조회
         }
 
-        return productRepository.findBySubCategory_IdOrCostRange_IdOrAbvRange_IdOrNetWeight_IdOrPairings_IdOrCasks_IdOrNation_Id(
-                subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId);
+        return productRepository.findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKw(
+                subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw);
+
     }
 
     public Product countingViews(Product product) {
