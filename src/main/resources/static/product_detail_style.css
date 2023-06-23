@@ -50,6 +50,7 @@ ul,li{
 .wrap>.product-box>.right-box>.title-box{
   margin-bottom: 30px;
   font-size: 25px;
+  margin-left:20px;
 }
 
 .wrap>.product-box>.right-box>.info-box>.info{
@@ -220,8 +221,10 @@ ul,li{
 }
 
 
-.wrap>.point-section>.point-wrap>.point-box>.point-content3>.point>.right-box>i{
-  margin-right: 40px;
+.wrap>.point-section>.point-wrap>.point-box>.point-content3>.point>.right-box>img{
+  width:100px;
+  height:60px;
+  margin-right: 10px;
 }
 
 
@@ -263,7 +266,7 @@ ul,li{
   margin-right: 40px;
 }
 .wrap>.point-section>.point-wrap>.point-box>.point-content4>.point>.right-box>img{
-  margin-right: 27px;
+  margin-right: 28px;
   width : 60px;
   height : 60px;
 }
@@ -340,15 +343,17 @@ ul,li{
 
 .wrap>.review-box>.review-list>.review-info>.left-box>.nick-name{
   margin-right: 40px;
+  margin-left:10px;
 }
 
 .wrap>.review-box>.review-list>.review-info>.left-box>.modify-btn{
   margin-right: 10px;
-
+  cursor:pointer;
 }
 
 .wrap>.review-box>.review-list>.review-info>.left-box>.modify-btn>a{
   font-size: 13px;
+
 }
 .wrap>.review-box>.review-list>.review-info>.left-box>.modify-btn>a.active{
   display: inline;
@@ -363,11 +368,15 @@ ul,li{
 .wrap>.review-box>.review-list>.review-info>.right-box>.product-name{
   margin-right: 20px;
   display:inline-block;
+  width:150px;
+  text-align:center;
 }
 
 .wrap>.review-box>.review-list>.review-info>.right-box>.review-date{
   margin-right: 20px;
   display:inline-block;
+  width:150px;
+  text-align:center;
 }
 
 .wrap>.review-box>.review-list>.review-info>.right-box>#recommendation{
@@ -382,7 +391,7 @@ ul,li{
 }
 
 .review-list>.review>.modify-review-date{
-    margin-right:20px;
+    margin-right:30px;
 }
 
 .review-modify {
@@ -394,6 +403,7 @@ ul,li{
 }
 
 
+
 .review-modify>.mb-3>.form-label{
     font-size:15px;
     font-weight:bold;
@@ -401,14 +411,16 @@ ul,li{
 
 .review-modify>.mb-3>textarea{
     width:1200px;
+    height:200px;
     margin-top:10px;
     margin-bottom:10px;
-    border:3px solid black;
+    border:1px solid black;
 }
 
 .review-modify>.submitbtn{
     padding:10px;
     margin-bottom:10px;
+    margin-left:1130px;
 }
 
 #recommendation i {
@@ -441,7 +453,7 @@ ul,li{
   width: 1200px;
   height: 200px;
   padding: 0;
-  border:3px solid black;
+  border:1px solid black;
 }
 
 .wrap>.review-box>.review-form>form>input{

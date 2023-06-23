@@ -21,7 +21,7 @@ ul,li{
   max-width: 1200px;
   margin-right: auto;
   margin-left: auto;
-  margin-top:30px;
+  margin-top:50px;
 }
 
 
@@ -29,8 +29,8 @@ ul,li{
 /* 메인정보 스타일 시작 */
 .info-box {
   height: 300px;
-  background-image: url("https://static.cdn.soomgo.com/upload/portfolio/d304e0be-1ea6-4dcd-8444-108a90f7834b.jpg?webp=1");
-  background-size: cover;
+  background-image: url("https://img.freepik.com/free-vector/people-meeting-in-restaurant-bar-for-dinner-isolated-flat-vector-illustration-cartoon-men-and-women-drinking-wine-or-beer-in-pub_74855-8505.jpg?w=2000&t=st=1687505580~exp=1687506180~hmac=03e3b0f29aea38775a05a2a71e31650bbf29f38f45467d37a58b76fb52457bbc");
+  background-size: 1300px 600px;
   background-repeat: no-repeat;
   background-position: center;
   display: flex;
