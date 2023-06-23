@@ -31,18 +31,15 @@ public class UserService {
         this.userRepository.save(user);
         return user;
     }
-    public SiteUser modifyPassword(String password) {
-        SiteUser user = new SiteUser();
+
+    public boolean confirmPassword(String password, SiteUser user) {
+        return passwordEncoder.matches(password, user.getPassword());
+    }
+    public SiteUser modifyPassword(String password, SiteUser user) {
         user.setPassword(passwordEncoder.encode(password));
         this.userRepository.save(user);
         return user;
     }
-    public SiteUser confirmPassword(String password) {
-        SiteUser user = new SiteUser();
-        this.userRepository.save(user);
-        return user;
-    }
-
     public List<SiteUser> getList () {
         return this.userRepository.findAll();
     }
@@ -52,7 +49,7 @@ public class UserService {
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
-            throw new DataNotFoundException("siteuser not found");
+            throw new DataNotFoundException("siteUser not found");
         }
     }
 
@@ -61,7 +58,7 @@ public class UserService {
         if (siteUser.isPresent()) {
             return siteUser.get();
         } else {
-            throw new DataNotFoundException("siteuser not found");
+            throw new DataNotFoundException("siteUser not found");
         }
     }
     public SiteUser getUserId(Long id) {// Integer 로 타입이 들어오면 null 값도 허용해줄 수 있음
