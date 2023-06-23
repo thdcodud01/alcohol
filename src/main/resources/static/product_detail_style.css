@@ -50,6 +50,7 @@ ul,li{
 .wrap>.product-box>.right-box>.title-box{
   margin-bottom: 30px;
   font-size: 25px;
+  margin-left:20px;
 }
 
 .wrap>.product-box>.right-box>.info-box>.info{
@@ -220,8 +221,10 @@ ul,li{
 }
 
 
-.wrap>.point-section>.point-wrap>.point-box>.point-content3>.point>.right-box>i{
-  margin-right: 40px;
+.wrap>.point-section>.point-wrap>.point-box>.point-content3>.point>.right-box>img{
+  width:100px;
+  height:60px;
+  margin-right: 10px;
 }
 
 
@@ -263,7 +266,7 @@ ul,li{
   margin-right: 40px;
 }
 .wrap>.point-section>.point-wrap>.point-box>.point-content4>.point>.right-box>img{
-  margin-right: 27px;
+  margin-right: 28px;
   width : 60px;
   height : 60px;
 }
