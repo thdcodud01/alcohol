@@ -88,14 +88,14 @@
                         <div class="create-date">등록일</div>
                     </div>
                     <div class="review-content" th:each="review : ${reviewList}">
-                        <a class="a-lin" th:href="@{|/product/detail/${}|}">
+                        <a class="a-lin" th:href="@{|/product/detail/${review.product.id}|}">
                             <div class="number" th:text="${review.id}"></div>
                             <div class="content" th:text="${review.content}"></div>
                             <div class="product-name" th:text="${review.product.name}"></div>
-                            <div class="date"
-                                 th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                            <div class="date" th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                         </a>
                     </div>
+
                 </div>
             </div>
             <div class="like-box">
@@ -110,10 +110,13 @@
                         <div class="cost">가격</div>
                     </div>
                     <div class="like-content" th:each="product : ${voterProducts}">
-                        <div class="number" th:text="${product.id}"></div>
-                        <div class="product-name" th:text="${product.name}"></div>
-                        <div class="cost" th:text="${product.cost}"></div>
+                        <a class="a-lin" th:href="@{|/product/detail/${product.id}|}">
+                            <div class="number" th:text="${product.id}"></div>
+                            <div class="product-name" th:text="${product.name}"></div>
+                            <div class="cost" th:text="${product.cost}"></div>
+                        </a>
                     </div>
+
                 </div>
             </div>
             <div class="user-change-box">
