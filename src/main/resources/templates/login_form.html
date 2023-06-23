@@ -33,9 +33,6 @@
             </div>
         </div>
         <div class="login-box">
-            <div class="kakao">
-                <div class="text"><a href="/oauth2/authorization/kakao"> 카카오로 시작하기</a></div>
-            </div>
             <div class="user">
                 <div class="id">
                     <input name="username" id="username" placeholder="ex)  example@example.com" class="id-input"
@@ -49,13 +46,14 @@
             <div class="login-btn">
                 <button type="submit" class="btn">로그인</button>
             </div>
+            <div class="kakao">
+                <a href="/oauth2/authorization/kakao"><button type="button" class="text">카카오로 시작하기</button></a>
+            </div>
             <div class="signup-btn">
-                <button type="submit" class="btn"><a th:href="@{|/user/signup|}">이메일로 회원가입</a></button>
+                <a th:href="@{|/user/signup|}"><button type="button" class="btn">이메일로 회원가입</button></a>
             </div>
         </div>
     </div>
 </form>
-<div class="text"><a href="/oauth2/authorization/kakao"> 카카오로 시작하기</a></div>
-
 </body>
 </html>

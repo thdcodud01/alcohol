@@ -79,13 +79,24 @@ public class ProductController {
 
         Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
 
-        List<Product> productList = productService.getListSearch(kw);
+        List<Product> productListkw = productService.getListSearch(kw);
         List<Review> reviewList = productService.getListReviewSearch(kw);
         List<SiteUser> siteUserList = productService.getListSiteUserSearch(kw);
+
+        List<Product> productList;
+        // 서브카테고리가 null이거나 0인 경우
+        if (subCategoryId == null) {
+            // 서브카테고리가 지정되지 않은 경우, 대분류에 해당하는 모든 제품을 가져옴
+            productList = productService.getProductsByMainCategoryId(mainCategoryId);
+        } else {
+            // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
+            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+        }
 
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
+        model.addAttribute("productListkw", productListkw);
         model.addAttribute("productList", productList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("siteUserList", siteUserList);
