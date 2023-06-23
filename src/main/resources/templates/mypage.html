@@ -88,7 +88,7 @@
                         <div class="create-date">등록일</div>
                     </div>
                     <div class="review-content" th:each="review : ${reviewList}">
-                        <a class="a-lin" th:href="@{|/product/detail/${}|}">
+                        <a class="a-link" th:href="@{|/product/detail/${}|}">
                             <div class="number" th:text="${review.id}"></div>
                             <div class="content" th:text="${review.content}"></div>
                             <div class="product-name" th:text="${review.product.name}"></div>
@@ -109,8 +109,10 @@
                         <div class="cost">가격</div>
                     </div>
                     <div class="like-content" th:each="product : ${voterProducts}">
+                        <a class="a-link" th:href="@{|/product/detail/${}|}">
                         <div class="product-name" th:text="${product.name}"></div>
-                        <div class="cost" th:text="${product.cost}"></div>
+                            <div class="cost" th:text="${product.cost}"></div>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -232,21 +232,21 @@ ul,li{
   text-align:center;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.a-lin>.number{
+.right-box>.review-box>.review-wrap>.review-content>.a-link>.number{
   width: 0%;
 }
 
 
-.right-box>.review-box>.review-wrap>.review-content>.a-lin>.content{
+.right-box>.review-box>.review-wrap>.review-content>.a-link>.content{
   width: 40%;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.a-lin>.product-name{
+.right-box>.review-box>.review-wrap>.review-content>.a-link>.product-name{
   width:20%;
 }
 
-.right-box>.review-box>.review-wrap>.review-content>.a-lin>.date{
-  widht:40%;
+.right-box>.review-box>.review-wrap>.review-content>.a-link>.date{
+  width:40%;
 }
 
 
