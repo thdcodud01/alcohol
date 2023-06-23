@@ -35,7 +35,7 @@
             </div>
             <div class="right-box">
                 <div class="title-box">
-                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2>
+                    <h3 th:each="product : ${product}" th:text="${product.name}"></h3>
                 </div>
                 <div class="info-box">
                     <div class="info">
@@ -73,10 +73,10 @@
                 </div>
                 <div class="cost-box">
                     <div class="title">
-                        <h2>판매가격</h2>
+                        <h3>판매가격</h3>
                     </div>
-                    <div class="num" th:each="product : ${product}" th:text="${formattedCost}"></div>
-                    <span class="num">￦</span> <!--가격-->
+                    <h2 class="num" th:each="product : ${product}" th:text="${formattedCost}"></h2>
+                    <h2 class="num">￦</h2> <!--가격-->
                 </div>
                 <div class="logo-box">
                     <div class="wish">
