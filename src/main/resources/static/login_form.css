@@ -73,22 +73,25 @@ display:inline-block;
 
 .wrap>.login-box>.kakao{
     display: flex;
-    width: 300px;
-    height: 50px;
-    background-color: yellow;
-    border-radius: 5px;
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-    border: solid 1px;
-    cursor : pointer;
 }
 
-.wrap>.login-box>.kakao>a>.text{
-  display:flex;
-  justify-content:center;
-  font-weight: bold;
-  font-size: 19px;
+.wrap>.login-box>.kakao>.kakao-btn{
+    display:inline-block;
+}
+
+.wrap>.login-box>.kakao>.kakao-btn>a{
+    display:block;
+    background-color:yellow;
+    font-size:19px;
+    padding:13px;
+    padding-left:80px;
+    padding-right:80px;
+    border:1px solid black;
+    border-radius:6px;
+    font-weight:bold;
 }
 
 .wrap>.login-box>.user{
