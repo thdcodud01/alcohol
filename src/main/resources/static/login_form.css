@@ -158,4 +158,9 @@ ul,li{
   padding: 10px;
   font-weight: bold;
   color:gray;
+  display:inline-block;
+}
+
+.wrap>.login-box>.signup-btn>.btn>a{
+    display:block;
 }
