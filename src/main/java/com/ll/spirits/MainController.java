@@ -21,8 +21,6 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    private final UserService userService;
-    private final ReviewService reviewService;
     private final ProductService productService;
 
 
