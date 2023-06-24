@@ -1,5 +1,7 @@
-product_detail_style2.css
-
+html:lang(ko) body,
+html:lang(ko) code {
+    font-family: "Roboto","Arial","Nanum Gothic","Malgun Gothic","맑은 고딕","Dotum","돋움","Apple SD Gothic Neo","AppleGothic",sans-serif;
+    }
 /* 노멀라이징 */
 
 
@@ -33,9 +35,9 @@ ul,li{
 
 }
 
-.wrap>.product-box>.left-box{
-  background-image:url("https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/rC0W-1659321041025-0.jpg");
-  background-size: cover;
+.wrap>.product-box>.left-box>.product-main-img{
+  width : 580px;
+  height: 500px;
   background-repeat: no-repeat;
   background-position: center ;
 
@@ -76,7 +78,6 @@ ul,li{
 }
 
 .wrap>.product-box>.right-box>.cost-box>.num{
-   margin-bottom:20px;
   display : inline-block;
 }
 
@@ -289,7 +290,7 @@ ul,li{
 }
 
 .info-section>.info-box>.product-title{
-  margin-top: 20px;
+  margin: 50px 0;
   font-size: 30px;
   font-weight: bold;
 }

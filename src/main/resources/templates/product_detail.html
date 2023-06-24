@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
+<html lang="ko" xml:lang="ko" layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,8 @@
 
         <div class="product-box">
             <div class="left-box">
-
+                <img class="product-main-img" alt=""
+                     th:src="${product.filepath}">
             </div>
             <div class="right-box">
                 <div class="title-box">

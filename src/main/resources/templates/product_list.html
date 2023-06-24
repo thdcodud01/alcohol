@@ -196,8 +196,8 @@
                 <div class="goods-list">
                     <div class="goods-1" id="goods" th:each="product : ${productList}">
                         <a th:href="@{|/product/detail/${product.id}|}">
-                            <img alt=""
-                                 src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg">
+                            <img alt="제품 썸네일"
+                                 th:src="${product.filepath}">
                             <p class="goods-name" style="font-weight : bold; font-size : 2rem;"
                                th:text="${product.name}"></p>
                             <p><span th:text="${product.cost}"></span>원</p>

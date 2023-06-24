@@ -127,7 +127,7 @@ public class AdminController {
     public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm,
                                 BindingResult bindingResult,
                                 Principal principal,
-                                MultipartFile file) throws Exception{
+                                @RequestParam("file") MultipartFile file) throws Exception{
         System.out.println("제품 정보 확인:");
         System.out.println("이름: " + productForm.getName());
         System.out.println("대분류: " + productForm.getMainCategoryId());
@@ -138,6 +138,8 @@ public class AdminController {
         System.out.println("안주: " + productForm.getPairings());
         System.out.println("캐스크: " + productForm.getCasks());
         System.out.println("생산국: " + productForm.getNationId());
+//        System.out.println("파일이름: " + productForm.getFilename());
+//        System.out.println("파일경로: " + productForm.getFilepath());
 
 
 
@@ -145,7 +147,6 @@ public class AdminController {
             System.out.println("유효성 검사 오류 발생");
             return "product_form";
         }
-
         SiteUser siteUser = this.userService.getUser(principal.getName());
         productService.createProduct(productForm, siteUser, file);
 
