@@ -8,11 +8,13 @@
 
     <script crossorigin="anonymous"
             integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script crossorigin="anonymous"
             integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+            referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
           integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
@@ -33,10 +35,15 @@
 
     <div class="main-wrap">
 
-        <div class="main-info">
-            <div class="info-box">
+<!--        <div class="main-info">-->
+<!--            <div class="info-box">-->
 
-            </div>
+<!--            </div>-->
+<!--        </div>-->
+        <div class="container">
+            <video autoplay loop muted>
+                <source src="/video/Spirits_main_video.mp4" type="video/mp4">
+            </video>
         </div>
 
         <div class="main-section">
@@ -118,41 +125,16 @@
             <hr>
             <div class="ranking-section">
                 <div class="ranking-title">인기순위 top 5</div>
-                <div class="ranking">
-                    <div id="top1 ">
-                        <div class="img-box">
-                            <img alt=""
-                                 src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
+                <div class="ranking" th:each="product, productStat : ${voterProducts}">
+                    <!-- Iterate over the top 5 products -->
+                    <div th:if="${productStat.index < 5}">
+                        <div id="top[[${productStat.index + 1}]]">
+                            <div class="img-box">
+                                <img alt=""
+                                     src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
+                            </div>
+                            <div class="name" th:text="${product.name}"></div>
                         </div>
-                        <div class="name">로얄 살루트</div>
-                    </div>
-                    <div id="top2 ">
-                        <div class="img-box">
-                            <img alt=""
-                                 src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
-                        </div>
-                        <div class="name">로얄 살루트</div>
-                    </div>
-                    <div id="top3 ">
-                        <div class="img-box">
-                            <img alt=""
-                                 src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
-                        </div>
-                        <div class="name">로얄 살루트</div>
-                    </div>
-                    <div id="top4 ">
-                        <div class="img-box">
-                            <img alt=""
-                                 src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
-                        </div>
-                        <div class="name">로얄 살루트</div>
-                    </div>
-                    <div id="top5 ">
-                        <div class="img-box">
-                            <img alt=""
-                                 src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
-                        </div>
-                        <div class="name">로얄 살루트</div>
                     </div>
                 </div>
             </div>
@@ -324,6 +306,7 @@ $(document).ready(function() {
     $(this).toggleClass('clicked');
   });
 });
+
 
 
 

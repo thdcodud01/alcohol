@@ -42,6 +42,8 @@
                         <div class="title">
                             주종 :
                             <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
+                            -
+                            <span th:each="product : ${product}" th:text="${product.subCategory.subCategory}"></span>
                         </div>
                     </div>
                     <div class="info">
@@ -73,7 +75,7 @@
                 </div>
                 <div class="cost-box">
                     <div class="title">
-                        <h3>판매가격</h3>
+                        <h3>판매가격(리쿼샵 기준)</h3>
                     </div>
                     <h2 class="num" th:each="product : ${product}" th:text="${formattedCost}"></h2>
                     <h2 class="num">￦</h2> <!--가격-->

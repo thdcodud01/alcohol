@@ -20,6 +20,8 @@ import com.ll.spirits.product.productEntity.subCategory.SubCategoryRepository;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewRepository;
 import com.ll.spirits.user.SiteUser;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +51,14 @@ public class ProductService {
     private final NationRepository nationRepository;
     private final CaskRepository caskRepository;
     private final PairingRepository pairingRepository;
+    private final EntityManager entityManager;
 
-
+    public List<Product> getTopVotedProducts(int limit) {
+        String jpql = "SELECT p FROM Product p ORDER BY SIZE(p.voter) DESC";
+        TypedQuery<Product> query = entityManager.createQuery(jpql, Product.class);
+        query.setMaxResults(limit);
+        return query.getResultList();
+    }
 
     public List<Product> getList() {
         return this.productRepository.findAll();
@@ -308,19 +316,28 @@ public class ProductService {
         return false;
     }
 
-    public List<Product> getFilteredProducts(Integer subCategoryId, Integer costRangeId, Integer abvRangeId, Integer netWeightId, Integer pairingId, Integer caskId, Integer nationId) {
+    public List<Product> getFilteredProducts(Integer subCategoryId,
+                                             Integer costRangeId,
+                                             Integer abvRangeId,
+                                             Integer netWeightId,
+                                             Integer pairingId,
+                                             Integer caskId,
+                                             Integer nationId,
+                                             String kw) {
         if (subCategoryId == null &&
                 costRangeId == null &&
                 abvRangeId == null &&
                 netWeightId == null &&
                 pairingId == null &&
                 caskId == null &&
-                nationId == null) {
+                nationId == null &&
+                kw == null) {
             return productRepository.findAll(); // 필터링 조건이 없는 경우 모든 제품 조회
         }
 
-        return productRepository.findBySubCategory_IdOrCostRange_IdOrAbvRange_IdOrNetWeight_IdOrPairings_IdOrCasks_IdOrNation_Id(
-                subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId);
+        return productRepository.findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKwAndCaskAndPairing(
+                subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw, caskId, pairingId);
+
     }
 
     public Product countingViews(Product product) {

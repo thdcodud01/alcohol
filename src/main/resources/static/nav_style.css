@@ -99,13 +99,12 @@ ul,li{
 .wrap>.menu-bar>ul>li>a{
   display:block;
   font-size: 20px;
-  background:right / 0% 100% no-repeat linear-gradient(red,red);
+  background:right / 0% 100% no-repeat linear-gradient(#bbccdd,#bbccdd);
   transition:background-size 500ms;
 }
 
 .wrap>.menu-bar>ul>li:hover>a{
-  color: #00498c;
-  background:left / 100% 100% no-repeat linear-gradient(red, red);
+  background:left / 100% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
 }
 
 .search-box {
