@@ -21,3 +21,17 @@ spring:
 thymeleaf:
   cache: false
   prefix: file:src/main/resources/templates/
+
+  mail:
+    smtp:
+      host: smtp.gmail.com
+      port: 587
+      username: insung5189email@gmail.com
+      password: mjyronikandjeanv
+      auth: true
+      starttls:
+        enable: true
+    subject:
+      member:
+        registration: Thank you for joining our site!
+

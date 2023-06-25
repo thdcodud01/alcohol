@@ -159,8 +159,6 @@ public class ProductService {
         product.setAuthor(siteUser);
         product.setFilename(fileName);
         product.setFilepath(filePath);
-//        product.setFilename(productForm.getFilename());
-//        product.setFilepath("/files/" + productForm.getFilepath());
         // product를 먼저 저장합니다.
         product = productRepository.save(product);
 
@@ -332,11 +330,11 @@ public class ProductService {
     }
     public List<Product> getFilteredProducts(Integer subCategoryId,
                                              Integer costRangeId,
-                                             Integer abvRangeId,
                                              Integer netWeightId,
+                                             Integer abvRangeId,
                                              Integer pairingId,
-                                             Integer caskId,
                                              Integer nationId,
+                                             Integer caskId,
                                              String kw) {
         if (subCategoryId == null &&
                 costRangeId == null &&

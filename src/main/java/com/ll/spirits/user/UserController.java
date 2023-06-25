@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -60,7 +61,7 @@ public class UserController {
         try {
             UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
 
-            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), role);
+            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), userCreateForm.getMailKey(), role);
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 아이디입니다.");
@@ -81,7 +82,23 @@ public class UserController {
 
         return isDuplicate;
     }
+    @GetMapping("/mypage")
+    public String myPage(Model model, Principal principal, Integer id) {
+        SiteUser user = userService.getUser(principal.getName());
+        List<Review> reviewList = reviewService.getReviewsByAuthor(user);
+        List<Product> voterProducts = productService.getProductsByVoter(user);
+        List<Product> wishProducts = productService.getProductsByWish(user);
+        model.addAttribute("voterProducts", voterProducts);
+        model.addAttribute("wishProducts", wishProducts);
+        model.addAttribute("userName", user.getUsername());
+        model.addAttribute("userNickName", user.getNickname());
+        model.addAttribute("userBirthDate", user.getBirthDate());
+        model.addAttribute("userBirthDate", user.getBirthDate());
+        model.addAttribute("userImg", user.getProfileFilepath());
 
+        System.out.println(reviewList.toString());
+        return "mypage";
+    }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modifyPassword")
     public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
@@ -108,32 +125,23 @@ public class UserController {
 
         return "redirect:/user/logout";
     }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/updateprofile")
+    public String updateProfileImg(BindingResult bindingResult,
+                                   Principal principal,
+                                   @RequestParam("file") MultipartFile file) throws Exception{
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        if (bindingResult.hasErrors()) {
+            return "mypage";
+        }
+        userService.updateProfile(siteUser, file);
 
-    public void modifyPassword(String password, SiteUser user) {
-        user.setPassword(passwordEncoder.encode(password));
-        this.userRepository.save(user);
+        return "mypage";
     }
     @GetMapping("/login")
     public String login() {
 
         return "login_form";
-    }
-
-    @GetMapping("/mypage")
-    public String myPage(Model model, Principal principal, Integer id) {
-        SiteUser user = userService.getUser(principal.getName());
-        List<Review> reviewList = reviewService.getReviewsByAuthor(user);
-        List<Product> voterProducts = productService.getProductsByVoter(user);
-        List<Product> wishProducts = productService.getProductsByWish(user);
-        model.addAttribute("voterProducts", voterProducts);
-        model.addAttribute("wishProducts", wishProducts);
-        model.addAttribute("userName", user.getUsername());
-        model.addAttribute("userNickName", user.getNickname());
-        model.addAttribute("userBirthDate", user.getBirthDate());
-        model.addAttribute("reviewList", reviewList);
-
-        System.out.println(reviewList.toString());
-        return "mypage";
     }
 
     @PostMapping("/login")
