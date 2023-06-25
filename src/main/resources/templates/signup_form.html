@@ -61,6 +61,9 @@
                     </div>
                 </div>
 
+
+
+
                 <div class="birthday-box">
                     <div class="birthday-text">생년월일*</div>
                     <div class="birthday">
@@ -74,6 +77,7 @@
                         <input id="password-input" th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
                                required="" value="">
                         <div class="password-checkmark">✓</div>
+                        <img id="show-password" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="Show Password">
                     </div>
                     <div id="password-error" style="display: none; color: red;">비밀번호는 영문, 숫자 8글자 이상을 입력하세요.</div>
                 </div>
@@ -112,8 +116,6 @@
     </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
 /*인증번호 타이머 스크립트*/
 <script>
    $(document).ready(function() {
@@ -206,7 +208,6 @@ $(document).ready(function() {
     $('#password-match-error').css('display', 'none');
   });
 });
-
     $(document).ready(function() {
   $('#checkDuplicateBtn').on('click', function() {
     checkNickname();
@@ -270,6 +271,45 @@ $(document).ready(function() {
 document.getElementById("checkDuplicateBtn").addEventListener("click", checkNickname);
 
 
+document.getElementById("show-password-icon").addEventListener("click", function() {
+    var passwordInput = document.getElementById("password-input");
+    var passwordType = passwordInput.getAttribute("type");
+
+    if (passwordType === "password") {
+        passwordInput.setAttribute("type", "text");
+    } else {
+        passwordInput.setAttribute("type", "password");
+    }
+});
+
+    const passwordInput = document.getElementById('password-input');
+    const showPasswordButton = document.getElementById('show-password');
+    const passwordError = document.getElementById('password-error');
+
+    showPasswordButton.addEventListener('click', togglePasswordVisibility);
+
+    function togglePasswordVisibility() {
+        const type = passwordInput.getAttribute('type');
+        if (type === 'password') {
+            passwordInput.setAttribute('type', 'text');
+        } else {
+            passwordInput.setAttribute('type', 'password');
+        }
+    }
+
+    passwordInput.addEventListener('input', validatePassword);
+
+    function validatePassword() {
+        const password = passwordInput.value;
+        if (password.length >= 8) {
+            passwordError.style.display = 'none';
+            passwordInput.nextElementSibling.style.display = 'block';
+        } else {
+            passwordError.style.display = 'block';
+            passwordInput.nextElementSibling.style.display = 'none';
+        }
+    }
+
 
 
 function sendEmailConfirmation() {
@@ -290,9 +330,6 @@ function sendEmailConfirmation() {
     });
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>

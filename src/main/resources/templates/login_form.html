@@ -7,11 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/login_form.css}">
+    <style>
+        .error-message {
+          background-color: #ffcccc;
+          color: #ff0000;
+          padding: 10px;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <form th:action="@{/user/login}" method="post">
     <div th:if="${param.error}">
-        <div>
+        <div class="error-message">
             사용자ID 또는 비밀번호를 확인해 주세요.
         </div>
     </div>
