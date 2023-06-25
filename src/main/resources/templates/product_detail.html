@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
+<html lang="ko" layout:decorate="~{layout}" xml:lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -28,10 +28,10 @@
 <body>
 <div layout:fragment="content">
     <div class="wrap">
-
         <div class="product-box">
-            <div class="left-box">
-
+            <div class="left-box1">
+                <img alt="" class="product-main-img"
+                     th:src="${product.filepath}">
             </div>
             <div class="right-box">
                 <div class="title-box">
@@ -42,6 +42,8 @@
                         <div class="title">
                             주종 :
                             <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
+                            -
+                            <span th:each="product : ${product}" th:text="${product.subCategory.subCategory}"></span>
                         </div>
                     </div>
                     <div class="info">
@@ -73,7 +75,7 @@
                 </div>
                 <div class="cost-box">
                     <div class="title">
-                        <h3>판매가격</h3>
+                        <h3>판매가격(리쿼샵 기준)</h3>
                     </div>
                     <h2 class="num" th:each="product : ${product}" th:text="${formattedCost}"></h2>
                     <h2 class="num">￦</h2> <!--가격-->
@@ -148,7 +150,8 @@
                                 </div>
                             </div>
                             <div class="right-box">
-                                <img src="https://img.freepik.com/premium-vector/spoon-and-fork-icon-vector-illustration_680433-397.jpg" alt="">
+                                <img alt=""
+                                     src="https://img.freepik.com/premium-vector/spoon-and-fork-icon-vector-illustration_680433-397.jpg">
                             </div>
                         </div>
                     </div>
@@ -314,6 +317,48 @@ function toggleReviewModifyForm(_this) {
 <!--  reviewModifyForm.classList.toggle('active');-->
 }
 
+var magnifier;
+
+$(".left-box1")
+    .on('mousemove', magnify)
+    .mouseenter(function() {
+        magnifier = $("<div class='magnifier'></div>").appendTo(this);
+        magnifier.css({
+            "background": "url('" + $(".product-main-img").attr("src") + "') no-repeat",
+            "pointer-events": "none" // 돋보기 요소에 pointer-events 속성 추가
+        });
+    })
+    .mouseleave(function() {
+        magnifier.remove();
+    });
+
+var target = $('.product-main-img');
+
+function magnify(e) {
+    var mouseX = e.pageX - $(this).offset().left;
+    var mouseY = e.pageY - $(this).offset().top;
+
+    if (mouseX < $(this).width() && mouseY < $(this).height() && mouseX > 0 && mouseY > 0) {
+        magnifier.fadeIn(100);
+    } else {
+        magnifier.fadeOut(100);
+    }
+
+
+    if (magnifier.is(":visible")) {
+        var rx = -(mouseX / target.width() * target[0].naturalWidth - magnifier.width() / 2);
+        var ry = -(mouseY / target.height() * target[0].naturalHeight - magnifier.height() / 2);
+
+        var px = mouseX - magnifier.width() / 2;
+        var py = mouseY - magnifier.height() / 2;
+
+        magnifier.css({
+            left: px,
+            top: py,
+            backgroundPosition: rx + "px " + ry + "px"
+        });
+    }
+}
 
 
 
