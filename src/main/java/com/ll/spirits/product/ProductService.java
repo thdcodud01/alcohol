@@ -73,13 +73,14 @@ public class ProductService {
             throw new DataNotFoundException("product not found"); // 예외처리로 에러(DataNotFoundException)를 표시
         }
     }
-    public void createProduct(ProductForm productForm, SiteUser siteUser, MultipartFile file) throws IOException {
 
+
+    public void createProduct(ProductForm productForm, SiteUser siteUser, MultipartFile file) throws IOException {
+        // 저장할 경로를 여기서 지정해줌
         String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
 
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        // 저장할 경로를 여기서 지정해줌
-        // String projectPath1 = System.getProperty("user.dir") + "src/main/resources/static/files";
+//      String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+
         UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
         // uuid는 파일에 붙일 랜덤이름을 생성
 
@@ -87,12 +88,8 @@ public class ProductService {
         // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
         String filePath = "/files/" + fileName;
 
-
         File saveFile = new File(projectPath, fileName);
         file.transferTo(saveFile);
-
-
-
 
         MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
                 .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));
@@ -157,6 +154,7 @@ public class ProductService {
         product.setNetWeight(netWeight);
         product.setNation(nation);
         product.setAuthor(siteUser);
+
         product.setFilename(fileName);
         product.setFilepath(filePath);
         // product를 먼저 저장합니다.
@@ -171,6 +169,9 @@ public class ProductService {
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
+
+
+
     public void modifyProduct(Integer id, ProductForm productForm, SiteUser siteUser) { // 추천 메서드
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
