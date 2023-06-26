@@ -240,6 +240,11 @@ margin-right: 90px;
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
   margin-left: 150px;
 }
+.wrap>.signup-box>.password-box>.password>i{
+    position:absolute;
+    top:25px;
+    right:-30px;
+}
 
 .wrap>.signup-box>.password-box>.password>.password-checkmark{
     position:absolute;

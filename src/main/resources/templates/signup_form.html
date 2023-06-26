@@ -7,8 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Spirits 회원가입</title>
     <link rel="stylesheet" type="text/css" th:href="@{/signup_form.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-BmJhC8F9pTQIsVXic5mmi53S5kjiJDIHLYSPsHTVhjZtt1awqvcGmG/JemNiZZvT2hH2LbQ1kiY6YQF3uau9xA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-gDMKKFcOLeey7kk7O0a9FobYq6f+8asfGrcF3c9qJ0L5NYaPFusihKxQ3XUlIeai+okVigihRfdktof4D/j2aw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     <style>
         .error-message {
@@ -80,10 +84,11 @@
                         <input id="password-input" th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
                                required="" value="">
                         <div class="password-checkmark">✓</div>
-                        <img id="show-password" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" alt="Show Password">
+                        <i id="show-password" class="fa-solid fa-eye fa-lg" alt="Show Password"></i>
                     </div>
                     <div id="password-error" style="display: none; color: red;">비밀번호는 영문, 숫자 8글자 이상을 입력하세요.</div>
                 </div>
+
 
                 <div class="password-check-box">
                     <div class="password-check-text">비밀번호 확인 *</div>
@@ -293,32 +298,33 @@ document.getElementById("show-password-icon").addEventListener("click", function
 
 <script>
     const passwordInput = document.getElementById('password-input');
-    const showPasswordButton = document.getElementById('show-password');
-    const passwordError = document.getElementById('password-error');
+const showPasswordButton = document.getElementById('show-password');
+const passwordError = document.getElementById('password-error');
 
-    showPasswordButton.addEventListener('click', togglePasswordVisibility);
+showPasswordButton.addEventListener('click', togglePasswordVisibility);
 
-    function togglePasswordVisibility() {
-        const type = passwordInput.getAttribute('type');
-        if (type === 'password') {
-            passwordInput.setAttribute('type', 'text');
-        } else {
-            passwordInput.setAttribute('type', 'password');
-        }
+function togglePasswordVisibility() {
+    const type = passwordInput.getAttribute('type');
+    if (type === 'password') {
+        passwordInput.setAttribute('type', 'text');
+    } else {
+        passwordInput.setAttribute('type', 'password');
     }
+}
 
-    passwordInput.addEventListener('input', validatePassword);
+passwordInput.addEventListener('input', validatePassword);
 
-    function validatePassword() {
-        const password = passwordInput.value;
-        if (password.length >= 8) {
-            passwordError.style.display = 'none';
-            passwordInput.nextElementSibling.style.display = 'block';
-        } else {
-            passwordError.style.display = 'block';
-            passwordInput.nextElementSibling.style.display = 'none';
-        }
+function validatePassword() {
+    const password = passwordInput.value;
+    if (password.length >= 8) {
+        passwordError.style.display = 'none';
+        passwordInput.nextElementSibling.style.display = 'block';
+    } else {
+        passwordError.style.display = 'block';
+        passwordInput.nextElementSibling.style.display = 'none';
     }
+}
+
 
 function sendEmailConfirmation() {
     // 이메일 주소 가져오기
