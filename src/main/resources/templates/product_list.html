@@ -121,7 +121,7 @@
                ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
                ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
                ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)} or
-               ${mainCategoryId == 8 and (subCategory.id >= 1 and subCategory.id <= 36)}"
+               ${searchKeyword != null and (subCategory.id >= 1 and subCategory.id <= 36)}"
                             th:text="${subCategory.subCategory}" th:value="${subCategory.id}"></option>
                 </select>
             </div>
