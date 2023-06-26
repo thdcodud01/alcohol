@@ -92,7 +92,7 @@
                         <a class="a-link" th:href="@{|/product/detail/${product.id}|}">
                             <div class="img-box">
                                 <img alt=""
-                                     src="https://d38cxpfv0ljg7q.cloudfront.net/admin_contents/detail/rC0W-1659321041025-0.jpg">
+                                     th:src="${product.filepath1}">
                             </div>
                             <div class="text-box" th:text="${product.name}"></div>
                             <div class="text-box" th:text="${product.cost}"></div>

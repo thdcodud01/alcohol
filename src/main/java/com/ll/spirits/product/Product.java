@@ -99,8 +99,14 @@ public class Product {
     private int views;
 
     @Column
-    private String filename;
+    private String filename1;
 
     @Column
-    private String filepath;
+    private String filepath1;
+
+    @Column
+    private String filename2;
+
+    @Column
+    private String filepath2;
 }
