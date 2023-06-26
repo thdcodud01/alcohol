@@ -163,6 +163,13 @@ video {
   width: 1200px;
   height: auto;
   margin-top: 30px;
+
+}
+
+.main-section>.ranking-section>.ranking-wrap{
+    display:flex;
+        justify-content:space-between;
+        text-align:center;
 }
 
 .main-section>.ranking-section>.ranking-title{
@@ -172,19 +179,13 @@ video {
   margin-top: 10px;
 }
 
-.main-section>.ranking-section>.ranking{
-  display:flex;
-  justify-content:space-between;
-  text-align:center;
-}
 
-
-.main-section>.ranking-section>.ranking .img-box>img{
+.main-section>.ranking-section>.ranking-wrap>.ranking>.ranking-box .img-box>img{
   width: 220px;
   height: 250px;
 }
 
-.main-section>.ranking-section>.ranking .name{
+.main-section>.ranking-section>.ranking-wrap>.ranking .name{
   margin-top: 10px;
 }
 

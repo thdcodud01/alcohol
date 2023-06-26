@@ -125,18 +125,21 @@
             <hr>
             <div class="ranking-section">
                 <div class="ranking-title">인기순위 top 5</div>
-                <div class="ranking" th:each="product, productStat : ${voterProducts}">
-                    <!-- Iterate over the top 5 products -->
-                    <div th:if="${productStat.index < 5}">
-                        <div id="top[[${productStat.index + 1}]]">
-                            <div class="img-box">
-                                <img alt=""
-                                     src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
+                <div class="ranking-wrap">
+                    <div class="ranking" th:each="product, productStat : ${voterProducts}">
+                        <!-- Iterate over the top 5 products -->
+                        <div class="ranking-box" th:if="${productStat.index < 5}">
+                            <div id="top[[${productStat.index + 1}]]">
+                                <div class="img-box">
+                                    <img alt=""
+                                         src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
+                                </div>
+                                <div class="name" th:text="${product.name}"></div>
                             </div>
-                            <div class="name" th:text="${product.name}"></div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <hr>
             <div class="ad-slider-wrap">
