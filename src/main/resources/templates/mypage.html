@@ -7,7 +7,6 @@
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>MyPage</title>
     <link rel="stylesheet" th:href="@{/mypage_style.css}" type="text/css">
-    <!--        <link rel="script" type="text/js" th:href="@{/my_page_script.js}">--><!--  js는 안쓸거같아요!  -->
     <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
           integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" rel="stylesheet">
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -40,7 +39,6 @@
 
     <div class="title">마이페이지</div>
     <div class="mypage-wrap">
-
         <div class="right-box">
             <div class="info-box">
                 <div class="user-info-box">
@@ -93,7 +91,6 @@
                         </a>
                     </div>
                 </div>
-
             </div>
             <div class="review-box">
                 <div class="review-wrap">
@@ -110,11 +107,9 @@
                             <div class="number" th:text="${review.id}"></div>
                             <div class="content" th:text="${review.content}"></div>
                             <div class="product-name" th:text="${review.product.name}"></div>
-                            <div class="date"
-                                 th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                            <div class="date" th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                         </a>
                     </div>
-
                 </div>
             </div>
             <div class="like-box">
