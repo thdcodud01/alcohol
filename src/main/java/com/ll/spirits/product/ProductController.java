@@ -7,6 +7,7 @@ import com.ll.spirits.product.productEntity.cask.CaskService;
 import com.ll.spirits.product.productEntity.costRange.CostRange;
 import com.ll.spirits.product.productEntity.costRange.CostRangeService;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
+import com.ll.spirits.product.productEntity.mainCategory.MainCategoryRepository;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategoryService;
 import com.ll.spirits.product.productEntity.nation.Nation;
 import com.ll.spirits.product.productEntity.nation.NationService;
@@ -56,19 +57,17 @@ public class ProductController {
     private final PairingService pairingService;
     private final ReviewService reviewService;
     private final ProductRepository productRepository;
+    private final MainCategoryRepository mainCategoryRepository;
 
-    @GetMapping("/list/{mainCategory}")
-    public String listProductsByMainCategory(@PathVariable("mainCategory") String mainCategory,
-                                             @RequestParam(value = "subCategoryId", required = false) Integer subCategoryId,
-                                             @RequestParam(value = "caskId", required = false) Integer caskId,
-                                             @RequestParam(value = "nationId", required = false) Integer nationId,
-                                             @RequestParam(value = "pairingId", required = false) Integer pairingId,
-                                             @RequestParam(value = "abvRangeId", required = false) Integer abvRangeId,
-                                             @RequestParam(value = "costRangeId", required = false) Integer costRangeId,
-                                             @RequestParam(value = "netWeightId", required = false) Integer netWeightId,
+    @GetMapping("/list")
+    public String listProductsByMainCategory(@RequestParam(value = "mainCategory", required = false) Integer mainCategory,
                                              @RequestParam(value = "kw", defaultValue = "") String kw,
                                              Model model) {
+        // 대분류에 맞는 제품들을 조회하는 로직을 구현해야 합니다.
+        List<Product> productList = productService.getProductsByMainCategory(mainCategory, kw);
+        MainCategory mainCategoryName = mainCategoryService.getMainCategoryBymainCategoryId(mainCategory);
 
+        // 기타 필요한 데이터를 조회하거나 처리하는 로직
         List<Cask> caskList = caskService.getAllCask();
         List<Nation> nationList = nationService.getAllNation();
         List<Pairing> pairingList = pairingService.getAllPairing();
@@ -76,52 +75,37 @@ public class ProductController {
         List<CostRange> costRangeList = costRangeService.getAllCostRange();
         List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
+        List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
 
-        Integer mainCategoryId = mainCategoryService.getMainCategoryIdBymainCategory(mainCategory);
-
-        List<Product> productListkw = productService.getListSearch(kw);
-        List<Review> reviewList = productService.getListReviewSearch(kw);
-        List<SiteUser> siteUserList = productService.getListSiteUserSearch(kw);
-
-        List<Product> productList;
-        // 서브카테고리가 null이거나 0인 경우
-        if (subCategoryId == null) {
-            // 서브카테고리가 지정되지 않은 경우, 대분류에 해당하는 모든 제품을 가져옴
-            productList = productService.getProductsByMainCategoryId(mainCategoryId);
-        } else {
-            // 서브카테고리가 지정된 경우, 대분류와 중분류에 해당하는 제품을 가져옴
-            productList = productService.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-        }
-
+        // 모델에 데이터를 추가합니다.
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
         model.addAttribute("pairingList", pairingList);
-        model.addAttribute("productListkw", productListkw);
         model.addAttribute("productList", productList);
-        model.addAttribute("reviewList", reviewList);
-        model.addAttribute("siteUserList", siteUserList);
         model.addAttribute("abVrangeList", abVrangeList);
         model.addAttribute("netWeightList", netWeightList);
-        model.addAttribute("subCategoryId", subCategoryId);
         model.addAttribute("costRangeList", costRangeList);
-        model.addAttribute("mainCategoryId", mainCategoryId);
+        model.addAttribute("mainCategoryList", mainCategoryList);
         model.addAttribute("subCategoryList", subCategoryList);
-        model.addAttribute("kw", kw);
+        model.addAttribute("searchKeyword", kw);
+        model.addAttribute("mainCategory", mainCategoryName);
+        model.addAttribute("mainCategoryId", mainCategory);
 
         return "product_list";
     }
 
+
     @GetMapping("/list/category")
     @ResponseBody
-    public List<Product> getBeerProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
-                                            @RequestParam(value = "costRange", required = false) Integer costRangeId,
-                                            @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
-                                            @RequestParam(value = "netWeight", required = false) Integer netWeightId,
-                                            @RequestParam(value = "pairing", required = false) Integer pairingId,
-                                            @RequestParam(value = "cask", required = false) Integer caskId,
-                                            @RequestParam(value = "nation", required = false) Integer nationId,
-                                            @RequestParam(value = "kw", required = false) String kw,
-                                            Model model) {
+    public List<Product> getFilterProductList(@RequestParam(value = "subCategory", required = false) Integer subCategoryId,
+                                              @RequestParam(value = "costRange", required = false) Integer costRangeId,
+                                              @RequestParam(value = "abvRange", required = false) Integer abvRangeId,
+                                              @RequestParam(value = "netWeight", required = false) Integer netWeightId,
+                                              @RequestParam(value = "pairing", required = false) Integer pairingId,
+                                              @RequestParam(value = "cask", required = false) Integer caskId,
+                                              @RequestParam(value = "nation", required = false) Integer nationId,
+                                              @RequestParam(value = "kw", required = false) String kw,
+                                              Model model) {
 
         return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId, kw);
     }
