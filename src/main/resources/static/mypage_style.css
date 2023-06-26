@@ -89,67 +89,109 @@ ul,li{
   margin-bottom: 1px;
 }
 
-.right-box>.info-box>.user-info-box{
-   border:2px solid black;
-  margin-top: 30px;
-  width: 95%;
-  margin-right: auto;
-  margin-left: auto;
-  border-radius:6px;
-  padding: 10px;
+.right-box>.info-wrap{
+
+    border:2px solid black;
+      margin-top: 30px;
+      width: 95%;
+      margin-right: auto;
+      margin-left: auto;
+      border-radius:6px;
+      padding: 10px;
 }
 
-.right-box>.info-box>.user-info-box>.title{
+.right-box>.info-wrap>.info-content>.img-box{
+    margin-right:0px;
+    margin-left:30px;
+}
+
+.user-img-box>input{
+    margin-top:10px;
+}
+
+.user-img-box{
+    margin-left:50px;
+    margin-top:20px;
+}
+.user-profile-register>.img-btn{
+    margin-top:10px;
+    margin-left:50px;
+    padding-left:8px;
+    padding-right:8px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box{
+    margin-top:60px;
+}
+
+.right-box>.info-wrap>.title{
     font-size:22px;
     margin-bottom:10px;
 }
 
-.right-box>.info-box>.user-info-box>.id-box{
+.right-box>.info-wrap>.info-content{
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box{
+    width:800px;
+    margin-right:50px;
+}
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box{
   display:flex;
   justify-content:space-between;
   margin-top: 20px;
-
+  margin-bottom:50px;
 
 }
 
-.right-box>.info-box>.user-info-box>.id-box>.subtitle{
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box>.subtitle{
   margin-left: 20px;
 }
 
-.right-box>.info-box>.user-info-box>.id-box>.user-id{
-  margin-right: 20px;
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box>.user-id{
+  margin-right: 40px;
+  margin-left:-10px;
 }
 
-.right-box>.info-box>.user-info-box>.nickname-box{
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.nickname-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+  margin-bottom:50px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.nickname-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.nickname-box>.nickname{
+  margin-right: 40px;
+  margin-left:-10px;
+}
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.birth-box{
   display:flex;
   justify-content:space-between;
   margin-top: 20px;
 }
 
-.right-box>.info-box>.user-info-box>.nickname-box>.subtitle{
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.birth-box>.subtitle{
   margin-left: 20px;
 }
 
-.right-box>.info-box>.user-info-box>.nickname-box>.nickname{
-  margin-right: 20px;
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.birth-box>.birth{
+  margin-right: 40px;
+  margin-left:-10px;
 }
 
-
-.right-box>.info-box>.user-info-box>.birth-box{
-  display:flex;
-  justify-content:space-between;
-  margin-top: 20px;
-}
-
-.right-box>.info-box>.user-info-box>.birth-box>.subtitle{
-  margin-left: 20px;
-}
-
-.right-box>.info-box>.user-info-box>.birth-box>.birth{
-  margin-right: 20px;
-}
-
-.right-box>.info-box>.user-info-box>.password-box{
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.password-box{
   display:flex;
   justify-content:space-between;
   margin-top: 20px;
@@ -157,12 +199,12 @@ ul,li{
 }
 
 
-.right-box>.info-box>.user-info-box>.password-box>.subtitle{
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.password-box>.subtitle{
   margin-left: 20px;
 }
 
 
-.right-box>.info-box>.user-info-box>.password-box>.password{
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.password-box>.password{
   margin-right: 20px;
 }
 

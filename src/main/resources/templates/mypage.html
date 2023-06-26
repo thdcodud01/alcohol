@@ -42,42 +42,48 @@
     <div class="mypage-wrap">
 
         <div class="right-box">
-            <div class="info-box">
-                <div class="user-info-box">
-                    <div class="title">회원정보</div>
-                    <hr>
-                    <div class="id-box">
-                        <div class="subtitle">아이디 :</div>
-                        <div class="user-id" th:text="${#authentication.principal.username}">tjqls@gmail.com</div>
-                    </div>
-                    <div class="nickname-box">
-                        <div class="subtitle">닉네임 :</div>
-                        <div class="nickname" th:text="${#authentication.principal.nickname}"></div>
-                    </div>
-                    <div class="birth-box">
-                        <div class="subtitle">생년월일 :</div>
-                        <div class="birth" th:text="${userBirthDate}"></div>
-                    </div>
-                </div>
-            </div>
+            <div class="info-wrap">
+                <div class="title">회원정보</div>
+                <hr>
+                <div class="info-content">
+                    <div class="img-box">
+                        <form enctype="multipart/form-data" method="POST">
+                            <div class="user-profile-register">
 
-            <div class="img-box">
-                <form enctype="multipart/form-data" method="POST">
-                    <div class="user-profile-register">
-                        <div class="title">프로필 사진 등록</div>
-                        <hr>
-                        <div class="img-box">
-                            <div class="profile-photo">
-                                <img alt="" th:src="${userImg}">
+                                <div class="img-box">
+                                    <div class="profile-photo">
+                                        <img alt="" th:src="${userImg}">
+                                    </div>
+                                </div>
+                                <div class="user-img-box">
+                                    <label for="avatar1">프로필 사진:</label>
+                                    <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file"
+                                           type="file">
+                                </div>
+                                <input class="btn btn-primary btn-action img-btn" type="submit" value="저장하기">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="info-box">
+                        <div class="user-info-box">
+                            <div class="id-box">
+                                <div class="subtitle">아이디 :</div>
+                                <div class="user-id" th:text="${#authentication.principal.username}">tjqls@gmail.com
+                                </div>
+                            </div>
+                            <div class="nickname-box">
+                                <div class="subtitle">닉네임 :</div>
+                                <div class="nickname" th:text="${#authentication.principal.nickname}"></div>
+                            </div>
+                            <div class="birth-box">
+                                <div class="subtitle">생년월일 :</div>
+                                <div class="birth" th:text="${userBirthDate}"></div>
                             </div>
                         </div>
-                        <div class="user-img-box">
-                            <label for="avatar1">프로필 사진:</label>
-                            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file" type="file">
-                        </div>
-                        <input class="btn btn-primary btn-action" type="submit" value="저장하기">
                     </div>
-                </form>
+                </div>
+
+
             </div>
 
             <div class="wish-box">
@@ -208,6 +214,8 @@ $(".user-information-modify").click(function () {
   $(".user-like").removeClass("active").css('display','none');
   $(".user-modify").addClass("active").css('display','block');
 });
+
+
 
 </script>
 </body>
