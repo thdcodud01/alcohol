@@ -74,6 +74,16 @@ public class ProductService {
         }
     }
 
+    // 대분류에 따라 제품을 조회하는 메서드
+    public List<Product> getProductsByMainCategory(Integer mainCategory, String kw) {
+        // ProductRepository의 메서드를 호출하여 대분류에 맞는 제품을 조회합니다.
+        if (mainCategory != null) {
+            return productRepository.findByMainCategoryAndKeyword(mainCategory, kw);
+        } else {
+            return productRepository.findAllByKeyword(kw);
+        }
+    }
+
 
     public void createProduct(ProductForm productForm, SiteUser siteUser, MultipartFile file) throws IOException {
         // 저장할 경로를 여기서 지정해줌
@@ -169,9 +179,6 @@ public class ProductService {
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
-
-
-
     public void modifyProduct(Integer id, ProductForm productForm, SiteUser siteUser) { // 추천 메서드
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
@@ -268,14 +275,14 @@ public class ProductService {
     public List<Review> getListReviewSearch(String kw) {
         return this.productRepository.findAllByKeywordInReview(kw);
     }
+    public List<SiteUser> getListSiteUserSearch(String kw) {
+        return this.productRepository.findAllByKeywordInSiteUser(kw);
+    }
     public List<Product> getProductsByVoter(SiteUser voter) {
         return productRepository.findByVoter(voter);
     }
     public List<Product> getProductsByWish(SiteUser wish) {
         return productRepository.findByWish(wish);
-    }
-    public List<SiteUser> getListSiteUserSearch(String kw) {
-        return this.productRepository.findAllByKeywordInSiteUser(kw);
     }
     public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
@@ -347,10 +354,8 @@ public class ProductService {
                 kw == null) {
             return productRepository.findAll(); // 필터링 조건이 없는 경우 모든 제품 조회
         }
-
         return productRepository.findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKwAndCaskAndPairing(
                 subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw, caskId, pairingId);
-
     }
     public Product countingViews(Product product) {
         // Logic to save the product, such as calling a repository or performing other operations

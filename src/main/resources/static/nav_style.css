@@ -78,33 +78,36 @@ ul,li{
   right: 12px
 }
 
-.wrap>.menu-bar{
-  box-sizing:border-box;
+.wrap > .menu-bar {
+  box-sizing: border-box;
   margin-top: 20px;
-}
-
-.wrap>.menu-bar>ul{
-  display:flex;
-  justify-content:space-around;
-  text-align:center;
-}
-
-.wrap>.menu-bar>ul>li{
-  width: calc(100%/7);
-  display:inline-block;
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
 }
 
 
+.wrap > .menu-bar > ul {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 100%; /* 전체 너비로 설정 */
+}
 
-.wrap>.menu-bar>ul>li>a{
-  display:block;
+.wrap > .menu-bar > ul > li {
+  width: calc(100% / 7);
+  background: right / 0% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
+  transition: background-size 500ms;
+}
+
+.wrap > .menu-bar > ul > li > a {
+  display: block;
   font-size: 20px;
-  background:right / 0% 100% no-repeat linear-gradient(#bbccdd,#bbccdd);
-  transition:background-size 500ms;
+  background: right / 0% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
+  transition: background-size 500ms;
 }
 
-.wrap>.menu-bar>ul>li:hover>a{
-  background:left / 100% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
+.wrap > .menu-bar > ul > li:hover {
+  background: left / 100% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
 }
 
 .search-box {

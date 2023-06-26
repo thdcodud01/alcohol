@@ -89,17 +89,36 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "OR c.cask LIKE %:kw% " +
             "OR pa.pairing LIKE %:kw% ")
     List<Product> findAllByKeyword(@Param("kw") String kw);
+
+    // 대분류와 키워드로 제품을 조회하는 메서드
+    @Query("SELECT DISTINCT p " +
+            "FROM Product p " +
+            "LEFT JOIN p.author u " +
+            "LEFT JOIN p.abvRange ar " +
+            "LEFT JOIN p.costRange cr " +
+            "LEFT JOIN p.mainCategory mc " +
+            "LEFT JOIN p.nation n " +
+            "LEFT JOIN p.netWeight nw " +
+            "LEFT JOIN p.subCategory sub " +
+            "LEFT JOIN p.casks c " +
+            "LEFT JOIN p.pairings pa " +
+            "WHERE mc.id = :mainCategory " +
+            "AND (p.name LIKE %:kw% " +
+            "OR p.info LIKE %:kw% " +
+            "OR u.username LIKE %:kw% " +
+            "OR ar.abvRange LIKE %:kw% " +
+            "OR cr.costRange LIKE %:kw% " +
+            "OR n.nation LIKE %:kw% " +
+            "OR nw.netWeight LIKE %:kw% " +
+            "OR sub.subCategory LIKE %:kw% " +
+            "OR c.cask LIKE %:kw% " +
+            "OR pa.pairing LIKE %:kw% )")
+    List<Product> findByMainCategoryAndKeyword(@Param("mainCategory") Integer mainCategory, @Param("kw") String kw);
     @Query("SELECT r FROM Review r JOIN FETCH r.author WHERE r.content LIKE %:kw% OR r.author.username LIKE %:kw%")
     List<Review> findAllByKeywordInReview(@Param("kw") String kw);
 
     @Query("SELECT u FROM SiteUser u WHERE u.username LIKE %:kw% OR u.nickname LIKE %:kw%")
     List<SiteUser> findAllByKeywordInSiteUser(@Param("kw") String kw);
 
-
-
-
-    // 통합 검색을 위한 메서드
-
-//    List<Product> findAllByNameContainingOrInfoContainingOrAuthor_UsernameContainingOrReview_Author_UsernameContainingOrSubjectContainingOrReview_ContentContainingOrAbvRange_AbvRangeContainingOrCostRange_CostRangeContainingOrMainCategory_MainCategoryContainingOrNation_NationContainingOrNetWeight_NetWeightContainingOrSubCategory_SubCategoryContainingOrCasks_CaskContainingOrPairings_PairingContaining(String name, String info, String authorUsername, String reviewAuthorUsername, String subject, String reviewContent, String abvRange, String costRange, String mainCategory, String nation, String netWeight, String subCategory, String cask, String pairing);
 
 }

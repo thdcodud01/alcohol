@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>제품 리스트 페이지</title>
-    <link rel="stylesheet" th:href="@{/beer_list_style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/product_list_style.css}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="wrap">
         <!-- 위스키 information-box -->
-        <span th:text="${mainCategoryId}"></span>
+        <span id="MainCategory" th:text="${mainCategoryId}"></span>
         <span th:text="${mainCategory}"></span>
         <div class="information-box" th:if="${mainCategoryId == 1}">
             <div class="title">
@@ -98,12 +98,12 @@
             </div>
         </div>
         <!-- 검색 information-box -->
-        <div class="information-box" th:if="${mainCategoryId == null || searchKeyword != null}">
+        <div class="information-box" th:if="${searchKeyword != null && searchKeyword != ''}">
             <div class="title">
                 <h2>검색 결과</h2>
             </div>
             <div class="text">
-                검색어에 대한 결과입니다.
+                "<div th:text="${searchKeyword}" style="display:inline-block;"></div>" 검색어가 포함된 모든 결과입니다.
             </div>
         </div>
         <!--드롭다운메뉴 시작-->
@@ -120,7 +120,8 @@
                ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
                ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
                ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
-               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)}"
+               ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)} or
+               ${searchKeyword != null and (subCategory.id >= 1 and subCategory.id <= 36)}"
                             th:text="${subCategory.subCategory}" th:value="${subCategory.id}"></option>
                 </select>
             </div>
@@ -210,12 +211,6 @@
 </div>
 <!--스크립트 들어가는 자리-->
 <script layout:fragment="script" type='text/javascript'>
-    // 검색 필터링
-    function filterBySearch() {
-        var kw = $("#search_kw").val();
-        filterProducts(null, null, null, null, null, null, null, kw);
-    }
-
     // 중분류 선택 시 필터링
 function filterBySubcategory() {
   var selectedSubCategory = $("#SubCategory").val();
@@ -225,9 +220,8 @@ function filterBySubcategory() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val(); // 추가: 검색 키워드
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
 
     // 가격범위 선택 시 필터링
@@ -239,9 +233,8 @@ function filterByCostrange() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val();
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
 
 // 알콜도수범위 선택 시 필터링
@@ -253,9 +246,8 @@ function filterByABVrange() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val();
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
 
 // 용량 선택 시 필터링
@@ -267,9 +259,8 @@ function filterByNetWeight() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val();
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
 
 // 안주 선택 시 필터링
@@ -281,9 +272,8 @@ function filterByParing() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val();
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
 
 // 오크통 선택 시 필터링
@@ -295,9 +285,8 @@ function filterByCask() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val();
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
 
 // 국가 선택 시 필터링
@@ -309,13 +298,11 @@ function filterByNation() {
   var selectedParing = $("#Paring").val();
   var selectedCask = $("#Cask").val();
   var selectedNation = $("#Nation").val();
-  var searchKeyword = $("#search_kw").val();
 
-  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation);
 }
-
     // 제품 필터링 함수
-    function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId, kw) {
+    function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId) {
         $.ajax({
             url: '/product/list/category',
             data: {
@@ -325,8 +312,7 @@ function filterByNation() {
                     netWeight : netWeightId,
                     cask : caskId,
                     netWeight : netWeightId,
-                    pairing : paringId,
-                    kw : kw
+                    pairing : paringId
             },
             type: "GET",
             success: function (filteredProducts) {
