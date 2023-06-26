@@ -82,7 +82,7 @@ display:inline-block;
     display:inline-block;
 }
 
-.wrap>.login-box>.kakao>.kakao-btn>a{
+.wrap>.login-box>.kakao>a{
     display:block;
     background-color:yellow;
     font-size:19px;
@@ -157,14 +157,15 @@ display:inline-block;
 
 }
 
-.wrap>.login-box>.signup-btn>a>.btn{
-    width: 300px;
+.wrap>.login-box>.signup-btn>a{
     font-size: 19px;
     background-color: white;
-    border: 1px solid;
-    border-radius: 5px;
-    padding: 10px;
-    font-weight: bold;
-    color: black;
-    cursor : pointer;
+    display:block;
+    font-size:19px;
+    padding:13px;
+    padding-left:80px;
+    padding-right:80px;
+    border:1px solid black;
+    border-radius:6px;
+    font-weight:bold;
 }
