@@ -43,13 +43,13 @@
     </nav>
     <div class="menu-bar">
         <ul>
-            <li><a th:href="@{|/product/list/Whiskey|}">위스키</a></li>
-            <li><a th:href="@{|/product/list/Vodka|}">보드카</a></li>
-            <li><a th:href="@{|/product/list/Tequila|}">데킬라</a></li>
-            <li><a th:href="@{|/product/list/Gin|}">진</a></li>
-            <li><a th:href="@{|/product/list/Rum|}">럼</a></li>
-            <li><a th:href="@{|/product/list/Brandy|}">브랜디</a></li>
-            <li><a th:href="@{|/product/list/Beer|}">맥주</a></li>
+            <li><a th:href="@{|/product/list/whiskey|}">위스키</a></li>
+            <li><a th:href="@{|/product/list/vodka|}">보드카</a></li>
+            <li><a th:href="@{|/product/list/tequila|}">데킬라</a></li>
+            <li><a th:href="@{|/product/list/gin|}">진</a></li>
+            <li><a th:href="@{|/product/list/rum|}">럼</a></li>
+            <li><a th:href="@{|/product/list/brandy|}">브랜디</a></li>
+            <li><a th:href="@{|/product/list/beer|}">맥주</a></li>
         </ul>
     </div>
 </div>
@@ -72,6 +72,152 @@
         searchForm.submit();
     });
 
+    // 검색 필터링
+    function filterBySearch() {
+        var kw = $("#search_kw").val();
+        filterProducts(null, null, null, null, null, null, null, kw);
+    }
+
+    // 중분류 선택 시 필터링
+function filterBySubcategory() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val(); // 추가: 검색 키워드
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+    // 가격범위 선택 시 필터링
+function filterByCostrange() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val();
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+// 알콜도수범위 선택 시 필터링
+function filterByABVrange() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val();
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+// 용량 선택 시 필터링
+function filterByNetWeight() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val();
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+// 안주 선택 시 필터링
+function filterByParing() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val();
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+// 오크통 선택 시 필터링
+function filterByCask() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val();
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+// 국가 선택 시 필터링
+function filterByNation() {
+  var selectedSubCategory = $("#SubCategory").val();
+  var selectedCostRange = $("#Costrange").val();
+  var selectedABVRange = $("#ABVrange").val();
+  var selectedNetWeight = $("#NetWeight").val();
+  var selectedParing = $("#Paring").val();
+  var selectedCask = $("#Cask").val();
+  var selectedNation = $("#Nation").val();
+  var searchKeyword = $("#search_kw").val();
+
+  filterProducts(selectedSubCategory, selectedCostRange, selectedABVRange, selectedNetWeight, selectedParing, selectedCask, selectedNation, searchKeyword);
+}
+
+    // 제품 필터링 함수
+    function filterProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, paringId, caskId, nationId, kw) {
+        $.ajax({
+            url: '/product/list/category',
+            data: {
+                    subCategory: subCategoryId,
+                    costRange: costRangeId,
+                    abvRange : abvRangeId,
+                    netWeight : netWeightId,
+                    cask : caskId,
+                    netWeight : netWeightId,
+                    pairing : paringId,
+                    kw : kw
+            },
+            type: "GET",
+            success: function (filteredProducts) {
+                var goodsList = $(".goods-list");
+                goodsList.empty(); // 기존 상품 목록을 비움.
+
+                // 필터링된 상품 목록을 순회하며 HTML 요소를 생성하여 추가.
+                filteredProducts.forEach(function (product) {
+                    var productElement = $("<div></div>")
+                        .addClass("goods-1")
+                        .append(
+                            $("<a></a>")
+                                .attr("href", "/product/detail/" + product.id)
+                                .append($("<img>").attr("src", product.filepath))
+                                .append($("<p></p>").addClass("goods-name").text(product.name))
+                                .append($("<span></span>").text(product.cost + "원"))
+                        );
+                    goodsList.append(productElement);
+                });
+
+                // 검색 결과 개수를 업데이트
+                var searchResultsCount = filteredProducts.length;
+                $("#search-results-count").text(searchResultsCount);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
 </script>
 </body>
 </html>

@@ -16,6 +16,7 @@
 </head>
 <body>
 <!-- 문서시작 -->
+
 <div class="wrap">
 
     <nav>
@@ -57,8 +58,25 @@
                         <div class="subtitle">생년월일 :</div>
                         <div class="birth" th:text="${userBirthDate}"></div>
                     </div>
-
                 </div>
+            </div>
+            <div class="img-box">
+                <form enctype="multipart/form-data" method="POST">
+                    <div class="user-profile-register">
+                        <div class="title">프로필 사진 등록</div>
+                        <hr>
+                        <div class="img-box">
+                            <div class="profile-photo">
+                                <img alt="" th:src="${userImg}">
+                            </div>
+                        </div>
+                        <div class="user-img-box">
+                            <label for="avatar1">프로필 사진:</label>
+                            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file" type="file">
+                        </div>
+                        <input class="btn btn-primary btn-action" type="submit" value="저장하기">
+                    </div>
+                </form>
             </div>
             <div class="wish-box">
                 <div class="title">나만의 찜</div>
@@ -92,7 +110,8 @@
                             <div class="number" th:text="${review.id}"></div>
                             <div class="content" th:text="${review.content}"></div>
                             <div class="product-name" th:text="${review.product.name}"></div>
-                            <div class="date" th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                            <div class="date"
+                                 th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                         </a>
                     </div>
 
@@ -184,10 +203,6 @@ $(".user-information-modify").click(function () {
   $(".user-like").removeClass("active").css('display','none');
   $(".user-modify").addClass("active").css('display','block');
 });
-
-
-
-
 
 </script>
 </body>

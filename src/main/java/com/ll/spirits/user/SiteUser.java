@@ -20,7 +20,6 @@ import java.util.List;
 @ToString(callSuper = true)
 public class SiteUser {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,9 +33,17 @@ public class SiteUser {
 
     private LocalDate birthDate; // 생년월일 필드 추가
 
+    @Column
+    private String profileFilename;
 
-    public SiteUser(String username, String password, List<GrantedAuthority> authorities) {
-    }
+    @Column
+    private String profileFilepath;
+
+    private int mailKey;
+
+    private boolean mailAuth;
+
+
 
     public boolean isAdmin() {
         // 관리자 여부를 판별하는 로직을 구현

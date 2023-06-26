@@ -7,10 +7,15 @@ import com.ll.spirits.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -21,22 +26,85 @@ public class UserService {
 //    private final EmailVerificationTokenRepository tokenRepository;
 //    private final EmailService emailService;
 
-    public SiteUser create(String username, String password, String nickname, LocalDate birthDate, UserRole role) {
+    public SiteUser create(String username, String password, String nickname, LocalDate birthDate, int mailKey, UserRole role) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setNickname(nickname);
         user.setBirthDate(birthDate);
         user.setRole(role);
+
+        user.setMailKey(mailKey);
+
         this.userRepository.save(user);
         return user;
     }
+
+    public void updateMailAuth(String email, int mailKey) {
+        int updatedRows = userRepository.updateMailAuth(email, mailKey);
+        if (updatedRows > 0) {
+            System.out.println("Mail auth updated successfully.");
+        } else {
+            System.out.println("Failed to update mail auth.");
+        }
+    }
+    public void emailConfirm(String username, int mailKey) throws Exception {
+        SiteUser user = this.getUserByUsername(username);
+
+        if (user != null && user.getMailKey() == mailKey) {
+            updateMailAuth(username, mailKey);
+        } else {
+            throw new Exception("유효하지 않은 이메일 또는 메일 키입니다.");
+        }
+    }
+    public SiteUser getUserByUsername(String username) {
+        Optional<SiteUser> siteUserOptional = this.userRepository.findByUsername(username);
+        if (siteUserOptional.isPresent()) {
+            return siteUserOptional.get();
+        } else {
+            throw new DataNotFoundException("siteuser not found");
+        }
+    }
+
+    public String generateTempPassword() {
+        String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder sb = new StringBuilder();
+
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+
+        return sb.toString();
+    }
+
 
     public boolean confirmPassword(String password, SiteUser user) {
         return passwordEncoder.matches(password, user.getPassword());
     }
     public SiteUser modifyPassword(String password, SiteUser user) {
         user.setPassword(passwordEncoder.encode(password));
+        this.userRepository.save(user);
+        return user;
+    }
+    public SiteUser updateProfile(SiteUser user, MultipartFile file) throws IOException {
+        String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
+
+//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+        // 저장할 경로를 여기서 지정해줌
+        // String projectPath1 = System.getProperty("user.dir") + "src/main/resources/static/files";
+        UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
+        // uuid는 파일에 붙일 랜덤이름을 생성
+
+        String fileName = uuid + "_" + file.getOriginalFilename();
+        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String filePath = "/files/" + fileName;
+
+        File saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+        user.setProfileFilename(fileName);
+        user.setProfileFilepath(filePath);
         this.userRepository.save(user);
         return user;
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
+<html lang="ko" layout:decorate="~{layout}" xml:lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
@@ -28,10 +28,10 @@
 <body>
 <div layout:fragment="content">
     <div class="wrap">
-
         <div class="product-box">
-            <div class="left-box">
-
+            <div class="left-box1">
+                <img alt="" class="product-main-img"
+                     th:src="${product.filepath}">
             </div>
             <div class="right-box">
                 <div class="title-box">
@@ -150,7 +150,8 @@
                                 </div>
                             </div>
                             <div class="right-box">
-                                <img src="https://img.freepik.com/premium-vector/spoon-and-fork-icon-vector-illustration_680433-397.jpg" alt="">
+                                <img alt=""
+                                     src="https://img.freepik.com/premium-vector/spoon-and-fork-icon-vector-illustration_680433-397.jpg">
                             </div>
                         </div>
                     </div>
@@ -167,8 +168,9 @@
                             </div>
                             <div class="right-box">
                                 <img alt=""
-                                     src="https://previews.123rf.com/images/alekseyvanin/alekseyvanin1705/alekseyvanin170500535/77418446-%EB%82%98%EB%AC%B4-%ED%86%B5-%EB%B0%B0%EB%9F%B4%EB%8B%B9-%EC%95%84%EC%9D%B4%EC%BD%98-%EB%B2%A1%ED%84%B0-%EC%B1%84%EC%9B%8C%EC%A7%84-%ED%8F%89%EB%A9%B4-%EA%B8%B0%ED%98%B8-%EB%8B%A8%EC%83%89-%EA%B7%B8%EB%A6%BC-%ED%9D%B0%EC%83%89%EC%9C%BC%EB%A1%9C-%EA%B2%A9%EB%A6%AC-%EA%B8%B0%ED%98%B8-%EB%A1%9C%EA%B3%A0-%EA%B7%B8%EB%A6%BC%EC%9E%85%EB%8B%88%EB%8B%A4-%EC%99%84%EB%B2%BD%ED%95%9C.jpg">
-                                <!--                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>-->
+                                     src="file:///Users/INSEONG/Desktop/국비지원 풀스택/팀프로젝트/스피릿츠 백업/spirits/src/main/resources/static/files/배럴.jpg">
+                                    <!--이미지 안뜸 조치해야함-->
+                                <!--<i class="fa-regular fa-face-grin-tongue fa-2xl"></i>-->
                             </div>
                         </div>
                     </div>
@@ -314,6 +316,54 @@ function toggleReviewModifyForm(_this) {
         };
 <!--  var reviewModifyForm = a.parentElement.parentElement.nextElementSibling;-->
 <!--  reviewModifyForm.classList.toggle('active');-->
+}
+var magnifier;
+
+$(".left-box1")
+    .on('mousemove', magnify)
+    .mouseenter(function() {
+        magnifier = $("<div class='magnifier'></div>").appendTo(this);
+        magnifier.css({
+            "background": "url('" + $(".product-main-img").attr("src") + "') no-repeat",
+            "pointer-events": "none", // 돋보기 요소에 pointer-events 속성 추가
+            "width": "400px", // 돋보기 요소의 너비를 조정합니다.
+            "height": "400px", // 돋보기 요소의 높이를 조정합니다.
+            "background-size": ($(".product-main-img").width() * 2) + "px " + ($(".product-main-img").height() * 2) + "px" // 배경 이미지의 크기를 조정합니다.
+        });
+    })
+    .mouseleave(function() {
+        magnifier.remove();
+    });
+
+var target = $('.product-main-img');
+
+function magnify(e) {
+    var mouseX = e.pageX - $(this).offset().left;
+    var mouseY = e.pageY - $(this).offset().top;
+
+    if (mouseX < $(this).width() && mouseY < $(this).height() && mouseX > 0 && mouseY > 0) {
+        magnifier.fadeIn(100);
+    } else {
+        magnifier.fadeOut(100);
+    }
+
+
+    if (magnifier.is(":visible")) {
+        var magnifierHalfWidth = magnifier.width() / 2;
+        var magnifierHalfHeight = magnifier.height() / 2;
+
+        var magnifierX = mouseX - magnifierHalfWidth;
+        var magnifierY = mouseY - magnifierHalfHeight;
+
+        var rx = -(mouseX / target.width() * (target[0].naturalWidth * 2) - magnifierHalfWidth); // 배율 조정을 위해 naturalWidth에 2를 곱합니다.
+        var ry = -(mouseY / target.height() * (target[0].naturalHeight * 2) - magnifierHalfHeight); // 배율 조정을 위해 naturalHeight에 2를 곱합니다.
+
+        magnifier.css({
+            left: magnifierX,
+            top: magnifierY,
+            backgroundPosition: rx + "px " + ry + "px"
+        });
+    }
 }
 
 

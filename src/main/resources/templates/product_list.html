@@ -46,20 +46,8 @@
                      src="https://koreadailytimes.com/files/attach/images/149/252/070/dc2f7e851e73692c5e15684b06a71140.jpg">
             </div>
         </div>
-        <!-- 럼 information-box -->
-        <div class="information-box" th:if="${mainCategoryId == 4}">
-            <div class="title">
-                <h2>럼</h2>
-            </div>
-            <div class="text">
-                열대 향기로운 여름의 고향, 럼은 달콤하고 풍부한 맛으로 즐기는 알코올 음료입니다.
-            </div>
-            <div class="img-box">
-                <img alt="" src="https://www.omynara.com/wp-content/uploads/2018/12/RUM.jpg">
-            </div>
-        </div>
         <!-- 진 information-box -->
-        <div class="information-box" th:if="${mainCategoryId == 5}">
+        <div class="information-box" th:if="${mainCategoryId == 4}">
             <div class="title">
                 <h2>진</h2>
             </div>
@@ -69,6 +57,18 @@
             <div class="img-box">
                 <img alt=""
                      src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/H0MzLVwwne_A7G45vERhdc4jrYo">
+            </div>
+        </div>
+        <!-- 럼 information-box -->
+        <div class="information-box" th:if="${mainCategoryId == 5}">
+            <div class="title">
+                <h2>럼</h2>
+            </div>
+            <div class="text">
+                열대 향기로운 여름의 고향, 럼은 달콤하고 풍부한 맛으로 즐기는 알코올 음료입니다.
+            </div>
+            <div class="img-box">
+                <img alt="" src="https://www.omynara.com/wp-content/uploads/2018/12/RUM.jpg">
             </div>
         </div>
         <!-- 브랜디 information-box -->
@@ -98,7 +98,7 @@
             </div>
         </div>
         <!-- 검색 information-box -->
-        <div class="information-box" th:if="${mainCategoryId == null}">
+        <div class="information-box" th:if="${mainCategoryId == null || searchKeyword != null}">
             <div class="title">
                 <h2>검색 결과</h2>
             </div>
@@ -196,8 +196,8 @@
                 <div class="goods-list">
                     <div class="goods-1" id="goods" th:each="product : ${productList}">
                         <a th:href="@{|/product/detail/${product.id}|}">
-                            <img alt=""
-                                 src="https://img-cf.kurly.com/cdn-cgi/image/width=400,format=auto/shop/data/goods/1645598047189l0.jpg">
+                            <img alt="제품 썸네일"
+                                 th:src="${product.filepath}">
                             <p class="goods-name" style="font-weight : bold; font-size : 2rem;"
                                th:text="${product.name}"></p>
                             <p><span th:text="${product.cost}"></span>원</p>
@@ -340,7 +340,7 @@ function filterByNation() {
                         .append(
                             $("<a></a>")
                                 .attr("href", "/product/detail/" + product.id)
-                                .append($("<img>").attr("src", product.image))
+                                .append($("<img>").attr("src", product.filepath))
                                 .append($("<p></p>").addClass("goods-name").text(product.name))
                                 .append($("<span></span>").text(product.cost + "원"))
                         );

@@ -32,7 +32,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 @Data
@@ -59,20 +62,9 @@ public class ProductService {
         query.setMaxResults(limit);
         return query.getResultList();
     }
-
     public List<Product> getList() {
         return this.productRepository.findAll();
     }
-    public List<Product> getListSearch(String kw) {
-        return this.productRepository.findAllByKeyword(kw);
-    }
-    public List<Review> getListReviewSearch(String kw) {
-        return this.productRepository.findAllByKeywordInReview(kw);
-    }
-    public List<SiteUser> getListSiteUserSearch(String kw) {
-        return this.productRepository.findAllByKeywordInSiteUser(kw);
-    }
-
     public Product getProduct(Integer id) {
         Optional<Product> product = this.productRepository.findById(id);
         if (product.isPresent()) {
@@ -82,29 +74,23 @@ public class ProductService {
         }
     }
 
-    public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
-        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
-        return productRepository.findByMainCategoryId(mainCategory);
-    }
 
-    public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
-        return productRepository.findBySubCategoryId(subCategoryId);
-    }
+    public void createProduct(ProductForm productForm, SiteUser siteUser, MultipartFile file) throws IOException {
+        // 저장할 경로를 여기서 지정해줌
+        String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
 
-    public List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId) {
-        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
-        return productRepository.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
-    }
+//      String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
 
-    public List<Product> getProductsByCategory(String mainCategoryId, String subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
-        return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
-    }
+        UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
+        // uuid는 파일에 붙일 랜덤이름을 생성
 
-    public List<Review> getReviewsByProduct(Product product) { // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
-        return reviewRepository.findByProduct(product);
-    }
+        String fileName = uuid + "_" + file.getOriginalFilename();
+        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String filePath = "/files/" + fileName;
 
-    public void createProduct(ProductForm productForm, SiteUser siteUser) {
+        File saveFile = new File(projectPath, fileName);
+        file.transferTo(saveFile);
+
         MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
                 .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));
 
@@ -168,6 +154,9 @@ public class ProductService {
         product.setNetWeight(netWeight);
         product.setNation(nation);
         product.setAuthor(siteUser);
+
+        product.setFilename(fileName);
+        product.setFilepath(filePath);
         // product를 먼저 저장합니다.
         product = productRepository.save(product);
 
@@ -182,27 +171,8 @@ public class ProductService {
     }
 
 
-    public void vote(Product product, SiteUser siteUser) { // 추천 메서드
-        product.getVoter().add(siteUser);
-        this.productRepository.save(product);
-    }
 
-    public void cancelVote(Product product, SiteUser siteUser) { // 추천 취소 메서드
-        product.getVoter().remove(siteUser);
-        this.productRepository.save(product);
-    }
-
-    public void wish(Product product, SiteUser siteUser) { // 찜 메서드
-        product.getWish().add(siteUser);
-        this.productRepository.save(product);
-    }
-
-    public void cancelWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
-        product.getWish().remove(siteUser);
-        this.productRepository.save(product);
-    }
-
-    public void modify(Integer id, ProductForm productForm, SiteUser siteUser) { // 추천 메서드
+    public void modifyProduct(Integer id, ProductForm productForm, SiteUser siteUser) { // 추천 메서드
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
             // 제품이 존재하지 않을 경우, 에러 처리 또는 다른 동작 수행
@@ -292,12 +262,57 @@ public class ProductService {
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
-
+    public List<Product> getListSearch(String kw) {
+        return this.productRepository.findAllByKeyword(kw);
+    }
+    public List<Review> getListReviewSearch(String kw) {
+        return this.productRepository.findAllByKeywordInReview(kw);
+    }
+    public List<Product> getProductsByVoter(SiteUser voter) {
+        return productRepository.findByVoter(voter);
+    }
+    public List<Product> getProductsByWish(SiteUser wish) {
+        return productRepository.findByWish(wish);
+    }
+    public List<SiteUser> getListSiteUserSearch(String kw) {
+        return this.productRepository.findAllByKeywordInSiteUser(kw);
+    }
+    public List<Product> getProductsByMainCategoryId(Integer mainCategory) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return productRepository.findByMainCategoryId(mainCategory);
+    }
+    public List<Product> getProductsBySubCategoryId(Integer subCategoryId) {
+        return productRepository.findBySubCategoryId(subCategoryId);
+    }
+    public List<Product> getProductsByMainCategoryIdAndSubCategoryId(Integer mainCategoryId, Integer subCategoryId) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return productRepository.getProductsByMainCategoryIdAndSubCategoryId(mainCategoryId, subCategoryId);
+    }
+    public List<Product> getProductsByCategory(String mainCategoryId, String subCategoryId) { // 메인카테고리와 서브카테고리 같이 찾는 로직
+        return this.productRepository.getProductsByMainCategoryAndSubCategory(mainCategoryId, subCategoryId);
+    }
+    public List<Review> getReviewsByProduct(Product product) { // 리뷰부분 제대로 작동하지 않을 시 최우선으로 삭제 고려할 것
+        return reviewRepository.findByProduct(product);
+    }
+    public void vote(Product product, SiteUser siteUser) { // 추천 메서드
+        product.getVoter().add(siteUser);
+        this.productRepository.save(product);
+    }
+    public void cancelVote(Product product, SiteUser siteUser) { // 추천 취소 메서드
+        product.getVoter().remove(siteUser);
+        this.productRepository.save(product);
+    }
+    public void wish(Product product, SiteUser siteUser) { // 찜 메서드
+        product.getWish().add(siteUser);
+        this.productRepository.save(product);
+    }
+    public void cancelWish(Product product, SiteUser siteUser) { // 찜 취소 메서드
+        product.getWish().remove(siteUser);
+        this.productRepository.save(product);
+    }
     public void delete(Product product) { // 삭제 메서드
         this.productRepository.delete(product);
     }
-
-
     private boolean isProductHasPairing(Product product, Long pairingId) {
         for (Pairing pairing : product.getPairings()) {
             if (pairing.getId().equals(pairingId)) {
@@ -306,7 +321,6 @@ public class ProductService {
         }
         return false;
     }
-
     private boolean isProductHasCask(Product product, Long caskId) {
         for (Cask cask : product.getCasks()) {
             if (cask.getId().equals(caskId)) {
@@ -315,14 +329,13 @@ public class ProductService {
         }
         return false;
     }
-
     public List<Product> getFilteredProducts(Integer subCategoryId,
                                              Integer costRangeId,
-                                             Integer abvRangeId,
                                              Integer netWeightId,
+                                             Integer abvRangeId,
                                              Integer pairingId,
-                                             Integer caskId,
                                              Integer nationId,
+                                             Integer caskId,
                                              String kw) {
         if (subCategoryId == null &&
                 costRangeId == null &&
@@ -339,7 +352,6 @@ public class ProductService {
                 subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw, caskId, pairingId);
 
     }
-
     public Product countingViews(Product product) {
         // Logic to save the product, such as calling a repository or performing other operations
         // For example:
@@ -347,13 +359,6 @@ public class ProductService {
         // Additional logic or operations if needed
         return savedProduct;
     }
-    public List<Product> getProductsByVoter(SiteUser voter) {
-        return productRepository.findByVoter(voter);
-    }
-    public List<Product> getProductsByWish(SiteUser wish) {
-        return productRepository.findByWish(wish);
-    }
-
     private Specification<Product> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
@@ -391,5 +396,4 @@ public class ProductService {
             }
         };
     }
-
 }

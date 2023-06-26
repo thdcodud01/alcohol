@@ -7,12 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인페이지</title>
     <link rel="stylesheet" type="text/css" th:href="@{/login_form.css}">
+    <style>
+        .error-message {
+          background-color: #ffcccc;
+          color: #ff0000;
+          padding: 10px;
+          border-radius: 4px;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <form th:action="@{/user/login}" method="post">
     <div th:if="${param.error}">
-        <div>
-            사용자ID 또는 비밀번호를 확인해 주세요자.
+        <div class="error-message">
+            사용자ID 또는 비밀번호를 확인해 주세요.
         </div>
     </div>
     <div class="wrap">
@@ -47,10 +57,7 @@
                 <button type="submit" class="btn">로그인</button>
             </div>
             <div class="kakao">
-                <div class="kakao-btn">
-                    <a href="/oauth2/authorization/kakao">카카오로 시작하기</a>
-                </div>
-
+                <a href="/oauth2/authorization/kakao"><button type="button" class="text">카카오로 시작하기</button></a>
             </div>
             <div class="signup-btn">
                 <a th:href="@{|/user/signup|}"><button type="button" class="btn">이메일로 회원가입</button></a>
