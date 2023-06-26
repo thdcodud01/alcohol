@@ -90,6 +90,7 @@ public class UserController {
         List<Product> wishProducts = productService.getProductsByWish(user);
         model.addAttribute("voterProducts", voterProducts);
         model.addAttribute("wishProducts", wishProducts);
+        model.addAttribute("reviewList", reviewList);
         model.addAttribute("userName", user.getUsername());
         model.addAttribute("userNickName", user.getNickname());
         model.addAttribute("userBirthDate", user.getBirthDate());
