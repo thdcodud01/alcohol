@@ -351,11 +351,11 @@ public class ProductService {
     }
     public List<Product> getFilteredProducts(Integer subCategoryId,
                                              Integer costRangeId,
-                                             Integer netWeightId,
                                              Integer abvRangeId,
+                                             Integer netWeightId,
                                              Integer pairingId,
-                                             Integer nationId,
                                              Integer caskId,
+                                             Integer nationId,
                                              String kw) {
         if (subCategoryId == null &&
                 costRangeId == null &&
@@ -368,7 +368,14 @@ public class ProductService {
             return productRepository.findAll(); // 필터링 조건이 없는 경우 모든 제품 조회
         }
         return productRepository.findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKwAndCaskAndPairing(
-                subCategoryId, costRangeId, abvRangeId, netWeightId, nationId, kw, caskId, pairingId);
+                subCategoryId,
+                costRangeId,
+                abvRangeId,
+                netWeightId,
+                pairingId,
+                caskId,
+                nationId,
+                kw);
     }
     public Product countingViews(Product product) {
         // Logic to save the product, such as calling a repository or performing other operations

@@ -28,6 +28,9 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+
 
 </head>
 <body>
@@ -124,7 +127,7 @@
             </div>
             <hr>
             <div class="ranking-section">
-                <div class="ranking-title">잉끼순위 top 5</div>
+                <div class="ranking-title">회원님들이 가장 사랑하는 제품이에요</div>
                 <div class="ranking-wrap">
                     <div class="ranking" th:each="product, productStat : ${voterProducts}">
                         <!-- Iterate over the top 5 products -->
@@ -136,12 +139,23 @@
                                          th:src="${product.filepath1}">
                                 </div>
                                 <div class="name" th:text="${product.name}"></div>
+
+<!--                                    <div style="display:inline-block;">-->
+<!--                                        /-->
+<!--                                        <i class="fa-solid fa-eye fa-sm"></i>-->
+<!--                                        :-->
+<!--                                        <span th:text="${product.views}"></span>-->
+<!--                                    </div>-->
                             </div>
                             </a>
                         </div>
+                        <div style="margin-top : 10px; font-size : 20px;">
+                            <i class="fa-solid fa-thumbs-up fa-sm"></i>
+                            <span>:</span>
+                            <span th:text="${#lists.size(product.voter)}"></span>
+                        </div>
                     </div>
                 </div>
-
             </div>
             <hr>
             <div class="ad-slider-wrap">

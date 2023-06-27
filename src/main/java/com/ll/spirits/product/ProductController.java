@@ -107,7 +107,15 @@ public class ProductController {
                                               @RequestParam(value = "kw", required = false) String kw,
                                               Model model) {
 
-        return productService.getFilteredProducts(subCategoryId, costRangeId, abvRangeId, netWeightId, pairingId, caskId, nationId, kw);
+        return productService.getFilteredProducts(
+                subCategoryId,
+                costRangeId,
+                abvRangeId,
+                netWeightId,
+                pairingId,
+                caskId,
+                nationId,
+                kw);
     }
 
 

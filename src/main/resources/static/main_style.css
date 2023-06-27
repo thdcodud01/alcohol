@@ -180,13 +180,15 @@ video {
 }
 
 
-.main-section>.ranking-section>.ranking-wrap>.ranking>.ranking-box .img-box>img{
-  width: 220px;
-  height: 250px;
+.main-section>.ranking-section>.ranking-wrap>.ranking>.ranking-box .img-box>img {
+    width: 220px;
+    height: 250px;
+    object-fit: contain;
 }
 
 .main-section>.ranking-section>.ranking-wrap>.ranking .name{
   margin-top: 10px;
+  font-weight: bold;
 }
 
 

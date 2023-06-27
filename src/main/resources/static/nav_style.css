@@ -29,9 +29,16 @@ ul,li{
   justify-content:space-between;
 }
 
+.logo-box {
+margin-top : 36px;
+}
+.wrap>.left-box {
+margin-top : 15px;
+}
+
 .wrap>nav>.left-box>.logo-box>a>img{
-  width: 180px;
-  height: 100px;
+  width: 150px;
+  height: 80px;
 }
 
 .wrap>nav>.right-box>.user-box{
@@ -95,19 +102,22 @@ ul,li{
 
 .wrap > .menu-bar > ul > li {
   width: calc(100% / 7);
-  background: right / 0% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
+  background: right / 0% 100% no-repeat linear-gradient(#92214D, #92214D);
   transition: background-size 500ms;
+  padding : 5px 0;
 }
 
 .wrap > .menu-bar > ul > li > a {
   display: block;
   font-size: 20px;
-  background: right / 0% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
+  background: right / 0% 100% no-repeat linear-gradient(#92214D, #92214D);
   transition: background-size 500ms;
+  transition: color 500ms;
 }
 
 .wrap > .menu-bar > ul > li:hover {
-  background: left / 100% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
+    color : #ffffff;
+  background: left / 100% 100% no-repeat linear-gradient(#92214D, #92214D);
 }
 
 .search-box {

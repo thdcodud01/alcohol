@@ -11,6 +11,7 @@
 <div layout:fragment="content">
     <div class="wrap">
         <!-- 위스키 information-box -->
+        <hr style="background-color : #92214D; border : 0; height : 2px; width : 1200px; margin:0 auto; margin-top:40px;">
         <span id="MainCategory" th:text="${mainCategoryId}"></span>
 <!--        <span th:text="${mainCategory}"></span>-->
         <div class="information-box" th:if="${mainCategoryId == 1}">
@@ -29,9 +30,7 @@
             <div class="text">
                 클래식한 투명한 술로, 보드카는 중성적이고 깔끔한 맛을 가진 독특한 알코올 음료입니다.
             </div>
-            <div class="img-box">
-                <img alt="" src="https://blog.kakaocdn.net/dn/cQSygf/btqC5nYOLQO/7JZPafuCyUD2A4q6NSjZYK/img.jpg">
-            </div>
+
         </div>
         <!-- 데킬라 information-box -->
         <div class="information-box" th:if="${mainCategoryId == 3}">
@@ -41,10 +40,7 @@
             <div class="text">
                 멕시코에서 탄생한 강력하고 향긋한 술로, 데킬라는 특유의 맛과 효과를 가진 알코올 음료입니다.
             </div>
-            <div class="img-box">
-                <img alt=""
-                     src="https://koreadailytimes.com/files/attach/images/149/252/070/dc2f7e851e73692c5e15684b06a71140.jpg">
-            </div>
+
         </div>
         <!-- 진 information-box -->
         <div class="information-box" th:if="${mainCategoryId == 4}">
@@ -54,10 +50,7 @@
             <div class="text">
                 고품질의 투명한 술로, 진은 허브와 시트러스의 조화로운 맛과 향을 지니며, 클래식한 칵테일의 필수 재료입니다.
             </div>
-            <div class="img-box">
-                <img alt=""
-                     src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/H0MzLVwwne_A7G45vERhdc4jrYo">
-            </div>
+
         </div>
         <!-- 럼 information-box -->
         <div class="information-box" th:if="${mainCategoryId == 5}">
@@ -67,9 +60,7 @@
             <div class="text">
                 열대 향기로운 여름의 고향, 럼은 달콤하고 풍부한 맛으로 즐기는 알코올 음료입니다.
             </div>
-            <div class="img-box">
-                <img alt="" src="https://www.omynara.com/wp-content/uploads/2018/12/RUM.jpg">
-            </div>
+
         </div>
         <!-- 브랜디 information-box -->
         <div class="information-box" th:if="${mainCategoryId == 6}">
@@ -79,10 +70,7 @@
             <div class="text">
                 고품질의 코냑산 포도주로 만들어진 강렬하고 부드러우며 귀족적인 멋과 세련된 풍미를 지닌 특별한 스피리트입니다.
             </div>
-            <div class="img-box">
-                <img alt=""
-                     src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cqmJ/image/uWtyG5bpRo5XHuvNcpohK-dAoT4">
-            </div>
+
         </div>
         <!-- 맥주 information-box -->
         <div class="information-box" th:if="${mainCategoryId == 7}">
@@ -92,12 +80,11 @@
             <div class="text">
                 상큼하고 가벼운 대중적인 알코올 음료, 맥주는 사람들에게 사랑받는다.
             </div>
-            <div class="img-box">
-                <img alt=""
-                     src="https://img.daily.co.kr/@files/www.daily.co.kr/content/food/2020/20200416/1700df053197b11cc51905180589e995.jpg">
-            </div>
+
         </div>
+
         <!-- 검색 information-box -->
+
         <div class="information-box" th:if="${searchKeyword != null && searchKeyword != ''}">
             <div class="title">
                 <h2>검색 결과</h2>
@@ -106,6 +93,7 @@
                 "<div th:text="${searchKeyword}" style="display:inline-block;"></div>" 검색어가 포함된 모든 결과입니다.
             </div>
         </div>
+        <hr style="background-color : #92214D; border : 0; height : 2px; width : 1200px; margin:0 auto;">
         <!--드롭다운메뉴 시작-->
         <div class="drop-down-box">
             <!-- 서브카테고리(중분류) 드롭다운 메뉴 -->
@@ -114,14 +102,15 @@
                 <select id="SubCategory" onchange="filterBySubcategory()">
                     <option value="">중분류 전체</option>
                     <option th:each="subCategory : ${subCategoryList}"
-                            th:if="${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
+                            th:if="
+               ${mainCategoryId == 1 and (subCategory.id >= 1 and subCategory.id <= 7)} or
                ${mainCategoryId == 2 and (subCategory.id >= 8 and subCategory.id <= 10)} or
                ${mainCategoryId == 3 and (subCategory.id >= 11 and subCategory.id <= 15)} or
                ${mainCategoryId == 4 and (subCategory.id >= 16 and subCategory.id <= 22)} or
                ${mainCategoryId == 5 and (subCategory.id >= 23 and subCategory.id <= 27)} or
                ${mainCategoryId == 6 and (subCategory.id >= 28 and subCategory.id <= 31)} or
                ${mainCategoryId == 7 and (subCategory.id >= 32 and subCategory.id <= 36)} or
-               ${searchKeyword != null and (subCategory.id >= 1 and subCategory.id <= 36)}"
+               ${searchKeyword != '' and (subCategory.id >= 1 and subCategory.id <= 36)}"
                             th:text="${subCategory.subCategory}" th:value="${subCategory.id}"></option>
                 </select>
             </div>
@@ -199,7 +188,7 @@
                         <a th:href="@{|/product/detail/${product.id}|}">
                             <img alt=""
                                  th:src="${product.filepath1}">
-                            <p class="goods-name" style="font-weight : bold; font-size : 2rem;"
+                            <p class="goods-name"
                                th:text="${product.name}"></p>
                             <p><span th:text="${product.cost}"></span>원</p>
                         </a>
@@ -326,7 +315,7 @@ function filterByNation() {
                         .append(
                             $("<a></a>")
                                 .attr("href", "/product/detail/" + product.id)
-                                .append($("<img>").attr("src", product.filepath))
+                                .append($("<img>").attr("src", product.filepath1))
                                 .append($("<p></p>").addClass("goods-name").text(product.name))
                                 .append($("<span></span>").text(product.cost + "원"))
                         );

@@ -41,23 +41,24 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p " +
             "LEFT JOIN p.casks cask " +
             "LEFT JOIN p.pairings pairing " +
-            "WHERE (:subCategory is null or p.subCategory.id = :subCategory) and " +
+            "WHERE " +
+            "(:subCategory is null or p.subCategory.id = :subCategory) and " +
             "(:costRange is null or p.costRange.id = :costRange) and " +
             "(:abvRange is null or p.abvRange.id = :abvRange) and " +
             "(:netWeight is null or p.netWeight.id = :netWeight) and " +
-            "(:nation is null or p.nation.id = :nation) and " +
-            "(:kw is null or p.name like %:kw%) and " +
+            "(:pairing is null or pairing.id = :pairing) and " +
             "(:cask is null or cask.id = :cask) and " +
-            "(:pairing is null or pairing.id = :pairing)")
+            "(:nation is null or p.nation.id = :nation) and " +
+            "(:kw is null or p.name like %:kw%)")
     List<Product> findProductBySubCategoryIdAndCostRangeIdAndAbvRangeIdAndNetWeightIdAndNationIdAndKwAndCaskAndPairing(
             @Param("subCategory") Integer subCategoryId,
             @Param("costRange") Integer costRangeId,
             @Param("abvRange") Integer abvRangeId,
             @Param("netWeight") Integer netWeightId,
-            @Param("nation") Integer nationId,
-            @Param("kw") String kw,
+            @Param("pairing") Integer pairingId,
             @Param("cask") Integer caskId,
-            @Param("pairing") Integer pairingId);
+            @Param("nation") Integer nationId,
+            @Param("kw") String kw);
 
 
 
