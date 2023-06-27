@@ -31,7 +31,7 @@
         <div class="product-box">
             <div class="left-box1">
                 <img alt="" class="product-main-img"
-                     th:src="${product.filepath}">
+                     th:src="${product.filepath1}">
             </div>
             <div class="right-box">
                 <div class="title-box">
@@ -182,7 +182,7 @@
             <div class="info-box"> <!--제품설명이미지-->
                 <div class="info-img">
                     <img alt=""
-                         src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321057571-2.jpg">
+                         th:src="${product.filepath2}">
                 </div>
                 <div class="product-title" th:text="${product.subject}"></div>
                 <div class="product-text" th:text="${product.info}"></div>
@@ -317,6 +317,8 @@ function toggleReviewModifyForm(_this) {
 <!--  var reviewModifyForm = a.parentElement.parentElement.nextElementSibling;-->
 <!--  reviewModifyForm.classList.toggle('active');-->
 }
+
+
 var magnifier;
 
 $(".left-box1")

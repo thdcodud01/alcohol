@@ -115,6 +115,8 @@ public class ProductController {
     @Transactional
     public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal, HttpServletRequest request) {
         Product product = this.productService.getProduct(id);
+        List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
+        model.addAttribute("mainCategoryList", mainCategoryList);
 
         // product.cost 값을 변수로 할당
         long cost = product.getCost();

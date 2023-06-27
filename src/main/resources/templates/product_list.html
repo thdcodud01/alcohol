@@ -12,7 +12,7 @@
     <div class="wrap">
         <!-- 위스키 information-box -->
         <span id="MainCategory" th:text="${mainCategoryId}"></span>
-        <span th:text="${mainCategory}"></span>
+<!--        <span th:text="${mainCategory}"></span>-->
         <div class="information-box" th:if="${mainCategoryId == 1}">
             <div class="title">
                 <h2>위스키</h2>
@@ -197,8 +197,8 @@
                 <div class="goods-list">
                     <div class="goods-1" id="goods" th:each="product : ${productList}">
                         <a th:href="@{|/product/detail/${product.id}|}">
-                            <img alt="제품 썸네일"
-                                 th:src="${product.filepath}">
+                            <img alt=""
+                                 th:src="${product.filepath1}">
                             <p class="goods-name" style="font-weight : bold; font-size : 2rem;"
                                th:text="${product.name}"></p>
                             <p><span th:text="${product.cost}"></span>원</p>
@@ -311,7 +311,7 @@ function filterByNation() {
                     abvRange : abvRangeId,
                     netWeight : netWeightId,
                     cask : caskId,
-                    netWeight : netWeightId,
+                    nation : nationId,
                     pairing : paringId
             },
             type: "GET",

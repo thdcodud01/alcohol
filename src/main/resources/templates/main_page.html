@@ -42,7 +42,7 @@
 <!--        </div>-->
         <div class="container">
             <video autoplay loop muted>
-                <source src="/video/Spirits_main_video.mp4" type="video/mp4">
+                <source src="/video/내 동영상222.mp4" type="video/mp4">
             </video>
         </div>
 
@@ -50,62 +50,62 @@
             <div class="slider-wrap">
                 <div class="slider">
                     <div class="content whiskey">
-                        <a th:href="@{|/product/list/Whiskey|}"><img
+                        <a th:href="@{|/product/list?mainCategory=1|}"><img
                                 alt="" src="https://www.tradlinx.com/blog/wp-content/uploads/2021/12/211220_main-1.jpg"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Whiskey|}">위스키</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=1|}">위스키</a></h2>
 
                         </div>
                     </div>
                     <div class="content vodka">
-                        <a th:href="@{|/product/list/Vodka|}"><img
+                        <a th:href="@{|/product/list?mainCategory=2|}"><img
                                 alt="" src="https://m.segye.com/content/image/2019/09/27/20190927510979.jpg"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Vodka|}">보드카</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=2|}">보드카</a></h2>
 
                         </div>
                     </div>
                     <div class="content tequila">
-                        <a th:href="@{|/product/list/Tequila|}"><img
+                        <a th:href="@{|/product/list?mainCategory=3|}"><img
                                 alt=""
                                 src="https://mblogthumb-phinf.pstatic.net/MjAxOTA1MDJfMjE1/MDAxNTU2NzU1NDYyNjYy.tO65mS9Idv31pdWNhL1dFvoNdtJz92YM8lOrvEmDTagg.OVAoIjJJh_BRob0_bqcyRcJudQTnz_KKJvJP60t3we0g.JPEG.tjsxorud/%EB%8D%B0%ED%82%AC%EB%9D%BC2.jpg?type=w800"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Tequila|}">데킬라</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=3|}">데킬라</a></h2>
 
                         </div>
                     </div>
                     <div class="content gin">
-                        <a th:href="@{|/product/list/Gin|}"><img
+                        <a th:href="@{|/product/list?mainCategory=4|}"><img
                                 alt=""
                                 src="https://mybartender.com/wp-content/uploads/2023/01/Top-Shelf-Gin-1024x576.jpg"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Gin|}">진</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=4|}">진</a></h2>
 
                         </div>
                     </div>
                     <div class="content rum">
-                        <a th:href="@{|/product/list/Rum|}"><img
+                        <a th:href="@{|/product/list?mainCategory=5|}"><img
                                 alt=""
                                 src="https://i0.wp.com/cocktailwonk.com/wp-content/uploads/2019/10/x75A3526_moderately-aged_horiz-2.jpg?fit=897%2C598&ssl=1"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Rum|}">럼</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=5|}">럼</a></h2>
 
                         </div>
                     </div>
                     <div class="content brandy">
-                        <a th:href="@{|/product/list/Brandy|}"><img
+                        <a th:href="@{|/product/list?mainCategory=6|}"><img
                                 alt="" src="https://etimg.etb2bimg.com/thumb/92194086.cms?width=700&height=446"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Brandy|}">브랜디</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=6|}">브랜디</a></h2>
 
                         </div>
                     </div>
                     <div class="content beer">
-                        <a th:href="@{|/product/list/Beer|}"><img
+                        <a th:href="@{|/product/list?mainCategory=7|}"><img
                                 alt=""
                                 src="https://www.apbsingapore.com.sg/wp-content/uploads/2022/06/mExplore-The-Beers_Banner.jpg"></a>
                         <div class="txt-box">
-                            <h2><a th:href="@{|/product/list/Beer|}">맥주</a></h2>
+                            <h2><a th:href="@{|/product/list?mainCategory=7|}">맥주</a></h2>
 
                         </div>
                     </div>
@@ -124,18 +124,20 @@
             </div>
             <hr>
             <div class="ranking-section">
-                <div class="ranking-title">인기순위 top 5</div>
+                <div class="ranking-title">잉끼순위 top 5</div>
                 <div class="ranking-wrap">
                     <div class="ranking" th:each="product, productStat : ${voterProducts}">
                         <!-- Iterate over the top 5 products -->
                         <div class="ranking-box" th:if="${productStat.index < 5}">
-                            <div id="top[[${productStat.index + 1}]]">
+                            <a th:href="@{|/product/detail/${product.id}|}">
+                                <div id="top[[${productStat.index + 1}]]">
                                 <div class="img-box">
                                     <img alt=""
-                                         src="https://sakeherb.com/web/product/big/202301/bfa8234ccd37a45f434f150967dc662f.jpg">
+                                         th:src="${product.filepath1}">
                                 </div>
                                 <div class="name" th:text="${product.name}"></div>
                             </div>
+                            </a>
                         </div>
                     </div>
                 </div>
