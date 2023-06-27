@@ -140,7 +140,6 @@
                             <div class="cost" th:text="${product.cost}"></div>
                         </a>
                     </div>
-
                 </div>
             </div>
 
@@ -159,7 +158,6 @@
                     </form>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -211,7 +209,23 @@ $(".user-information-modify").click(function () {
 });
 
 
+const presentPWInput = document.getElementById("presentPW");
+  const newPWInput = document.getElementById("newPW");
+  const newPW2Input = document.getElementById("newPW2");
+  const passwordMatchMsg = document.getElementById("passwordMatchMsg");
 
+  newPW2Input.addEventListener("input", function() {
+    const newPWValue = newPWInput.value;
+    const newPW2Value = newPW2Input.value;
+
+    if (newPWValue !== newPW2Value) {
+      passwordMatchMsg.textContent = "입력한 비밀번호가 일치하지 않습니다.";
+      passwordMatchMsg.style.display = "block";
+    } else {
+      passwordMatchMsg.textContent = "";
+      passwordMatchMsg.style.display = "none";
+    }
+  });
 </script>
 </body>
 </html>
