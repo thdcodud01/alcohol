@@ -1,18 +1,13 @@
 package com.ll.spirits.user;
 
-import com.ll.spirits.email.MailController;
 import com.ll.spirits.product.Product;
 import com.ll.spirits.product.ProductService;
 import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewService;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @RequiredArgsConstructor
@@ -36,14 +32,13 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserSecurityService userSecurityService;
     private final UserRepository userRepository;
     private final ReviewService reviewService;
     private final ProductService productService;
-    private final MailController mailController;
+    private final Map<String, Integer> emailConfirmationMap = new ConcurrentHashMap<>();
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -51,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult, String username, int mailKey) {
+    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
@@ -60,27 +55,26 @@ public class UserController {
             return "signup_form";
         }
 
+        // 회원가입 처리
         try {
-            // 인증 코드 검증
-            if (userCreateForm.getMailKey() != mailKey) {
-                throw new Exception("유효하지 않은 이메일 또는 메일 키입니다.");
-            }
-
-            // 회원가입 처리
             UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
-            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), userCreateForm.getMailKey(), role);
+            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), role);
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 아이디입니다.");
             return "signup_form";
         } catch (Exception e) {
             e.printStackTrace();
-            bindingResult.reject("signupFailed", e.getMessage());
+            bindingResult.reject("signupFailed", "회원가입 중 오류가 발생했습니다.");
             return "signup_form";
         }
 
         return "redirect:/";
     }
+
+
+
+
 
     @GetMapping("/checkDuplicate")
     @ResponseBody

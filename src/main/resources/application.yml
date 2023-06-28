@@ -22,16 +22,35 @@ thymeleaf:
   cache: false
   prefix: file:src/main/resources/templates/
 
-  mail:
-    smtp:
-      host: smtp.gmail.com
-      port: 587
-      username: insung5189email@gmail.com
-      password: mjyronikandjeanv
-      auth: true
-      starttls:
-        enable: true
-    subject:
-      member:
-        registration: Thank you for joining our site!
+#  mail:
+#    smtp:
+#      host: smtp.gmail.com
+#      port: 587
+#      username: insung5189email@gmail.com
+#      password: mjyronikandjeanv
+#      auth: true
+#      starttls:
+#        enable: true
+#    subject:
+#      member:
+#        registration: Thank you for joining our site!
 
+#  # Naver smtp server 사용
+#  mail:
+#    host: smtp.naver.com #smtp 서버 주소
+#    port: 465 # 메일 인증서버 포트
+#    username: insnug5189@naver.com #네이버 아이디
+#    password: 1q2w3e4r4# #네이버 비밀번호
+#    properties:
+#      mail:
+#        smtp:
+#          starttls:
+#            enable: true
+#          #            required: true
+#          auth: true
+#          #          connectiontimeout: 5000
+#          #          timeout: 5000
+#          #          writetimeout: 5000
+#          ssl:
+#            trust: smtp.naver.com
+#            enable: true #반드시 필요 -> SSL 필요로 되어있으면

@@ -37,8 +37,6 @@ public class SiteUser {
     private String profileFilename;
     @Column
     private String profileFilepath;
-    private int mailKey;
-    private boolean mailAuth;
     public boolean isAdmin() {
         // 관리자 여부를 판별하는 로직을 구현
         // 예: 관리자라면 true, 일반 사용자라면 false 반환

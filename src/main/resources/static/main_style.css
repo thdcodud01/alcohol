@@ -189,6 +189,7 @@ video {
 .main-section>.ranking-section>.ranking-wrap>.ranking .name{
   margin-top: 10px;
   font-weight: bold;
+  height:45px;
 }
 
 
