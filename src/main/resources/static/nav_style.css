@@ -107,6 +107,7 @@ margin-top : 15px;
   background: right / 0% 100% no-repeat linear-gradient(#92214D, #92214D);
   transition: background-size 500ms;
   padding : 5px 0;
+  font-weight:bold;
 }
 
 
