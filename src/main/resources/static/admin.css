@@ -1,6 +1,19 @@
+html {
+  font-size: calc(100% + 5px);
+}
+
+/* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
 /* 전체 페이지 스타일 */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f2f2f2;
