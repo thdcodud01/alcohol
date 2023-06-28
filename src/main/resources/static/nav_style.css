@@ -1,5 +1,18 @@
 /* 노멀라이징 */
+html {
+  font-size: calc(100% + 5px);
+}
 
+/* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
 * {
     margin: 0;
     padding: 0;
@@ -46,6 +59,7 @@ margin-top : 15px;
   justify-content:flex-end;
   margin-top: 20px;
   margin-right: 10px;
+  font-size:16px;
 }
 
 .wrap>nav>.right-box>.user-box>.login{
@@ -95,17 +109,20 @@ margin-top : 15px;
 
 .wrap > .menu-bar > ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   width: 100%; /* 전체 너비로 설정 */
 }
+
 
 .wrap > .menu-bar > ul > li {
   width: calc(100% / 7);
   background: right / 0% 100% no-repeat linear-gradient(#92214D, #92214D);
   transition: background-size 500ms;
   padding : 5px 0;
+  font-weight:bold;
 }
+
 
 .wrap > .menu-bar > ul > li > a {
   display: block;
