@@ -70,6 +70,12 @@ ul,li{
 
 }
 
+select{
+    width:155px;
+    border:1px solid #bbccdd;
+    padding:3px 0;
+}
+
 
 .wrap>.section{
   width: 100%;
@@ -92,6 +98,7 @@ ul,li{
 .section>.goods-list-section>.goods-list{
   display:flex;
   flex-wrap: wrap;
+  justify-content:space-between;
   margin-left:20px;
 
 }
@@ -102,6 +109,16 @@ ul,li{
   vertical-align : top;
 
 }
+
+.section>.goods-list-section>.goods-list>div:nth-child(n){
+    margin-left:0;
+}
+
+.section>.goods-list-section>.goods-list>div:nth-child(4n){
+    margin-right:0;
+}
+
+
 .section>.goods-list-section>.goods-list > div > a {
   overflow : hidden;
 }
