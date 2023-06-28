@@ -48,16 +48,16 @@ ul,li{
 
 .wrap>.drop-down-box{
   display:flex;
-
+  justify-content: space-between;
   margin-top: 50px;
 }
 
 .wrap>.drop-down-box>div{
-  margin-right: 20px;
+
 }
 
 .wrap>.drop-down-box>div:first-child{
-  margin-left: 70px;
+
 }
 
 

@@ -11,8 +11,8 @@
 <div layout:fragment="content">
     <div class="wrap">
         <!-- 위스키 information-box -->
-        <span id="MainCategory" th:text="${mainCategoryId}"></span>
-        <span th:text="${mainCategory}"></span>
+        <span id="MainCategory" th:text="${mainCategoryId}" style="display:none;"></span>
+        <span th:text="${mainCategory}" style="display:none;"></span>
         <div class="information-box" th:if="${mainCategoryId == 1}">
             <div class="title">
                 <h2>위스키</h2>

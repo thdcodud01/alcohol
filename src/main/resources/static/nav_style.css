@@ -88,16 +88,18 @@ ul,li{
 
 .wrap > .menu-bar > ul {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   width: 100%; /* 전체 너비로 설정 */
 }
+
 
 .wrap > .menu-bar > ul > li {
   width: calc(100% / 7);
   background: right / 0% 100% no-repeat linear-gradient(#bbccdd, #bbccdd);
   transition: background-size 500ms;
 }
+
 
 .wrap > .menu-bar > ul > li > a {
   display: block;
