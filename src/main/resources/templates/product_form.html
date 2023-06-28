@@ -96,7 +96,7 @@
 
         <div class="product-info-box">
             <label for="info">제품 설명(필수):</label>
-            <textarea id="info" name="info" placeholder="제품 설명을 입력해주세요" th:field="*{info}"></textarea>
+            <textarea id="info" name="info" placeholder="제품 설명을 입력해주세요" th:field="*{info}" th:utext="${productForm.info}"></textarea>
         </div>
 
 
@@ -143,13 +143,13 @@
 
         <div class="product-img-box">
             <label for="avatar1">상품사진:</label>
-            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file" type="file">
+            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file1" type="file">
         </div>
 
-<!--        <div class="product-detail-img-box">-->
-<!--            <label for="avatar2">상품상세사진:</label>-->
-<!--            <input accept="image/png, image/jpeg" id="avatar2" name="file" type="file">-->
-<!--        </div>-->
+        <div class="product-detail-img-box">
+            <label for="avatar2">상품상세사진:</label>
+            <input accept="image/png, image/jpeg, image/jpg" id="avatar2" name="file2" type="file">
+        </div>
 
 <!--        <div class="product-info-img-box">-->
 <!--            <label for="avatar3">상품정보사진:</label>-->

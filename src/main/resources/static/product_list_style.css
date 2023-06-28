@@ -1,4 +1,17 @@
+html {
+  font-size: calc(100% + 5px);
+}
+
 /* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
 a{
   text-decoration:none;
   color:inherit;
@@ -18,9 +31,7 @@ ul,li{
 
 .wrap>.information-box{
   height: 150px;
-  margin-top: 40px;
-  border:1px solid black;
-  border-radius:8px;
+  margin-top: 10px;
 
 }
 
@@ -37,18 +48,17 @@ ul,li{
 }
 
 .wrap>.information-box>.title{
-  margin-left: 70px;
   padding-top: 10px;
 }
 
 .wrap>.information-box>.text{
-  margin-left: 70px;
   padding-top: 10px;
+  margin-top:15px;
 }
 
 .wrap>.drop-down-box{
   display:flex;
-  justify-content: space-between;
+  justify-content:space-between;
   margin-top: 50px;
 }
 
@@ -71,7 +81,6 @@ ul,li{
 .wrap>.section>.search-result{
   display:block;
   margin-bottom: 30px;
-  margin-left: 70px;
 }
 
 
@@ -102,6 +111,7 @@ ul,li{
   height : 370px;
   margin-bottom : 10px;
   transition : scale 400ms;
+  object-fit : cover;
 }
 .section>.goods-list-section>.goods-list > div > a:hover > img {
   scale : 107%;

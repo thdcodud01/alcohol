@@ -30,11 +30,12 @@ ul,li{
 .wrap>.top-bar{
   display:flex;
   justify-content:space-between;
+  margin-top:20px;
 }
 
 .wrap>.top-bar>.logo-box>.logo>a>img{
-  width: 200px;
-  height: 100px;
+  width: 150px;
+  height: 80px;
 }
 
 .wrap>.top-bar>.user-box{

@@ -1,5 +1,6 @@
 package com.ll.spirits.user;
 
+import com.ll.spirits.email.MailController;
 import com.ll.spirits.product.Product;
 import com.ll.spirits.product.ProductService;
 import com.ll.spirits.review.Review;
@@ -42,6 +43,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final ReviewService reviewService;
     private final ProductService productService;
+    private final MailController mailController;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm) {
@@ -49,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
+    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult, String username, int mailKey) {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
@@ -59,8 +61,13 @@ public class UserController {
         }
 
         try {
-            UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
+            // 인증 코드 검증
+            if (userCreateForm.getMailKey() != mailKey) {
+                throw new Exception("유효하지 않은 이메일 또는 메일 키입니다.");
+            }
 
+            // 회원가입 처리
+            UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
             userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), userCreateForm.getMailKey(), role);
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
@@ -82,6 +89,7 @@ public class UserController {
 
         return isDuplicate;
     }
+
     @GetMapping("/mypage")
     public String myPage(Model model, Principal principal, Integer id) {
         SiteUser user = userService.getUser(principal.getName());
@@ -100,6 +108,7 @@ public class UserController {
         System.out.println(reviewList.toString());
         return "mypage";
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modifyPassword")
     public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
@@ -126,11 +135,12 @@ public class UserController {
 
         return "redirect:/user/logout";
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/updateprofile")
     public String updateProfileImg(BindingResult bindingResult,
                                    Principal principal,
-                                   @RequestParam("file") MultipartFile file) throws Exception{
+                                   @RequestParam("file") MultipartFile file) throws Exception {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         if (bindingResult.hasErrors()) {
             return "mypage";
@@ -139,6 +149,7 @@ public class UserController {
 
         return "mypage";
     }
+
     @GetMapping("/login")
     public String login() {
 

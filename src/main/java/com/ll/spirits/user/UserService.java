@@ -33,11 +33,28 @@ public class UserService {
         user.setNickname(nickname);
         user.setBirthDate(birthDate);
         user.setRole(role);
-
         user.setMailKey(mailKey);
-
-        this.userRepository.save(user);
+        userRepository.save(user);
         return user;
+    }
+    public SiteUser verifyEmailConfirmation(String username, int mailKey) throws Exception {
+        SiteUser user = this.getUserByUsername1(username);
+//        if (user == null) {
+//            throw new Exception("유효하지 않은 이메일입니다.");
+//        }
+        if (user.isMailAuth()) {
+            throw new Exception("이미 인증된 이메일입니다.");
+        }
+        if (user.getMailKey() != mailKey) {
+            throw new Exception("인증코드가 일치하지 않습니다.");
+        }
+        user.setMailAuth(true);
+        userRepository.save(user);
+        return user;
+    }
+    public SiteUser getUserByUsername1 (String username) {
+        Optional<SiteUser> siteUserOptional = this.userRepository.findByUsername(username);
+        return siteUserOptional.orElse(null);
     }
 
     public void updateMailAuth(String email, int mailKey) {
@@ -52,7 +69,8 @@ public class UserService {
         SiteUser user = this.getUserByUsername(username);
 
         if (user != null && user.getMailKey() == mailKey) {
-            updateMailAuth(username, mailKey);
+//            updateMailAuth(username, mailKey);
+
         } else {
             throw new Exception("유효하지 않은 이메일 또는 메일 키입니다.");
         }

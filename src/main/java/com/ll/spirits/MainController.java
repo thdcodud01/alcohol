@@ -1,6 +1,5 @@
 package com.ll.spirits;
 
-
 import com.ll.spirits.product.Product;
 import com.ll.spirits.product.ProductService;
 import com.ll.spirits.product.productEntity.mainCategory.MainCategory;
@@ -18,7 +17,6 @@ import java.util.List;
 public class MainController {
     private final ProductService productService;
     private final MainCategoryService mainCategoryService;
-
 
     @GetMapping("/")
     public String root () {

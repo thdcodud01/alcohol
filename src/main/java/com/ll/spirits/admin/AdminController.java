@@ -127,7 +127,8 @@ public class AdminController {
     public String createProduct(@ModelAttribute("productForm") @Valid ProductForm productForm,
                                 BindingResult bindingResult,
                                 Principal principal,
-                                @RequestParam("file") MultipartFile file) throws Exception{
+                                @RequestParam("file1") MultipartFile file1,
+                                @RequestParam("file2") MultipartFile file2) throws Exception {
         System.out.println("제품 정보 확인:");
         System.out.println("이름: " + productForm.getName());
         System.out.println("대분류: " + productForm.getMainCategoryId());
@@ -148,7 +149,7 @@ public class AdminController {
             return "product_form";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        productService.createProduct(productForm, siteUser, file);
+        productService.createProduct(productForm, siteUser, file1, file2);
 
         System.out.println("제품 등록 완료");
 

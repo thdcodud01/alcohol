@@ -26,10 +26,8 @@ public class ReviewController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
-    public String createReview(@PathVariable("id") Integer id,
-                               @Valid ReviewForm reviewForm,
-                               BindingResult bindingResult,
-                               Principal principal,
+    public String createReview(@PathVariable("id") Integer id, @Valid ReviewForm reviewForm,
+                               BindingResult bindingResult, Principal principal,
                                Model model) {
         Product product = this.productService.getProduct(id);
         // TODO: 리뷰를 저장한다.
