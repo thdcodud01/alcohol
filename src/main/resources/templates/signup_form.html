@@ -52,7 +52,7 @@
                     <div class="email">
                         <input id="email" th:field="*{username}" type="email" placeholder="ex) example@example.com" required="" value="">
                         <div class="email-checkmark">✓</div>
-                        <button type="button" id="emailCF" onclick="sendEmailConfirmation()">인증번호 전송</button>
+                        <button type="button" id="send-verification" onclick="sendEmailConfirmation()">인증번호 전송</button>
                     </div>
                     <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
                 </div>
@@ -61,9 +61,11 @@
                     <div class="email-check-text">이메일 인증 *</div>
                     <div class="email-check">
                         <input id="mailKey" th:field="*{mailKey}" type="text" placeholder="인증번호">
+                        <input id="genMailKey" th:field="*{genMailKey}" type="hidden" placeholder="인증번호">
                         <div class="email-check-checkmark">✓</div>
-                        <div id="timer">3:00</div>
+                        <div id="timer">00:30</div>
                         <div id="timer-expired" style="display: none; color: red;">인증시간이 만료되었습니다.</div>
+                        <div id="mail-key-errorMessage " style="display: none; color: red;">메일 키가 일치하지 않아요</div>
                     </div>
                 </div>
 
@@ -118,40 +120,62 @@
 </form>
 
 <script>
-   $(document).ready(function() {
-  var timer;
-  var minutes = 3;
-  var seconds = 0;
+  $(document).ready(function () {
+    var timer;
+    var minutes = 0;
+    var seconds = 30;
 
-  function startTimer() {
-    timer = setInterval(updateTimer, 1000);
-  }
-
-  function updateTimer() {
-    if (seconds === 0) {
-      if (minutes === 0) {
-        clearInterval(timer);
-        $("#timer").hide();
-        $("#timer-expired").show();
-        return;
-      }
-      minutes--;
-      seconds = 59;
-    } else {
-      seconds--;
+    function startTimer() {
+      timer = setInterval(updateTimer, 1000);
     }
 
-    var formattedTime = ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
-    $("#timer").text(formattedTime);
-    $("#test").text("재발송")
-  }
+    function resetTimer() {
+      clearInterval(timer);
+      minutes = 0;
+      seconds = 30;
+      $("#timer").text("00:30");
+    }
 
-  $("#send-verification").click(function() {
-    $("#email-format-error").hide(); // 숨기기
-    startTimer();
+    function updateTimer() {
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(timer);
+          $("#timer").hide();
+          $("#timer-expired").show();
+          $("#mailKey").prop("disabled", true); // 인증번호 입력 필드 비활성화
+          return;
+        }
+        minutes--;
+        seconds = 59;
+      } else {
+        seconds--;
+      }
+
+      var formattedTime =
+        ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
+      $("#timer").text(formattedTime);
+    }
+
+    $("#send-verification").click(function () {
+      $("#email-format-error").hide(); // 숨기기
+      resetTimer(); // 타이머 초기화
+      startTimer();
+      $("#mailKey").prop("disabled", false); // 인증번호 입력 필드 활성화
+
+      // 인증 코드 발송 후 초기화
+      $("#mailKey").val(""); // 인증번호 입력 필드 초기화
+      $(".email-check-checkmark").hide(); // 체크마크 숨김
+      $("#mail-key-errorMessage").hide(); // 에러 메시지 숨김
+
+      // 타이머 관련 UI 처리
+      $("#timer-expired").hide(); // 만료 안내문 숨김
+      $("#timer").show(); // 타이머 표시
+    });
   });
-});
+</script>
 
+
+<script>
    $(document).ready(function() {
   $('#email-input').on('input', function() {
     var email = $(this).val();
@@ -208,7 +232,9 @@ $(document).ready(function() {
     $('#password-match-error').css('display', 'none');
   });
 });
+</script>
 
+<script>
     $(document).ready(function() {
   $('#checkDuplicateBtn').on('click', function() {
     checkNickname();
@@ -235,7 +261,7 @@ $(document).ready(function() {
     }
 
     // 서버로 닉네임 중복 확인 요청 보내기 (AJAX 등을 사용하여 구현)
-    // 예시: 여기에서는 닉네임이 중복되었다고 가정하고 결과를 보여줌
+    // 예시: 여기에서는 닉네임이 중복되었다고 가정하고 결과를 보여줍니다.
     var isNicknameDuplicate = true;
 
     // AJAX 요청 보내기
@@ -283,6 +309,9 @@ document.getElementById("show-password-icon").addEventListener("click", function
     }
 });
 
+</script>
+
+<script>
     const passwordInput = document.getElementById('password-input');
 const showPasswordButton = document.getElementById('show-password');
 const passwordError = document.getElementById('password-error');
@@ -310,8 +339,8 @@ function validatePassword() {
         passwordInput.nextElementSibling.style.display = 'none';
     }
 }
-
-
+</script>
+<script>
 function sendEmailConfirmation() {
     // 이메일 주소 가져오기
     var email = $("#email").val();
@@ -320,15 +349,41 @@ function sendEmailConfirmation() {
     $.ajax({
         url: "http://localhost:7777/mailCheck", // 이메일 인증번호를 보낼 서버의 URL
         method: "GET",
-        data: {email: email, mailKey: mailKey}, // 이메일 주소를 서버로 전달
-        success: function(response) {
+        data: {
+        email: email,
+        mailKey: mailKey
+        }, // 이메일 주소를 서버로 전달
+        success: function(data) {
             alert("이메일 인증번호를 전송했습니다.");
+            $("#genMailKey").val(data);
         },
         error: function(xhr, status, error) {
             alert("이메일 인증번호 전송에 실패했습니다. 다시 시도해주세요.");
         }
     });
 }
+
+function validateMailKey() {
+    const mailKey = document.getElementById('mailKey').value;
+    const genMailKey = document.getElementById('genMailKey').value;
+    const checkmark = document.querySelector('.email-check-checkmark');
+    const errorMessage = document.getElementById('mail-key-errorMessage');
+
+    if (mailKey.length === 5 && mailKey === genMailKey) {
+        checkmark.style.display = 'block';
+        errorMessage.style.display = 'none';
+    } else {
+        checkmark.style.display = 'none';
+        errorMessage.style.display = 'block';
+    }
+}
+
+// 초기에는 체크마크를 숨김
+document.querySelector('.email-check-checkmark').style.display = 'none';
+
+const mailKeyInput = document.getElementById('mailKey');
+mailKeyInput.addEventListener('keyup', validateMailKey);
+
 </script>
 </body>
 </html>
