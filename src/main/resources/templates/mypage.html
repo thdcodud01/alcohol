@@ -91,8 +91,7 @@
                     <div class="product-box" th:each="product : ${wishProducts}">
                         <a class="a-link" th:href="@{|/product/detail/${product.id}|}">
                             <div class="img-box">
-                                <img alt=""
-                                     th:src="${product.filepath1}">
+                                <img alt="" th:src="${product.filepath1}">
                             </div>
                             <div class="text-box" th:text="${product.name}"></div>
                             <div class="text-box" th:text="${product.cost}"></div>
