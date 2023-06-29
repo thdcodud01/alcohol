@@ -2,6 +2,7 @@ package com.ll.spirits.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,8 +32,14 @@ public class UserCreateForm {
 
     private LocalDate birthDate;
 
-    private int mailKey;
+    private Integer mailKey = null;
+
+    private Integer genMailKey;
+
+    private boolean mailAuth;
 }
+
+
 /*
 UserCreateForm(userId=XXZ@sad.com, password1=1234, password2=1234, email=XXZ@sad.com, nickname=213132)
 Hibernate:

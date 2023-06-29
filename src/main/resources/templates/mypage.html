@@ -28,9 +28,11 @@
         <div class="right-box">
             <div class="user-box">
                 <div class="profile-img">
-                    <i class="fa-solid fa-user fa-lg"></i>
+                    <img alt="" th:if="${userImg}" th:src="${userImg}"/>
+                    <img alt="" src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+                         th:unless="${userImg}"/>
                 </div>
-                <div class="user-nickname" th:text="${#authentication.principal.nickname}"></div>
+                <div class="user-nickname" th:text="${#authentication.principal.nickname + ' 님'}"></div>
             </div>
         </div>
     </nav>
@@ -45,12 +47,14 @@
                 <hr>
                 <div class="info-content">
                     <div class="img-box">
-                        <form enctype="multipart/form-data" method="POST">
+                        <form enctype="multipart/form-data" method="POST"
+                              th:action="@{/user/updateprofile}" th:object="${userCreateForm}">
                             <div class="user-profile-register">
-
                                 <div class="img-box">
                                     <div class="profile-photo">
-                                        <img alt="" th:src="${userImg}">
+                                        <img alt="" th:if="${userImg}" th:src="${userImg}"/>
+                                        <img alt="" src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+                                             th:unless="${userImg}"/>
                                     </div>
                                 </div>
                                 <div class="user-img-box">
@@ -115,7 +119,8 @@
                             <div class="number" th:text="${review.id}"></div>
                             <div class="content" th:text="${review.content}"></div>
                             <div class="product-name" th:text="${review.product.name}"></div>
-                            <div class="date" th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                            <div class="date"
+                                 th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                         </a>
                     </div>
                 </div>
@@ -225,6 +230,8 @@ const presentPWInput = document.getElementById("presentPW");
       passwordMatchMsg.style.display = "none";
     }
   });
+
+
 </script>
 </body>
 </html>

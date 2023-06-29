@@ -31,10 +31,16 @@ ul,li{
 .profile-photo {
   width: 200px; /* 영역의 너비 */
   height: 200px; /* 영역의 높이 */
-  border: 2px solid black; /* 테두리 스타일 */
+  border: 1px solid black; /* 테두리 스타일 */
   border-radius: 50%; /* 원형 프로필 사진을 위해 반지름 값 설정 */
   background-color: ivory; /* 기본 배경색 설정 (프로필 사진이 없을 때 보여줄 색상) */
   /* 필요한 추가 스타일 설정 */
+}
+.profile-photo img{
+  width: 200px; /* 영역의 너비 */
+  height: 200px; /* 영역의 높이 */
+  border-radius: 50%;
+  object-fit : cover;
 }
 
 
@@ -71,7 +77,18 @@ ul,li{
 }
 
 .wrap>nav>.right-box>.user-box>.profile-img{
-  margin-right: 10px;
+     display: flex;
+     margin-right: 10px;
+     align-items: center;
+}
+.wrap>nav>.right-box>.user-box>.user-nickname{
+    display: flex;
+    align-items: center;
+    }
+.right-box>.user-box>.profile-img>img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
 }
 
 
@@ -114,10 +131,6 @@ ul,li{
       padding: 10px;
 }
 
-.right-box>.info-wrap>.info-content>.img-box{
-    margin-right:0px;
-    margin-left:30px;
-}
 
 .user-img-box>input{
     margin-top:10px;
@@ -149,19 +162,15 @@ ul,li{
     margin-top:30px;
 }
 
-
-.right-box>.info-wrap>.info-content>.info-box>.user-info-box{
-    width:800px;
-    margin-right:50px;
-}
-
-
 .right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box{
   display:flex;
   justify-content:space-between;
   margin-top: 20px;
   margin-bottom:50px;
 
+}
+.info-content > div {
+border : 1px solid transparent;
 }
 
 .right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box>.subtitle{
@@ -248,19 +257,25 @@ ul,li{
   margin-top: 30px;
   text-align:center;
   flex-wrap: wrap;
-    margin-left:30px;
 
 }
 
 
 .right-box>.wish-box>.product>.product-box{
-    margin-left:20px;
-       margin-right:20px;
+        width: 33.333%;
+        box-sizing: border-box;
+        border: 1px solid transparent;
 }
 
 .right-box>.wish-box>.product>.product-box>.img-box{
- width:calc(100%/4);
+ width:calc(100%/3);
+}
+.right-box>.wish-box>.product>.product-box>.img-box>form{
+ margin : 0 auto;
+}
 
+.right-box>.info-wrap>.info-content>.info-box {
+width:calc(100% - (100%/3));
 }
 
 

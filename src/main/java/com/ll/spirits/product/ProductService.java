@@ -192,13 +192,39 @@ public class ProductService {
         // 저장된 product를 다시 저장합니다.
         productRepository.save(product);
     }
-    public void modifyProduct(Integer id, ProductForm productForm, SiteUser siteUser) { // 추천 메서드
+    public void modifyProduct(Integer id,
+                              ProductForm productForm,
+                              SiteUser siteUser,
+                              MultipartFile file1,
+                              MultipartFile file2
+    ) throws IOException {
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
             // 제품이 존재하지 않을 경우, 에러 처리 또는 다른 동작 수행
             System.out.println("존재하지 않는 제품입니다.");
             return;
         }
+
+        String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
+
+//      String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+
+        UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
+        // uuid는 파일에 붙일 랜덤이름을 생성
+
+        // 제품 이미지파일 1 처리
+        String fileName1 = uuid + "_file1_" + file1.getOriginalFilename();
+        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String filePath1 = "/files/" + fileName1;
+        File saveFile1 = new File(projectPath, fileName1);
+        file1.transferTo(saveFile1);
+
+        // 제품 이미지파일 2 처리
+        String fileName2 = uuid + "_file2_" + file2.getOriginalFilename();
+        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String filePath2 = "/files/" + fileName2;
+        File saveFile2 = new File(projectPath, fileName2);
+        file2.transferTo(saveFile2);
 
         MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
                 .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));
@@ -263,6 +289,10 @@ public class ProductService {
         product.setNetWeight(netWeight);
         product.setNation(nation);
         product.setAuthor(siteUser);
+        product.setFilename1(fileName1);
+        product.setFilepath1(filePath1);
+        product.setFilename2(fileName2);
+        product.setFilepath2(filePath2);
 
         // product를 먼저 저장합니다.
         product = productRepository.save(product);

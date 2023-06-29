@@ -26,7 +26,7 @@ public class UserService {
 //    private final EmailVerificationTokenRepository tokenRepository;
 //    private final EmailService emailService;
 
-    public SiteUser create(String username, String password, String nickname, LocalDate birthDate, int mailKey, UserRole role) {
+    public SiteUser create(String username, String password, String nickname, LocalDate birthDate, Integer mailKey, UserRole role, boolean mailAuth) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
@@ -34,6 +34,7 @@ public class UserService {
         user.setBirthDate(birthDate);
         user.setRole(role);
         user.setMailKey(mailKey);
+        user.setMailAuth(mailAuth);
         userRepository.save(user);
         return user;
     }

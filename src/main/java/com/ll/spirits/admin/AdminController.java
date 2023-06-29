@@ -192,8 +192,12 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/product/modify/{id}")
-    public String productModify(@ModelAttribute("productForm") @Valid ProductForm productForm, BindingResult bindingResult,
-                                 Principal principal, @PathVariable("id") Integer id) {
+    public String productModify(@ModelAttribute("productForm") @Valid ProductForm productForm,
+                                BindingResult bindingResult,
+                                Principal principal,
+                                @PathVariable("id") Integer id,
+                                @RequestParam("file1") MultipartFile file1,
+                                @RequestParam("file2") MultipartFile file2) throws Exception {
         Product product = productService.getProduct(id);
         System.out.println("제품 수정 정보 확인:");
         System.out.println("수정된 이름: " + productForm.getName());
@@ -210,7 +214,7 @@ public class AdminController {
             return "product_form";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.modifyProduct(id, productForm, siteUser);
+        this.productService.modifyProduct(id, productForm, siteUser, file1, file2);
 
         System.out.println("제품 수정 완료");
 

@@ -56,26 +56,25 @@ margin-top : 15px;
 
 .wrap>nav>.right-box>.user-box{
   display:flex;
-  justify-content:flex-end;
   margin-top: 20px;
   margin-right: 10px;
   font-size:16px;
 }
 
 .wrap>nav>.right-box>.user-box>.login{
-  margin-right: 20px;
+display : flex;
+width : 100%;
+justify-content : flex-end;
+gap : 0 17px;
+align-items : center;
 }
 
-.wrap>nav>.right-box>.user-box>.login>a{
-    margin-left:10px;
-}
-
-.wrap>nav>.right-box>.user-box>.admin-button{
-    margin-right:20px;
-}
-
-.wrap>nav>.right-box>.user-box>.profile{
-    margin-right:20px;
+.wrap>nav>.right-box>.user-box>.login>a>.profile-img>img{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    align-items: center;
 }
 
 .wrap>nav>.right-box>.search-box{
@@ -130,6 +129,9 @@ margin-top : 15px;
   background: right / 0% 100% no-repeat linear-gradient(#92214D, #92214D);
   transition: background-size 500ms;
   transition: color 500ms;
+}
+.wrap > .menu-bar > ul > li > a > span{
+font-weight : bold;
 }
 
 .wrap > .menu-bar > ul > li:hover {
