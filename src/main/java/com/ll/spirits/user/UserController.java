@@ -27,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -51,7 +52,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult, String username, int mailKey) {
+    public String signup(@Valid UserCreateForm userCreateForm,
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup_form";
         }
@@ -59,16 +61,42 @@ public class UserController {
             bindingResult.rejectValue("password1", "passwordIncorrect", "2개의 패스워드가 일치하지 않습니다.");
             return "signup_form";
         }
-
         try {
             // 인증 코드 검증
-            if (userCreateForm.getMailKey() != mailKey) {
-                throw new Exception("유효하지 않은 이메일 또는 메일 키입니다.");
-            }
+            if (userCreateForm.getMailKey().equals(userCreateForm.getGenMailKey())) {
+                LocalDate currentDate = LocalDate.now();
+                LocalDate birthDate = userCreateForm.getBirthDate();
 
-            // 회원가입 처리
-            UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
-            userService.create(userCreateForm.getUsername(), userCreateForm.getPassword1(), userCreateForm.getNickname(), userCreateForm.getBirthDate(), userCreateForm.getMailKey(), role);
+                // 날짜 비교를 위해 현재 날짜에서 18년 전 날짜를 계산
+                LocalDate legalAgeDate = currentDate.minusYears(18);
+
+                // 미성년자인 경우 예외 처리
+                if (birthDate.isAfter(legalAgeDate)) {
+                    // 미성년자 예외 처리 로직을 실행합니다.
+                    throw new IllegalArgumentException("미성년자는 가입할 수 없습니다.");
+                }
+
+                // 회원가입 처리
+                UserRole role = userCreateForm.getUsername().startsWith("admin") ? UserRole.ADMIN : UserRole.USER;
+                userService.create(
+                        userCreateForm.getUsername(),
+                        userCreateForm.getPassword1(),
+                        userCreateForm.getNickname(),
+                        userCreateForm.getBirthDate(),
+                        userCreateForm.getMailKey(),
+                        role,
+                        true);
+            } else {
+                // 두 값이 일치하지 않는 경우
+                // 예외 처리 로직을 실행합니다.
+                bindingResult.rejectValue("mailKey", "mailKeyNotMatched", "유효하지 않은 이메일 또는 메일 키입니다.");
+                return "signup_form";
+            }
+            // ...
+        } catch (IllegalArgumentException e) {
+            // 미성년자 예외 처리에 대한 예외 처리 로직을 추가합니다.
+            bindingResult.rejectValue("birthDate", "minorAge", "미성년자는 가입할 수 없습니다.");
+            return "signup_form";
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 아이디입니다.");
@@ -89,7 +117,6 @@ public class UserController {
 
         return isDuplicate;
     }
-
     @GetMapping("/mypage")
     public String myPage(Model model, Principal principal, Integer id) {
         SiteUser user = userService.getUser(principal.getName());
@@ -138,13 +165,12 @@ public class UserController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/updateprofile")
-    public String updateProfileImg(BindingResult bindingResult,
+    public String updateProfileImg(@Valid @ModelAttribute("userCreateForm") UserCreateForm userCreateForm,
+                                   BindingResult bindingResult,
                                    Principal principal,
                                    @RequestParam("file") MultipartFile file) throws Exception {
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        if (bindingResult.hasErrors()) {
-            return "mypage";
-        }
+
         userService.updateProfile(siteUser, file);
 
         return "mypage";

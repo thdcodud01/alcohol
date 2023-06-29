@@ -96,10 +96,11 @@ select{
 }
 
 .section>.goods-list-section>.goods-list{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content:space-between;
-  margin-left:20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    gap: 33px;
+    margin-left: 20px;
 
 }
 

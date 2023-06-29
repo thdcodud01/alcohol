@@ -12,7 +12,7 @@
     <div class="wrap">
         <!-- 위스키 information-box -->
         <hr style="background-color : #92214D; border : 0; height : 2px; width : 1200px; margin:0 auto; margin-top:40px;">
-        <span id="MainCategory" th:text="${mainCategoryId}"></span>
+        <span id="MainCategory" th:text="${mainCategoryId}" style="display:none;"></span>
 <!--        <span th:text="${mainCategory}"></span>-->
         <div class="information-box" th:if="${mainCategoryId == 1}">
             <div class="title">

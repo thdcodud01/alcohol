@@ -93,7 +93,7 @@ ul,li{
 /*이메일*/
 .wrap>.signup-box>.email-box>.email-text{
   margin-right: 90px;
-  margin-left:60px;
+  margin-left:100px;
 }
 
 .wrap>.signup-box>.email-box>.email{
@@ -153,7 +153,7 @@ ul,li{
 .wrap>.signup-box>.email-check-box>.email-check-text{
 margin-right: 90px;
   margin-top:20px;
-  margin-left:20px;
+  margin-left:50px;
   margin-bottom:10px;
   }
 
@@ -195,6 +195,7 @@ margin-right: 90px;
 .wrap>.signup-box>.birthday-box>.birthday-text{
   margin-right: 90px;
   margin-top:20px;
+  margin-left:30px;
 }
 
 .wrap>.signup-box>.birthday-box>.birthday{
@@ -227,13 +228,14 @@ margin-right: 90px;
 }
 
 
-
+/*비밀번호*/
 .wrap>.signup-box>.password-box{
   margin-top: 20px;
 }
 
 .wrap>.signup-box>.password-box>.password-text{
   margin-right: -60px;
+  margin-left:70px;
 }
 
 .wrap>.signup-box>.password-box>.password{
@@ -258,7 +260,7 @@ margin-right: 90px;
 .wrap>.signup-box>.password-box>.password>i{
     position:absolute;
     top:25px;
-    right:-30px;
+    right:-40px;
 }
 
 .wrap>.signup-box>.password-box>.password>.password-checkmark{
@@ -276,13 +278,14 @@ margin-right: 90px;
 }
 
 
-/* gd */
+/* 비밀번호 확인 */
 .wrap>.signup-box>.password-check-box{
   margin-top: 20px;
 }
 
 .wrap>.signup-box>.password-check-box>.password-check-text{
   margin-right: 50px;
+  margin-left:30px;
 }
 
 .wrap>.signup-box>.password-check-box>.password-check{
@@ -326,8 +329,8 @@ margin-right: 90px;
 
 .wrap>.signup-box>.nickname-box>.nickname-text{
   margin-right: -120px;
-
-  font-size: 16px;
+  margin-left:90px;
+  font-size: 21px;
 }
 
 .wrap>.signup-box>.nickname-box>.nickname{

@@ -62,7 +62,8 @@ public class ProductController {
     @GetMapping("/list")
     public String listProductsByMainCategory(@RequestParam(value = "mainCategory", required = false) Integer mainCategory,
                                              @RequestParam(value = "kw", defaultValue = "") String kw,
-                                             Model model) {
+                                             Model model,
+                                             Principal principal) {
         // 대분류에 맞는 제품들을 조회하는 로직을 구현해야 합니다.
         List<Product> productList = productService.getProductsByMainCategory(mainCategory, kw);
         MainCategory mainCategoryName = mainCategoryService.getMainCategoryBymainCategoryId(mainCategory);
@@ -76,7 +77,11 @@ public class ProductController {
         List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
         List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
-
+        if (principal != null) {
+            SiteUser siteUser = this.userService.getUser(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
+        }
         // 모델에 데이터를 추가합니다.
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
@@ -105,8 +110,13 @@ public class ProductController {
                                               @RequestParam(value = "cask", required = false) Integer caskId,
                                               @RequestParam(value = "nation", required = false) Integer nationId,
                                               @RequestParam(value = "kw", required = false) String kw,
-                                              Model model) {
-
+                                              Model model,
+                                              Principal principal) {
+        if (principal != null) {
+            SiteUser siteUser = this.userService.getUser(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
+        }
         return productService.getFilteredProducts(
                 subCategoryId,
                 costRangeId,
@@ -147,6 +157,7 @@ public class ProductController {
         if (principal != null) {
             SiteUser siteUser = this.userService.getUser(principal.getName());
             model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
         }
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews); // List로 불러온 리뷰들
