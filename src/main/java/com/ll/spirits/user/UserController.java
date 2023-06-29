@@ -129,7 +129,6 @@ public class UserController {
         model.addAttribute("userName", user.getUsername());
         model.addAttribute("userNickName", user.getNickname());
         model.addAttribute("userBirthDate", user.getBirthDate());
-        model.addAttribute("userBirthDate", user.getBirthDate());
         model.addAttribute("userImg", user.getProfileFilepath());
 
         System.out.println(reviewList.toString());
