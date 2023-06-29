@@ -58,11 +58,12 @@
                                     </div>
                                 </div>
                                 <div class="user-img-box">
-                                    <label for="avatar1">프로필 사진:</label>
+                                    <label for="avatar1">프로필 사진 등록</label>
                                     <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file"
                                            type="file">
+                                    <input class="btn btn-primary btn-action img-btn" type="submit" value="저장하기">
                                 </div>
-                                <input class="btn btn-primary btn-action img-btn" type="submit" value="저장하기">
+
                             </div>
                         </form>
                     </div>
@@ -70,8 +71,7 @@
                         <div class="user-info-box">
                             <div class="id-box">
                                 <div class="subtitle">아이디 :</div>
-                                <div class="user-id" th:text="${#authentication.principal.username}">tjqls@gmail.com
-                                </div>
+                                <div class="user-id" th:text="${#authentication.principal.username}"></div>
                             </div>
                             <div class="nickname-box">
                                 <div class="subtitle">닉네임 :</div>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="birth-box">
                                 <div class="subtitle">생년월일 :</div>
-                                <div class="birth" th:text="${userBirthDate}"></div>
+                                <div class="birth" th:text="${#authentication.principal.birthDate}"></div>
                             </div>
                         </div>
                     </div>

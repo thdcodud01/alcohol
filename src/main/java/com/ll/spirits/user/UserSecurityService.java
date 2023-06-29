@@ -34,7 +34,8 @@ public class UserSecurityService implements UserDetailsService {
                 siteUser.getUsername(),
                 siteUser.getPassword(),
                 authorities,
-                siteUser.getNickname()
+                siteUser.getNickname(),
+                siteUser.getBirthDate()
         );
     }
 }

@@ -98,14 +98,14 @@ ul,li{
 
 /* 마이페이지 스타일 시작 */
 .wrap>.title{
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   margin-top: 30px;
   margin-left: 20px;
 }
 
 .wrap>.mypage-wrap{
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 20px;
   border:2px solid black;
   border-radius:6px;
@@ -132,21 +132,63 @@ ul,li{
       padding: 10px;
 }
 
-
-.user-img-box>input{
-    margin-top:10px;
-}
-
 .user-img-box{
-    margin-left:50px;
-    margin-top:20px;
+ display : flex;
+ justify-content: center;
+     flex-direction: column;
+     align-items: center;
+ }
+
+.user-img-box label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: black;
+  font-size: 15px;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border: 1.5px solid black;
+  border-radius: .25em;
+  margin-top : 20px;
 }
+.user-img-box input[type="file"] {  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
 .user-profile-register>.img-btn{
     margin-top:10px;
     margin-left:50px;
     padding-left:8px;
     padding-right:8px;
 }
+
+.user-profile-register>.user-img-box>.btn-action{
+    display: inline-block;
+    padding: 0.3em 0.6em;
+    color: black;
+    font-size: 16px;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border: 1.5px solid black;
+    border-radius: 0.25em;
+    margin-top: 20px;
+    }
+.user-profile-register>.img-box{
+display: flex;
+    justify-content: center;
+}
+
+
 
 .right-box>.info-wrap>.info-content>.info-box>.user-info-box{
     margin-top:60px;
@@ -161,6 +203,20 @@ ul,li{
     display:flex;
     justify-content:space-between;
     margin-top:30px;
+}
+
+.right-box>.info-wrap>.info-content>.img-box{
+        display: flex;
+        width: calc(100%/3);
+        justify-content: center;
+        }
+
+.right-box>.info-wrap>.info-content>.img-box>form{
+display:inline-block;
+}
+
+.right-box>.info-wrap>.info-content>.img-box>form>user-img-box{
+    display:inline-block;
 }
 
 .right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box{

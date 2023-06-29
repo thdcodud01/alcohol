@@ -40,7 +40,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,30 +130,30 @@ public class AdminController {
                                 BindingResult bindingResult,
                                 Principal principal,
                                 @RequestParam("file1") MultipartFile file1,
-                                @RequestParam("file2") MultipartFile file2) throws Exception {
-        System.out.println("제품 정보 확인:");
-        System.out.println("이름: " + productForm.getName());
-        System.out.println("대분류: " + productForm.getMainCategoryId());
-        System.out.println("중분류: " + productForm.getSubCategoryId());
-        System.out.println("가격범위: " + productForm.getCostRangeId());
-        System.out.println("도수범위: " + productForm.getAbvRangeId());
-        System.out.println("용량: " + productForm.getNetWeightId());
-        System.out.println("안주: " + productForm.getPairings());
-        System.out.println("캐스크: " + productForm.getCasks());
-        System.out.println("생산국: " + productForm.getNationId());
-//        System.out.println("파일이름: " + productForm.getFilename());
-//        System.out.println("파일경로: " + productForm.getFilepath());
-
-
-
+                                @RequestParam("file2") MultipartFile file2,
+                                RedirectAttributes redirectAttributes) throws Exception {
+        // 유효성 검사
         if (bindingResult.hasErrors()) {
-            System.out.println("유효성 검사 오류 발생");
             return "product_form";
         }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        productService.createProduct(productForm, siteUser, file1, file2);
 
-        System.out.println("제품 등록 완료");
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+
+        // 업로드된 파일을 임시 폴더에 저장
+        String tempFolderPath = System.getProperty("java.io.tmpdir");
+        File tempFile1 = File.createTempFile("temp1", file1.getOriginalFilename(), new File(tempFolderPath));
+        File tempFile2 = File.createTempFile("temp2", file2.getOriginalFilename(), new File(tempFolderPath));
+        file1.transferTo(tempFile1);
+        file2.transferTo(tempFile2);
+
+        // 제품 생성 및 이미지 업데이트
+        productService.createProduct(productForm, siteUser, tempFile1, tempFile2);
+
+        // 임시 파일 삭제
+        tempFile1.delete();
+        tempFile2.delete();
+
+        redirectAttributes.addFlashAttribute("successMessage", "제품이 등록되었습니다.");
 
         return "redirect:/";
     }
@@ -197,7 +199,8 @@ public class AdminController {
                                 Principal principal,
                                 @PathVariable("id") Integer id,
                                 @RequestParam("file1") MultipartFile file1,
-                                @RequestParam("file2") MultipartFile file2) throws Exception {
+                                @RequestParam("file2") MultipartFile file2,
+                                RedirectAttributes redirectAttributes) throws Exception {
         Product product = productService.getProduct(id);
         System.out.println("제품 수정 정보 확인:");
         System.out.println("수정된 이름: " + productForm.getName());
@@ -214,9 +217,22 @@ public class AdminController {
             return "product_form";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.productService.modifyProduct(id, productForm, siteUser, file1, file2);
+
+        // 업로드된 파일을 임시 폴더에 저장
+        String tempFolderPath = System.getProperty("java.io.tmpdir");
+        File tempFile1 = File.createTempFile("temp1", file1.getOriginalFilename(), new File(tempFolderPath));
+        File tempFile2 = File.createTempFile("temp2", file2.getOriginalFilename(), new File(tempFolderPath));
+        file1.transferTo(tempFile1);
+        file2.transferTo(tempFile2);
+
+        this.productService.modifyProduct(id, productForm, siteUser, tempFile1, tempFile2);
+
+        tempFile1.delete();
+        tempFile2.delete();
 
         System.out.println("제품 수정 완료");
+
+        redirectAttributes.addFlashAttribute("successMessage", "제품이 수정되었습니다.");
 
         return String.format("redirect:/product/detail/%s", product.getId());
     }
