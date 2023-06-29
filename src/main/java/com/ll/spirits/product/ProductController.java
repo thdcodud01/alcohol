@@ -82,6 +82,13 @@ public class ProductController {
             model.addAttribute("siteUser", siteUser);
             model.addAttribute("userImg", siteUser.getProfileFilepath());
         }
+
+//        long cost = product.getCost();
+//        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+//        String formattedCost = decimalFormat.format(cost);
+
+        // 천 단위 구분 기호가 있는 형식으로 변환
+
         // 모델에 데이터를 추가합니다.
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
@@ -95,6 +102,7 @@ public class ProductController {
         model.addAttribute("searchKeyword", kw);
         model.addAttribute("mainCategory", mainCategoryName);
         model.addAttribute("mainCategoryId", mainCategory);
+//        model.addAttribute("formattedCost", formattedCost); // 변환된 가격을 모델에 추가
 
         return "product_list";
     }

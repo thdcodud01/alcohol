@@ -459,21 +459,22 @@ width:calc(100% - (100%/3));
   height: 30px;
   border-radius:6px;
   padding-left:10px;
+
 }
 
 .right-box>.user-change-box>.user-change-wrap>form>.password{
-  margin-left: -110px;
+text-align:center;
 }
 
 .right-box>.user-change-box>.user-change-wrap>form>.ps-title{
-  margin-left: -110px;
   margin-top: 50px;
+  text-align:center;
 }
 
 
 .right-box>.user-change-box>.user-change-wrap>form>.ps-check-title{
   margin-top: 50px;
-  margin-left: -80px;
+  text-align:center;
 }
 
 .right-box>.user-change-box>.user-change-wrap>form>button{

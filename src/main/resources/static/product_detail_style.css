@@ -416,6 +416,7 @@ align-items : center;
 .review-list>.review{
     display:flex;
     justify-content:space-between;
+    height:100px;
 }
 
 .review-list>.review>.modify-review-date{
