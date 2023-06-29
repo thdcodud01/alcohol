@@ -65,15 +65,16 @@ ul,li{
 }
 
 .wrap>nav>.left-box>.logo-box>a>img{
-  width: 150px;
-  height: 80px;
+  width: 170px;
+  height: 100px;
 }
 
 
 .wrap>nav>.right-box>.user-box{
   display:flex;
-  margin-right: 20px;
-  margin-bottom: 10px;
+  margin-top:20px;
+  margin-right: 10px;
+  margin-bottom: 15px;
 }
 
 .wrap>nav>.right-box>.user-box>.profile-img{

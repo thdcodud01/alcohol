@@ -42,24 +42,30 @@ ul,li{
 .wrap>.top-bar{
   display:flex;
   justify-content:space-between;
-  margin-top:20px;
+}
+
+.wrap>.top-bar>.logo-box{
+    margin-top:12px;
 }
 
 .wrap>.top-bar>.logo-box>.logo>a>img{
-  width: 150px;
-  height: 80px;
+  width: 170px;
+  height: 100px;
 }
 
 .wrap>.top-bar>.user-box{
   display:flex;
+  margin-top:20px;
+  font-size:16px;
+  margin-right:10px;
 }
 
 .wrap>.top-bar>.user-box>div{
-  margin-right: 10px;
+
 }
 
-.wrap>.top-bar>.user-box>div:last-child{
-    margin-right:10px;
+.wrap>.top-bar>.user-box>.login{
+    margin-right:17px;
 }
 
 .wrap>.hello{
