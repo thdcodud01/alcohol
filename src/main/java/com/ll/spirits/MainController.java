@@ -34,8 +34,11 @@ public class MainController {
 
         List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
         model.addAttribute("mainCategoryList", mainCategoryList);
-        SiteUser user = userService.getUser(principal.getName());
-        model.addAttribute("userImg", user.getProfileFilepath());
+        if (principal != null) {
+            SiteUser siteUser = this.userService.getUser(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
+        }
         return "main_page";
     }
 }

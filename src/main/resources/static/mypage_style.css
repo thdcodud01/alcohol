@@ -264,7 +264,7 @@ border : 1px solid transparent;
 .right-box>.wish-box>.product>.product-box{
         width: 33.333%;
         box-sizing: border-box;
-        border: 1px solid red;
+        border: 1px solid transparent;
 }
 
 .right-box>.wish-box>.product>.product-box>.img-box{

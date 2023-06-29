@@ -21,7 +21,7 @@ font-family: 'SUITE-Regular';
 }
 
 .footer-section {
-    margin-top: 20px;
+    margin-top: 200px;
     margin-bottom: 60px;
 }
 
@@ -29,7 +29,6 @@ font-family: 'SUITE-Regular';
   font-size: 29.25px;
   font-weight: bold;
   margin-left: 20px;
-  margin-bottom: 30px;
   text-align:center;
 }
 
@@ -51,4 +50,5 @@ font-family: 'SUITE-Regular';
 .footer-section>.profile>.profile-box>.img-box>img{
   width: 200px;
   height: 250px;
+  object-fit : contain;
 }

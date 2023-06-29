@@ -77,8 +77,11 @@ public class ProductController {
         List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
         List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
-        SiteUser user = userService.getUser(principal.getName());
-        model.addAttribute("userImg", user.getProfileFilepath());
+        if (principal != null) {
+            SiteUser siteUser = this.userService.getUser(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
+        }
         // 모델에 데이터를 추가합니다.
         model.addAttribute("caskList", caskList);
         model.addAttribute("nationList", nationList);
@@ -109,8 +112,11 @@ public class ProductController {
                                               @RequestParam(value = "kw", required = false) String kw,
                                               Model model,
                                               Principal principal) {
-        SiteUser user = userService.getUser(principal.getName());
-        model.addAttribute("userImg", user.getProfileFilepath());
+        if (principal != null) {
+            SiteUser siteUser = this.userService.getUser(principal.getName());
+            model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
+        }
         return productService.getFilteredProducts(
                 subCategoryId,
                 costRangeId,
@@ -151,9 +157,8 @@ public class ProductController {
         if (principal != null) {
             SiteUser siteUser = this.userService.getUser(principal.getName());
             model.addAttribute("siteUser", siteUser);
+            model.addAttribute("userImg", siteUser.getProfileFilepath());
         }
-        SiteUser user = userService.getUser(principal.getName());
-        model.addAttribute("userImg", user.getProfileFilepath());
         model.addAttribute("product", product);
         model.addAttribute("reviews", reviews); // List로 불러온 리뷰들
         model.addAttribute("casks", casks);
