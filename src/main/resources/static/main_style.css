@@ -159,7 +159,7 @@ video {
   line-height:10px;
   position:absolute;
   left:50%;
-  transform:translatex(-30%);
+  transform:translatex(-50%);
 }
 
 .state-btn>div{
@@ -272,7 +272,7 @@ video {
   line-height:10px;
   position:absolute;
   left:50%;
-  transform:translatex(-30%);
+  transform:translatex(-50%);
 }
 
 .state-btn>div{
