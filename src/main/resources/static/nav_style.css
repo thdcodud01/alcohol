@@ -43,15 +43,15 @@ ul,li{
 }
 
 .logo-box {
-margin-top : 36px;
+margin-top:12px;
 }
 .wrap>.left-box {
-margin-top : 15px;
+
 }
 
 .wrap>nav>.left-box>.logo-box>a>img{
-  width: 150px;
-  height: 80px;
+  width: 170px;
+  height: 100px;
 }
 
 .wrap>nav>.right-box>.user-box{
@@ -93,7 +93,7 @@ align-items : center;
 
 .wrap>nav>.right-box>.search-box>#search-form>button>img{
   position : absolute;
-  width: 17px;
+  width: 20px;
   top: 10px;
   right: 12px
 }
