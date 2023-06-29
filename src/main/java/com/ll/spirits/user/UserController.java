@@ -185,7 +185,7 @@ public class UserController {
 
         redirectAttributes.addFlashAttribute("successMessage", "프로필 이미지가 업데이트되었습니다.");
 
-        return "redirect:/mypage";
+        return "redirect:/user/mypage";
     }
 
 
