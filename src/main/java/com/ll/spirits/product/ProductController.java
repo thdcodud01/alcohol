@@ -139,11 +139,7 @@ public class ProductController {
 
     @GetMapping("/detail/{id}") // 제품 상세보기
     @Transactional
-    public String getProductDetail(@PathVariable Integer id,
-                                   ReviewForm reviewForm,
-                                   Model model,
-                                   Principal principal,
-                                   HttpServletRequest request) {
+    public String getProductDetail(@PathVariable Integer id, ReviewForm reviewForm, Model model, Principal principal, HttpServletRequest request) {
         Product product = this.productService.getProduct(id);
         List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
         model.addAttribute("mainCategoryList", mainCategoryList);

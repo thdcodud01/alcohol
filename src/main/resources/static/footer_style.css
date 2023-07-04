@@ -47,10 +47,6 @@ font-family: 'SUITE-Regular';
   margin-top: 10px;
 }
 
-.footer-section>.profile>.profile-box>.img-box {
-text-align : center;
-}
-
 .footer-section>.profile>.profile-box>.img-box>img{
   width: 200px;
   height: 250px;

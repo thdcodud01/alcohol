@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.ll'
-version = '0.0.3-spirits'
+version = '0.0.1-spirits'
 sourceCompatibility = '17'
 
 configurations {
