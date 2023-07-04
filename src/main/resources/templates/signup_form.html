@@ -285,7 +285,7 @@ $(document).ready(function() {
         } else {
           $('#nicknameCheckResult')
             .text('사용 가능한 닉네임입니다.')
-            .css('margin-left', '30px')
+            .css('margin-left', '70px')
             .css('color', 'black');
         }
       },
@@ -347,7 +347,7 @@ function sendEmailConfirmation() {
     var mailKey = $("#mailKey").val();
     // AJAX 요청 보내기
     $.ajax({
-        url: "http://localhost:7777/mailCheck", // 이메일 인증번호를 보낼 서버의 URL
+        url: "http://13.124.91.57/mailCheck", // 이메일 인증번호를 보낼 서버의 URL
         method: "GET",
         data: {
         email: email,

@@ -5,6 +5,7 @@ import com.ll.spirits.DataNotFoundException;
 //import com.ll.spirits.user.emailService.EmailVerificationToken;
 //import com.ll.spirits.user.emailService.EmailVerificationTokenRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -107,24 +108,20 @@ public class UserService {
         this.userRepository.save(user);
         return user;
     }
-    public SiteUser updateProfile(SiteUser user, MultipartFile file) throws IOException {
+    public SiteUser updateProfile(SiteUser user, File file) throws IOException {
         String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
 
-//        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-        // 저장할 경로를 여기서 지정해줌
-        // String projectPath1 = System.getProperty("user.dir") + "src/main/resources/static/files";
-        UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
-        // uuid는 파일에 붙일 랜덤이름을 생성
-
-        String fileName = uuid + "_" + file.getOriginalFilename();
-        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + file.getName();
         String filePath = "/files/" + fileName;
 
         File saveFile = new File(projectPath, fileName);
-        file.transferTo(saveFile);
+        FileUtils.copyFile(file, saveFile); // 임시 파일을 실제 저장 경로로 복사
+
         user.setProfileFilename(fileName);
         user.setProfileFilepath(filePath);
         this.userRepository.save(user);
+
         return user;
     }
     public List<SiteUser> getList () {

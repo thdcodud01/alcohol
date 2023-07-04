@@ -416,6 +416,7 @@ align-items : center;
 .review-list>.review{
     display:flex;
     justify-content:space-between;
+    height:100px;
 }
 
 .review-list>.review>.modify-review-date{
@@ -442,7 +443,8 @@ align-items : center;
     height:200px;
     margin-top:10px;
     margin-bottom:10px;
-    border:1px solid black;
+    padding : 10px;
+    border:2px solid black;
     font-size : 25px;
 }
 
@@ -480,8 +482,8 @@ align-items : center;
 .wrap>.review-box>.review-form>form>textarea{
   width: 1200px;
   height: 200px;
-  padding: 0;
-  border:1px solid black;
+  padding: 10px;
+  border:2px solid black;
   font-size : 25px;
 }
 
@@ -509,6 +511,6 @@ align-items : center;
 }
 
 .btn.active{
-  opacity:1;
+  opacity:3;
   visibility:visible;
 }

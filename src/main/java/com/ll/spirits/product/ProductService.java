@@ -25,6 +25,7 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -87,30 +88,25 @@ public class ProductService {
 
     public void createProduct(ProductForm productForm,
                               SiteUser siteUser,
-                              MultipartFile file1,
-                              MultipartFile file2
+                              File file1,
+                              File file2
     ) throws IOException {
         // 저장할 경로를 여기서 지정해줌
         String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
 
-//      String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-
-        UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
-        // uuid는 파일에 붙일 랜덤이름을 생성
+        UUID uuid = UUID.randomUUID();
 
         // 제품 이미지파일 1 처리
-        String fileName1 = uuid + "_file1_" + file1.getOriginalFilename();
-        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String fileName1 = uuid + "_file1_" + file1.getName();
         String filePath1 = "/files/" + fileName1;
         File saveFile1 = new File(projectPath, fileName1);
-        file1.transferTo(saveFile1);
+        FileUtils.copyFile(file1, saveFile1);
 
         // 제품 이미지파일 2 처리
-        String fileName2 = uuid + "_file2_" + file2.getOriginalFilename();
-        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String fileName2 = uuid + "_file2_" + file2.getName();
         String filePath2 = "/files/" + fileName2;
         File saveFile2 = new File(projectPath, fileName2);
-        file2.transferTo(saveFile2);
+        FileUtils.copyFile(file2, saveFile2);
 
         MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
                 .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));
@@ -195,8 +191,8 @@ public class ProductService {
     public void modifyProduct(Integer id,
                               ProductForm productForm,
                               SiteUser siteUser,
-                              MultipartFile file1,
-                              MultipartFile file2
+                              File file1,
+                              File file2
     ) throws IOException {
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
@@ -207,24 +203,19 @@ public class ProductService {
 
         String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
 
-//      String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
-
-        UUID uuid = UUID.randomUUID(); // 랜덤으로 이름을 만들어줄 수 있음
-        // uuid는 파일에 붙일 랜덤이름을 생성
+        UUID uuid = UUID.randomUUID();
 
         // 제품 이미지파일 1 처리
-        String fileName1 = uuid + "_file1_" + file1.getOriginalFilename();
-        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String fileName1 = uuid + "_file1_" + file1.getName();
         String filePath1 = "/files/" + fileName1;
         File saveFile1 = new File(projectPath, fileName1);
-        file1.transferTo(saveFile1);
+        FileUtils.copyFile(file1, saveFile1);
 
         // 제품 이미지파일 2 처리
-        String fileName2 = uuid + "_file2_" + file2.getOriginalFilename();
-        // 랜덤이름(uuid)을 앞에다 붙이고 그 다음에 언더바(_) 하고 파일이름을 뒤에 붙여서 저장될 파일 이름을 생성해줌
+        String fileName2 = uuid + "_file2_" + file2.getName();
         String filePath2 = "/files/" + fileName2;
         File saveFile2 = new File(projectPath, fileName2);
-        file2.transferTo(saveFile2);
+        FileUtils.copyFile(file2, saveFile2);
 
         MainCategory mainCategory = mainCategoryRepository.findById(productForm.getMainCategoryId())
                 .orElseThrow(() -> new DataNotFoundException("mainCategory not found"));

@@ -25,7 +25,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -138,7 +140,6 @@ public class UserController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modifyPassword")
     public String modifyPassword(UserModifyForm userModifyForm, BindingResult bindingResult, Principal principal) {
-        SiteUser siteUser = this.userService.getUser(principal.getName());
         if (bindingResult.hasErrors()) {
             return "mypage";
         }
@@ -167,13 +168,26 @@ public class UserController {
     public String updateProfileImg(@Valid @ModelAttribute("userCreateForm") UserCreateForm userCreateForm,
                                    BindingResult bindingResult,
                                    Principal principal,
-                                   @RequestParam("file") MultipartFile file) throws Exception {
+                                   @RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) throws Exception {
         SiteUser siteUser = this.userService.getUser(principal.getName());
 
-        userService.updateProfile(siteUser, file);
+        // 업로드된 파일을 임시 폴더에 저장
+        String tempFolderPath = System.getProperty("java.io.tmpdir");
+        File tempFile = File.createTempFile("temp", file.getOriginalFilename(), new File(tempFolderPath));
+        file.transferTo(tempFile);
 
-        return "mypage";
+        // 프로필 이미지 업데이트
+        userService.updateProfile(siteUser, tempFile);
+
+        // 임시 파일 삭제
+        tempFile.delete();
+
+        redirectAttributes.addFlashAttribute("successMessage", "프로필 이미지가 업데이트되었습니다.");
+
+        return "redirect:/user/mypage";
     }
+
 
     @GetMapping("/login")
     public String login() {

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.ll'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.4-spirits'
 sourceCompatibility = '17'
 
 configurations {
@@ -63,6 +63,7 @@ dependencies { // JSON 언어로 작성된 디펜던시
 
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.sun.mail:jakarta.mail:2.0.1'
+	implementation 'commons-io:commons-io:2.11.0'
 }
 
 tasks.named('test') {

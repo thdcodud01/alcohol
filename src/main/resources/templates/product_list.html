@@ -190,7 +190,7 @@
                                  th:src="${product.filepath1}">
                             <p class="goods-name"
                                th:text="${product.name}"></p>
-                            <p><span th:text="${product.cost}"></span>원</p>
+                            <p><span th:text="${#numbers.formatDecimal(product.cost, 0, 'COMMA', 0, 'POINT')}"></span>￦</p>
                         </a>
                     </div>
                 </div>
