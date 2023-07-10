@@ -30,4 +30,13 @@ public class Review {
     private SiteUser author; // 리뷰 작성자
     @ManyToMany
     Set<SiteUser> voter;
+
+    private boolean editMode; // 수정 모드 여부
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+    }
 }

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>MyPage</title>
+    <link rel="stylesheet" th:href="@{/mypage_style.css}" type="text/css">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+</head>
+<body>
+<!-- 문서시작 -->
+
+<div class="wrap">
+
+    <nav>
+        <div class="left-box">
+            <div class="logo-box">
+                <a th:href="@{|/main|}"><img alt="" src="https://ifh.cc/g/BRzb5o.png"></a>
+            </div>
+        </div>
+
+        <div class="right-box">
+            <div class="user-box">
+                <div class="profile-img">
+                    <img alt="" th:if="${userImg}" th:src="${userImg}"/>
+                    <img alt="" src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+                         th:unless="${userImg}"/>
+                </div>
+                <div class="user-nickname" th:text="${#authentication.principal.nickname + ' 님'}"></div>
+            </div>
+        </div>
+    </nav>
+
+    <hr>
+
+    <div class="title">마이페이지</div>
+    <div class="mypage-wrap">
+        <div class="right-box">
+            <div class="info-wrap">
+                <div class="title">회원정보</div>
+                <hr>
+                <div class="info-content">
+                    <div class="img-box">
+                        <form enctype="multipart/form-data" method="POST"
+                              th:action="@{/user/updateprofile}" th:object="${userCreateForm}">
+                            <div class="user-profile-register">
+                                <div class="img-box">
+                                    <div class="profile-photo">
+                                        <img alt="" th:if="${userImg}" th:src="${userImg}"/>
+                                        <img alt="" src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+                                             th:unless="${userImg}"/>
+                                    </div>
+                                </div>
+                                <div class="user-img-box">
+                                    <label for="avatar1">프로필 사진 등록</label>
+                                    <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file"
+                                           type="file">
+                                    <input class="btn btn-primary btn-action img-btn" type="submit" value="저장하기">
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="info-box">
+                        <div class="user-info-box">
+                            <div class="id-box">
+                                <div class="subtitle">아이디 :</div>
+                                <div class="user-id" th:text="${#authentication.principal.username}"></div>
+                            </div>
+                            <div class="nickname-box">
+                                <div class="subtitle">닉네임 :</div>
+                                <div class="nickname" th:text="${#authentication.principal.nickname}"></div>
+                            </div>
+                            <div class="birth-box">
+                                <div class="subtitle">생년월일 :</div>
+                                <div class="birth" th:text="${#authentication.principal.birthDate}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="wish-box">
+                <div class="title">나만의 찜</div>
+                <hr>
+                <div class="product">
+                    <div class="product-box" th:each="product : ${wishProducts}">
+                        <a class="a-link" th:href="@{|/product/detail/${product.id}|}">
+                            <div class="img-box">
+                                <img alt=""
+                                     th:src="${product.filepath1}">
+                            </div>
+                            <div class="text-box" th:text="${product.name}"></div>
+                            <div class="text-box" th:text="${product.cost}"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-box">
+                <div class="review-wrap">
+                    <div class="title">내가 쓴 리뷰</div>
+                    <hr>
+                    <div class="review-info">
+                        <div class="num">번호</div>
+                        <div class="content">리뷰</div>
+                        <div class="product-name">상품</div>
+                        <div class="create-date">등록일</div>
+                    </div>
+                    <div class="review-content" th:each="review : ${reviewList}">
+                        <a class="a-lin" th:href="@{|/product/detail/${review.product.id}|}">
+                            <div class="number" th:text="${review.id}"></div>
+                            <div class="content" th:text="${review.content}"></div>
+                            <div class="product-name" th:text="${review.product.name}"></div>
+                            <div class="date"
+                                 th:text="${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="like-box">
+                <div class="like-wrap">
+                    <div class="title">
+                        내가 누른 좋아요
+                    </div>
+                    <hr>
+                    <div class="like-info">
+                        <div class="num">상품 번호</div>
+                        <div class="like-product">좋아요 누른 상품</div>
+                        <div class="cost">가격</div>
+                    </div>
+                    <div class="like-content" th:each="product : ${voterProducts}">
+                        <a class="a-lin" th:href="@{|/product/detail/${product.id}|}">
+                            <div class="number" th:text="${product.id}"></div>
+                            <div class="product-name" th:text="${product.name}"></div>
+                            <div class="cost" th:text="${product.cost}"></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-change-box">
+                <div class="user-change-wrap">
+                    <div class="title">개인정보 변경</div>
+                    <hr>
+                    <form action="/user/modifyPassword" method="post">
+                        <div class="password"> 기존 비밀번호</div>
+                        <input name="presentPW" placeholder="비밀번호를 입력해주세요." type="password">
+                        <div class="ps-title"> 비밀번호 변경</div>
+                        <input name="newPW" placeholder="새 비밀번호를 입력해주세요." type="password">
+                        <div class="ps-check-title"> 비밀번호 변경 확인</div>
+                        <input name="newPW2" placeholder="새 비밀번호를 다시 입력해주세요." type="password">
+                        <button type="submit">변경하기</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(".user-information ").click(function () {
+
+
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-info").addClass("active").css('display','block');
+});
+
+$(".user-wishlist").click(function () {
+
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-wish").addClass("active").css('display','block');
+});
+
+$(".user-reviewlist").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-review").addClass("active").css('display','block');
+});
+
+$(".user-likelist").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-modify").removeClass("active").css('display','none');
+  $(".user-like").addClass("active").css('display','block');
+});
+
+$(".user-information-modify").click(function () {
+  $(".user-info").removeClass("active").css('display','none');
+  $(".user-review").removeClass("active").css('display','none');
+  $(".user-wish").removeClass("active").css('display','none');
+  $(".user-like").removeClass("active").css('display','none');
+  $(".user-modify").addClass("active").css('display','block');
+});
+
+
+const presentPWInput = document.getElementById("presentPW");
+  const newPWInput = document.getElementById("newPW");
+  const newPW2Input = document.getElementById("newPW2");
+  const passwordMatchMsg = document.getElementById("passwordMatchMsg");
+
+  newPW2Input.addEventListener("input", function() {
+    const newPWValue = newPWInput.value;
+    const newPW2Value = newPW2Input.value;
+
+    if (newPWValue !== newPW2Value) {
+      passwordMatchMsg.textContent = "입력한 비밀번호가 일치하지 않습니다.";
+      passwordMatchMsg.style.display = "block";
+    } else {
+      passwordMatchMsg.textContent = "";
+      passwordMatchMsg.style.display = "none";
+    }
+  });
+
+
+</script>
+</body>
+</html>

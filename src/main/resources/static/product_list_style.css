@@ -1,0 +1,153 @@
+html {
+  font-size: calc(100% + 5px);
+}
+
+/* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+ul,li{
+  text-decoration:none;
+  list-style:none;
+}
+
+/* 스타일시작 */
+.wrap{
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrap>.information-box{
+  height: 150px;
+  margin-top: 10px;
+
+}
+
+.wrap>.information-box>.img-box{
+  margin-top: -110px;
+  margin-left: 190px;
+}
+
+.wrap>.information-box>.img-box>img{
+  width: 300px;
+  height: 140px;
+  margin-left: 600px;
+
+}
+
+.wrap>.information-box>.title{
+  padding-top: 10px;
+}
+
+.wrap>.information-box>.text{
+  padding-top: 10px;
+  margin-top:15px;
+}
+
+.wrap>.drop-down-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 50px;
+}
+
+.wrap>.drop-down-box>div{
+
+}
+
+.wrap>.drop-down-box>div:first-child{
+
+}
+
+select{
+    width:155px;
+    border:1px solid #92214D;
+    padding:3px 0;
+}
+
+
+.wrap>.section{
+  width: 100%;
+
+
+  margin-top: 30px;
+}
+
+.wrap>.section>.search-result{
+  display:block;
+  margin-bottom: 30px;
+}
+
+
+.section>.goods-list-section{
+    display:flex;
+    width:1180px;
+}
+
+.section>.goods-list-section>.goods-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    gap: 33px;
+    margin-left: 20px;
+
+}
+
+.section>.goods-list-section>.goods-list>div{
+    margin-top:20px;
+  width : 250px;
+  vertical-align : top;
+
+}
+
+.section>.goods-list-section>.goods-list>div:nth-child(n){
+    margin-left:0;
+}
+
+.section>.goods-list-section>.goods-list>div:nth-child(4n){
+    margin-right:0;
+}
+
+
+.section>.goods-list-section>.goods-list > div > a {
+  overflow : hidden;
+}
+
+.section>.goods-list-section>.goods-list > div > a > img {
+  width : 250px;
+  height : 370px;
+  margin-bottom : 10px;
+  transition : scale 400ms;
+  object-fit : cover;
+}
+.section>.goods-list-section>.goods-list > div > a:hover > img {
+  scale : 107%;
+}
+
+.section>.goods-list-section>.goods-list .goods-name {
+  margin-bottom : 10px;
+}
+
+.section>.goods-list-section>.goods-list > .goods-1 {
+  margin-right : 20px;
+  margin-left: 20px;
+}
+
+.section>.goods-list-section>.goods-list .per{
+  color : #FA622F;
+}
+
+.section>.goods-list-section>.goods-list > div > a > p > span {
+  font-weight : bold;
+}

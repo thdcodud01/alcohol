@@ -1,47 +1,84 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="navbarFragment"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" th:fragment="navbarFragment" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title></title>
-    <link rel="stylesheet" type="text/css" th:href="@{/nav_style.css}">
+    <link rel="stylesheet" th:href="@{/nav_style.css}" type="text/css">
 </head>
 <body>
 <div class="wrap">
     <nav>
         <div class="left-box">
             <div class="logo-box">
-                <a th:href="@{|/main|}"><img src="https://ifh.cc/g/BRzb5o.png" alt=""></a>
+                <a th:href="@{|/main|}"><img alt="" src="https://ifh.cc/g/BRzb5o.png"></a>
             </div>
         </div>
 
         <div class="right-box">
             <div class="user-box">
-                <div class="login"><a th:href="@{/product/create}">제품등록</a></div>
-                <div class="login"><a sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a></div>
-                <div class="login"><a sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a></div>
-                <div class="sign-up"><a th:href="@{|/user/signup|}">회원가입</a></div>
+                <div class="login">
+                    <a class="log-in-btn" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+
+                    <a class="admin-page-btn" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/page}">관리자페이지 </a>
+                    <a th:href="@{/user/mypage}">
+                        <div class="profile-img">
+                            <img alt="" sec:authorize="isAuthenticated()" th:if="${userImg}" th:src="${userImg}"/>
+                            <img alt="" sec:authorize="isAuthenticated()" src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"
+                                 th:unless="${userImg}"/>
+                        </div>
+                    </a>
+                    <a sec:authorize="isAuthenticated()" th:href="@{/user/mypage}"
+                       th:text="${#authentication.principal.nickname + ' 님'}"></a>
+
+                    <a class="log-out-btn" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+
+                    <a class="sign-up-btn" sec:authorize="isAnonymous()" th:href="@{|/user/signup|}">회원가입</a>
+                </div>
             </div>
             <div class="search-box">
-                <input type="text" placeholder="검색어를 입력해주세요.">
-                <img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+                <form id="search-form" method="get" th:action="@{|/product/list?mainCategory=${mainCategory}|}">
+                    <input id="search_kw" name="kw" placeholder="검색어를 입력해주세요." th:value="${kw}" type="text">
+                    <button type="submit"><img
+                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"></button>
+                </form>
             </div>
         </div>
     </nav>
     <div class="menu-bar">
         <ul>
-            <li><a th:href="@{|/product/list/Whiskey|}">위스키</a></li>
-            <li><a th:href="@{|/product/list/Vodka|}">보드카</a></li>
-            <li><a th:href="@{|/product/list/Tequila|}">데킬라</a></li>
-            <li><a th:href="@{|/product/list/Gin|}">진</a></li>
-            <li><a th:href="@{|/product/list/Rum|}">럼</a></li>
-            <li><a th:href="@{|/product/list/Brandy|}">브랜디</a></li>
-            <li><a th:href="@{|/product/list/Beer|}">맥주</a></li>
+            <li th:each="mainCategory : ${mainCategoryList}">
+                <a class="main-category-link"
+                   th:data-main-category="${mainCategory.id}" th:href="@{|/product/list?mainCategory=${mainCategory.id}|}">
+                    <span th:text="${#strings.capitalize(mainCategory.mainCategory)}"></span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
+<script type="text/javascript">
+    const searchInput = document.getElementById('search_kw');
+    const searchForm = document.getElementById('search-form');
+
+    // 입력 필드에 포커스가 있는 경우 스타일을 변경합니다.
+    searchInput.addEventListener('focus', function () {
+        searchInput.style.boxShadow = '0 0 5px #ccc';
+    });
+
+    // 입력 필드에 포커스가 없는 경우 스타일을 초기화합니다.
+    searchInput.addEventListener('blur', function () {
+        searchInput.style.boxShadow = 'none';
+    });
+
+    // 제출 버튼을 클릭할 때 폼을 제출합니다.
+    searchForm.addEventListener('submit', function () {
+        searchForm.submit();
+    });
+
+
+</script>
 </body>
 </html>

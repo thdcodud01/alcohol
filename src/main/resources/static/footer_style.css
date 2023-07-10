@@ -1,0 +1,54 @@
+html {
+  font-size: calc(100% + 5px);
+}
+
+/* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
+.wrap2{
+    width:1200px;
+    margin-left:auto;
+    margin-right:auto;
+    display:flex;
+    justify-content:center;
+}
+
+.footer-section {
+    margin-top: 200px;
+    margin-bottom: 60px;
+}
+
+.footer-section>.title{
+  font-size: 29.25px;
+  font-weight: bold;
+  margin-left: 20px;
+  text-align:center;
+}
+
+.footer-section>.profile{
+  display:flex;
+  justify-content:space-around;
+}
+
+.footer-section>.profile>.profile-box{
+    margin-right:40px;
+    margin-left:40px;
+}
+
+.footer-section>.profile>.profile-box>.profile-info{
+  text-align:center;
+  margin-top: 10px;
+}
+
+.footer-section>.profile>.profile-box>.img-box>img{
+  width: 200px;
+  height: 250px;
+  object-fit : contain;
+}

@@ -1,7 +1,24 @@
+html {
+  font-size: calc(100% + 5px);
+}
+
+/* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
 /* 노멀라이징 */
 *{
   margin: 0;
   padding: 0;
+}
+form {
+    text-align : center;
 }
 
 a{
@@ -15,10 +32,11 @@ ul,li{
 }
 
 .wrap{
-  width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    text-align: center;
 }
 
 .wrap>.top-bar{
@@ -26,17 +44,28 @@ ul,li{
   justify-content:space-between;
 }
 
+.wrap>.top-bar>.logo-box{
+    margin-top:12px;
+}
+
 .wrap>.top-bar>.logo-box>.logo>a>img{
-  width: 200px;
+  width: 170px;
   height: 100px;
 }
 
 .wrap>.top-bar>.user-box{
   display:flex;
+  margin-top:20px;
+  font-size:16px;
+  margin-right:10px;
 }
 
 .wrap>.top-bar>.user-box>div{
-  margin-right: 20px;
+
+}
+
+.wrap>.top-bar>.user-box>.login{
+    margin-right:17px;
 }
 
 .wrap>.hello{
@@ -54,36 +83,44 @@ ul,li{
 .wrap>.hello>.hello-box>.title{
   font-size: 24px;
   font-weight: bold;
-  margin-right: 180px;
 }
 
 
 .wrap>.hello>.hello-box>.text{
   margin-top: 40px;
-  margin-right: 130px;
 }
 
 .wrap>.login-box{
   text-align:center;
   justify-content:center;
-
-  margin-top: 40px;
+display:inline-block;
 }
 
 .wrap>.login-box>.kakao{
-  display:inline-block;
-  width: 300px;
-  height: 50px;
-  background-color: yellow;
-  border-radius:8px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
 }
 
-.wrap>.login-box>.kakao>.text{
-  display:flex;
-  justify-content:center;
-  margin-top: 19px;
-  font-weight: bold;
+.wrap>.login-box>.kakao>.kakao-btn{
+    display:inline-block;
+}
+
+.wrap>.login-box>.kakao{
+    width:300px;
+}
+
+.wrap>.login-box>.kakao>a{
+    width:300px;
+    font-size: 19px;
+    display:block;
+    background-color: yellow;
+    border: solid 1px black;
+    border-radius: 6px;
+    padding: 10px;
+    font-weight: bold;
+    color: black;
 }
 
 .wrap>.login-box>.user{
@@ -92,7 +129,6 @@ ul,li{
 
 
 .wrap>.login-box>.user>.id>input{
-
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
@@ -113,7 +149,6 @@ ul,li{
 }
 
 .wrap>.login-box>.user>.ps>input{
-
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
@@ -134,14 +169,15 @@ ul,li{
 }
 
 .wrap>.login-box>.login-btn>.btn{
-  width: 300px;
-  font-size: 19px;
-  background-color: rgb(0, 150, 243);
-  border:1px solid rgb(0, 150, 243);
-  border-radius:5px;
-  padding: 10px;
-  font-weight: bold;
-  color:white;
+    width: 300px;
+    font-size: 19px;
+    padding:10px;
+    background-color: rgb(0, 150, 243);
+    border: solid 1px black;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+    cursor : pointer;
 }
 
 .wrap>.login-box>.signup-btn{
@@ -149,13 +185,19 @@ ul,li{
 
 }
 
-.wrap>.login-box>.signup-btn>.btn{
-  width: 300px;
-  font-size: 19px;
-  background-color: white;
-  border:1px solid gray;
-  border-radius:5px;
-  padding: 10px;
-  font-weight: bold;
-  color:gray;
+.wrap>.login-box>.signup-btn{
+    width:300px;
+}
+
+.wrap>.login-box>.signup-btn>a{
+
+        font-size: 19px;
+        display:block;
+        background-color: white;
+        border: solid 1px black;
+        border-radius: 6px;
+        padding: 10px;
+        font-weight: bold;
+        color: black;
+
 }

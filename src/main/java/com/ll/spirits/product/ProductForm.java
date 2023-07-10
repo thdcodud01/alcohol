@@ -38,12 +38,15 @@ public class ProductForm {
     private Integer cost; // 가격
 
     @NotEmpty(message = "제품정보는 필수 입력항목입니다.")
-    @Size(max = 300)
+    @Size(max = 5000, message = "제품정보는 최대 5000자까지 입력 가능합니다.")
     private String info; // 제품정보
+
+    @NotEmpty(message = "제품설명제목은 필수 입력항목입니다.")
+    @Size(max = 500, message = "제품정보는 최대 500자까지 입력 가능합니다.")
+    private String subject; // 제품정보
 
     @NotNull(message = "대분류는 필수 입력항목입니다.")
     private Integer mainCategoryId; // 대분류 ID
-
     @NotNull(message = "중분류는 필수 입력항목입니다.")
     private Integer subCategoryId; // 중분류 ID
     @NotNull(message = "가격 범위는 필수 입력항목입니다.")
@@ -53,9 +56,9 @@ public class ProductForm {
     @NotNull(message = "중량은 필수 입력항목입니다.")
     private Integer netWeightId; // 중량 ID
     @NotNull(message = "어울리는 안주는 필수 입력항목입니다.")
-    private List<Integer> pairings = new ArrayList<>(); // 페어링 엔티티 리스트
+    private List<Integer> pairings; // 페어링 ID 리스트
     @NotNull(message = "생산국가는 필수 입력항목입니다.")
     private Integer nationId; // 생산국가 ID
-    @NotNull(message = "오크통은 필수 입력항목입니다.")
-    private List<Integer> casks = new ArrayList<>(); // 캐스크 엔티티 리스트
+
+    private List<Integer> casks; // 캐스크 ID 리스트
 }

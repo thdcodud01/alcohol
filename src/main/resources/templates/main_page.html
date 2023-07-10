@@ -1,92 +1,342 @@
 <!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/main_style.css}">
+    <link rel="stylesheet" th:href="@{/main_style.css}" type="text/css">
+
+    <script crossorigin="anonymous"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script crossorigin="anonymous"
+            integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+            referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
+          integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
+          integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
+
+
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="contain">
-        <div class="top-section">
-            <div class="top">
-                <div class="font">클래식 바에 갔는데 뭘 고를지 모를때</div>
 
-            </div>
+    <div class="main-wrap">
+
+<!--        <div class="main-info">-->
+<!--            <div class="info-box">-->
+
+<!--            </div>-->
+<!--        </div>-->
+        <div class="container">
+            <video autoplay loop muted>
+                <source src="/video/Spirits_main_video.mp4" type="video/mp4">
+            </video>
         </div>
+
         <div class="main-section">
-            <div class="section1">
-                <div class="font">특별한 날을 완성시키는 가장 쉬운 방법</div>
-                <div class="img-wrap">
-                    <img src="https://img.freepik.com/premium-vector/cocktail-with-skull-lemon-and-ice-vector-illustration-summer-design_13920-3137.jpg?w=826"
-                         alt="">
+            <div class="slider-wrap">
+                <div class="slider">
+                    <div class="content whiskey">
+                        <a th:href="@{|/product/list?mainCategory=1|}"><img
+                                alt="" src="https://www.tradlinx.com/blog/wp-content/uploads/2021/12/211220_main-1.jpg"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=1|}">Whiskey</a></h2>
+
+                        </div>
+                    </div>
+                    <div class="content vodka">
+                        <a th:href="@{|/product/list?mainCategory=2|}"><img
+                                alt="" src="https://m.segye.com/content/image/2019/09/27/20190927510979.jpg"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=2|}">Vodka</a></h2>
+
+                        </div>
+                    </div>
+                    <div class="content tequila">
+                        <a th:href="@{|/product/list?mainCategory=3|}"><img
+                                alt=""
+                                src="https://mblogthumb-phinf.pstatic.net/MjAxOTA1MDJfMjE1/MDAxNTU2NzU1NDYyNjYy.tO65mS9Idv31pdWNhL1dFvoNdtJz92YM8lOrvEmDTagg.OVAoIjJJh_BRob0_bqcyRcJudQTnz_KKJvJP60t3we0g.JPEG.tjsxorud/%EB%8D%B0%ED%82%AC%EB%9D%BC2.jpg?type=w800"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=3|}">Tequila</a></h2>
+
+                        </div>
+                    </div>
+                    <div class="content gin">
+                        <a th:href="@{|/product/list?mainCategory=4|}"><img
+                                alt=""
+                                src="https://mybartender.com/wp-content/uploads/2023/01/Top-Shelf-Gin-1024x576.jpg"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=4|}">Gin</a></h2>
+
+                        </div>
+                    </div>
+                    <div class="content rum">
+                        <a th:href="@{|/product/list?mainCategory=5|}"><img
+                                alt=""
+                                src="https://i0.wp.com/cocktailwonk.com/wp-content/uploads/2019/10/x75A3526_moderately-aged_horiz-2.jpg?fit=897%2C598&ssl=1"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=5|}">Rum</a></h2>
+
+                        </div>
+                    </div>
+                    <div class="content brandy">
+                        <a th:href="@{|/product/list?mainCategory=6|}"><img
+                                alt="" src="https://etimg.etb2bimg.com/thumb/92194086.cms?width=700&height=446"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=6|}">Brandy</a></h2>
+
+                        </div>
+                    </div>
+                    <div class="content beer">
+                        <a th:href="@{|/product/list?mainCategory=7|}"><img
+                                alt=""
+                                src="https://www.apbsingapore.com.sg/wp-content/uploads/2022/06/mExplore-The-Beers_Banner.jpg"></a>
+                        <div class="txt-box">
+                            <h2><a th:href="@{|/product/list?mainCategory=7|}">Beer</a></h2>
+
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">보드카></button>
+
+                <div class="left-btn">
+                    <<
+                </div>
+                <div class="right-btn"> >></div>
+
+                <div class="state-btn">
+                    <div class="play-btn">play</div>
+                    <div class="pause-btn active">pause</div>
+                </div>
+
+            </div>
+            <hr>
+            <div class="ranking-section">
+                <div class="ranking-title">회원님들이 가장 사랑하는 제품이에요</div>
+                <div class="ranking-wrap">
+                    <div class="ranking" th:each="product, productStat : ${voterProducts}">
+                        <!-- Iterate over the top 5 products -->
+                        <div class="ranking-box" th:if="${productStat.index < 5}">
+                            <a th:href="@{|/product/detail/${product.id}|}">
+                                <div id="top[[${productStat.index + 1}]]">
+                                <div class="img-box">
+                                    <img alt=""
+                                         th:src="${product.filepath1}">
+                                </div>
+                                <div class="name" th:text="${product.name}"></div>
+
+<!--                                    <div style="display:inline-block;">-->
+<!--                                        /-->
+<!--                                        <i class="fa-solid fa-eye fa-sm"></i>-->
+<!--                                        :-->
+<!--                                        <span th:text="${product.views}"></span>-->
+<!--                                    </div>-->
+                            </div>
+                            </a>
+                        </div>
+                        <div style="margin-top : 10px; font-size : 20px;">
+                            <i class="fa-solid fa-thumbs-up fa-sm"></i>
+                            <span>:</span>
+                            <span th:text="${#lists.size(product.voter)}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="ad-slider-wrap">
+                <div class="slider">
+                    <div class="content">
+                        <a href=""><img
+                                alt=""
+                                src="https://media.istockphoto.com/id/1208446408/ko/%EB%B2%A1%ED%84%B0/%EB%B2%A8%EB%A1%9C-%ED%98%B8%EB%9D%BC%EC%9D%B4%EC%A6%8C%ED%85%8C-%EC%95%84%EB%A6%84%EB%8B%A4%EC%9A%B4-%EC%8A%A4%EC%B9%B4%EC%9D%B4%EB%9D%BC%EC%9D%B8-%ED%92%8D%EA%B2%BD-%EB%B0%B0%EB%84%88.jpg?s=2048x2048&w=is&k=20&c=zchHv4cVCWhqCTCmvzhHunu11X4RHr-Ww1j2Vduta1w="></a>
+                    </div>
+                    <div class="content">
+                        <a href=""><img
+                                alt=""
+                                src="https://fpost.co.kr/board/data/editor/2109/5a7f94599dc81c5f7f9ea8b5eaf0184d_1632556436_4107.jpg"></a>
+                    </div>
+                    <div class="content">
+                        <a href=""><img alt="" src="https://cdn.apnews.kr/news/photo/202212/3007174_27685_140.png"></a>
+                    </div>
+                    <div class="content">
+                        <a href=""><img
+                                alt=""
+                                src="https://cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/V6EPKRP2ONNJE5JV4RVO3DD3AM.png"></a>
+                    </div>
+                    <div class="content">
+                        <a href=""><img alt="" src="https://www.lg.co.kr/media/release/images/49555"></a>
+                    </div>
+                </div>
+
+                <div class="left-btn">
+                    <<
+                </div>
+                <div class="right-btn"> >></div>
+
+                <div class="state-btn">
+                    <div class="play-btn2">play</div>
+                    <div class="pause-btn2 active">pause</div>
+                </div>
             </div>
         </div>
-        <hr>
-        <div class="main-section2">
-            <div class="section2">
-                <div class="font">친구들과 같이 한잔하고 싶을때 뭘 마셔야하지?</div>
-                <div class="img-wrap">
-                    <img src="https://img.freepik.com/premium-vector/smiling-men-cheers-drinking-beer_160308-5690.jpg"
-                         alt="">
-                </div>
-                <div class="font2">
-                    어서오세요 클래식 바 주류 추천 서비스 Spirits 입니다.
-                </div>
-                <br>
 
-                <button type="submit" class="btn btn-primary"><a href="#">추천></a></button>
-
-            </div>
-        </div>
-        <hr>
-        <div class="main-section3">
-            <div class="section3">
-                <div class="font">어떤걸 시키실지 고민이신가요?</div>
-                <div class="img-wrap">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/best-luxury-gin-1654003969.gif" alt="">
-                </div>
-                <div class="font2">깔끔한 맛의 진 어떠신가요?</div>
-                <br>
-
-                <button type="submit" class="btn btn-primary">진></button>
-
-            </div>
-        </div>
         <hr>
     </div>
-    <div class="footer-wrap">
-        <div class="footer-main">Spirits 주식회사</div>
-        <div>고객센터: 070-5014-1282
 
-        </div>
-        <div>평일 10:00 - 18:00, 주말 휴무</div>
-        <br>
-        <ul class="list">
-            <li><a href="">이용약관</a></li>
-            <li><a href="">개인정보처리방침</a></li>
-            <li><a href="">입점문의</a></li>
-        </ul>
-        <br>
-        <div>대표 : 황인성<br>
 
-            사업자등록번호 : 620-81-58299
-
-            사업자확인
-            통신판매 신고번호: 2021-서울서초-2084
-        </div>
-        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, Spirits)<br>
-
-            정보보호 책임자 : 송채영<br>
-
-            대표 전화 : 070-5014-1282
-
-            이메일 : info@Spirits.com
-        </div>
+    <div class="btn">
+        <i class="fa-solid fa-angles-up"></i>
     </div>
 </div>
+
+<th:block layout:fragment="script">
+    <script>
+
+    $(document).ready(function () {
+  $(".slider").slick({
+    dots: true,
+    autoplay: true, // 자동 재생 설정
+    autoplaySpeed: 3000
+  });
+
+  $(".left-btn").click(function () {
+    $(".slider").slick("slickPrev");
+  });
+
+  $(".right-btn").click(function () {
+    $(".slider").slick("slickNext");
+  });
+
+  $(".play-btn").click(function () {
+    $(".play-btn").removeClass("active");
+    $(".pause-btn").addClass("active");
+    $(".slider").slick("slickPlay");
+  });
+
+  $(".pause-btn").click(function () {
+    $(".pause-btn").removeClass("active");
+    $(".play-btn").addClass("active");
+    $(".slider").slick("slickPause");
+  });
+
+  $(".dots>.dot").click(function () {
+    let num = $(this).index();
+    $(".slider").slick("slickGoTo", num);
+  });
+
+  $(".slider").on(
+    "beforeChange",
+    function (event, slick, currentSlide, nextSlide) {
+      console.log(nextSlide);
+      $(".dot5").text(nextSlide + 1 + " / 4 ");
+      $(".dots>.dot").eq(nextSlide).addClass("active");
+    }
+  );
+
+  //   끝
+});
+
+//ad 슬라이드 구현
+$(document).ready(function () {
+  $(".ad-slider").slick({
+    dots: true,
+    autoplay: true, // 자동 재생 설정
+    autoplaySpeed: 3000
+  });
+
+  $(".left-btn").click(function () {
+    $(".ad-slider").slick("slickPrev");
+  });
+
+  $(".right-btn").click(function () {
+    $(".ad-slider").slick("slickNext");
+  });
+
+  $(".play-btn2").click(function () {
+    $(".play-btn2").removeClass("active");
+    $(".pause-btn2").addClass("active");
+    $(".ad-slider").slick("slickPlay");
+  });
+
+  $(".pause-btn2").click(function () {
+    $(".pause-btn2").removeClass("active");
+    $(".play-btn2").addClass("active");
+    $(".ad-slider").slick("slickPause");
+  });
+
+  $(".dots>.dot").click(function () {
+    let num = $(this).index();
+    $(".ad-slider").slick("slickGoTo", num);
+  });
+
+  $(".ad-slider").on(
+    "beforeChange",
+    function (event, slick, currentSlide, nextSlide) {
+      console.log(nextSlide);
+      $(".dot5").text(nextSlide + 1 + " / 4 ");
+      $(".dots>.dot").eq(nextSlide).addClass("active");
+    }
+  );
+
+  //   끝
+});
+
+
+$(document).ready(function(){
+
+
+
+
+
+//   끝
+})
+
+$(".btn").click(function(){
+
+  $("html , body").animate({
+    "scrollTop":0,
+  },300)
+
+})
+
+$(window).scroll(function(){
+
+  let scrollTop = $(this).scrollTop()
+
+  if(scrollTop>=600){
+
+  }
+
+})
+
+// 추천 누르면 색깔 칠해짐
+$(document).ready(function() {
+  $('#recommendation').click(function() {
+    $(this).toggleClass('clicked');
+  });
+});
+
+
+
+
+
+    </script>
+
+</th:block>
 </body>
 </html>

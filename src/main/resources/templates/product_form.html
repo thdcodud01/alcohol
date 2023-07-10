@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" th:href="@{/product_form.css}">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <link rel="stylesheet" th:href="@{/product_form.css}" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>제품 등록 페이지</title>
 </head>
@@ -14,145 +14,201 @@
     <div class="title-box">
         <div class="title">상품등록</div>
     </div>
-    <form th:object="${productForm}" method="POST" th:action="@{/product/create}">
+    <form method="POST" th:object="${productForm}" enctype="multipart/form-data">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-        <div class="Category">
-            <label for="category">대분류:</label>
-            <select id="category" name="mainCategoryId">
-                <option value="none">대분류 선택</option>
-                <option th:each="mainCategory : ${mainCategoryList}" th:value="${mainCategory.id}"
-                        th:text="${mainCategory.mainCategory}"></option>
-            </select>
-        </div>
-
-        <div class="SubCategory">
-            <label for="subCategory">중분류:</label>
-            <select id="subCategory" name="subCategoryId">
-                <option value="none">중분류 선택</option>
-                <option th:each="subCategory : ${subCategoryList}" th:value="${subCategory.id}"
-                        th:text="${subCategory.subCategory}"></option>
-            </select>
-        </div>
+            <div class="Category">
+                <label for="category">대분류(필수):</label>
+                <select id="category" name="mainCategoryId" onchange="filterSubCategories()">
+                    <option value="none">대분류 선택</option>
+                    <option th:each="mainCategory : ${mainCategoryList}"
+                            th:value="${mainCategory.id}"
+                            th:text="${mainCategory.mainCategory}">
+                    </option>
+                </select>
+            </div>
+            <div class="SubCategory">
+                <label for="subCategory">중분류(필수):</label>
+                <select id="subCategory" name="subCategoryId">
+                    <option value="none">중분류 선택</option>
+                    <option th:each="subCategory : ${subCategoryList}"
+                            th:value="${subCategory.id}"
+                            th:text="${subCategory.subCategory}">
+                    </option>
+                </select>
+            </div>
 
         <div class="product-name">
-            <div class="title">이름:</div>
-            <input type="text" th:field="*{name}" name="name" id="name" placeholder="이름을 입력해주세요">
+            <div class="title">제품 이름(필수):</div>
+            <input id="name" name="name" placeholder="이름을 입력해주세요" th:field="*{name}" type="text">
         </div>
 
         <div class="Costrange-box">
-            <label for="Costrange">가격:</label>
+            <label for="Costrange">제품 가격 - ￦(필수):</label>
             <select id="Costrange" name="costRangeId">
                 <option value="none">가격 선택</option>
-                <option th:each="costRange : ${costRangeList}" th:value="${costRange.id}"
-                        th:text="${costRange.costRange}"></option>
+                <option th:each="costRange : ${costRangeList}" th:text="${costRange.costRange} + '￦'"
+                        th:value="${costRange.id}"></option>
             </select>
-            <input type="number" th:field="*{cost}" name="cost" id="cost" placeholder="가격을 입력해주세요">
+            <input id="cost" name="cost" placeholder="가격을 입력해주세요" th:field="*{cost}" type="number">
         </div>
 
         <div class="ABVrange-box">
-            <label for="ABVrange">도수:</label>
+            <label for="ABVrange">제품 도수 - %(필수):</label>
             <select id="ABVrange" name="abvRangeId">
                 <option value="none">도수 선택</option>
-                <option th:each="abvRange : ${abVrangeList}" th:value="${abvRange.id}"
-                        th:text="${abvRange.abvRange}"></option>
+                <option th:each="abvRange : ${abVrangeList}" th:text="${abvRange.abvRange} + '%'"
+                        th:value="${abvRange.id}"></option>
             </select>
-            <input type="number" step="0.01" th:field="*{abv}" name="abv" id="abv" placeholder="도수를 입력해주세요">
+            <input id="abv" name="abv" placeholder="도수를 입력해주세요" step="0.01" th:field="*{abv}" type="number">
         </div>
 
         <div class="net-weight-box">
-            <label for="net-weight">용량:</label>
+            <label for="net-weight">제품 용량 - ml(필수):</label>
             <select id="net-weight" name="netWeightId">
                 <option value="none">용량 선택</option>
-                <option th:each="netWeight : ${netWeightList}" th:value="${netWeight.id}"
-                        th:text="${netWeight.netWeight}">
-            </select>
-        </div>
-
-        <div class="taste-box">
-            <div class="title">맛:</div>
-            <input type="text" th:field="*{flavor}" name="flavor" id="flavor" placeholder="맛을 입력해주세요">
-        </div>
-
-        <div class="incense-box">
-            <div class="title">향:</div>
-            <input type="text" th:field="*{aroma}" name="aroma" id="aroma" placeholder="향을 입력해주세요">
-        </div>
-
-        <div class="incense-box">
-            <div class="title">인포:</div>
-            <input type="text" th:field="*{info}" name="info" id="info" placeholder="제품설명을 입력해주세요">
-        </div>
-
-        <div class="paring-box">
-            <label for="paring1">안주:</label>
-            <select id="paring1" name="pairings">
-                <option value="none">안주1 선택</option>
-                <option th:each="pairing1 : ${pairingList}" th:value="${pairing1.id}" th:text="${pairing1.pairing}">
-            </select>
-            <label for="paring2"></label>
-            <select id="paring2" name="pairings">
-                <option value="none">안주2 선택</option>
-                <option th:each="pairing2 : ${pairingList}" th:value="${pairing2.id}" th:text="${pairing2.pairing}">
-            </select>
-            <label for="paring3"></label>
-            <select id="paring3" name="pairings">
-                <option value="none">안주3 선택</option>
-                <option th:each="pairing3 : ${pairingList}" th:value="${pairing3.id}" th:text="${pairing3.pairing}">
-            </select>
-        </div>
-
-        <div class="Cask-box">
-            <label for="cask1">캐스크:</label>
-            <select id="cask1" name="casks">
-                <option value="none">오크통1 선택</option>
-                <option th:each="cask1 : ${caskList}" th:value="${cask1.id}" th:text="${cask1.cask}">
-            </select>
-            <label for="cask2"></label>
-            <select id="cask2" name="casks">
-                <option value="none">오크통2 선택</option>
-                <option th:each="cask2 : ${caskList}" th:value="${cask2.id}" th:text="${cask2.cask}">
-            </select>
-            <label for="cask3"></label>
-            <select id="cask3" name="casks">
-                <option value="none">오크통3 선택</option>
-                <option th:each="cask3 : ${caskList}" th:value="${cask3.id}" th:text="${cask3.cask}">
-            </select>
-            <label for="cask4"></label>
-            <select id="cask4" name="casks">
-                <option value="none">오크통4 선택</option>
-                <option th:each="cask4 : ${caskList}" th:value="${cask4.id}" th:text="${cask4.cask}">
+                <option th:each="netWeight : ${netWeightList}" th:text="${netWeight.netWeight} + 'ml'"
+                        th:value="${netWeight.id}"></option>
             </select>
         </div>
 
         <div class="nation">
-            <label for="nation">국가:</label>
+            <label for="nation">국가(필수):</label>
             <select id="nation" name="nationId">
                 <option value="none">국가 선택</option>
-                <option th:each="nation : ${nationList}" th:value="${nation.id}" th:text="${nation.nation}">
+                <option th:each="nation : ${nationList}" th:text="${nation.nation}" th:value="${nation.id}">
+            </select>
+        </div>
+
+        <div class="taste-box">
+            <div class="title">제품 맛(필수):</div>
+            <input id="flavor" name="flavor" placeholder="맛을 입력해주세요" th:field="*{flavor}" type="text">
+        </div>
+
+        <div class="incense-box">
+            <div class="title">제품 향(필수):</div>
+            <input id="aroma" name="aroma" placeholder="향을 입력해주세요" th:field="*{aroma}" type="text">
+        </div>
+
+        <div class="product-info-box">
+            <label for="subject">제품 설명 제목(필수):</label>
+            <input id="subject" name="subject" placeholder="제품 설명의 제목을 입력해주세요" th:field="*{subject}" type="text">
+        </div>
+
+        <div class="product-info-box">
+            <label for="info">제품 설명(필수):</label>
+            <textarea id="info" name="info" placeholder="제품 설명을 입력해주세요" th:field="*{info}" th:utext="${productForm.info}"></textarea>
+        </div>
+
+
+        <div class="paring-box">
+            <label for="paring1">안주(필수):</label>
+            <select id="paring1" name="pairings">
+                <option value="">안주1 선택</option>
+                <option th:each="pairing1 : ${pairingList}" th:text="${pairing1.pairing}" th:value="${pairing1.id}">
+            </select>
+            <label for="paring2"></label>
+            <select id="paring2" name="pairings">
+                <option value="">안주2 선택</option>
+                <option th:each="pairing2 : ${pairingList}" th:text="${pairing2.pairing}" th:value="${pairing2.id}">
+            </select>
+            <label for="paring3"></label>
+            <select id="paring3" name="pairings">
+                <option value="">안주3 선택</option>
+                <option th:each="pairing3 : ${pairingList}" th:text="${pairing3.pairing}" th:value="${pairing3.id}">
+            </select>
+        </div>
+
+        <div class="Cask-box">
+            <label for="cask1">캐스크(선택입력사항):</label>
+            <select id="cask1" name="casks">
+                <option value="">오크통1 선택</option>
+                <option th:each="cask1 : ${caskList}" th:text="${cask1.cask}" th:value="${cask1.id}">
+            </select>
+            <label for="cask2"></label>
+            <select id="cask2" name="casks">
+                <option value="">오크통2 선택</option>
+                <option th:each="cask2 : ${caskList}" th:text="${cask2.cask}" th:value="${cask2.id}">
+            </select>
+            <label for="cask3"></label>
+            <select id="cask3" name="casks">
+                <option value="">오크통3 선택</option>
+                <option th:each="cask3 : ${caskList}" th:text="${cask3.cask}" th:value="${cask3.id}">
+            </select>
+            <label for="cask4"></label>
+            <select id="cask4" name="casks">
+                <option value="">오크통4 선택</option>
+                <option th:each="cask4 : ${caskList}" th:text="${cask4.cask}" th:value="${cask4.id}">
             </select>
         </div>
 
         <div class="product-img-box">
             <label for="avatar1">상품사진:</label>
-            <input type="file" id="avatar1" name="avatar1" accept="image/png, image/jpeg">
+            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file1" type="file">
         </div>
 
         <div class="product-detail-img-box">
             <label for="avatar2">상품상세사진:</label>
-            <input type="file" id="avatar2" name="avatar2" accept="image/png, image/jpeg">
+            <input accept="image/png, image/jpeg, image/jpg" id="avatar2" name="file2" type="file">
         </div>
 
-        <div class="product-info-img-box">
-            <label for="avatar3">상품정보사진:</label>
-            <input type="file" id="avatar3" name="avatar3" accept="image/png, image/jpeg">
-        </div>
+<!--        <div class="product-info-img-box">-->
+<!--            <label for="avatar3">상품정보사진:</label>-->
+<!--            <input accept="image/png, image/jpeg" id="avatar3" name="file" type="file">-->
+<!--        </div>-->
         <div class="btn-section">
             <div class="btn-box">
-                <input type="submit" class="btn btn-primary btn-action" value="저장하기">
-                <button class="btn-cancle"><a href="">취소하기</a></button>
+                <input class="btn btn-primary btn-action" type="submit" value="저장하기">
+                <a class="btn-cancel" th:href="@{/admin/page}">
+                    취소하기
+                </a>
             </div>
         </div>
     </form>
 </div>
+<script>
+// 대분류 선택이 변경될 때 중분류를 필터링하여 업데이트하는 함수
+    function filterSubCategories() {
+    var mainCategoryId = document.getElementById("category").value;
+    var subCategorySelect = document.getElementById("subCategory");
+    var subCategories = subCategorySelect.options;
+
+    // 모든 중분류 옵션 숨기기
+    for (var i = 0; i < subCategories.length; i++) {
+        subCategories[i].style.display = "none";
+    }
+
+    // 선택된 대분류에 해당하는 중분류 옵션 표시
+    if (mainCategoryId === "1") {
+        for (var i = 1; i <= 7; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    } else if (mainCategoryId === "2") {
+        for (var i = 8; i <= 10; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    } else if (mainCategoryId === "3") {
+        for (var i = 11; i <= 15; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    } else if (mainCategoryId === "4") {
+        for (var i = 16; i <= 22; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    } else if (mainCategoryId === "5") {
+        for (var i = 23; i <= 27; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    } else if (mainCategoryId === "6") {
+        for (var i = 28; i <= 31; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    } else if (mainCategoryId === "7") {
+        for (var i = 32; i <= 36; i++) {
+            subCategorySelect.querySelector("option[value='" + i + "']").style.display = "block";
+        }
+    }
+}
+
+</script>
 </body>
 </html>

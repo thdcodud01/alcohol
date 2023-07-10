@@ -1,48 +1,60 @@
 <!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" layout:decorate="~{layout}" xml:lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>상품 상세보기 페이지</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/product_detail_style.css}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
-          integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    <link rel="stylesheet" th:href="@{/product_detail_style.css}" type="text/css">
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+            referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
+          integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
+          integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+
 </head>
 <body>
-<!-- 문서시작 -->
 <div layout:fragment="content">
     <div class="wrap">
         <div class="product-box">
-            <div class="left-box"> <!--제품이미지 백그라운드 컬러로 이미지소스 이용해서 CSS로 삽입-->
+            <div class="left-box1">
+                <img alt="" class="product-main-img"
+                     th:src="${product.filepath1}">
             </div>
             <div class="right-box">
                 <div class="title-box">
-                    <h2 th:each="product : ${product}" th:text="${product.name}"></h2> <!--제품명-->
+                    <h3 th:each="product : ${product}" th:text="${product.name}"></h3>
                 </div>
                 <div class="info-box">
-                    <div class="info"> <!--메인카테고리?-->
+                    <div class="info">
                         <div class="title">
                             주종 :
                             <span th:each="product : ${product}" th:text="${product.mainCategory.mainCategory}"></span>
+                            -
+                            <span th:each="product : ${product}" th:text="${product.subCategory.subCategory}"></span>
                         </div>
                     </div>
                     <div class="info">
-                        <div class="title"> <!--도수-->
-                            도수 :
+                        <div class="title">도수 :
                             <span th:each="product : ${product}" th:text="${product.abv}"></span><span>%</span>
                         </div>
                     </div>
                     <div class="info">
-                        <div class="title"> <!--용량-->
+                        <div class="title">
                             용량 :
-                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span><!--ml--></span>
+                            <span th:each="product : ${product}" th:text="${product.netWeight.netWeight}"></span><span>ml</span>
                         </div>
                     </div>
                     <div class="info">
@@ -51,9 +63,9 @@
                             <span th:each="product : ${product}" th:text="${product.nation.nation}"></span>
                         </div>
                     </div>
-                    <div class="info">
+                    <div class="info" th:if="${hasCask}">
                         <div class="title">
-                            캐스크1:
+                            캐스크 :
                             <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
                                 <span th:text="${cask.cask}"></span>
                                 <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
@@ -63,24 +75,37 @@
                 </div>
                 <div class="cost-box">
                     <div class="title">
-                        <h3>판매가격</h3>
+                        <h3>판매가격(리쿼샵 기준)</h3>
                     </div>
-                    <div class="num" th:each="product : ${product}" th:text="${product.cost}"></div>
-                    <span class="num">￦</span> <!--가격-->
+                    <h2 class="num" th:each="product : ${product}" th:text="${formattedCost}"></h2>
+                    <h2 class="num">￦</h2> <!--가격-->
                 </div>
                 <div class="logo-box">
-                    <div class="like">
-                        <a href="#"> <!--찜버튼-->
-                            <i class="fa-regular fa-heart fa-2xl"></i>
-                        </a>
-                    </div>
                     <div class="wish">
-                        <a href="#"> <!--좋아요(추천)버튼-->
-                            <i class="fa-regular fa-thumbs-up fa-2xl"></i>
+                        <a class="zzim" href="javascript:void(0);"
+                           th:data-uri="@{|/product/wish/${product.id}|}"> <!--찜버튼-->
+                            <i class="fa-regular fa-heart fa-2xl"></i>
+                            <span th:text="${#lists.size(product.wish)}"></span>
                         </a>
                     </div>
+
+                    <div class="like">
+                        <a class="recommend" href="javascript:void(0);"
+                           th:data-uri="@{|/product/vote/${product.id}|}">
+                            <i class="fa-thumbs-up fa-2xl fa-regular"></i>
+                            <span th:text="${#lists.size(product.voter)}"></span>
+                        </a>
+                    </div>
+
+                    <div class="info">
+                        <div class="title">
+                            <i class="fa-solid fa-eye fa-2xl"></i>
+                            <span th:text="${product.views}"></span>
+                        </div>
+                    </div>
+
                     <div class="link">
-                        <a href="#" class="share-button"> <!--링크복사버튼-->
+                        <a class="share-button" href="#"> <!--링크복사버튼-->
                             <i class="fa-solid fa-share-nodes fa-2xl"></i>
                         </a>
                     </div>
@@ -88,67 +113,108 @@
             </div>
         </div>
         <div class="point-section">
-            <div class="title-box">
-                <h2 class="title">핵심 포인트</h2>
-            </div>
-            <div class="point-box1">
-                <div class="taste-title">맛</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.flavor}">유자차처럼 달콤한 맛을 지닌 달콤고소한
-                    약주
-                </div> <!--맛 설명-->
-            </div>
-            <div class="point-box2">
-                <div class="taste-title">향</div>
-                <div class="taste-text" th:each="product : ${product}" th:text="${product.aroma}">유자차처럼 달콤한 향을 지닌 달콤고소한
-                    약주
-                </div> <!--향 설명-->
-            </div>
-            <div class="point-box3">
-                <div class="taste-title">이런 음식들과 잘 어울려요!</div>
-                <div class="taste-text">
-                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
-                                <span th:text="${pairing.pairing}"></span>
-                                <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
-                    </span>
-                </div>
-            </div>
-            <div class="point-box4">
-                <div class="taste-title">사용한 캐스크</div>
-                <div class="taste-text">
-                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
-                        <span th:text="${cask.cask}"></span>
-                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
-                    </span>
+            <div class="title">핵심포인트</div>
+            <div class="point-wrap">
+                <div class="point-box">
+                    <div class="point-content">
+                        <div class="point">
+                            <div class="left-box">
+                                <div class="title">맛</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.flavor}"></div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-grin-tongue fa-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="point-content2">
+                        <div class="point">
+                            <div class="left-box">
+                                <div class="title">향</div>
+                                <div class="text" th:each="product : ${product}" th:text="${product.aroma}"></div>
+                            </div>
+                            <div class="right-box">
+                                <i class="fa-regular fa-face-kiss-beam fa-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="point-content3">
+                        <div class="point">
+                            <div class="left-box">
+                                <div class="title">이런 음식들과 잘 어울려요!</div>
+                                <div class="text">
+                                    <span th:each="pairing, iterStat : ${pairings}" th:if="${pairing != null}">
+                                        <span th:text="${pairing.pairing}"></span>
+                                        <span th:if="${iterStat.index} &lt; ${#lists.size(pairings) - 1}">/</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <img alt=""
+                                     src="https://img.freepik.com/premium-vector/spoon-and-fork-icon-vector-illustration_680433-397.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="point-content4" th:if="${hasCask}">
+                        <div class="point">
+                            <div class="left-box">
+                                <div class="title">사용한 캐스크</div>
+                                <div class="text">
+                                    <span th:each="cask, iterStat : ${casks}" th:if="${cask != null}">
+                                        <span th:text="${cask.cask}"></span>
+                                        <span th:if="${iterStat.index} &lt; ${#lists.size(casks) - 1}">/</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="right-box">
+                                <img alt=""
+                                     src="https://trello.com/1/cards/649a3dd67fa0e748476b9415/attachments/649a3de07e8abd2532c2c96f/previews/649a3de07e8abd2532c2c996/download/%EB%B0%B0%EB%9F%B4.jpg">
+                                    <!--이미지 안뜸 조치해야함-->
+                                <!--<i class="fa-regular fa-face-grin-tongue fa-2xl"></i>-->
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="information-section" th:each="product : ${product}">
-            <div class="img-box"> <!--제품설명이미지-->
-                <img src="https://d38cxpfv0ljg7q.cloudfront.net/content_images/contents_images-1659321062780-1.jpg"
-                     alt="">
-            </div>
-            <div class="text-box">
-                <div class="title">
-                    <h2>
-                        [고흥 유자주 8%], 어떤 맛을 갖고 있나요?
-                    </h2>
+
+        <div class="info-section" th:each="product : ${product}">
+            <div class="info-box"> <!--제품설명이미지-->
+                <div class="info-img">
+                    <img alt=""
+                         th:src="${product.filepath2}">
                 </div>
-                <div class="text" th:text="${product.info}"> <!--제품인포-->
-                    <p>새콤달콤한 유자 향 뒤에 고소 담백한 곡물 향을 느낄 수 있는 술이에요.</p>
-                    <p>맛을 보면 유자차로 착각할 만큼 비슷한 맛을 가지고 있는데요.</p>
-                    <p>달콤한 맛이 자연스럽게 사라질 때 쯤 누룩의 고소하고 담백한 맛이 느껴지면서</p>
-                    <p>비로소 약주를 마시고 있음을 깨닫게 될 거예요 :)</p>
-                </div>
+                <div class="product-title" th:utext="${@commonUtil.markdown(product.subject)}"></div>
+                <div class="product-text" th:utext="${@commonUtil.markdown(product.info)}"></div>
             </div>
         </div>
         <div class="review-box">
             <div class="title-box">
                 <div class="title">리뷰 남기기</div>
             </div>
-            <div class="review-list" th:each="review : ${reviews}">
+            <div class="review-list" id="review-list" th:each="review : ${reviews}">
+                <a th:id="|review_${review.id}|"></a>
                 <div class="review-info">
                     <div class="left-box">
-                        <div class="nick-name" th:text="${review.author.nickname}">황.인.성</div> <!--유저 닉네임-->
+<!--                        <div class="profile-img">-->
+<!--                            <img alt="" sec:authorize="isAuthenticated()" th:if="${userImg}" th:src="${userImg}"/>-->
+<!--                            <img alt="" sec:authorize="isAuthenticated()" src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMDFfMyAg/MDAxNjA0MjI5NDA4NDMy.5zGHwAo_UtaQFX8Hd7zrDi1WiV5KrDsPHcRzu3e6b8Eg.IlkR3QN__c3o7Qe9z5_xYyCyr2vcx7L_W1arNFgwAJwg.JPEG.gambasg/%EC%9C%A0%ED%8A%9C%EB%B8%8C_%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_%ED%8C%8C%EC%8A%A4%ED%85%94.jpg?type=w800"-->
+<!--                                 th:unless="${userImg}"/>-->
+<!--                        </div>-->
+                        <div class="nick-name" th:text="${review.author.nickname}"></div> <!--유저 닉네임-->
+                        <!--수정버튼-->
+                        <a class="modify-btn"
+                           sec:authorize="isAuthenticated()"
+                           th:data-content="${review.content}"
+                           th:data-form="|#review_modify_form_${review.id}|"
+                           th:if="${review.author != null and #authentication.getPrincipal().getUsername() == review.author.username}"
+                           th:onclick="toggleReviewModifyForm(this)"
+                           th:text="수정"></a>
+                        <!--삭제버튼-->
+                        <a class="delete delete-btn" href="javascript:void(0);"
+                           sec:authorize="isAuthenticated()" th:data-uri="@{|/review/delete/${review.id}|}"
+                           th:if="${review.author != null and #authentication.getPrincipal().getUsername() == review.author.username}"
+                           th:text="삭제"></a>
                     </div>
                     <div class="right-box">
                         <div class="product-name" th:each="product : ${product}" th:text="${product.name}"></div>
@@ -158,67 +224,45 @@
                     </div>
                 </div>
                 <div class="review">
-                    <div class="review-text" th:text="${review.content}"></div> <!--리뷰 내용-->
+                    <div class="review-text" th:utext="${@commonUtil.markdown(review.content)}"></div> <!--리뷰 내용-->
+                    <div class="modify-review-date"
+                         th:if="${review.modifyDate != null}">
+                        <div class="modified-at">리뷰 수정됨</div>
+                        <div th:text="${#temporals.format(review.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    </div>
                 </div>
+                <form class="review-modify hidden" method="post" th:action="@{|/review/modify/${review.id}|}"
+                      th:id="|review_modify_form_${review.id}|" th:object="${reviewForm}">
+                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+                    <div class="mb-3">
+                        <label class="form-label">내용</label>
+                        <textarea class="form-control" rows="3" th:field="*{content}"></textarea>
+                    </div>
+                    <input class="submitbtn" type="submit" value="저장하기">
+                </form>
             </div>
 
             <div class="review-form" th:each="product : ${product}">
-                <form name="review" th:action="@{|/review/create/${product.id}|}" th:object="${reviewForm}"
-                      method="post">
-                    <!--                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
-                    <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" name="content"
-                              cols="30" rows="15"></textarea>
-                    <textarea sec:authorize="isAuthenticated()" th:field="*{content}" name="content" cols="30"
-                              rows="15"></textarea>
+                <form method="post" name="review" th:action="@{|/review/create/${product.id}|}"
+                      th:object="${reviewForm}">
+                    <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+                    <textarea cols="30" disabled name="content" rows="15"
+                              sec:authorize="isAnonymous()" th:field="*{content}"></textarea>
+                    <textarea cols="30" name="content" rows="15" sec:authorize="isAuthenticated()"
+                              th:field="*{content}"></textarea>
                     <input type="submit" value="리뷰등록">
                 </form>
             </div>
         </div>
-    </div>
 
-    <hr>
-
-    <div class="footer-wrap">
-        <div class="footer-main">SPIRITS 주식회사</div>
-        <div>고객센터: 070-5014-1282
-
-        </div>
-        <div>평일 10:00 - 18:00, 주말 휴무</div>
-        <br>
-        <ul class="list">
-            <li><a href="">이용약관</a></li>
-            <li><a href="">개인정보처리방침</a></li>
-            <li><a href="">입점문의</a></li>
-        </ul>
-        <br>
-        <div>대표 : 황인성<br>
-
-            사업자등록번호 : 620-81-58299
-
-            사업자확인
-            통신판매 신고번호: 2021-서울서초-2084
-        </div>
-        <div>주소 : 서울특별시 서초구 강남대로 527, 10층(브랜드칸타워, SPRITS)<br>
-
-            정보보호 책임자 : 송채영<br>
-
-            대표 전화 : 070-5014-1282
-
-            이메일 : info@sooldamhwa.com
-        </div>
-    </div>
-
-
-    <div class="btn">
-        <i class="fa-solid fa-angles-up"></i>
     </div>
 
 </div>
-<script>
-$(document).ready(function(){
-//   끝
-})
 
+
+<script layout:fragment="script" type='text/javascript'>
+$(document).ready(function(){
 $(".btn").click(function(){
   $("html , body").animate({
     "scrollTop":0,
@@ -227,15 +271,107 @@ $(".btn").click(function(){
 
 $(window).scroll(function(){
   let scrollTop = $(this).scrollTop()
-  if(scrollTop>=600){
+  if(scrollTop>=0){
   }
 })
 
+$(".share-button").click(function() {
+    var url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+      alert("URL이 복사되었습니다.");
+    }, function() {
+      alert("URL을 복사하는 동안 오류가 발생했습니다.");
+    });
+});
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+const zzim_elements = document.getElementsByClassName("zzim");
+Array.from(zzim_elements).forEach(function(element) {
+$(".wish").click(function() {
+    $(this).find("i").toggleClass("fa-regular fa-solid");
+  });
+    element.addEventListener('click', function() {
+            location.href = this.dataset.uri;
+    });
+});
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+$(".like").click(function() {
+    $(this).find("i").toggleClass("fa-regular fa-solid");
+  });
+    element.addEventListener('click', function() {
+            location.href = this.dataset.uri;
+    });
+});
+})
+
+function toggleReviewModifyForm(_this) {
+<!--    alert(_this.dataset.form);-->
+<!--    alert(_this.dataset.content);-->
+    if(confirm("리뷰를 수정하시겠어요?")) {
+    $(_this.dataset.form + " textarea").val(_this.dataset.content);
+    $(_this.dataset.form).toggleClass("active");
+        };
+<!--  var reviewModifyForm = a.parentElement.parentElement.nextElementSibling;-->
+<!--  reviewModifyForm.classList.toggle('active');-->
+}
 
 
+var magnifier;
+
+$(".left-box1")
+    .on('mousemove', magnify)
+    .mouseenter(function() {
+        magnifier = $("<div class='magnifier'></div>").appendTo(this);
+        magnifier.css({
+            "background": "url('" + $(".product-main-img").attr("src") + "') no-repeat",
+            "pointer-events": "none", // 돋보기 요소에 pointer-events 속성 추가
+            "width": "400px", // 돋보기 요소의 너비를 조정합니다.
+            "height": "400px", // 돋보기 요소의 높이를 조정합니다.
+            "background-size": ($(".product-main-img").width() * 2) + "px " + ($(".product-main-img").height() * 2) + "px" // 배경 이미지의 크기를 조정합니다.
+        });
+    })
+    .mouseleave(function() {
+        magnifier.remove();
+    });
+
+var target = $('.product-main-img');
+
+function magnify(e) {
+    var mouseX = e.pageX - $(this).offset().left;
+    var mouseY = e.pageY - $(this).offset().top;
+
+    if (mouseX < $(this).width() && mouseY < $(this).height() && mouseX > 0 && mouseY > 0) {
+        magnifier.fadeIn(100);
+    } else {
+        magnifier.fadeOut(100);
+    }
 
 
+    if (magnifier.is(":visible")) {
+        var magnifierHalfWidth = magnifier.width() / 2;
+        var magnifierHalfHeight = magnifier.height() / 2;
 
+        var magnifierX = mouseX - magnifierHalfWidth;
+        var magnifierY = mouseY - magnifierHalfHeight;
+
+        var rx = -(mouseX / target.width() * (target[0].naturalWidth * 2) - magnifierHalfWidth); // 배율 조정을 위해 naturalWidth에 2를 곱합니다.
+        var ry = -(mouseY / target.height() * (target[0].naturalHeight * 2) - magnifierHalfHeight); // 배율 조정을 위해 naturalHeight에 2를 곱합니다.
+
+        magnifier.css({
+            left: magnifierX,
+            top: magnifierY,
+            backgroundPosition: rx + "px " + ry + "px"
+        });
+    }
+}
 
 
 
@@ -243,7 +379,5 @@ $(window).scroll(function(){
 
 
 </script>
-
-
 </body>
 </html>

@@ -60,16 +60,16 @@ public class Product {
     @ManyToMany
     @JoinTable
             (name = "product_pairings",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "pairing_id")
+                    joinColumns = @JoinColumn(name = "product_id"),
+                    inverseJoinColumns = @JoinColumn(name = "pairing_id")
             )
     private List<Pairing> pairings = new ArrayList<>();
 
     @ManyToMany
     @JoinTable
             (name = "product_casks",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "cask_id")
+                    joinColumns = @JoinColumn(name = "product_id"),
+                    inverseJoinColumns = @JoinColumn(name = "cask_id")
             )
     private List<Cask> casks = new ArrayList<>();
 
@@ -79,6 +79,9 @@ public class Product {
 
     @ManyToOne
     private Nation nation; // (생산국가) 생산국가는 여러 술이 있을 수 있지만 국가는 무조건 한 개임 => ManyToOne
+
+    @Column(columnDefinition = "TEXT")
+    private String subject; // (제품상세정보) 제품상세정보는 직접 작성할 것이기 때문에 String 타입으로 지정
 
     @Column(columnDefinition = "TEXT")
     private String info; // (제품상세정보) 제품상세정보는 직접 작성할 것이기 때문에 String 타입으로 지정
@@ -91,4 +94,19 @@ public class Product {
 
     @ManyToMany
     Set<SiteUser> wish;
+
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int views;
+
+    @Column
+    private String filename1;
+
+    @Column
+    private String filepath1;
+
+    @Column
+    private String filename2;
+
+    @Column
+    private String filepath2;
 }

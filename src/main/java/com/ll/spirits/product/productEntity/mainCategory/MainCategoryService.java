@@ -20,6 +20,14 @@ public class MainCategoryService {
         // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
         return mainCategoryRepository.getMainCategoryIdBymainCategory(mainCategory);
     }
+
+    public MainCategory getMainCategoryBymainCategoryId(Integer mainCategoryId) {
+        // ProductRepository를 사용하여 mainCategory에 해당하는 제품 리스트를 조회합니다.
+        return mainCategoryRepository.getMainCategoryById(mainCategoryId);
+    }
+
+
+
     public List<MainCategory> getAllMainCategories() {
         return mainCategoryRepository.findAll();
     }

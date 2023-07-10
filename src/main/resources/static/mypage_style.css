@@ -1,0 +1,548 @@
+html {
+  font-size: calc(100% + 5px);
+}
+
+/* 노멀라이징 */
+@font-face {
+       font-family: 'SUITE-Regular';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+       font-weight: 400;
+       font-style: normal;
+}
+*{
+font-family: 'SUITE-Regular';
+}
+/* 노멀라이징 */
+*{
+  margin:0;
+  padding:0;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+ul,li{
+  text-decoration:none;
+  list-style:none;
+}
+
+.profile-photo {
+  width: 200px; /* 영역의 너비 */
+  height: 200px; /* 영역의 높이 */
+  border: 1px solid black; /* 테두리 스타일 */
+  border-radius: 50%; /* 원형 프로필 사진을 위해 반지름 값 설정 */
+  background-color: ivory; /* 기본 배경색 설정 (프로필 사진이 없을 때 보여줄 색상) */
+  /* 필요한 추가 스타일 설정 */
+}
+.profile-photo img{
+  width: 200px; /* 영역의 너비 */
+  height: 200px; /* 영역의 높이 */
+  border-radius: 50%;
+  object-fit : cover;
+}
+
+
+
+/* 스타일 시작 */
+.wrap{
+  width: 1200px;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+/* 내비바 */
+
+.wrap>nav{
+
+}
+
+.wrap>nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+}
+
+.wrap>nav>.left-box>.logo-box>a>img{
+  width: 170px;
+  height: 100px;
+}
+
+
+.wrap>nav>.right-box>.user-box{
+  display:flex;
+  margin-top:20px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+
+.wrap>nav>.right-box>.user-box>.profile-img{
+     display: flex;
+     margin-right: 10px;
+     align-items: center;
+}
+.wrap>nav>.right-box>.user-box>.user-nickname{
+    display: flex;
+    align-items: center;
+    }
+.right-box>.user-box>.profile-img>img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+
+
+
+
+/* 마이페이지 스타일 시작 */
+.wrap>.title{
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.wrap>.mypage-wrap{
+  margin-top: 20px;
+  margin-left: 20px;
+  border:2px solid black;
+  border-radius:6px;
+  display:flex;
+}
+
+.wrap>.mypage-wrap{
+  margin-bottom: 30px;
+}
+
+.wrap>.mypage-wrap>.right-box{
+  width: 100%;
+  margin-bottom: 1px;
+}
+
+.right-box>.info-wrap{
+
+    border:2px solid black;
+      margin-top: 30px;
+      width: 95%;
+      margin-right: auto;
+      margin-left: auto;
+      border-radius:6px;
+      padding: 10px;
+}
+
+.user-img-box{
+ display : flex;
+ justify-content: center;
+     flex-direction: column;
+     align-items: center;
+ }
+
+.user-img-box label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: black;
+  font-size: 15px;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border: 1.5px solid black;
+  border-radius: .25em;
+  margin-top : 20px;
+}
+.user-img-box input[type="file"] {  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.user-profile-register>.img-btn{
+    margin-top:10px;
+    margin-left:50px;
+    padding-left:8px;
+    padding-right:8px;
+}
+
+.user-profile-register>.user-img-box>.btn-action{
+    display: inline-block;
+    padding: 0.3em 0.6em;
+    color: black;
+    font-size: 16px;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border: 1.5px solid black;
+    border-radius: 0.25em;
+    margin-top: 20px;
+    }
+.user-profile-register>.img-box{
+display: flex;
+    justify-content: center;
+}
+
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box{
+    margin-top:60px;
+}
+
+.right-box>.info-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.right-box>.info-wrap>.info-content{
+    display:flex;
+    justify-content:space-between;
+    margin-top:30px;
+}
+
+.right-box>.info-wrap>.info-content>.img-box{
+        display: flex;
+        width: calc(100%/3);
+        justify-content: center;
+        }
+
+.right-box>.info-wrap>.info-content>.img-box>form{
+display:inline-block;
+}
+
+.right-box>.info-wrap>.info-content>.img-box>form>user-img-box{
+    display:inline-block;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+  margin-bottom:50px;
+
+}
+.info-content > div {
+border : 1px solid transparent;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.id-box>.user-id{
+  margin-right: 40px;
+  margin-left:-10px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.nickname-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+  margin-bottom:50px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.nickname-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.nickname-box>.nickname{
+  margin-right: 40px;
+  margin-left:-10px;
+}
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.birth-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.birth-box>.subtitle{
+  margin-left: 20px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.birth-box>.birth{
+  margin-right: 40px;
+  margin-left:-10px;
+}
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.password-box{
+  display:flex;
+  justify-content:space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.password-box>.subtitle{
+  margin-left: 20px;
+}
+
+
+.right-box>.info-wrap>.info-content>.info-box>.user-info-box>.password-box>.password{
+  margin-right: 20px;
+}
+
+/*프로필 사진*/
+
+
+
+/* 나만의 찜 */
+
+.right-box>.wish-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  border:2px solid black;
+  border-radius:6px;
+  padding: 10px;
+
+}
+
+.right-box>.wish-box>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.right-box>.wish-box>.product{
+ display:flex;
+  margin-top: 30px;
+  text-align:center;
+  flex-wrap: wrap;
+
+}
+
+
+.right-box>.wish-box>.product>.product-box{
+        width: 33.333%;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+}
+
+.right-box>.wish-box>.product>.product-box>.img-box{
+ width:calc(100%/3);
+}
+.right-box>.wish-box>.product>.product-box>.img-box>form{
+ margin : 0 auto;
+}
+
+.right-box>.info-wrap>.info-content>.info-box {
+width:calc(100% - (100%/3));
+}
+
+
+.right-box>.wish-box>.product>.product-box>.a-link>.img-box>img{
+  height: 300px;
+}
+
+.right-box>.wish-box>.product>.product-box>.a-link>.text-box{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+/* 내가 쓴 댓글 */
+
+.right-box>.review-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  border:2px solid black;
+  border-radius:6px;
+  padding: 10px;
+}
+
+.right-box>.review-box>.review-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+.right-box>.review-box>.review-wrap>.review-info{
+  height: 40px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  margin-top: 20px;
+  background-color: #dfdfdf;
+  border-radius:6px;
+  text-align:center;
+}
+
+.right-box>.review-box>.review-wrap>.review-info>.num{
+  width: 10%;
+}
+
+.right-box>.review-box>.review-wrap>.review-info>.content{
+  width:50%;
+}
+
+.right-box>.review-box>.review-wrap>.review-info>.product-name{
+  width:20%;
+}
+
+.right-box>.review-box>.review-wrap>.review-info>.create-date{
+  width:20%;
+}
+
+.right-box>.review-box>.review-wrap>.review-content{
+  display:flex;
+  justify-content:space-around;
+  margin-top: 10px;
+  text-align:center;
+}
+
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin{
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    text-align:center;
+}
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.number{
+  width: 10%;
+}
+
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.content{
+  width: 50%;
+}
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.product-name{
+  width:20%;
+}
+
+.right-box>.review-box>.review-wrap>.review-content>.a-lin>.date{
+  width:20%;
+}
+
+
+/* 내가 누른 좋아요 */
+
+.right-box>.like-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  border:2px solid black;
+  border-radius:6px;
+  padding: 10px;
+}
+
+.right-box>.like-box>.like-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+
+.right-box>.like-box>.like-wrap>.like-info{
+  display:flex;
+  justify-content:space-around;
+  background-color: #dfdfdf;
+  border-radius:6px;
+  height: 40px;
+  align-items:center;
+  margin-top: 20px;
+  text-align:center;
+}
+
+.right-box>.like-box>.like-wrap>.like-info>.num{
+    width:10%;
+}
+
+.right-box>.like-box>.like-wrap>.like-info>.like-product{
+    width:60%;
+}
+
+
+.right-box>.like-box>.like-wrap>.like-info>.cost{
+    width:30%;
+}
+
+
+.right-box>.like-box>.like-wrap>.like-content>.a-lin{
+  display:flex;
+  justify-content:space-around;
+  margin-top: 10px;
+  text-align:center;
+}
+
+.right-box>.like-box>.like-wrap>.like-content>.a-lin>.number{
+    width:10%;
+}
+
+.right-box>.like-box>.like-wrap>.like-content>.a-lin>.product-name{
+    width:60%;
+}
+
+
+.right-box>.like-box>.like-wrap>.like-content>.a-lin>.cost{
+    width:30%;
+}
+
+
+/* 개인정보 변경 */
+
+.right-box>.user-change-box{
+  width: 95%;
+  margin-left: 20px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  border:2px solid black;
+  border-radius:6px;
+  padding: 10px;
+}
+
+
+.right-box>.user-change-box>.user-change-wrap>.title{
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+
+.right-box>.user-change-box>.user-change-wrap>form{
+  text-align:center;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+
+.right-box>.user-change-box>.user-change-wrap>form>input{
+  margin-top: 10px;
+  width: 200px;
+  height: 30px;
+  border-radius:6px;
+  padding-left:10px;
+
+}
+
+.right-box>.user-change-box>.user-change-wrap>form>.password{
+text-align:center;
+}
+
+.right-box>.user-change-box>.user-change-wrap>form>.ps-title{
+  margin-top: 50px;
+  text-align:center;
+}
+
+
+.right-box>.user-change-box>.user-change-wrap>form>.ps-check-title{
+  margin-top: 50px;
+  text-align:center;
+}
+
+.right-box>.user-change-box>.user-change-wrap>form>button{
+  display:block;
+  margin-left: 520px;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius:6px;
+
+}
+
+
+
+
