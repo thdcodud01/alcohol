@@ -33,7 +33,6 @@
                     </a>
                     <a sec:authorize="isAuthenticated()" th:href="@{/user/mypage}"
                        th:text="${#authentication.principal.nickname + ' 님'}"></a>
-
                     <a class="log-out-btn" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
 
                     <a class="sign-up-btn" sec:authorize="isAnonymous()" th:href="@{|/user/signup|}">회원가입</a>
