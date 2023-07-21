@@ -35,10 +35,14 @@ ul,li{
    width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  display:flex;
+  justify-content:center;
 }
 .wrap{
-
-  margin-left: 0px;
+  width:900px;
+  height:auto;
+  margin-left:auto;
+      margin-right:auto;
 }
 
 .wrap>.top-bar{
@@ -70,49 +74,55 @@ margin-top:12px;
     margin-right:34px;
 }
 
-.wrap>.hello{
-  margin-top: 50px;
-  text-align:center;
+.wrap>.content{
+    margin-left:auto;
+    margin-right:auto;
+
+    width:400px;
 }
 
-.wrap>.hello>.hello-box{
-  display:inline-block;
+.wrap>.content>.hello{
+  margin-top: 50px;
+
+
+}
+
+.wrap>.content>.hello>.hello-box{
 
   height: 100px;
 
 }
 
-.wrap>.hello>.hello-box>.title{
+.wrap>.content>.hello>.hello-box>.title{
   font-size: 25px;
   font-weight: bold;
-  margin-right: 180px;
+
 }
 
 
-.wrap>.hello>.hello-box>.text{
+.wrap>.content>.hello>.hello-box>.text{
   margin-top: 40px;
   margin-right: 130px;
 }
 
-.wrap>.signup-box{
-  text-align:center;
+.wrap>.content>.signup-box{
+
   margin-top: -20px;
-  margin-right: 220px;
+
 }
 
 /*이메일*/
-.wrap>.signup-box>.email-box>.email-text{
-  margin-right: 90px;
-  margin-left:100px;
+.wrap>.content>.signup-box>.email-box>.email-text{
+
 }
 
-.wrap>.signup-box>.email-box>.email{
+.wrap>.content>.signup-box>.email-box>.email{
   margin-top: 10px;
   position:relative;
   display:inline-block;
 }
 
-.wrap>.signup-box>.email-box>.email>input{
+.wrap>.content>.signup-box>.email-box>.email>input{
 
   align-items: center;
   justify-content: space-between;
@@ -124,10 +134,10 @@ margin-top:12px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-  margin-left: 150px;
+
 }
 
-.wrap>.signup-box>.email-box>.email>.email-checkmark{
+.wrap>.content>.signup-box>.email-box>.email>.email-checkmark{
     position:absolute;
       top:10px;
       right:110px;
@@ -136,7 +146,7 @@ margin-top:12px;
       display:none;
 }
 
-.wrap>.signup-box>.email-box>.email>button{
+.wrap>.content>.signup-box>.email-box>.email>button{
     width:100px;
     height:50px;
     box-sizing:border-box;
@@ -146,28 +156,27 @@ margin-top:12px;
       box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
 }
 
-.wrap>.signup-box>.email-box>#email-format-error{
-    margin-left:50px;
-    margin-top:10px;
+.wrap>.content>.signup-box>.email-box>#email-format-error{
+
 }
 
 /*이메일 인증*/
 
-.wrap>.signup-box>.email-check-box>.email-check{
+.wrap>.content>.signup-box>.email-check-box>.email-check{
     display:flex;
     align-items:flex-end;
-    margin-left:265px;
+
     position:relative;
   }
 
-.wrap>.signup-box>.email-check-box>.email-check-text{
-margin-right: 90px;
+.wrap>.content>.signup-box>.email-check-box>.email-check-text{
+
   margin-top:20px;
-  margin-left:50px;
+
   margin-bottom:10px;
   }
 
-  .wrap>.signup-box>.email-check-box>.email-check>input{
+  .wrap>.content>.signup-box>.email-check-box>.email-check>input{
     align-items: center;
       justify-content: space-between;
       width: 250px;
@@ -178,10 +187,10 @@ margin-right: 90px;
       border-radius: 8px;
       background-color: rgb(255, 255, 255);
       box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-      margin-left: 150px;
+
   }
 
-  .wrap>.signup-box>.email-check-box>.email-check>.email-check-checkmark{
+  .wrap>.content>.signup-box>.email-check-box>.email-check>.email-check-checkmark{
       position:absolute;
         top:10px;
         right:330px;
@@ -190,31 +199,31 @@ margin-right: 90px;
         display:block;
   }
 
- .wrap>.signup-box>.email-check-box>.email-check>#timer-expired{
-    margin-left:20px;
+ .wrap>.content>.signup-box>.email-check-box>.email-check>#timer-expired{
+
  }
 
 
 
-  .wrap>.signup-box>.email-check-box>.email-check>#timer{
-    margin-left:10px;
+  .wrap>.content>.signup-box>.email-check-box>.email-check>#timer{
+
   }
 
 /*생일입력*/
 
-.wrap>.signup-box>.birthday-box>.birthday-text{
-  margin-right: 90px;
+.wrap>.content>.signup-box>.birthday-box>.birthday-text{
+
   margin-top:20px;
-  margin-left:30px;
+
 }
 
-.wrap>.signup-box>.birthday-box>.birthday{
+.wrap>.content>.signup-box>.birthday-box>.birthday{
   margin-top: 10px;
   position:relative;
   display:inline-block;
 }
 
-.wrap>.signup-box>.birthday-box>.birthday>input{
+.wrap>.content>signup-box>.birthday-box>.birthday>input{
 
   align-items: center;
   justify-content: space-between;
@@ -226,10 +235,10 @@ margin-right: 90px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-  margin-left: 150px;
+
 }
 
-.wrap>.signup-box>.birthday-box>.birthday>.checkmark{
+.wrap>.content>.signup-box>.birthday-box>.birthday>.checkmark{
     position:absolute;
       top:10px;
       right:10px;
@@ -239,22 +248,18 @@ margin-right: 90px;
 
 
 /*비밀번호*/
-.wrap>.signup-box>.password-box{
+.wrap>.content>.signup-box>.password-box{
   margin-top: 20px;
 }
 
-.wrap>.signup-box>.password-box>.password-text{
-  margin-right: -60px;
-  margin-left:70px;
-}
 
-.wrap>.signup-box>.password-box>.password{
+.wrap>.content>.signup-box>.password-box>.password{
   margin-top: 10px;
   position:relative;
   display:inline-block;
 }
 
-.wrap>.signup-box>.password-box>.password>input{
+.wrap>.content>.signup-box>.password-box>.password>input{
   align-items: center;
   justify-content: space-between;
   width: 300px;
@@ -265,15 +270,15 @@ margin-right: 90px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-  margin-left: 150px;
+
 }
-.wrap>.signup-box>.password-box>.password>i{
+.wrap>.content>.signup-box>.password-box>.password>i{
     position:absolute;
     top:25px;
     right:-40px;
 }
 
-.wrap>.signup-box>.password-box>.password>.password-checkmark{
+.wrap>.content>.signup-box>.password-box>.password>.password-checkmark{
     position:absolute;
       top:10px;
       right:10px;
@@ -282,29 +287,28 @@ margin-right: 90px;
       display:none;
 }
 
-.wrap>.signup-box>.password-box>#password-error{
-    margin-left:160px;
+.wrap>.content>.signup-box>.password-box>#password-error{
+
     margin-top:10px;
 }
 
 
 /* 비밀번호 확인 */
-.wrap>.signup-box>.password-check-box{
+.wrap>.content>.signup-box>.password-check-box{
   margin-top: 20px;
 }
 
-.wrap>.signup-box>.password-check-box>.password-check-text{
-  margin-right: 50px;
-  margin-left:30px;
+.wrap>.content>.signup-box>.password-check-box>.password-check-text{
+
 }
 
-.wrap>.signup-box>.password-check-box>.password-check{
+.wrap>.content>.signup-box>.password-check-box>.password-check{
   margin-top: 10px;
   position:relative;
   display:inline-block;
 }
 
-.wrap>.signup-box>.password-check-box>.password-check>input{
+.wrap>.content>.signup-box>.password-check-box>.password-check>input{
   align-items: center;
   justify-content: space-between;
   width: 300px;
@@ -315,10 +319,10 @@ margin-right: 90px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-  margin-left: 150px;
+
 }
 
-.wrap>.signup-box>.password-check-box>.password-check>.password-check-checkmark{
+.wrap>.content>.signup-box>.password-check-box>.password-check>.password-check-checkmark{
     position:absolute;
       top:10px;
       right:10px;
@@ -327,34 +331,33 @@ margin-right: 90px;
       display:none;
 }
 
-.wrap>.signup-box>.password-check-box>#password-match-error{
-    margin-left:50px;
+.wrap>.content>.signup-box>.password-check-box>#password-match-error{
+
     margin-top:10px;
 }
 
 /* qd */
-.wrap>.signup-box>.nickname-box{
+.wrap>.content>.signup-box>.nickname-box{
   margin-top: 20px;
 }
 
-.wrap>.signup-box>.nickname-box>.nickname-text{
-  margin-right: -120px;
-  margin-left:90px;
+.wrap>.content>.signup-box>.nickname-box>.nickname-text{
+
   font-size: 21px;
 }
 
-.wrap>.signup-box>.nickname-box>.nickname{
+.wrap>.content>.signup-box>.nickname-box>.nickname{
   margin-top: 10px;
 }
 
-.wrap>.signup-box>.nickname-box>.nickname{
+.wrap>.content>.signup-box>.nickname-box>.nickname{
   display:flex;
-  justify-content:center;
-  margin-left: 90px;
+
+
   box-sizing:border-box;
 }
 
-.wrap>.signup-box>.nickname-box>.nickname>.nickname2>.nickname-input{
+.wrap>.content>.signup-box>.nickname-box>.nickname>.nickname2>.nickname-input{
 
   -webkit-box-align: center;
   align-items: center;
@@ -368,10 +371,10 @@ margin-right: 90px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-  margin-left: 60px;
+
 }
 
-.wrap>.signup-box>.nickname-box>.nickname>.btn{
+.wrap>.content>.signup-box>.nickname-box>.nickname>.btn{
   font-size: 17px;
   background-color: ;
   border:1px solid rgb(0, 150, 243);
@@ -384,24 +387,24 @@ margin-right: 90px;
 }
 
 
-.wrap>.signup-box>.nickname-box>.nickname>.btn>a{
+.wrap>.content>.signup-box>.nickname-box>.nickname>.btn>a{
   display:block;
 }
 
-.wrap>.signup-box>.nickname-box>#nicknameCheckResult{
-    margin-left:120px;
+.wrap>.content>.signup-box>.nickname-box>#nicknameCheckResult{
+
 }
 
-.wrap>.signup-box>.signup-btn{
+.wrap>.content>.signup-box>.signup-btn{
   margin-top: 30px;
 }
 
-.wrap>.signup-box>.cancel-btn{
+.wrap>.content>.signup-box>.cancel-btn{
     margin-top:10px;
     display:inline-block;
 }
 
-.wrap>.signup-box>.signup-btn>.btn{
+.wrap>.content>.signup-box>.signup-btn>.btn{
   width: 300px;
   font-size: 19px;
   background-color: rgb(0, 150, 243);
@@ -410,10 +413,10 @@ margin-right: 90px;
   padding: 10px;
   font-weight: bold;
   color:white;
-  margin-left: 150px;
+
 }
 
-.wrap>.signup-box>.cancel-btn>.btn2{
+.wrap>.content>.signup-box>.cancel-btn>.btn2{
     width: 300px;
       font-size: 19px;
       background-color: #bfbfbf;
@@ -422,7 +425,7 @@ margin-right: 90px;
       padding: 10px;
       font-weight: bold;
       color:white;
-      margin-left: 150px;
+
 
 }
 
