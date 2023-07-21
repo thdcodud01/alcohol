@@ -25,6 +25,7 @@
     </style>
 </head>
 <body>
+
 <form th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
     <div class="form_errors" th:replace="~{form_errors :: formErrorsFragment}"></div>
     <div class="big-wrap">
@@ -39,82 +40,85 @@
                 </div>
             </div>
 
-            <div class="hello">
-                <div class="hello-box">
-                    <div class="title">환영합니다! SPIRITS 입니다.</div>
+            <div class="content">
+                <div class="hello">
+                    <div class="hello-box">
+                        <div class="title">환영합니다! SPIRITS 입니다.</div>
 
-                </div>
-            </div>
-
-            <div class="signup-box">
-                <div class="email-box">
-                    <div class="email-text">계정(이메일 형식) *</div>
-                    <div class="email">
-                        <input id="email" th:field="*{username}" type="email" placeholder="ex) example@example.com" required="" value="">
-                        <div class="email-checkmark">✓</div>
-                        <button type="button" id="send-verification" onclick="sendEmailConfirmation()">인증번호 전송</button>
-                    </div>
-                    <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
-                </div>
-
-                <div class="email-check-box">
-                    <div class="email-check-text">이메일 인증 *</div>
-                    <div class="email-check">
-                        <input id="mailKey" th:field="*{mailKey}" type="text" placeholder="인증번호">
-                        <input id="genMailKey" th:field="*{genMailKey}" type="hidden" placeholder="인증번호">
-                        <div class="email-check-checkmark">✓</div>
-                        <div id="timer">03:00</div>
-                        <div id="timer-expired" style="display: none; color: red;">인증시간이 만료되었습니다.</div>
-                        <div id="mail-key-errorMessage " style="display: none; color: red;">메일 키가 일치하지 않아요</div>
                     </div>
                 </div>
 
-                <div class="birthday-box">
-                    <div class="birthday-text">생년월일*</div>
-                    <div class="birthday">
-                        <input th:field="*{birthDate}" type="date" placeholder=""
-                               class="email-input" required="" value="">
-                    </div>
-                </div>
-                <div class="password-box">
-                    <div class="password-text">비밀번호 * (영문,숫자 8글자 이상)</div>
-                    <div class="password">
-                        <input id="password-input" th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
-                               required="" value="">
-                        <div class="password-checkmark">✓</div>
-                        <i id="show-password" class="fa-solid fa-eye fa-lg" alt="Show Password"></i>
-                    </div>
-                    <div id="password-error" style="display: none; color: red;">비밀번호는 영문, 숫자 8글자 이상을 입력하세요.</div>
-                </div>
-
-                <div class="password-check-box">
-                    <div class="password-check-text">비밀번호 확인 *</div>
-                    <div class="password-check">
-                        <input id="password-check-input" th:field="*{password2}" type="password"
-                               placeholder="비밀번호를 입력해주세요." required="" value="">
-                        <div class="password-check-checkmark">✓</div>
-                    </div>
-                    <div id="password-match-error" style="display: none; color: red;">비밀번호와 일치하지 않습니다.</div>
-                </div>
-
-                <div class="nickname-box">
-                    <div class="nickname-text">닉네임 * (공백,특수문자 제외한 2~10글자)</div>
-                    <div class="nickname">
-                        <div class="nickname2">
-                            <input th:field="*{nickname}" type="text" placeholder="닉네임을 입력해주세요." class="nickname-input" required="" value="" id="nicknameInput">
+                <div class="signup-box">
+                    <div class="email-box">
+                        <div class="email-text">계정(이메일 형식) *</div>
+                        <div class="email">
+                            <input id="email" th:field="*{username}" type="email" placeholder="ex) example@example.com" required="" value="">
+                            <div class="email-checkmark">✓</div>
+                            <button type="button" id="send-verification" onclick="sendEmailConfirmation()">인증번호 전송</button>
                         </div>
-                        <button type="button" class="btn btn-primary" id="checkDuplicateBtn">중복확인</button>
+                        <div id="email-format-error" style="display: none; color: red;">이메일 형식으로 작성해주세요.</div>
                     </div>
-                    <div id="nicknameCheckResult" style="margin-top: 10px;"></div>
-                </div>
 
-                <div class="signup-btn">
-                    <button type="submit" class="btn btn-primary" onclick="showPopup()">회원가입</button>
-                </div>
-                <div class="cancel-btn">
-                    <button type="submit" class="btn2 btn-primary"><a th:href="@{|/main|}">취소하기</a></button>
+                    <div class="email-check-box">
+                        <div class="email-check-text">이메일 인증 *</div>
+                        <div class="email-check">
+                            <input id="mailKey" th:field="*{mailKey}" type="text" placeholder="인증번호">
+                            <input id="genMailKey" th:field="*{genMailKey}" type="hidden" placeholder="인증번호">
+                            <div class="email-check-checkmark">✓</div>
+                            <div id="timer">00:30</div>
+                            <div id="timer-expired" style="display: none; color: red;">인증시간이 만료되었습니다.</div>
+                            <div id="mail-key-errorMessage " style="display: none; color: red;">메일 키가 일치하지 않아요</div>
+                        </div>
+                    </div>
+
+                    <div class="birthday-box">
+                        <div class="birthday-text">생년월일*</div>
+                        <div class="birthday">
+                            <input th:field="*{birthDate}" type="date" placeholder=""
+                                   class="email-input" required="" value="">
+                        </div>
+                    </div>
+                    <div class="password-box">
+                        <div class="password-text">비밀번호 * (영문,숫자 8글자 이상)</div>
+                        <div class="password">
+                            <input id="password-input" th:field="*{password1}" type="password" placeholder="비밀번호를 입력해주세요."
+                                   required="" value="">
+                            <div class="password-checkmark">✓</div>
+                            <i id="show-password" class="fa-solid fa-eye fa-lg" alt="Show Password"></i>
+                        </div>
+                        <div id="password-error" style="display: none; color: red;">비밀번호는 영문, 숫자 8글자 이상을 입력하세요.</div>
+                    </div>
+
+                    <div class="password-check-box">
+                        <div class="password-check-text">비밀번호 확인 *</div>
+                        <div class="password-check">
+                            <input id="password-check-input" th:field="*{password2}" type="password"
+                                   placeholder="비밀번호를 입력해주세요." required="" value="">
+                            <div class="password-check-checkmark">✓</div>
+                        </div>
+                        <div id="password-match-error" style="display: none; color: red;">비밀번호와 일치하지 않습니다.</div>
+                    </div>
+
+                    <div class="nickname-box">
+                        <div class="nickname-text">닉네임 * (공백,특수문자 제외한 2~10글자)</div>
+                        <div class="nickname">
+                            <div class="nickname2">
+                                <input th:field="*{nickname}" type="text" placeholder="닉네임을 입력해주세요." class="nickname-input" required="" value="" id="nicknameInput">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="checkDuplicateBtn">중복확인</button>
+                        </div>
+                        <div id="nicknameCheckResult" style="margin-top: 10px;"></div>
+                    </div>
+
+                    <div class="signup-btn">
+                        <button type="submit" class="btn btn-primary" onclick="showPopup()">회원가입</button>
+                    </div>
+                    <div class="cancel-btn">
+                        <button type="submit" class="btn2 btn-primary"><a th:href="@{|/main|}">취소하기</a></button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </form>
@@ -122,8 +126,8 @@
 <script>
   $(document).ready(function () {
     var timer;
-    var minutes = 3;
-    var seconds = 0;
+    var minutes = 0;
+    var seconds = 30;
 
     function startTimer() {
       timer = setInterval(updateTimer, 1000);
@@ -131,9 +135,9 @@
 
     function resetTimer() {
       clearInterval(timer);
-      minutes = 3;
-      seconds = 0;
-      $("#timer").text("03:00");
+      minutes = 0;
+      seconds = 30;
+      $("#timer").text("00:30");
     }
 
     function updateTimer() {
@@ -237,10 +241,10 @@ $(document).ready(function() {
 <script>
     $(document).ready(function() {
   $('#checkDuplicateBtn').on('click', function() {
-    checkDuplicateNickname();
+    checkNickname();
   });
 
-  function checkDuplicateNickname() {
+  function checkNickname() {
     var nickname = $('#nicknameInput').val();
 
     if (nickname === '') {
@@ -285,7 +289,7 @@ $(document).ready(function() {
         } else {
           $('#nicknameCheckResult')
             .text('사용 가능한 닉네임입니다.')
-            .css('margin-left', '70px')
+            .css('margin-left', '30px')
             .css('color', 'black');
         }
       },
@@ -298,7 +302,7 @@ $(document).ready(function() {
     document.getElementById("checkDuplicateBtn").addEventListener("click", checkNickname);
 
 
-document.getElementById("show-password").addEventListener("click", function() {
+document.getElementById("show-password-icon").addEventListener("click", function() {
     var passwordInput = document.getElementById("password-input");
     var passwordType = passwordInput.getAttribute("type");
 
@@ -347,7 +351,7 @@ function sendEmailConfirmation() {
     var mailKey = $("#mailKey").val();
     // AJAX 요청 보내기
     $.ajax({
-        url: "http://13.124.91.57/mailCheck", // 이메일 인증번호를 보낼 서버의 URL
+        url: "http://localhost:7777/mailCheck", // 이메일 인증번호를 보낼 서버의 URL
         method: "GET",
         data: {
         email: email,
