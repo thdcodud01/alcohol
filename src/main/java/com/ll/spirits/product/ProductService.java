@@ -92,7 +92,12 @@ public class ProductService {
                               File file2
     ) throws IOException {
         // 저장할 경로를 여기서 지정해줌
-        String projectPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "files";
+        String projectPath = System.getProperty("user.dir")
+                + File.separator + "src"
+                + File.separator + "main"
+                + File.separator + "resources"
+                + File.separator + "static"
+                + File.separator + "files";
 
         UUID uuid = UUID.randomUUID();
 

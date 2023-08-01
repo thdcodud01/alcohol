@@ -480,7 +480,7 @@ align-items : center;
 }
 
 .wrap>.review-box>.review-form>form>textarea{
-  width: 1200px;
+  width: 1176px;
   height: 200px;
   padding: 10px;
   border:2px solid black;
@@ -513,4 +513,8 @@ align-items : center;
 .btn.active{
   opacity:3;
   visibility:visible;
+}
+
+.reference {
+margin-top : 200px;
 }

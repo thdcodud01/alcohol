@@ -95,7 +95,6 @@ public class UserService {
             int index = random.nextInt(characters.length());
             sb.append(characters.charAt(index));
         }
-
         return sb.toString();
     }
 
