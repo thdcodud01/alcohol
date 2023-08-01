@@ -13,7 +13,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 public class MailConfig {
 
     @Bean
-    public JavaMailSender javaMailSender() { //
+    public JavaMailSender javaMailSender() {
 
         Properties mailProperties = new Properties();
         mailProperties.put("mail.transport.protocol", "smtp");
