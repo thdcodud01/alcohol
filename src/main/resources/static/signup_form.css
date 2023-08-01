@@ -223,8 +223,7 @@ margin-top:12px;
   display:inline-block;
 }
 
-.wrap>.content>signup-box>.birthday-box>.birthday>input{
-
+.wrap>.content>.signup-box>.birthday-box>.birthday>input{
   align-items: center;
   justify-content: space-between;
   width: 300px;
@@ -235,7 +234,6 @@ margin-top:12px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgb(247, 247, 247) 0px 0px 0px 1px inset;
-
 }
 
 .wrap>.content>.signup-box>.birthday-box>.birthday>.checkmark{
