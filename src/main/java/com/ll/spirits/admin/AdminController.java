@@ -30,6 +30,7 @@ import com.ll.spirits.review.Review;
 import com.ll.spirits.review.ReviewService;
 import com.ll.spirits.user.SiteUser;
 import com.ll.spirits.user.UserService;
+import jakarta.persistence.Id;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -177,6 +178,14 @@ public class AdminController {
         List<NetWeight> netWeightList = netWeightService.getAllNetWeight();
         List<SubCategory> subCategoryList = subCategoryService.getAllSubCategories();
         List<MainCategory> mainCategoryList = mainCategoryService.getAllMainCategories();
+
+        productForm.setMainCategoryId(product.getMainCategory().getId());
+        productForm.setSubCategoryId(product.getSubCategory().getId());
+        productForm.setCostRangeId(product.getCostRange().getId());
+        productForm.setAbvRangeId(product.getAbvRange().getId());
+        productForm.setNetWeightId(product.getNetWeight().getId());
+        productForm.setNationId(product.getNation().getId());
+//        productForm.setCasks(product.setCasks());
 
         // 모델에 데이터를 추가한다
         model.addAttribute("productForm", product);
