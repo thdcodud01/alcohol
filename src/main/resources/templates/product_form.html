@@ -19,7 +19,7 @@
             <div class="Category">
                 <label for="category">대분류(필수):</label>
                 <select id="category" name="mainCategoryId" onchange="filterSubCategories()">
-                    <option value="none">대분류 선택</option>
+                    <option value="">대분류 선택</option>
                     <option th:each="mainCategory : ${mainCategoryList}"
                             th:value="${mainCategory.id}"
                             th:text="${mainCategory.mainCategory}">
@@ -29,7 +29,7 @@
             <div class="SubCategory">
                 <label for="subCategory">중분류(필수):</label>
                 <select id="subCategory" name="subCategoryId">
-                    <option value="none">중분류 선택</option>
+                    <option value="">중분류 선택</option>
                     <option th:each="subCategory : ${subCategoryList}"
                             th:value="${subCategory.id}"
                             th:text="${subCategory.subCategory}">
@@ -45,7 +45,7 @@
         <div class="Costrange-box">
             <label for="Costrange">제품 가격 - ￦(필수):</label>
             <select id="Costrange" name="costRangeId">
-                <option value="none">가격 선택</option>
+                <option value="">가격 선택</option>
                 <option th:each="costRange : ${costRangeList}" th:text="${costRange.costRange} + '￦'"
                         th:value="${costRange.id}"></option>
             </select>
@@ -55,7 +55,7 @@
         <div class="ABVrange-box">
             <label for="ABVrange">제품 도수 - %(필수):</label>
             <select id="ABVrange" name="abvRangeId">
-                <option value="none">도수 선택</option>
+                <option value="">도수 선택</option>
                 <option th:each="abvRange : ${abVrangeList}" th:text="${abvRange.abvRange} + '%'"
                         th:value="${abvRange.id}"></option>
             </select>
@@ -65,7 +65,7 @@
         <div class="net-weight-box">
             <label for="net-weight">제품 용량 - ml(필수):</label>
             <select id="net-weight" name="netWeightId">
-                <option value="none">용량 선택</option>
+                <option value="">용량 선택</option>
                 <option th:each="netWeight : ${netWeightList}" th:text="${netWeight.netWeight} + 'ml'"
                         th:value="${netWeight.id}"></option>
             </select>
@@ -74,7 +74,7 @@
         <div class="nation">
             <label for="nation">국가(필수):</label>
             <select id="nation" name="nationId">
-                <option value="none">국가 선택</option>
+                <option value="">국가 선택</option>
                 <option th:each="nation : ${nationList}" th:text="${nation.nation}" th:value="${nation.id}">
             </select>
         </div>
@@ -143,12 +143,14 @@
 
         <div class="product-img-box">
             <label for="avatar1">상품사진:</label>
-            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file1" type="file">
+            <input accept="image/png, image/jpeg, image/jpg" id="avatar1" name="file1" type="file" onchange="updateFileName('file1')">
+            <span id="avatar1Name">null</span>
         </div>
 
         <div class="product-detail-img-box">
             <label for="avatar2">상품상세사진:</label>
-            <input accept="image/png, image/jpeg, image/jpg" id="avatar2" name="file2" type="file">
+            <input accept="image/png, image/jpeg, image/jpg" id="avatar2" name="file2" type="file" onchange="updateFileName('file2')">
+            <span id="avatar2Name">null</span>
         </div>
 
 <!--        <div class="product-info-img-box">-->
@@ -209,6 +211,16 @@
     }
 }
 
+    function updateFileName(inputId) {
+        const input = document.getElementById(inputId);
+        const fileNameSpan = document.getElementById(inputId + 'Name');
+
+        if (input.files.length > 0) {
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            fileNameSpan.textContent = 'null';
+        }
+    }
 </script>
 </body>
 </html>

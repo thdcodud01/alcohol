@@ -134,9 +134,24 @@ public class AdminController {
                                 @RequestParam("file2") MultipartFile file2,
                                 RedirectAttributes redirectAttributes) throws Exception {
         // 유효성 검사
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() ||
+                productForm.getFile1() == null ||
+                productForm.getFile1().isEmpty() ||
+                productForm.getFile2() == null ||
+                productForm.getFile2().isEmpty()
+        ) {
+            bindingResult.rejectValue("file1", "NotNull", "상품사진은 필수 입력항목입니다.");
+            bindingResult.rejectValue("file2", "NotNull", "상품상세사진은 필수 입력항목입니다.");
             return "product_form";
         }
+//        if (productForm.getFile1() == null || productForm.getFile1().isEmpty()) {
+//            bindingResult.rejectValue("file1", "NotNull", "상품사진은 필수 입력항목입니다.");
+//            return "product_form";
+//        } else if (productForm.getFile2() == null || productForm.getFile2().isEmpty()) {
+//            bindingResult.rejectValue("file2", "NotNull", "상품상세사진은 필수 입력항목입니다.");
+//            return "product_form";
+//        }
+
 
         SiteUser siteUser = this.userService.getUser(principal.getName());
 

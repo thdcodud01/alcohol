@@ -42,7 +42,9 @@ public class ReviewService {
     public List<Review> getReviewsByAuthor(SiteUser author) {
         return reviewRepository.findByAuthor(author);
     }
-
+    public List<Review> getReviewsForProduct(Product product) {
+        return reviewRepository.findByProduct(product);
+    }
 
     public List<Review> findAll() {
         return this.reviewRepository.findAll();

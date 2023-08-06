@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,4 +62,10 @@ public class ProductForm {
     private Integer nationId; // 생산국가 ID
 
     private List<Integer> casks; // 캐스크 ID 리스트
+
+    @NotNull(message = "상품사진은 필수 입력항목입니다.")
+    private MultipartFile file1; // 상품사진
+
+    @NotNull(message = "상품상세사진은 필수 입력항목입니다.")
+    private MultipartFile file2; // 상품상세사진
 }

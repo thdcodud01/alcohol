@@ -127,3 +127,12 @@ a {
   color: #fff;
   text-decoration: none;
 }
+.form_errors {
+margin-bottom : 15px;
+background-color: #ffcccc;
+color: #ff0000;
+padding: 10px;
+border-radius: 4px;
+font-weight: bold;
+text-align: center;
+}

@@ -416,7 +416,7 @@ align-items : center;
 .review-list>.review{
     display:flex;
     justify-content:space-between;
-    height:100px;
+    height:100%;
 }
 
 .review-list>.review>.modify-review-date{
@@ -439,7 +439,7 @@ align-items : center;
 }
 
 .review-modify>.mb-3>textarea{
-    width:1200px;
+    width:1176px;
     height:200px;
     margin-top:10px;
     margin-bottom:10px;
@@ -517,4 +517,13 @@ align-items : center;
 
 .reference {
 margin-top : 200px;
+}
+.form_errors {
+margin-bottom : 15px;
+background-color: #ffcccc;
+color: #ff0000;
+padding: 10px;
+border-radius: 4px;
+font-weight: bold;
+text-align: center;
 }

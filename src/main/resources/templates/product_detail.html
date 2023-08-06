@@ -193,6 +193,7 @@
             <div class="title-box">
                 <div class="title">리뷰 남기기</div>
             </div>
+            <!--리뷰 반복 시작-->
             <div class="review-list" id="review-list" th:each="review : ${reviews}">
                 <a th:id="|review_${review.id}|"></a>
                 <div class="review-info">
@@ -234,10 +235,10 @@
                 </div>
                 <form class="review-modify hidden" method="post" th:action="@{|/review/modify/${review.id}|}"
                       th:id="|review_modify_form_${review.id}|" th:object="${reviewForm}">
-                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
                     <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
                     <div class="mb-3">
-                        <label class="form-label">내용</label>
+                        <label class="form-label">수정할 리뷰 내용</label>
                         <textarea class="form-control" rows="3" th:field="*{content}"></textarea>
                     </div>
                     <input class="submitbtn" type="submit" value="저장하기">
