@@ -449,9 +449,12 @@ align-items : center;
 }
 
 .review-modify>.submitbtn{
-    padding:10px;
-    margin-bottom:10px;
-    margin-left:1130px;
+    width: 80px;
+    height: 40px;
+    margin-bottom: 10px;
+    margin-left: 1120px;
+    text-align: center;
+    font-size: 18px;
 }
 
 #recommendation i {

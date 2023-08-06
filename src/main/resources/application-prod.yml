@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mariadb://172.17.0.1:3306/spirits?useUnicode=true&characterEncoding=utf8&serverTimeZone=Asia/Seoul
+    driverClassName: org.mariadb.jdbc.Driver
+    username: sbblocal
+    password: 1234
+
+  jpa:
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+      show_sql: true
+    open-in-view: true
