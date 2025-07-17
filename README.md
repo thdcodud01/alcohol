@@ -13,17 +13,6 @@
 
 ---
 
-## 📌 목차
-- [🛠 기술 스택](#-기술-스택)
-- [💡 서비스 주요 기능](#-서비스-주요-기능)
-- [🧾 페이지 구성](#-페이지-구성)
-- [🛠 관리자 대시보드](#-관리자-대시보드)
-- [📁 프로젝트 구조](#-프로젝트-구조)
-- [🤝 협업 방식](#-협업-방식)
-- [🧯 트러블슈팅 및 회고](#-트러블슈팅-및-회고)
-
----
-
 ## 🛠 기술 스택
 
 | 분류 | 기술 |
@@ -37,19 +26,35 @@
 
 ---
 
-## 💡 서비스 주요 기능
+## 🚀 서비스 주요 기능
 
-### 👥 사용자 기능
-- 일반 회원가입 / 로그인 / OAuth2 로그인(kakao)
-- 제품 리스트 조회 및 상세페이지 열람
-- 리뷰 작성, 수정, 삭제
-- 마이페이지: 내 리뷰 관리
+### 👤 사용자 인증
+- 회원가입 및 로그인
+- 이메일 인증 (SMTP)
+- 세션 기반 로그인 유지
+
+### 🥃 주류 탐색 및 추천
+- 카테고리 기반 Ajax 필터링
+- 키워드 기반 검색 기능
+- 유저 맞춤형 주류 추천 알고리즘 적용
+
+### 🧾 상세 페이지
+- 주류 상세 설명 및 이미지 제공
+- 유사 주류 추천 리스트 함께 노출
 
 ### 🧑‍💼 관리자 기능
-- 제품 등록 / 수정 / 삭제
-- 회원 정보 확인 및 삭제
-- 리뷰 삭제
-- 수정/삭제 시 확인 알림창 표시
+- 관리자 전용 대시보드 제공 (/admin/page)
+- 제품 등록 / 수정 / 삭제 (Edit / Delete 버튼)
+- 리뷰 관리: 유해 리뷰 삭제
+- 회원 관리: 회원 목록 확인 및 탈퇴 처리
+- 제품 등록 시 이미지 업로드, 다중 필드 선택, 필수값 검증 기능 제공
+- 모든 수정/삭제 기능에 알림창으로 확인 유도
+
+### 🛠️ 백엔드 담당 역할
+- ERD 설계 및 JPA 매핑
+- 게시판, 상품, 회원 관련 CRUD API 구현
+- 이미지 업로드 기능 개발
+- AWS Lightsail 및 RDS 기반 서비스 배포
 
 ---
 
@@ -85,77 +90,45 @@
 - **Edit 버튼**: 수정 폼으로 이동  
 - **Delete 버튼**: 삭제 확인 후 제품 제거
 
-![Product Management](<제품관리 스크린샷 링크>)
-
 #### 💬 Review Management
 - 리뷰 리스트 출력
 - **Delete 버튼**: 리뷰 삭제
-
-![Review Management](<리뷰관리 스크린샷 링크>)
 
 #### 👥 User Management
 - 가입된 유저 정보 출력
 - **Delete 버튼**: 회원 탈퇴 처리
 
-![User Management](<유저관리 스크린샷 링크>)
-
 > ✳️ Edit 클릭 시 확인 창: “정말로 수정하시겠습니까?”
-
-![Edit 확인창](<Edit 확인창 이미지 링크>)
 
 #### 📝 제품 등록/수정 화면
 - 필수 정보 입력
 - 복수 선택 가능한 태그형 필드 (향, 캐스크 등)
 - 파일 업로드 필드 포함
 
-![제품 등록폼](<제품등록 폼 이미지 링크>)
-
 ---
 
-## 🚀 주요 기능
+## 🗂️ ERD 및 프로젝트 구조
 
-### 👤 사용자 인증
-- 회원가입 및 로그인
-- 이메일 인증 (SMTP)
-- 세션 기반 로그인 유지
+> ERD 구조
 
-### 🥃 주류 탐색 및 추천
-- 카테고리 기반 Ajax 필터링
-- 키워드 기반 검색 기능
-- 유저 맞춤형 주류 추천 알고리즘 적용
+![ERD](<img width="1316" height="1240" alt="tMXjd6P" src="https://github.com/user-attachments/assets/530a21d5-5066-40bd-9adb-34f96e5e87a8" />)
 
-### 🧾 상세 페이지
-- 주류 상세 설명 및 이미지 제공
-- 유사 주류 추천 리스트 함께 노출
 
-### 🛠️ 백엔드 담당 역할
-- ERD 설계 및 JPA 매핑
-- 게시판, 상품, 회원 관련 CRUD API 구현
-- 이미지 업로드 기능 개발
-- AWS Lightsail 및 RDS 기반 서비스 배포
-
----
-
-## 🗂️ ERD 및 구조
-
-> ERD 예시 이미지 삽입 (혹은 DB 설계 요약 표 작성)
-
-![ERD](./assets/erd_sprits.png)
-
----
-
-## 📸 주요 UI
-
-| 화면 | 설명 |
-|------|------|
-| ![Login](./assets/sprits_login.png) | 로그인 및 인증 |
-| ![Main](./assets/sprits_main.png) | 메인 화면 |
-| ![Recommend](./assets/sprits_recommend.png) | 추천 결과 페이지 |
-| ![Detail](./assets/sprits_detail.png) | 주류 상세 페이지 |
-| ![Category](./assets/sprits_category.png) | 카테고리 필터링 화면 |
-| ![Signup](./assets/sprits_signup.png) | 회원가입 화면 |
-| ![Email](./assets/sprits_email.png) | 이메일 인증 UI |
-| ![Upload](./assets/sprits_upload.png) | 이미지 업로드 페이지 |
+spirits/
+├── com.ll.spirits/
+│ ├── admin/
+│ ├── email/
+│ ├── oauth/
+│ ├── product/
+│ │ ├── productEntity/
+│ │ └── ProductController, ProductService 등
+│ ├── review/
+│ └── user/
+├── resources/
+│ ├── static/
+│ │ ├── css, js, video
+│ └── templates/
+│ ├── admin.html 등 HTML 템플릿들
 
 ---
 
