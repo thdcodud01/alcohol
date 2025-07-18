@@ -115,8 +115,7 @@
 
 > ERD 구조
 
-![ERD](./assets/erd.png)
-
+![ERD](./assets/erd)
 
 spirits/
 ├── com.ll.spirits/
