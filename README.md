@@ -158,7 +158,7 @@ spirits/
 |------|------|
 | 🔗 GitHub | [https://github.com/thdcodud01/sprits](https://github.com/thdcodud01/sprits) |
 | 🧾 Notion 화면 구성 | [https://shocking-tadpole-c28.notion.site/d8637b6ef4794891b633ab96844c0d6d](https://shocking-tadpole-c28.notion.site/d8637b6ef4794891b633ab96844c0d6d) |
-| 🧑‍💻 기술 문서 (Wiken 등) | [Wiken Page Link]([https://wiken.io/](https://www.slog.gg/p/12755)) |
+| 🧑‍💻 기술 문서 (Wiken 등) | [Wiken Page Link]([[https://wiken.io/](https://www.slog.gg/p/12755)]) |
 
 ---
 
@@ -166,7 +166,7 @@ spirits/
 
 ```bash
 # clone repository
-git```
+git
 
 
 
