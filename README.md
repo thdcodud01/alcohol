@@ -111,11 +111,7 @@
 
 ---
 
-## 🗂️ ERD 및 프로젝트 구조
-
-> ERD 구조
-
-![ERD](./assets/erd)
+## 🗂️ 프로젝트 구조
 
 spirits/
 ├── com.ll.spirits/
@@ -162,8 +158,7 @@ spirits/
 |------|------|
 | 🔗 GitHub | [https://github.com/thdcodud01/sprits](https://github.com/thdcodud01/sprits) |
 | 🧾 Notion 화면 구성 | [https://shocking-tadpole-c28.notion.site/d8637b6ef4794891b633ab96844c0d6d](https://shocking-tadpole-c28.notion.site/d8637b6ef4794891b633ab96844c0d6d) |
-| 📄 발표자료 | [Google Drive Link](https://drive.google.com/) |
-| 🧑‍💻 기술 문서 (Wiken 등) | [Wiken Page Link](https://wiken.io/) |
+| 🧑‍💻 기술 문서 (Wiken 등) | [Wiken Page Link]([https://wiken.io/](https://www.slog.gg/p/12755)) |
 
 ---
 
@@ -171,8 +166,7 @@ spirits/
 
 ```bash
 # clone repository
-git
-
+git```
 
 
 
